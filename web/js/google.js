@@ -46,6 +46,10 @@ function google_addUserLoggedOutCallback(userLoggedOutCallback)
 {
     google.userLoggedOutCallbacks.push(userLoggedOutCallback);
 }
+function google_idTokenSent()
+{
+    
+}
 
 function google_userChanged(value)
 {
@@ -58,7 +62,16 @@ function google_userChanged(value)
     }
 
     var googleUser = google.auth2.currentUser.get();
-
+    request = {};
+    request.google_id_token = googleUser.getAuthResponse().id_token;
+    $.ajax("servlets/google_id_token",
+                {
+                    type: "POST",
+                    data: JSON.stringify(request),
+                    dataType: "JSON",
+                    success: google_idTokenSent
+                })
+    
     var profile = googleUser.getBasicProfile();
     var user = {}
     user.google_id = profile.getId()
