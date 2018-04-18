@@ -61,7 +61,7 @@ public class TestDB {
         availableTime.end_hour = 23;
         availableTime.end_minute = 0;
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 1; i <= 5; i++) {
             availableTime.day = i;
             DB.addAvailableTime(availableTime);
         }
@@ -82,14 +82,14 @@ public class TestDB {
             teacher.phone_number = "7476526";
             DB.addTeacher(teacher);
 
-            for (int j = 0; j < 7; j++) {
+            for (int j = 1; j <= 7; j++) {
                 availableTime = new AvailableTime();
                 availableTime.teacher = teacher;
                 availableTime.day = j;
-                availableTime.start_hour = random.nextInt(24);
-                availableTime.start_minute = random.nextInt(60);
-                availableTime.end_hour = random.nextInt(24);
-                availableTime.end_minute = random.nextInt(60);
+                availableTime.start_hour = random.nextInt(20);
+                availableTime.start_minute = random.nextInt(30);
+                availableTime.end_hour = availableTime.start_hour + random.nextInt(4);
+                availableTime.end_minute = availableTime.start_minute + random.nextInt(30);
                 DB.addAvailableTime(availableTime);
             }
         }

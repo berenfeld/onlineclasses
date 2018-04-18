@@ -24,8 +24,11 @@ function find_teachers_init()
     var min_value = parseInt(online_classes.cconfig[ "find_teachers.price.min" ]);
     var max_value = parseInt(online_classes.cconfig[ "find_teachers.price.max" ]);
     
-    find_teachers.price_min = parseInt(online_classes.parameters[ "price_min" ]) || min_value;
-    find_teachers.price_max = parseInt(online_classes.parameters[ "price_max" ]) || max_value;
+    find_teachers.price_min = parseInt10(online_classes.parameters[ "price_min" ], min_value);
+    find_teachers.price_max = parseInt10(online_classes.parameters[ "price_max" ], max_value);
+    find_teachers.available_day = parseInt10(online_classes.parameters[ "available_day" ], 0);
+    find_teachers.display_name = $("#find_teachers_display_name_input").val();
+    
     $("#find_teachers_price_per_hour_slider").slider(
             {
                 range: true,
@@ -42,10 +45,12 @@ function find_teachers_init()
 
 function find_teachers_refresh_results()
 {    
-    var display_name = $("#find_teachers_name_input").val();
+    find_teachers.available_day = $("#find_teachers_available_in_days").val();
+    find_teachers.display_name = $("#find_teachers_display_name_input").val();
     location.search = "price_min=" + find_teachers.price_min.toString() +
             "&price_max=" + find_teachers.price_max.toString() + 
-            "&display_name=" + encodeURIComponent(display_name);
+            "&display_name=" + encodeURIComponent(find_teachers.display_name) +
+            "&available_day="+ parseInt10(find_teachers.available_day);
 }
 
 find_teachers_init();

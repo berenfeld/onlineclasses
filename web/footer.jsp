@@ -21,6 +21,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script src="https://apis.google.com/js/platform.js?onload=google_loaded" async defer></script>
 <script src="js/lib/md5.js"></script>
+<script src="js/common.js"></script>
 <script src="js/confirm.js"></script>
 <script src="js/google.js"></script>
 <script src="js/login.js"></script>
