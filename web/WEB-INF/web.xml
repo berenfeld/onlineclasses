@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <listener>
+        <listener-class>com.onlineclasses.web.ContextListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>start_teaching</servlet-name>
+        <jsp-file>/start_teaching.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>start_learning</servlet-name>
+        <jsp-file>/start_learning.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>find_teachers</servlet-name>
+        <jsp-file>/find_teachers.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>start_teaching</servlet-name>
+        <url-pattern>/start_teaching</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>start_learning</servlet-name>
+        <url-pattern>/start_learning</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>find_teachers</servlet-name>
+        <url-pattern>/find_teachers</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

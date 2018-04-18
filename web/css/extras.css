@@ -1,0 +1,23 @@
+.label-xsmall {
+  vertical-align: super;
+  font-size: x-small;
+}
+
+.label-small {
+  vertical-align: super;
+  font-size: small;
+}
+
+.label-medium {
+  vertical-align: super;
+  font-size: medium;
+}
+
+.label-large {
+  vertical-align: super;
+  font-size: large;
+}
+
+.label-bs {
+  vertical-align: super;
+}

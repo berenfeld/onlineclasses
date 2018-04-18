@@ -1,0 +1,98 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.onlineclasses.db;
+
+import com.onlineclasses.db.DB;
+import com.onlineclasses.entities.AvailableTime;
+import com.onlineclasses.entities.Student;
+import com.onlineclasses.entities.Teacher;
+import com.onlineclasses.web.Utils;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.util.Random;
+
+/**
+ *
+ * @author me
+ */
+public class TestDB {
+
+    public static void create() throws Exception {
+        Utils.warning("using test database");
+        addStudents();
+        addTeachers();
+    }
+
+    public static void addStudents() throws Exception {
+        Student student = new Student();
+        student.display_name = "רן ברנפלד";
+        student.first_name = "רן";
+        student.last_name = "ברנפלד";
+        student.email = "ichess@ichess.co.il";
+        student.google_id = "112547095582245618050";
+        student.image_url = "https://lh4.googleusercontent.com/-RvMyRqrpEIM/AAAAAAAAAAI/AAAAAAAAAT4/jewL_O1LF_8/s96-c/photo.jpg";
+
+        DB.addStudent(student);
+    }
+
+    public static void addTeachers() throws Exception {
+        Teacher teacher = new Teacher();
+        teacher.display_name = "רן ברנפלד";
+        teacher.first_name = "רן";
+        teacher.last_name = "ברנפלד";
+        teacher.email = "berenfeldran@gmail.com";
+        teacher.paypal_email = "berenfeldran@gmail.com";
+        teacher.price_per_hour = 140;
+        teacher.image_url = "https://lh4.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ACLGyWBUQArTT9nKI7bjZHlRM48qDYygCA/s96-c/photo.jpg";
+        teacher.moto = "מהנדס מערכות זמן אמת בעל 15 שנות נסיון, בעל תואר שני מהאוניבסיטה העברית במדעי המחשב ומתמטיקה. אשמח להוביל אתכם להצלחה.";
+        teacher.phone_area = "054";
+        teacher.phone_number = "7476526";
+        DB.addTeacher(teacher);
+
+        AvailableTime availableTime = new AvailableTime();
+        availableTime.teacher = teacher;
+        availableTime.day = 1;
+        availableTime.start_hour = 21;
+        availableTime.start_minute = 0;
+        availableTime.end_hour = 23;
+        availableTime.end_minute = 0;
+
+        for (int i = 0; i < 5; i++) {
+            availableTime.day = i;
+            DB.addAvailableTime(availableTime);
+        }
+
+        Random random = new Random();
+        
+        for (int i = 0; i < 10; i++) {
+            teacher = new Teacher();
+            teacher.display_name = "מורה בדיקה " + i;
+            teacher.first_name = "מורה";
+            teacher.last_name = "בדיקה";
+            teacher.email = "test" + i + "@gmail.com";
+            teacher.paypal_email = "test" + i + "@gmail.com";
+            teacher.price_per_hour = 50 + random.nextInt(100);
+            teacher.image_url = "https://lh4.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ACLGyWBUQArTT9nKI7bjZHlRM48qDYygCA/s96-c/photo.jpg";
+            teacher.moto = "מוטו " + i;
+            teacher.phone_area = "054";
+            teacher.phone_number = "7476526";
+            DB.addTeacher(teacher);
+
+            for (int j = 0; j < 7; j++) {
+                availableTime = new AvailableTime();
+                availableTime.teacher = teacher;
+                availableTime.day = j;
+                availableTime.start_hour = random.nextInt(24);
+                availableTime.start_minute = random.nextInt(60);
+                availableTime.end_hour = random.nextInt(24);
+                availableTime.end_minute = random.nextInt(60);
+                DB.addAvailableTime(availableTime);
+            }
+        }
+    }
+
+}
