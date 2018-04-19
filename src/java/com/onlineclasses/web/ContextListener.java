@@ -9,9 +9,7 @@ import com.onlineclasses.db.DB;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-
 public class ContextListener implements ServletContextListener {
-    
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -19,12 +17,15 @@ public class ContextListener implements ServletContextListener {
         Config.init();
         CConfig.init();
         DB.init();
+        Utils.info("context init done");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-         Utils.info("context destroy");
-        
+        Utils.info("context destory");
+        DB.close();
+        Utils.info("context destory done");
     }
-    
+
+   
 }

@@ -36,7 +36,38 @@ public class GoogleIdTokenServlet extends ServletBase {
     private Gson _gson = new Gson();
     private JacksonFactory _jacksonFactory = new JacksonFactory();
 
-    private GoogleIdTokenVerifier _verifier;
+    private static GoogleIdTokenVerifier _verifier;
+
+    public static User userFromGoogleToken(String googleToken) {
+        try {
+            GoogleIdToken idToken = _verifier.verify(googleToken);
+
+            if (idToken == null) {
+                return null;
+            }
+            Payload payload = idToken.getPayload();
+
+            User user = new User();
+            // Print user identifier
+            user.google_id = payload.getSubject();
+
+            // Get profile information from payload
+            user.email = payload.getEmail();
+            // TODO handle email verified
+            //boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+            user.display_name = (String) payload.get("name");
+            user.image_url = (String) payload.get("picture");
+
+            user.last_name = (String) payload.get("family_name");
+            user.first_name = (String) payload.get("given_name");
+
+            return user;
+            // Use or store profile information
+        } catch (Exception ex) {
+            Utils.exception(ex);
+            return null;
+        }
+    }
 
     public void init(ServletConfig config)
             throws ServletException {
@@ -47,40 +78,20 @@ public class GoogleIdTokenServlet extends ServletBase {
                 // Or, if multiple clients access the backend:
                 //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
                 .build();
+
     }
 
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
-        GoogleIdTokenRequest googleIdTokenRequest = _gson.fromJson(requestString, GoogleIdTokenRequest.class);
+        GoogleIdTokenRequest googleIdTokenRequest = _gson.fromJson(requestString, GoogleIdTokenRequest.class
+        );
 
         String googleIdToken = googleIdTokenRequest.google_id_token;
-        Utils.info("google id token from " + ServletBase.getUser(request) + " token " + googleIdToken);
+        Utils.debug("google id token from " + ServletBase.getUser(request) + " token " + googleIdToken);
 
+        User user = userFromGoogleToken(googleIdToken);
         // (Receive idTokenString by HTTPS POST)
-        GoogleIdToken idToken = _verifier.verify(googleIdToken);
-        if (idToken != null) {
-            Payload payload = idToken.getPayload();
-
-            // Print user identifier
-            String userId = payload.getSubject();
-            System.out.println("User ID: " + userId);
-
-            // Get profile information from payload
-            String email = payload.getEmail();
-            boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-            String name = (String) payload.get("name");
-            String pictureUrl = (String) payload.get("picture");
-            String locale = (String) payload.get("locale");
-            String familyName = (String) payload.get("family_name");
-            String givenName = (String) payload.get("given_name");
-
-            Utils.info("google access from email " + email);
-            // Use or store profile information
-            // ...
-        } else {
-            Utils.warning("Invalid ID token.");
-        }
 
         return new BasicResponse(0, "");
     }

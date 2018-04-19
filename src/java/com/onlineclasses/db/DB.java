@@ -72,6 +72,7 @@ public class DB {
                 + "org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer");
         _dataSource = new DataSource();
         _dataSource.setPoolProperties(p);
+
     }
 
     public static void init() {
@@ -100,11 +101,15 @@ public class DB {
         }
     }
 
+    public static void close() {
+        _dataSource.close();
+    }
+
     private static Student_DB _student_db;
     private static Teacher_DB _teacher_db;
     private static AvailableTime_DB _availableTime_db;
 
-    private static void initORM( String dbUrl, String dbUser, String dbPassword) throws SQLException {
+    private static void initORM(String dbUrl, String dbUser, String dbPassword) throws SQLException {
         _connectionSource = new JdbcConnectionSource(dbUrl, dbUser, dbPassword);
         _student_db = new Student_DB(_dataSource, _connectionSource);
         _teacher_db = new Teacher_DB(_dataSource, _connectionSource);
