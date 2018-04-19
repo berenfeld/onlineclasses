@@ -17,7 +17,7 @@
 %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" crossorigin="anonymous"></script>
+<script src="js/lib/jquery-ui.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script src="https://apis.google.com/js/platform.js?onload=google_loaded" async defer></script>
 <script src="js/lib/md5.js"></script>

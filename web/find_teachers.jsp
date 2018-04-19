@@ -56,20 +56,26 @@
                                     <div class="col-sm-6">  </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="start_day_start_hour" class="col-sm-2 col-form-label">
+                                    <label for="schedule_class_start_hour" class="col-sm-2 col-form-label">
                                         <%= Labels.get("schedule.class.modal.start_hour")%>
                                     </label>
                                     <div class="col-sm-4">   
-                                        <select class="form-control">
+                                        <select name="schedule_class_start_hour"  id="schedule_class_start_hour">
                                             <option>22:00</option>
+                                            <option>23:00</option>
+                                            <option>22:00</option>
+                                            <option>23:00</option>
                                         </select>
                                     </div>
-                                    <label for="start_day_end_hour" class="col-sm-2 col-form-label">
+                                    <label for="schedule_class_end_hour" class="col-sm-2 col-form-label">
                                         <%= Labels.get("schedule.class.modal.end_hour")%>
                                     </label>
-                                    <div class="col-sm-4">  
-                                        <select class="form-control">
+                                    <div  class="col-sm-4">  
+                                        <select name="schedule_class_end_hour" id="schedule_class_end_hour">
                                             <option>22:00</option>
+                                            <option>23:00</option>
+                                            <option>22:00</option>
+                                            <option>23:00</option>
                                         </select>
                                     </div>
                                 </div>
