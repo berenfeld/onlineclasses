@@ -33,15 +33,23 @@ function find_teachers_refresh_results()
 
 function schedule_class_button_clicked(source)
 {
+    if ( ! login_isLoggedIn())
+    {
+        $("#schedule_class_not_logged_in_modal").modal("show");
+        return;
+    }
     var teacher_button = $("#" + event.target.id);
     var teacher_id = teacher_button.attr("data-teacher-id");
     var teacher_display_name = teacher_button.attr("data-teacher-display-name");
     $("#schedule_class_modal").modal("show");
     $("#schedule_class_modal_title_teacher_anchor").text(teacher_display_name);
-
-
 }
 
+function schedule_class_login()
+{
+     $("#schedule_class_not_logged_in_modal").modal("hide");
+     login_showLoginModal("login_modal");
+}
 function find_teachers_init()
 {
     var min_value = parseInt(online_classes.cconfig[ "find_teachers.price.min" ]);
@@ -70,22 +78,10 @@ function find_teachers_init()
         "dayNamesMin": online_classes.clabels[ "website.days.short" ].split(","),
         "monthNames": online_classes.clabels[ "website.months.long" ].split(","),
         "monthNamesShort": online_classes.clabels[ "website.months.short" ].split(","),
-        "isRTL": true
+        "isRTL": true,
+        "changeYear": true,
     });
-    $("#schedule_class_start_hour").selectmenu({
-        open: function(event, ui) {
-            $('.ui-selectmenu-menu').css({'z-index':'9999', 'overflow':'auto'});
-            //$(".ui-selectmenu-button").hide();
-        }
-    });
-
-    $("#schedule_class_end_hour").selectmenu({
-        open: function (event, ui) {
-            $('.ui-selectmenu-menu').css({'z-index': '9999', 'overflow': 'auto'});
-            //$(".ui-selectmenu-icon").hide();
-        }
-    }
-    );
+    
 }
 
 find_teachers_init();

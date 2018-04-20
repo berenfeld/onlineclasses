@@ -7,29 +7,26 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" aria-label="close" data-dismiss="modal">
+                    <button type="button" class="close" aria-label="close" title="<%= Labels.get("login.modal.close_title")%>" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title"><%= Labels.get("login.modal.title")%></h4>
+                    <div class="h4 modal-title text-success">
+                            <span class="glyphicon glyphicon-log-in"></span>
+                            <%= Labels.get("login.modal.title")%>
+                        
+                    </div>
                 </div>
                 <div class="modal-body">
-                    <h5>
+                    <h4 class="text-secondary">
                         <%= Labels.get("login.modal.text1")%>
-                    </h5>
-                    <div class="g-signin2" data-theme="dark"></div>                    
-                    <hr>
-                    <div class="alert alert-success">
-                        <h5>
-                            <%= Labels.get("login.modal.text2")%>                    
-                            &nbsp;
-
-                            <a class="alert-link" href="start_learning"><%= Labels.get("login.modal.register.student")%></a>
-
-                            &nbsp;
-
-                            <a class="alert-link" href="start_teaching"><%= Labels.get("login.modal.register.teacher")%></a>
-                        </h5>
-                    </div>
+                    </h4>
+                    <div class="alert alert-success g-signin2" data-theme="dark"></div>                    
+                    <h4 class="text-secondary">
+                        <%= Labels.get("login.modal.text2")%>                    
+                        <a class="alert-link" href="start_learning">
+                            <%= Labels.get("login.modal.register.student")%>
+                        </a>                            
+                    </h4>
                 </div>
 
                 <div class="modal-footer">
@@ -65,6 +62,39 @@
                     <button type="button" class="btn btn-success" onclick="confirm_ok()" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
                 </div>
 
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="alert_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                    <div class="modal-title text-info"> 
+                        <h4>
+                            <span class="glyphicon glyphicon-alert"></span>
+                            <span  id="alert_modal_title">
+                                <%= Labels.get("alert.modal.title")%>                        
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <h5 id="alert_modal_text1">
+                        <%= Labels.get("alert.modal.text1")%>
+                    </h5>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="alert_ok()" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
+                </div>
 
             </div>
 

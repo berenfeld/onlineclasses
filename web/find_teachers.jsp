@@ -30,6 +30,49 @@
     <body>
         <%@include file="body.jsp" %>   
         <div class="container">
+
+            <div id="schedule_class_not_logged_in_modal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-md">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" aria-label="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                            <div class="modal-title"> 
+                                <h4 class="text-warning">
+                                    <span class="glyphicon glyphicon-alert"></span>
+                                    <span  id="schedule_class_not_logged_in_title">
+                                        <%= Labels.get("website.schedule_class.not_logged_in.title")%>                        
+                                    </span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <h4>
+                                <%= Labels.get("website.schedule_class.not_logged_in.text1")%>
+                            </h4>
+                            <h4>
+                                <a href='javascript:schedule_class_login()'>
+                                    <%= Labels.get("website.schedule_class.not_logged_in.login")%>
+                                </a>
+                                <%= Labels.get("website.schedule_class.not_logged_in.text2")%>
+                                <a href="start_learning">
+                                    <%= Labels.get("website.schedule_class.not_logged_in.start_learning")%>
+                                </a>
+                                <%= Labels.get("website.schedule_class.not_logged_in.text3")%>
+                            </h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" onclick="alert_ok()" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
             <div id="schedule_class_modal" class="modal fade" role="dialog">
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
@@ -45,9 +88,11 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group row">
-                                    <label for="start_day_input" class="col-sm-2 col-form-label">
-                                        <%= Labels.get("schedule.class.modal.day")%>
-                                    </label>
+                                    <div class="col-sm-2">
+                                        <label for="start_day_input" class="col-form-label">
+                                            <%= Labels.get("schedule.class.modal.day")%>
+                                        </label>
+                                    </div>
                                     <div class="col-sm-4">   
                                         <input type="email" class="form-control" name="start_day_input" 
                                                id="start_day_input" 
@@ -56,22 +101,26 @@
                                     <div class="col-sm-6">  </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="schedule_class_start_hour" class="col-sm-2 col-form-label">
-                                        <%= Labels.get("schedule.class.modal.start_hour")%>
-                                    </label>
+                                    <div class="col-sm-2">
+                                        <label for="schedule_class_start_hour"  class="col-form-label">
+                                            <%= Labels.get("schedule.class.modal.start_hour")%>
+                                        </label>
+                                    </div>
                                     <div class="col-sm-4">   
-                                        <select name="schedule_class_start_hour"  id="schedule_class_start_hour">
+                                        <select class="form-control" name="schedule_class_start_hour"  id="schedule_class_start_hour">
                                             <option>22:00</option>
                                             <option>23:00</option>
                                             <option>22:00</option>
                                             <option>23:00</option>
                                         </select>
                                     </div>
-                                    <label for="schedule_class_end_hour" class="col-sm-2 col-form-label">
-                                        <%= Labels.get("schedule.class.modal.end_hour")%>
-                                    </label>
+                                    <div class="col-sm-2">
+                                        <label for="schedule_class_end_hour" class="col-form-label">
+                                            <%= Labels.get("schedule.class.modal.end_hour")%>
+                                        </label>
+                                    </div>
                                     <div  class="col-sm-4">  
-                                        <select name="schedule_class_end_hour" id="schedule_class_end_hour">
+                                        <select class="form-control" name="schedule_class_end_hour" id="schedule_class_end_hour">
                                             <option>22:00</option>
                                             <option>23:00</option>
                                             <option>22:00</option>
@@ -82,7 +131,7 @@
                             </form>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success" onclick="schedule_class_confirm()" data-dismiss="modal"><%= Labels.get("schedule.class.modal.confirm_button")%></button>
-                                <button type="button" class="btn btn-default" onclick="schedule_class_cancel()" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
                             </div>
                         </div>
 

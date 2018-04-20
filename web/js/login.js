@@ -49,14 +49,6 @@ function login_googleLoggedOut()
     console.log("google user logged out");
 }
 
-function login_init(loggedInUser)
-{
-    login.user = JSON.parse(loggedInUser);
-
-    google_addUserLoggedinCallback(login_googleLoggedIn);
-    google_addUserLoggedOutCallback(login_googleLoggedOut);
-}
-
 function login_isLoggedIn() {
     return login.user != null;
 }
@@ -93,3 +85,13 @@ function login_logoutFromNavBarConfirmed()
             })
 
 }
+
+function login_init()
+{
+    login.user = online_classes.user;
+
+    google_addUserLoggedinCallback(login_googleLoggedIn);
+    google_addUserLoggedOutCallback(login_googleLoggedOut);
+}
+
+login_init();
