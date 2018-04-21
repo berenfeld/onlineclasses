@@ -15,5 +15,6 @@
     <link rel='stylesheet' href='css/bootstrap-rtl.css'>
 <% }%>
 <link rel="stylesheet" href="css/extras.css">
+<link rel="stylesheet" href="css/common.css">
 
 <title><%= Labels.get("website.title")%> | <%= Labels.get("index.title")%></title>

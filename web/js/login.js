@@ -70,7 +70,9 @@ function logout_logoutRequestComplete(response)
 
 function login_logoutFromNavBar()
 {
-    confirm_show("text", login_logoutFromNavBarConfirmed);
+    confirm_show( online_classes.clabels[ "website.logout.confirm.title" ],
+        online_classes.clabels[ "website.logout.confirm.message" ],
+        login_logoutFromNavBarConfirmed );
 }
 
 function login_logoutFromNavBarConfirmed()

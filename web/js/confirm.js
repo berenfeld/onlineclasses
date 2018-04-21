@@ -22,10 +22,11 @@ function confirm_cancel()
     }
 }
 
-function confirm_show(title, ok_cb, cancel_cb)
+function confirm_show(title, message, ok_cb, cancel_cb)
 {
     confirm.ok_cb = ok_cb;
     confirm.cancel_cb = cancel_cb;
-    $("#confirm_title").val(title);
+    $("#confirm_modal_title").text(title);
+    $("#confirm_modal_message").text(message);
     $("#confirm_modal").modal('show');
 }

@@ -1,0 +1,9 @@
+.table_cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.glyphicon {
+    position: static;
+    padding-left: 10px;
+}
