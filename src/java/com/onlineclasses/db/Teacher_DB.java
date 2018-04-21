@@ -29,6 +29,7 @@ import javax.sql.DataSource;
 public class Teacher_DB {
 
     public Teacher_DB(DataSource dataSource, ConnectionSource connectionSource) throws SQLException {
+        _dataSource = dataSource;
         _teachersDao = DaoManager.createDao(connectionSource, Teacher.class);
         QueryBuilder<Teacher, Integer> queryBuilder = _teachersDao.queryBuilder();
         Where<Teacher, Integer> where = queryBuilder.where();

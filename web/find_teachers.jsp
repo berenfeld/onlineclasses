@@ -219,8 +219,8 @@
                         <%= Labels.get("find_teachers.list.title")%>
                     </h3>
 
-                    <div class="table-responsive">
-                        <table class="table table-striped table-borderless table-hover table-sm">
+                    <div>
+                        <table class="table table-striped table-responsive table-borderless table-hover table-sm">
                             <thead>
                             <th style="width: 20%">
                                 <%= Labels.get("find_teachers.list.header.teacher_name")%>
@@ -239,7 +239,7 @@
                                 <tr>
                                     <td>
                                         <figure class="figure">
-                                            <img height="128" src="<%= teacher.image_url%>" class="img-fluid figure-img rounded"/>
+                                            <img src="<%= teacher.image_url%>" class="img-responsive img-fluid figure-img img-rounded"/>
                                             <figcaption class="figure-caption text-center">
                                                 <%= teacher.display_name%>
                                             </figcaption>

@@ -36,14 +36,16 @@
                 </div>
 
                 <div class="col-md-4 form-group">
-                    <label for="start_learning_email_input" class="sr-only"><%= Labels.get("start_learning.form.login.email")%>
+                    <label for="start_learning_email_input">
+                        <%= Labels.get("start_learning.form.login.email")%>
                     </label>
                     <input type="email" class="form-control" id="start_learning_email_input" 
                            placeholder="<%= Labels.get("start_learning.form.login.email")%>" disabled>
 
                 </div>
                 <div class="col-md-4 form-group">
-                    <label for="start_learning_display_name_input" class="sr-only"><%= Labels.get("start_learning.form.login.display_name")%>
+                    <label for="start_learning_display_name_input">
+                        <%= Labels.get("start_learning.form.login.display_name")%>
                     </label>
                     <input type="text" class="form-control" id="start_learning_display_name_input" 
                            placeholder="<%= Labels.get("start_learning.form.login.display_name")%>">
@@ -51,7 +53,8 @@
                 </div>
 
                 <div class="col-md-4 form-group">
-                    <label for="start_learning_first_name_input" class="sr-only"><%= Labels.get("start_learning.form.login.first_name")%>
+                    <label for="start_learning_first_name_input">
+                        <%= Labels.get("start_learning.form.login.first_name")%>
                     </label>
                     <input type="text" class="form-control form-control-sm" id="start_learning_first_name_input"
                            placeholder="<%= Labels.get("start_learning.form.login.first_name")%>">
@@ -59,7 +62,8 @@
 
                 <div class="col-md-4 form-group">
 
-                    <label for="start_learning_last_name_input" class="sr-only"><%= Labels.get("start_learning.form.login.last_name")%>
+                    <label for="start_learning_last_name_input">
+                        <%= Labels.get("start_learning.form.login.last_name")%>
                     </label>
                     <input type="text" class="form-control form-control-sm" id="start_learning_last_name_input" 
                            placeholder="<%= Labels.get("start_learning.form.login.last_name")%>">

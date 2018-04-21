@@ -15,7 +15,5 @@ public class LoginRequest extends BasicRequest {
         
     }
     
-    public String google_id;       
-    public int facebook_id;       
-    public String hash;
+    public String google_id_token;       
 }

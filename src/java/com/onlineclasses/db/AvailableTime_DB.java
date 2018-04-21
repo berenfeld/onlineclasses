@@ -30,6 +30,7 @@ import javax.sql.DataSource;
 public class AvailableTime_DB {
 
     public AvailableTime_DB(DataSource dataSource, ConnectionSource connectionSource) throws SQLException {
+        _dataSource = dataSource;
         _availableTimeDao = DaoManager.createDao(connectionSource, AvailableTime.class);
         QueryBuilder<AvailableTime, Integer> queryBuilder = _availableTimeDao.queryBuilder();
         Where<AvailableTime, Integer> where = queryBuilder.where();

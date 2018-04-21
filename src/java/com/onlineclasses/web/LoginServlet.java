@@ -31,24 +31,23 @@ public class LoginServlet extends ServletBase {
             throws Exception {
         LoginRequest loginRequest = _gson.fromJson(requestString, LoginRequest.class);
 
-        if (Utils.isNotEmpty(loginRequest.google_id)) {
+        if (Utils.isNotEmpty(loginRequest.google_id_token)) {
 
-            User user = DB.getUserByGoogleID(loginRequest.google_id);
-            if (user == null) {
-                Utils.warning("Can't find user with google id " + loginRequest.google_id);
+            User googleUser = GoogleIdTokenServlet.userFromGoogleToken(loginRequest.google_id_token);
+            if (googleUser == null) {
+                Utils.warning("failed to get user from google id token");
                 return new BasicResponse(-1, "user was not found");
             }
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            String hashString = loginRequest.google_id + "." + user.email;
-            md.update(hashString.getBytes());
-            String hash = DatatypeConverter.printHexBinary(md.digest());
-            
-            if (hash.equalsIgnoreCase(loginRequest.hash)) {
-                Utils.info("user " + user.display_name + " logged in with google id " + user.google_id);
-                ServletBase.loginUser(request, user);
-            } else {
-                Utils.warning("illegal hash from google id " + loginRequest.google_id + " expected " + hash + " received " + loginRequest.hash);
-            }            
+
+            User user = DB.getUserByEmail(googleUser.email);
+            if (user == null) {
+                Utils.warning("Can't find google logged in user with email " + googleUser.email);
+                // TODO : fast register
+                return new BasicResponse(-1, "user was not found");
+            }
+
+            Utils.info("user " + user.display_name + " logged in with email " + user.email);
+            ServletBase.loginUser(request, user);
         } else {
             Utils.warning("no google id in login request");
         }

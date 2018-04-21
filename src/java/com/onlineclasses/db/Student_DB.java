@@ -25,24 +25,25 @@ import javax.sql.DataSource;
 public class Student_DB {
 
     public Student_DB(DataSource dataSource, ConnectionSource connectionSource) throws SQLException {
+        _dataSource = dataSource;
         _studentsDao = DaoManager.createDao(connectionSource, Student.class);
         QueryBuilder<Student, Integer> queryBuilder = _studentsDao.queryBuilder();
-        queryBuilder.where().eq(Student.GOOGLE_ID_COLUMN, _userQueryByGoogleIdArg1);
-        _userQueryByGoogleId = queryBuilder.prepare();
+        queryBuilder.where().eq(Student.EMAIL_COLUMN, _userQueryByEmailArg);
+        _userQueryByEmail = queryBuilder.prepare();
     }
 
     private DataSource _dataSource;
     private Dao<Student, Integer> _studentsDao;
-    private SelectArg _userQueryByGoogleIdArg1 = new SelectArg();
-    private PreparedQuery<Student> _userQueryByGoogleId;
+    private SelectArg _userQueryByEmailArg = new SelectArg();
+    private PreparedQuery<Student> _userQueryByEmail;
 
-    public User getUserByGoogleID(String google_id) {
+    public User getUserByEmail(String email) {
 
         try {
             Connection connection = _dataSource.getConnection();
-            _userQueryByGoogleIdArg1.setValue(google_id);
+            _userQueryByEmailArg.setValue(email);
 
-            User user = _studentsDao.queryForFirst(_userQueryByGoogleId);
+            User user = _studentsDao.queryForFirst(_userQueryByEmail);
             // TODO can also be a teacher
             return user;
         } catch (SQLException ex) {

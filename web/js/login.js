@@ -18,8 +18,7 @@ function login_googleLoggedIn(googleUser)
         $('#login_modal_progress').css('width', '33%').attr('aria-valuenow', 33);
 
         var request = {};
-        request.google_id = googleUser.google_id;
-        request.hash = md5(googleUser.google_id + "." + googleUser.email);
+        request.google_id_token = googleUser.google_id_token;
         $.ajax("servlets/login",
                 {
                     type: "POST",

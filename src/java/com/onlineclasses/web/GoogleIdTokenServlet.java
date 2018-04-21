@@ -34,9 +34,21 @@ import javax.servlet.ServletConfig;
 public class GoogleIdTokenServlet extends ServletBase {
 
     private Gson _gson = new Gson();
-    private JacksonFactory _jacksonFactory = new JacksonFactory();
+    private static JacksonFactory _jacksonFactory = new JacksonFactory();
 
     private static GoogleIdTokenVerifier _verifier;
+
+    static {
+
+        String clientId = Config.get("webiste.google.client_id");
+        _verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), _jacksonFactory)
+                // Specify the CLIENT_ID of the app that accesses the backend:
+                .setAudience(Collections.singletonList(clientId))
+                // Or, if multiple clients access the backend:
+                //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
+                .build();
+
+    }
 
     public static User userFromGoogleToken(String googleToken) {
         try {
@@ -48,8 +60,6 @@ public class GoogleIdTokenServlet extends ServletBase {
             Payload payload = idToken.getPayload();
 
             User user = new User();
-            // Print user identifier
-            user.google_id = payload.getSubject();
 
             // Get profile information from payload
             user.email = payload.getEmail();
@@ -67,18 +77,6 @@ public class GoogleIdTokenServlet extends ServletBase {
             Utils.exception(ex);
             return null;
         }
-    }
-
-    public void init(ServletConfig config)
-            throws ServletException {
-        String clientId = Config.get("webiste.google.client_id");
-        _verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), _jacksonFactory)
-                // Specify the CLIENT_ID of the app that accesses the backend:
-                .setAudience(Collections.singletonList(clientId))
-                // Or, if multiple clients access the backend:
-                //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-                .build();
-
     }
 
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)

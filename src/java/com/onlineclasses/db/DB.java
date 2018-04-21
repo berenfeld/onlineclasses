@@ -163,10 +163,10 @@ public class DB {
 
     }
 
-    public static User getUserByGoogleID(String google_id) {
-        return _student_db.getUserByGoogleID(google_id);
+    public static User getUserByEmail(String email) {
+        return _student_db.getUserByEmail(email);
     }
-
+    
     static PreparedStatement openPreparedStatement(String sql) throws SQLException {
         Connection connection = _dataSource.getConnection();
         PreparedStatement st = connection.prepareStatement(sql);

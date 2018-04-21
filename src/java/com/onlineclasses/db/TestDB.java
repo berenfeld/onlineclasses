@@ -33,7 +33,6 @@ public class TestDB {
         student.first_name = "רן";
         student.last_name = "ברנפלד";
         student.email = "ichess@ichess.co.il";
-        student.google_id = "112547095582245618050";
         student.image_url = "https://lh4.googleusercontent.com/-RvMyRqrpEIM/AAAAAAAAAAI/AAAAAAAAAT4/jewL_O1LF_8/s96-c/photo.jpg";
 
         DB.addStudent(student);
