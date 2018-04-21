@@ -30,4 +30,7 @@ public class User extends BasicEntity {
 
     @DatabaseField
     public String phone_number;
+    
+    @DatabaseField
+    public int gender;
 }

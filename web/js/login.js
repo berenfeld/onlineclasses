@@ -14,9 +14,10 @@ function login_showLoginDialog()
 function login_googleLoggedIn(googleUser)
 {
     if (login.reason == "login_modal") {
-
-        $('#login_modal_progress').css('width', '33%').attr('aria-valuenow', 33);
-
+        login.reason = null;
+        $("#login_modal").modal('hide');
+        progress_modal_show(online_classes.clabels["login.progress.title"],
+                online_classes.clabels["login.progress.start"], 0);
         var request = {};
         request.google_id_token = googleUser.google_id_token;
         $.ajax("servlets/login",
@@ -26,6 +27,9 @@ function login_googleLoggedIn(googleUser)
                     dataType: "JSON",
                     success: login_loginRequestComplete
                 })
+
+        progress_modal_show(online_classes.clabels["login.progress.title"],
+                online_classes.clabels["login.progress.start"], 50);
     } else {
         google_signOut();
     }
@@ -33,14 +37,9 @@ function login_googleLoggedIn(googleUser)
 
 function login_loginRequestComplete(response)
 {
+    progress_modal_show(online_classes.clabels["login.progress.title"],
+            online_classes.clabels["login.progress.success"], 100);
     console.log(response);
-    if (login.reason == "login_modal") {
-        $('#login_modal_progress').css('width', '100%').attr('aria-valuenow', 100);
-        $("#login_modal").modal('hide');
-        login.reason = null;
-        location.reload();
-    }
-
 }
 
 function login_googleLoggedOut()
@@ -52,11 +51,11 @@ function login_isLoggedIn() {
     return login.user != null;
 }
 
-function login_showLoginModal( reason )
+function login_showLoginModal(reason)
 {
     login.reason = reason;
-    if ( reason == "login_modal")
-    {    
+    if (reason == "login_modal")
+    {
         $("#login_modal").modal('show');
     }
 }
@@ -70,9 +69,9 @@ function logout_logoutRequestComplete(response)
 
 function login_logoutFromNavBar()
 {
-    confirm_show( online_classes.clabels[ "website.logout.confirm.title" ],
-        online_classes.clabels[ "website.logout.confirm.message" ],
-        login_logoutFromNavBarConfirmed );
+    confirm_show(online_classes.clabels[ "website.logout.confirm.title" ],
+            online_classes.clabels[ "website.logout.confirm.message" ],
+            login_logoutFromNavBarConfirmed);
 }
 
 function login_logoutFromNavBarConfirmed()

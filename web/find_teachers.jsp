@@ -66,7 +66,7 @@
                             </h4>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-success" onclick="alert_ok()" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
                         </div>
 
                     </div>

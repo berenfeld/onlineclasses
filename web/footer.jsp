@@ -31,6 +31,7 @@
 <script src="js/lib/md5.js"></script>
 <script src="js/common.js"></script>
 <script src="js/confirm.js"></script>
+<script src="js/progress_modal.js"></script>
 <script src="js/alert_modal.js"></script>
 <script src="js/google.js"></script>
 <script src="js/login.js"></script>

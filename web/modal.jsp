@@ -32,11 +32,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         <%= Labels.get("buttons.cancel")%>
                     </button>
-                </div>
-                <div class="progress">
-                    <div id="login_modal_progress" class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-
+                </div>                
             </div>
 
         </div>
@@ -98,6 +94,38 @@
                     <button type="button" class="btn btn-success" onclick="alert_ok()" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
                 </div>
 
+            </div>
+
+        </div>
+    </div>
+
+    <div id="progress_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                    <div class="modal-title text-info"> 
+                        <h4>
+                            <span class="glyphicon glyphicon-alert"></span>
+                            <span id="progress_modal_title">                      
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="modal-body">
+
+                    <div class="progress">
+                        <div id="progress_modal_bar" class="progress-bar progress-bar-success" role="progressbar" 
+                             aria-valuemin="0" aria-valuemax="100">
+                            <span id="progress_modal_text1"></span>
+                            (<span id="progress_modal_percent"></span>%)
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

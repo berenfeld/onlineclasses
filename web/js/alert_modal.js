@@ -6,19 +6,11 @@
 
 var alert_modal = {}
 
-function alert_ok()
+function alert_modal_ok()
 {
     if (alert_modal.ok_cb) {
         alert_modal.ok_cb();
         alert_modal.ok_cb = null;
-    }
-}
-
-function alert_cancel()
-{
-    if (alert_modal.cancel_cb) {
-        alert_modal.cancel_cb();
-        alert_modal.cancel_cb = null;
     }
 }
 

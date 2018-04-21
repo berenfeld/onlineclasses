@@ -28,7 +28,7 @@
                     <li><a href="#"><%= Labels.get("navbar.about.us.who.we.are")%></a></li>
                 </ul>
             </li>
-            <li><a href="start_teaching"><%= Labels.get("navbar.start.teaching")%></a></li>
+            <li class="hide"><a href="start_teaching"><%= Labels.get("navbar.start.teaching")%></a></li>
             <li><a href="start_learning"><%= Labels.get("navbar.start.learning")%></a></li>
             <li><a href="find_teachers"><%= Labels.get("navbar.find.teachers")%></a></li>
 
