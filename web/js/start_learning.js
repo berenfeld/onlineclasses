@@ -5,9 +5,10 @@
  */
 
 var start_learning = {}
+
 function start_learning_userLoggedInCallback(googleUser)
 {
-    start_learning.google_id_token = google_id_token
+    start_learning.google_id_token = googleUser.google_id_token
 
     $("#start_learning_email_input").val(googleUser.email);
     $("#start_learning_display_name_input").val(googleUser.name);
@@ -15,10 +16,24 @@ function start_learning_userLoggedInCallback(googleUser)
     $("#start_learning_last_name_input").val(googleUser.last_name);
 }
 
+function start_learning_googleUserEmailExistsCallback(email_exists)
+{
+    if (email_exists)
+    {
+        alert_show( online_classes.clabels[ "start_learning.login.email_exists.title"], 
+                    online_classes.clabels[ "start_learning.login.email_exists.text"] );
+    }
+}
 function start_learning_init()
 {
     login_showLoginModal('start_learning');
     google_addUserLoggedinCallback(start_learning_userLoggedInCallback);
+    google_addEmailExistsCallback(start_learning_googleUserEmailExistsCallback)
+    if (login_isLoggedIn())
+    {            
+        alert_show( online_classes.clabels[ "start_learning.login.already_logged_in.title"], 
+                    online_classes.clabels[ "start_learning.login.already_logged_in.text"] );    
+    }
 }
 
 function start_learning_form_submit()

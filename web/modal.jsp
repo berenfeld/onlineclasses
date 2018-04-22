@@ -69,17 +69,16 @@
     <div id="alert_modal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-sm">
 
-            <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header modal-header-info">
                     <button type="button" class="close" aria-label="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span>
                     </button>
 
-                    <div class="modal-title text-info"> 
+                    <div class="modal-title"> 
                         <h4>
-                            <span class="glyphicon glyphicon-alert"></span>
-                            <span  id="alert_modal_title">
+                            <span class="table_cell glyphicon glyphicon-alert"></span>
+                            <span class="table_cell" id="alert_modal_title">
                                 <%= Labels.get("alert.modal.title")%>                        
                             </span>
                         </h4>
@@ -103,13 +102,13 @@
         <div class="modal-dialog modal-sm">
 
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header modal-header-info">
                     <button type="button" class="close" aria-label="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span>
                     </button>
 
-                    <div class="modal-title text-info"> 
-                        <h4>
+                    <div class="modal-title"> 
+                        <h4 class="text-warning">
                             <span class="glyphicon glyphicon-alert"></span>
                             <span id="progress_modal_title">                      
                             </span>
@@ -117,7 +116,6 @@
                     </div>
                 </div>
                 <div class="modal-body">
-
                     <div class="progress">
                         <div id="progress_modal_bar" class="progress-bar progress-bar-success" role="progressbar" 
                              aria-valuemin="0" aria-valuemax="100">

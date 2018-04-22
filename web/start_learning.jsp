@@ -21,13 +21,15 @@
             <h3>
                 <%= Labels.get("start_learning.title1")%>                        
             </h3>
-            <div class="panel panel-primary">
+            <div class="panel panel-info">
                 <div class="panel-heading">
-                    <div style="float:left" class="g-signin2"  data-theme="dark"></div> 
+                    <div style="float:left">
+                        <div class="g-signin2" data-theme="dark"></div>
+                    </div>
                     <h4>
                         <%= Labels.get("start_learning.form.login.text1")%>     
-
                     </h4>                    
+
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal">

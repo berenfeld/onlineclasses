@@ -9,13 +9,13 @@ package com.onlineclasses.entities;
  *
  * @author me
  */
-public class GoogleIdTokenRequest extends BasicRequest {
-    public GoogleIdTokenRequest()
+public class GoogleIdTokenResponse extends BasicResponse {
+    public GoogleIdTokenResponse(boolean email_exists)
     {
-        
+        super(0,"");
+        this.email_exists = email_exists;
     }
     
-    public String google_id_token;
-    public String reason;
+    public boolean email_exists;
 
 }

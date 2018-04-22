@@ -13,8 +13,7 @@ function login_showLoginDialog()
 
 function login_googleLoggedIn(googleUser)
 {
-    if (login.reason == "login_modal") {
-        login.reason = null;
+    if (login.reason == "login_modal") {        
         $("#login_modal").modal('hide');
         progress_modal_show(online_classes.clabels["login.progress.title"],
                 online_classes.clabels["login.progress.start"], 0);
@@ -37,9 +36,12 @@ function login_googleLoggedIn(googleUser)
 
 function login_loginRequestComplete(response)
 {
+    // TODO test response !
     progress_modal_show(online_classes.clabels["login.progress.title"],
             online_classes.clabels["login.progress.success"], 100);
     console.log(response);
+    login.reason = null;
+    location.reload();
 }
 
 function login_googleLoggedOut()

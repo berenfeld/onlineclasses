@@ -10,6 +10,7 @@ function google_init()
 {
     google.userLoggedInCallbacks = [];
     google.userLoggedOutCallbacks = [];
+    google.emailExistsCallbacks = [];
 }
 
 function google_signOut() {
@@ -46,9 +47,18 @@ function google_addUserLoggedOutCallback(userLoggedOutCallback)
 {
     google.userLoggedOutCallbacks.push(userLoggedOutCallback);
 }
-function google_idTokenSent()
-{
 
+function google_addEmailExistsCallback(emailExistsCallback)
+{
+    google.emailExistsCallbacks.push(emailExistsCallback);
+}
+
+function google_idTokenResponse(response)
+{
+    google.email_exists = response.email_exists;
+    for (var i = 0; i < google.userLoggedOutCallbacks.length; i++) {
+        google.emailExistsCallbacks[i](google.email_exists);
+    }
 }
 
 function google_userChanged(value)
@@ -69,7 +79,7 @@ function google_userChanged(value)
                 type: "POST",
                 data: JSON.stringify(request),
                 dataType: "JSON",
-                success: google_idTokenSent
+                success: google_idTokenResponse
             }
     );
 

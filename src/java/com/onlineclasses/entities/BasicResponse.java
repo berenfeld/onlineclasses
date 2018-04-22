@@ -21,6 +21,6 @@ public class BasicResponse {
         this.message = message;
     }
     
-    public int rc;
+    public int rc = 0;
     public String message;
 }

@@ -27,6 +27,8 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
+import com.onlineclasses.db.DB;
+import com.onlineclasses.entities.GoogleIdTokenResponse;
 import java.util.Collections;
 import javax.servlet.ServletConfig;
 
@@ -82,16 +84,22 @@ public class GoogleIdTokenServlet extends ServletBase {
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
-        GoogleIdTokenRequest googleIdTokenRequest = _gson.fromJson(requestString, GoogleIdTokenRequest.class
-        );
+        GoogleIdTokenRequest googleIdTokenRequest = _gson.fromJson(requestString, GoogleIdTokenRequest.class);
 
         String googleIdToken = googleIdTokenRequest.google_id_token;
         Utils.debug("google id token from " + ServletBase.getUser(request) + " token " + googleIdToken);
 
-        User user = userFromGoogleToken(googleIdToken);
-        // (Receive idTokenString by HTTPS POST)
-
-        return new BasicResponse(0, "");
+        User googleUser = userFromGoogleToken(googleIdToken);        
+        if ( googleUser == null ) {
+            Utils.warning("google login from token failed");            
+            return new BasicResponse(-1,"");
+            
+        }
+        User user = DB.getUserByEmail(googleUser.email);
+        if (user == null) {
+            Utils.info("google login from new email " + googleUser.email);
+        }
+        return new GoogleIdTokenResponse(user != null);        
     }
 
 }

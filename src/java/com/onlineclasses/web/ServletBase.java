@@ -138,7 +138,7 @@ public abstract class ServletBase extends HttpServlet {
             cookie.setValue(websiteCookieString);
             cookie.setMaxAge((int) TimeUnit.DAYS.toSeconds(Config.getInt("website.cookie.age.days")));
         }
-        Utils.info("set cookie value " + cookie.getValue() + " age " + cookie.getMaxAge());
+        Utils.debug("set cookie value " + cookie.getValue() + " age " + cookie.getMaxAge());
         response.addCookie(cookie);        
     }
     
