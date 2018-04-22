@@ -25,6 +25,7 @@ public class TestDB {
         Utils.warning("using test database");
         addStudents();
         addTeachers();
+
     }
 
     public static void addStudents() throws Exception {
@@ -93,5 +94,7 @@ public class TestDB {
             }
         }
     }
+    
+    
 
 }

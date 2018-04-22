@@ -79,7 +79,7 @@
                         <h4>
                             <span class="table_cell glyphicon glyphicon-alert"></span>
                             <span class="table_cell" id="alert_modal_title">
-                                <%= Labels.get("alert.modal.title")%>                        
+                                <%= Labels.get("alert.modal.title")%>
                             </span>
                         </h4>
                     </div>

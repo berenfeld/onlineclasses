@@ -11,6 +11,7 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.web.Utils;
@@ -37,6 +38,11 @@ public class Student_DB {
     private SelectArg _userQueryByEmailArg = new SelectArg();
     private PreparedQuery<Student> _userQueryByEmail;
 
+    public Dao dao()
+    {
+        return _studentsDao;
+    }
+    
     public User getUserByEmail(String email) {
 
         try {

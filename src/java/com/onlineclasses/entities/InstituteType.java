@@ -14,5 +14,5 @@ import com.j256.ormlite.field.DatabaseField;
 public class InstituteType extends BasicEntity {
         
     @DatabaseField
-    public String value;       
+    public String name;       
 }

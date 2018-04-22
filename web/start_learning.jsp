@@ -132,7 +132,21 @@
 
                 </div>
                 <div class="panel-body">
-
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="start_learning_institute_type">
+                            <%= Labels.get("start_learning.form.learning.institue")%>
+                        </label>
+                        <div class="col-md-8">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                <%= Labels.get("start_learning.form.learning.institue.text")%>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">HTML</a></li>
+                            </ul>
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
 

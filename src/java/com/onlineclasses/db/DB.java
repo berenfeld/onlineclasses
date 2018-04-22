@@ -108,12 +108,14 @@ public class DB {
     private static Student_DB _student_db;
     private static Teacher_DB _teacher_db;
     private static AvailableTime_DB _availableTime_db;
+    private static InstituteType_DB _instituteType_db;
 
     private static void initORM(String dbUrl, String dbUser, String dbPassword) throws SQLException {
         _connectionSource = new JdbcConnectionSource(dbUrl, dbUser, dbPassword);
         _student_db = new Student_DB(_dataSource, _connectionSource);
         _teacher_db = new Teacher_DB(_dataSource, _connectionSource);
         _availableTime_db = new AvailableTime_DB(_dataSource, _connectionSource);
+        _instituteType_db = new InstituteType_DB(_dataSource, _connectionSource);
     }
 
     public static Connection getConnection() throws SQLException {
@@ -132,17 +134,16 @@ public class DB {
         closeStatementAndConnection(statement);
     }
 
-    public static void dropTable(String tableName) throws SQLException {
-        DB.executeQuery("DROP TABLE IF EXISTS " + tableName);
-    }
-
     private static void createAllTables() throws SQLException {
-        dropTable("students");
-        dropTable("teachers");
-        dropTable("available_times");
-        TableUtils.createTable(_connectionSource, Student.class);
-        TableUtils.createTable(_connectionSource, Teacher.class);
-        TableUtils.createTable(_connectionSource, AvailableTime.class);
+        TableUtils.dropTable(_student_db.dao(), true);
+        TableUtils.dropTable(_teacher_db.dao(), true);
+        TableUtils.dropTable(_availableTime_db.dao(), true);        
+        TableUtils.dropTable(_instituteType_db.dao(), true);        
+        
+        TableUtils.createTable( _student_db.dao() );                
+        TableUtils.createTable( _teacher_db.dao() );
+        TableUtils.createTable( _availableTime_db.dao() );
+        TableUtils.createTable( _instituteType_db.dao() );
     }
 
     private static void printAllTables() {

@@ -48,12 +48,15 @@ public class Teacher_DB {
     private static SelectArg _teacherFindQueryNameArg = new SelectArg();
     private static PreparedQuery<Teacher> _teacherFindQuery;
 
-    static void addTeacher(Teacher teacher) throws SQLException {
+    public Dao dao() {
+        return _teachersDao;
+    }
+
+    public void addTeacher(Teacher teacher) throws SQLException {
         _teachersDao.create(teacher);
     }
-    
-        
-    public static List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName) {
+
+    public List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName) {
         try {
             _teacherFindQueryMinPriceArg.setValue(minPrice);
             _teacherFindQueryMaxPriceArg.setValue(maxPrice);

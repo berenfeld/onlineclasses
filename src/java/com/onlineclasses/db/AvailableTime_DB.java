@@ -44,6 +44,10 @@ public class AvailableTime_DB {
     private SelectArg _getTeacherAvailableTimeTeacherIdArg = new SelectArg();
     private static PreparedQuery<AvailableTime> _getTeacherAvailableTimeQuery;
  
+        public Dao dao() {
+        return _availableTimeDao;
+    }
+
     public void addAvailableTime(AvailableTime availableTime) throws SQLException {
         _availableTimeDao.create(availableTime);
     }
