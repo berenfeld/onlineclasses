@@ -6,11 +6,8 @@
 package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-/**
- *
- * @author me
- */
 public class InstituteType extends BasicEntity {
         
     @DatabaseField

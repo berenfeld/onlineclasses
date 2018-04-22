@@ -208,7 +208,15 @@ public class DB {
         _availableTime_db.addAvailableTime(availableTime);
     }
 
+    public static void addInstituteType(InstituteType instituteType) throws SQLException {
+        _instituteType_db.addInstituteType(instituteType);
+    }
+     
     public static List<AvailableTime> getTeacherAvailableTime(Teacher teacher) {
         return _availableTime_db.getTeacherAvailableTime(teacher);
+    }
+    
+    public static List<InstituteType> getAllInstituteTypes() throws SQLException {
+        return _instituteType_db.dao().queryForAll();
     }
 }

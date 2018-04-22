@@ -8,6 +8,5 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "students")
 public class Student extends User {
 }

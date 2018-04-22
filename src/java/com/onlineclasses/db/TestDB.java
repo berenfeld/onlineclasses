@@ -7,12 +7,16 @@ package com.onlineclasses.db;
 
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.AvailableTime;
+import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
+import com.onlineclasses.web.Labels;
 import com.onlineclasses.web.Utils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -25,7 +29,7 @@ public class TestDB {
         Utils.warning("using test database");
         addStudents();
         addTeachers();
-
+        addInstituteTypes();
     }
 
     public static void addStudents() throws Exception {
@@ -95,6 +99,15 @@ public class TestDB {
         }
     }
     
-    
+    private static void addInstituteTypes() throws SQLException
+    {
+        String instituteTypes = Labels.get("db.institute_type");
+        List<String> instituteTypeList = Utils.toList(instituteTypes);
+        InstituteType instituteType = new InstituteType();
+        for (String instituteTypeName : instituteTypeList) {
+            instituteType.name = instituteTypeName;
+            DB.addInstituteType(instituteType);
+        }
+    }
 
 }

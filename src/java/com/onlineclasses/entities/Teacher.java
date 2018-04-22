@@ -9,7 +9,6 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.util.List;
 
-@DatabaseTable(tableName = "teachers")
 public class Teacher extends User {
     
     @DatabaseField(canBeNull = false, unique = true)

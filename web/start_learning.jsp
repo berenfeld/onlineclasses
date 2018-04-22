@@ -1,3 +1,5 @@
+<%@page import="com.onlineclasses.entities.InstituteType"%>
+<%@page import="com.onlineclasses.db.DB"%>
 <%@page import="java.util.List"%>
 <%@page import="com.onlineclasses.web.Utils"%>
 <%@page import="com.onlineclasses.web.Labels"%>
@@ -6,7 +8,7 @@
 <%
     String phoneAreas = CLabels.get("website.phone_areas");
     List<String> phoneAreasList = Utils.toList(phoneAreas);
-
+    List<InstituteType> instituteTypeList = DB.getAllInstituteTypes();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,17 +106,30 @@
                             </div>
                             <label class="control-label col-md-2" for="start_learning_phone_area">
                                 <%= Labels.get("start_learning.form.login.phone_area")%>
-                            </label>     
+                            </label>   
+
                             <div class="col-md-2">
-                                <select class="form-control" id="start_learning_phone_area">
+                                <button class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <%= Labels.get("start_learning.form.login.phone_area")%>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right">
                                     <%
                                         for (String phoneArea : phoneAreasList) {
                                     %>
-                                    <option value="<%=phoneArea%>"><%=phoneArea%></option>
+
+                                    <li>
+                                        <a href="#">
+                                            <%= phoneArea%>
+                                        </a>
+                                    </li>
                                     <%
                                         }
                                     %>
-                                </select>
+                                </ul>
+
+
+
                             </div>
                         </div>
                     </form>
@@ -136,15 +151,27 @@
                         <label class="control-label col-md-4" for="start_learning_institute_type">
                             <%= Labels.get("start_learning.form.learning.institue")%>
                         </label>
-                        <div class="col-md-8">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                <%= Labels.get("start_learning.form.learning.institue.text")%>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">
                                 <span class="caret"></span>
+                                <%= Labels.get("start_learning.form.learning.institue.text")%>
+
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">HTML</a></li>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <%
+                                    for (InstituteType instituteType : instituteTypeList) {
+                                %>
+
+                                <li>
+                                    <a href="#">
+                                        <%= instituteType.name%>
+                                    </a>
+                                </li>
+                                <%
+                                    }
+                                %>
                             </ul>
-                            
+
                         </div>
                     </div>
                 </div>

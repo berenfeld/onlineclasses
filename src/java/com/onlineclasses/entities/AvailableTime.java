@@ -8,7 +8,6 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "available_times")
 public class AvailableTime extends BasicEntity  {
 
     public static final String TEACHER_ID_COLUMN = "teacher_id";
