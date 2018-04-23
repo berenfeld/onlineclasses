@@ -50,6 +50,17 @@ function schedule_class_login()
      $("#schedule_class_not_logged_in_modal").modal("hide");
      login_showLoginModal("login_modal");
 }
+
+function schedule_class_select_minute(minute)
+{
+    $("#schedule_class_start_minute").text(minute);
+}
+
+function schedule_class_select_hour(hour)
+{
+    $("#schedule_class_start_hour").text(hour);
+}
+
 function find_teachers_init()
 {
     var min_value = parseInt(online_classes.cconfig[ "find_teachers.price.min" ]);
