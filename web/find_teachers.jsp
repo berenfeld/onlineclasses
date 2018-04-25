@@ -177,10 +177,11 @@
                                                         int maximumLessonLength = Config.getInt("website.time.max_lesson_length_minutes");
                                                         int lessonLength = minuteStep;
                                                         while (lessonLength <= maximumLessonLength) {
+                                                            String lessonMinutes = String.format("%02d", lessonLength) + " " + Labels.get("language.minutes");
                                                     %>
                                                     <li>
-                                                        <a href="javascript:schedule_class_select_duration('<%= String.format("%02d", lessonLength)%>')">
-                                                            <%= String.format("%02d", lessonLength) + " " + Labels.get("language.minutes")%> 
+                                                        <a href="javascript:schedule_class_select_duration('<%= lessonMinutes %>')">
+                                                            <%= lessonMinutes %> 
                                                         </a>
                                                     </li>
                                                     <%

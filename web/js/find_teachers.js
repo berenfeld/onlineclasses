@@ -34,12 +34,13 @@ function find_teachers_refresh_results()
 function schedule_class_button_clicked(source)
 {
     if ( ! login_isLoggedIn())
-    {
-        $("#schedule_class_not_logged_in_modal").modal("show");
-        return;
+    {        
+        if (online_classes.cconfig["schedule_class.allow_schedule_if_not_logged_in"] == "false") {
+            $("#schedule_class_not_logged_in_modal").modal("show");        
+            return;
+        }        
     }
     var teacher_button = $("#" + event.target.id);
-    var teacher_id = teacher_button.attr("data-teacher-id");
     var teacher_display_name = teacher_button.attr("data-teacher-display-name");
     $("#schedule_class_modal").modal("show");
     $("#schedule_class_modal_title_teacher_anchor").text(teacher_display_name);
@@ -61,6 +62,10 @@ function schedule_class_select_hour(hour)
     $("#schedule_class_start_hour").text(hour);
 }
 
+function schedule_class_select_duration(duration)
+{
+    $("#schedule_class_duration_input").text(duration);
+}
 function find_teachers_init()
 {
     var min_value = parseInt(online_classes.cconfig[ "find_teachers.price.min" ]);

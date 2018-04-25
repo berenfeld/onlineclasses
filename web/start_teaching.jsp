@@ -11,7 +11,7 @@
         <script src="js/start_teacher.js"></script>
     </head>
     <body>
-        <%@include file="body.jsp" %>    
+        <%@include file="body.jsp" %>
         <div class="container">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#start_teaching_login"><%= Labels.get("start_teaching.login.tab.tab_title")%> </a></li>

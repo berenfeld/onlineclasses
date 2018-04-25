@@ -1,4 +1,4 @@
-<Context path="/" reloadable="false" privileged="false">
+<Context path="/" reloadable="true" privileged="true">
 
 <!-- **** Note - we have added in the reloadable and privileged attributes
 to enable the invoker servlet and cgi support (other changes needed in

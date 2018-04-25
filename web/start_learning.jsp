@@ -183,6 +183,12 @@
 
                 </div>
                 <div class="panel-body">
+                    <h5>
+                        <%= Labels.get("start_learning.form.submit.accept_terms_of_usage")%>  
+                    </h5>
+                    <div class="well">
+                        <%@include  file="lang/terms_of_usage.html" %>
+                    </div>
                     <button class="btn btn-primary" onclick="start_learning_form_submit()">
                         <%= Labels.get("start_learning.form.submit.button.text")%>   
                     </button>
