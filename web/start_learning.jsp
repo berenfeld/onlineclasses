@@ -32,6 +32,7 @@
                         <%= Labels.get("start_learning.form.login.text1")%>     
                     </h4>                    
 
+
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal">
@@ -187,7 +188,36 @@
                         <%= Labels.get("start_learning.form.submit.accept_terms_of_usage")%>  
                     </h5>
                     <div class="well">
-                        <%@include  file="lang/terms_of_usage.html" %>
+                        <h6>
+                            <%= Labels.get("start_learning.form.submit.terms_of_usage.heading")%>  
+                        </h6>
+                        <ul>
+                            <li>
+                                <%= Labels.get("start_learning.form.submit.terms_of_usage.text1")%>  
+                            </li>
+                            <li>
+                                <%= Labels.get("start_learning.form.submit.terms_of_usage.text2")%>  
+                            </li>
+                            <li>
+                                <%= Labels.get("start_learning.form.submit.terms_of_usage.text3")%>  
+                            </li>
+                            <li>
+                                <%= Labels.get("start_learning.form.submit.terms_of_usage.text4")%>  
+                            </li>
+                            <li>
+                                <%= Labels.get("start_learning.form.submit.terms_of_usage.text5")%>  
+                            </li>
+                            <li>
+                                <%= Labels.get("start_learning.form.submit.terms_of_usage.text6")%>  
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="checkbox" id="start_learning_accept_terms_checkbox_div">
+                        <label for="start_learning_accept_terms_checkbox">
+                            <input id="start_learning_accept_terms_checkbox" name="start_learning_accept_terms_checkbox" 
+                                   type="checkbox" value="">
+                            <%= Labels.get("start_learning.form.submit.terms_of_usage.read_and_accept")%>  
+                        </label>
                     </div>
                     <button class="btn btn-primary" onclick="start_learning_form_submit()">
                         <%= Labels.get("start_learning.form.submit.button.text")%>   

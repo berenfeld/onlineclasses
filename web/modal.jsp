@@ -70,7 +70,7 @@
         <div class="modal-dialog modal-sm">
 
             <div class="modal-content">
-                <div class="modal-header modal-header-info">
+                <div class="modal-header modal-header-warning">
                     <button type="button" class="close" aria-label="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span>
                     </button>
