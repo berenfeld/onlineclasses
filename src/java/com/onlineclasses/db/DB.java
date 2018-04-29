@@ -219,4 +219,8 @@ public class DB {
     public static List<InstituteType> getAllInstituteTypes() throws SQLException {
         return _instituteType_db.dao().queryForAll();
     }
+    
+    public static List<Teacher> getAllTeachers() throws SQLException {
+        return _teacher_db.dao().queryForAll();
+    }
 }

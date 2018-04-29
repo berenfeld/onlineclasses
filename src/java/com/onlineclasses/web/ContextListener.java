@@ -17,12 +17,16 @@ public class ContextListener implements ServletContextListener {
         Config.init();
         CConfig.init();
         DB.init();
+        BaseTask.init();
+        
         Utils.info("context init done");
     }
-
+ 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         Utils.info("context destory");
+        
+        BaseTask.close();
         DB.close();
         Utils.info("context destory done");
     }

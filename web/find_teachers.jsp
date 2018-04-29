@@ -206,7 +206,7 @@
 
             <div class="container">
 
-                <div class="well col-md-4 container">
+                <div class="well col-lg-3 col-md-3 container">
 
                     <h4 class="text-info">                        
                         <%= Labels.get("find_teachers.sidebar.title")%>                                
@@ -279,7 +279,7 @@
                     </form>
                 </div>
 
-                <div class="col-md-8 container">
+                <div class="col-lg-9 col-md-9 container">
                     <h3>
                         <%= Labels.get("find_teachers.list.title")%>
                     </h3>
