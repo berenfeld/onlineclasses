@@ -7,9 +7,14 @@ package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.onlineclasses.web.Config;
+import java.util.Date;
 
 public class User extends BasicEntity {
 
+    public static final int GENDER_MALE = Config.getInt("website.gender.male");
+    public static final int GENDER_FEMALE = Config.getInt("website.gender.female");
+    
     public static final String EMAIL_COLUMN = "email";
     @DatabaseField(canBeNull = false, unique = true, columnName = EMAIL_COLUMN)
     public String email;
@@ -33,4 +38,7 @@ public class User extends BasicEntity {
     
     @DatabaseField
     public int gender;
+    
+    @DatabaseField(canBeNull = false)
+    public Date registered;
 }

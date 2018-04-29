@@ -25,8 +25,6 @@ import javax.xml.bind.DatatypeConverter;
 @WebServlet(urlPatterns = {"/servlets/login"})
 public class LoginServlet extends ServletBase {
 
-    private Gson _gson = new Gson();
-
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         LoginRequest loginRequest = _gson.fromJson(requestString, LoginRequest.class);

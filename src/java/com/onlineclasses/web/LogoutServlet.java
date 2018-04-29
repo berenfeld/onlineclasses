@@ -25,8 +25,6 @@ import javax.xml.bind.DatatypeConverter;
 @WebServlet(urlPatterns = {"/servlets/logout"})
 public class LogoutServlet extends ServletBase {
 
-    private Gson _gson = new Gson();
-
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         

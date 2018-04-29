@@ -16,6 +16,7 @@ import com.onlineclasses.entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +27,7 @@ import javax.xml.bind.DatatypeConverter;
 @WebServlet(urlPatterns = {"/servlets/register_student"})
 public class RegisterStudentServlet extends ServletBase {
 
-    private Gson _gson = new Gson();
+    
 
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
@@ -39,15 +40,30 @@ public class RegisterStudentServlet extends ServletBase {
                 Utils.warning("failed to get user from google id token");
                 return new BasicResponse(-1, "user was not found");
             }
-
+            
             User user = DB.getUserByEmail(googleUser.email);
             if (user != null) {
                 Utils.warning("user " + user.display_name + " email " + user.email + " already registered");
                 return new BasicResponse(-1, "user is already registered");
+            }                       
+            
+            Student registeringStudent = new Student();
+            registeringStudent.email = googleUser.email;            
+            registeringStudent.display_name = googleUser.display_name;
+            registeringStudent.image_url = googleUser.image_url;
+            registeringStudent.first_name = registerStudentRequest.first_name;
+            registeringStudent.last_name = registerStudentRequest.last_name;
+            registeringStudent.gender = registerStudentRequest.gender;
+            registeringStudent.phone_area = registerStudentRequest.phone_area;
+            registeringStudent.phone_number = registerStudentRequest.phone_number;
+            registeringStudent.registered = new Date();
+            
+            if (DB.addStudent(registeringStudent) != 1 ) {
+                Utils.warning("Could not add user " + registeringStudent.display_name);
+                return new BasicResponse(-1, "user is already registered");
             }
-
-            Utils.info("user " + user.display_name + " logged in with email " + user.email);
-            ServletBase.loginUser(request, user);
+            ServletBase.loginUser(request, registeringStudent);
+            Utils.info("user " + registeringStudent.display_name + " email " + registeringStudent.email + " registered");
         } else {
             Utils.warning("no google id in login request");
         }

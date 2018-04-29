@@ -68,7 +68,7 @@ public class Student_DB {
         }
     }
     
-    public void addStudent(Student student) throws SQLException {
-        _studentsDao.create(student);
+    public int addStudent(Student student) throws SQLException {
+        return _studentsDao.create(student);
     }
 }

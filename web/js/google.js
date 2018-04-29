@@ -56,7 +56,7 @@ function google_addEmailExistsCallback(emailExistsCallback)
 function google_idTokenResponse(response)
 {
     google.email_exists = response.email_exists;
-    for (var i = 0; i < google.userLoggedOutCallbacks.length; i++) {
+    for (var i = 0; i < google.emailExistsCallbacks.length; i++) {
         google.emailExistsCallbacks[i](google.email_exists);
     }
 }

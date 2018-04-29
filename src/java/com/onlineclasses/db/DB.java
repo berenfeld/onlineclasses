@@ -192,8 +192,8 @@ public class DB {
         return _student_db.getUser(id);
     }
 
-    public static void addStudent(Student student) throws SQLException {
-        _student_db.addStudent(student);
+    public static int addStudent(Student student) throws SQLException {
+        return _student_db.addStudent(student);
     }
 
     static void addTeacher(Teacher teacher) throws SQLException {

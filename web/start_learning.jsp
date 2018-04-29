@@ -83,13 +83,17 @@
                             </label>
 
                             <div class="col-md-2">
-                                <input type="radio" checked class="form-check form-check-inline" value="1" id="start_learning_gender_input_male" name="start_learning_gender_input" placeholder="">
+                                <input type="radio" checked class="form-check form-check-inline" 
+                                       value="<%= Config.get("website.gender.male")%>" 
+                                       id="start_learning_gender_input_male" name="start_learning_gender_input" placeholder="">
                                 <label class="form-check-label" for="start_learning_gender_input_male">
                                     <%= Labels.get("start_learning.form.login.gender.male")%>   
                                 </label>
                             </div>
                             <div class="col-md-2">
-                                <input type="radio" class="form-check form-check-inline" value="2" id="start_learning_gender_input_female" name="start_learning_gender_input" placeholder="">
+                                <input type="radio" class="form-check form-check-inline" 
+                                       value="<%= Config.get("website.gender.female")%>" 
+                                       id="start_learning_gender_input_female" name="start_learning_gender_input" placeholder="">
                                 <label class="form-check-label" for="start_learning_gender_input_female">
                                     <%= Labels.get("start_learning.form.login.gender.female")%>   
                                 </label>
@@ -110,9 +114,14 @@
                             </label>   
 
                             <div class="col-md-2">
-                                <button class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">
+                                <button class="btn btn-primary dropdown-toggle form-control" 
+                                        id="start_learning_area_code_button" name="start_learning_area_code_button"
+                                        type="button" data-toggle="dropdown">
+                                    
+                                    <span id="start_learning_area_code_value">
+                                        <%= Labels.get("start_learning.form.login.phone_area")%>
+                                    </span>
                                     <span class="caret"></span>
-                                    <%= Labels.get("start_learning.form.login.phone_area")%>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <%
@@ -120,7 +129,7 @@
                                     %>
 
                                     <li>
-                                        <a href="#">
+                                        <a href="javascript:start_learning_select_area_code('<%= phoneArea%>')">
                                             <%= phoneArea%>
                                         </a>
                                     </li>

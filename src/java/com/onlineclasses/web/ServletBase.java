@@ -31,7 +31,7 @@ import javax.xml.bind.DatatypeConverter;
 
 public abstract class ServletBase extends HttpServlet {
 
-    private static Gson _gson = new Gson();
+    protected static Gson _gson = new Gson();
 
     private String getRequestString(HttpServletRequest request) throws IOException {
         String requestString = "";

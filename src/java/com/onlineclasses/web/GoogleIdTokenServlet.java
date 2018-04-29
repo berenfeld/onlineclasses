@@ -35,7 +35,6 @@ import javax.servlet.ServletConfig;
 @WebServlet(urlPatterns = {"/servlets/google_id_token"})
 public class GoogleIdTokenServlet extends ServletBase {
 
-    private Gson _gson = new Gson();
     private static JacksonFactory _jacksonFactory = new JacksonFactory();
 
     private static GoogleIdTokenVerifier _verifier;

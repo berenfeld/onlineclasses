@@ -14,9 +14,11 @@ public class RegisterStudentRequest extends BasicRequest {
     {
     }
     public String google_id_token;    
+    public String email;
     public String first_name;
     public String last_name;
     public String display_name;
     public String phone_number;
+    public String phone_area;
     public int gender;
 }

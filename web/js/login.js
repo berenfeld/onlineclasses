@@ -29,8 +29,6 @@ function login_googleLoggedIn(googleUser)
 
         progress_modal_show(online_classes.clabels["login.progress.title"],
                 online_classes.clabels["login.progress.start"], 50);
-    } else {
-        google_signOut();
     }
 }
 
@@ -64,7 +62,6 @@ function login_showLoginModal(reason)
 
 function logout_logoutRequestComplete(response)
 {
-    console.log(response);
     $("#login_modal").modal('hide');
     location.reload();
 }

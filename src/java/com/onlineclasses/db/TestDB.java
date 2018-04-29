@@ -10,12 +10,14 @@ import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
+import com.onlineclasses.entities.User;
 import com.onlineclasses.web.Labels;
 import com.onlineclasses.web.Utils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -39,7 +41,9 @@ public class TestDB {
         student.last_name = "ברנפלד";
         student.email = "ichess@ichess.co.il";
         student.image_url = "https://lh4.googleusercontent.com/-RvMyRqrpEIM/AAAAAAAAAAI/AAAAAAAAAT4/jewL_O1LF_8/s96-c/photo.jpg";
-
+        student.registered = new Date();
+        student.gender = User.GENDER_MALE;
+        
         DB.addStudent(student);
     }
 
@@ -55,6 +59,8 @@ public class TestDB {
         teacher.moto = "מהנדס מערכות זמן אמת בעל 15 שנות נסיון, בעל תואר שני מהאוניבסיטה העברית במדעי המחשב ומתמטיקה. אשמח להוביל אתכם להצלחה.";
         teacher.phone_area = "054";
         teacher.phone_number = "7476526";
+        teacher.registered = new Date();
+        teacher.gender = User.GENDER_FEMALE;
         DB.addTeacher(teacher);
 
         AvailableTime availableTime = new AvailableTime();
@@ -84,6 +90,8 @@ public class TestDB {
             teacher.moto = "מוטו " + i;
             teacher.phone_area = "054";
             teacher.phone_number = "7476526";
+            teacher.registered = new Date();
+            teacher.gender = User.GENDER_FEMALE;
             DB.addTeacher(teacher);
 
             for (int j = 1; j <= 7; j++) {
