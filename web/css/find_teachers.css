@@ -1,0 +1,15 @@
+td.calendar_available {
+    background-color:#E0FFFF
+}
+
+td.calendar_free {
+    background-color:#ADD8E6
+}
+
+td.calendar_available:hover {
+    background-color:#ADD8E6
+}
+#schedule_class_calendar_table td, #schedule_class_calendar_table th
+{
+    border: solid gray 1px;
+}

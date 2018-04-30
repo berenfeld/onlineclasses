@@ -31,6 +31,7 @@
 <html lang="<%= Config.get("website.html_language")%>">
     <head>
         <%@include file="header.jsp" %>
+        <link rel="stylesheet" href="css/find_teachers.css">
     </head>
     <body>
         <%@include file="body.jsp" %>   
@@ -200,10 +201,10 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="col-lg-6">
-                                    <table class="table table-responsive table-hover table-sm">
+                                <div class="col-lg-6 schedule_class_calendar_div">
+                                    <table id="schedule_class_calendar_table" class="table table-responsive table-condensed">
                                         <thead>
-                                        <th>
+                                        <th style="width: 15%">
                                             /
                                         </th>
                                         <% for (day = 0; day < 7; day++) {
@@ -223,8 +224,8 @@
                                                 <td>
                                                     <%= Utils.formatTime(hour, 0)%>
                                                 </td>
-                                                <% for (day = 0; day < 7; day++) { %>
-                                                <td>
+                                                <% for (day = 0; day < 7; day++) {%>
+                                                <td id="day_<%= (day + 1)%>_hour_<%= hour%>">
 
                                                 </td>                                            
                                                 <% } %>
@@ -252,7 +253,7 @@
                     <h4 class="text-info">                        
                         <%= Labels.get("find_teachers.sidebar.title")%>                                
                     </h4>
-                    <form>
+                    <form>                        
                         <div class="form-group">
                             <label for="find_teachers_price_per_hour_slider">
                                 <%= Labels.get("find_teachers.sidebar.price_per_hour")%> :
@@ -302,21 +303,22 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="button" class="btn btn-primary col-1" 
+                            <button type="button" class="btn btn-primary col-lg-6" 
                                     id="find_teachers.sidebar.refresh_button"
                                     onclick="find_teachers_refresh_results()" >
-                                <span class="glyphicon glyphicon-refresh"></span>
-                                &nbsp;
-                                <%= Labels.get("find_teachers.sidebar.update_button.text")%>
+                                <span class="table_cell glyphicon glyphicon-refresh"></span>                                
+                                <span class="table_cell">
+                                    <%= Labels.get("find_teachers.sidebar.update_button.text")%>
+                                </span>
                             </button>    
 
-                            <button type="button" class="btn btn-info col-1" 
+                            <button type="button" class="btn btn-info col-lg-6" 
                                     id="find_teachers.sidebar.clear_button">
-                                <span class="glyphicon glyphicon-refresh"></span>
-                                &nbsp;
-                                <%= Labels.get("find_teachers.sidebar.clear_button.text")%>
-                            </button>
-
+                                <span class="table_cell glyphicon glyphicon-refresh"></span>
+                                <span class="table_cell">
+                                    <%= Labels.get("find_teachers.sidebar.clear_button.text")%>
+                                </span>
+                            </button>                            
                         </div>
                     </form>
                 </div>

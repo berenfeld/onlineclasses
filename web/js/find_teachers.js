@@ -53,7 +53,20 @@ function schedule_class_button_clicked(source)
 
 function schedule_class_received_teacher_calendar(response)
 {
-    var teacher = response.teacher;    
+    var teacher = response.teacher;
+    var available_times = response.available_times;
+    for (var i=0; i< available_times.length; i++)
+    {
+        var available_time = available_times[i];
+        var hour = available_time.start_hour;
+                
+        while (hour <= available_time.end_hour) {
+            var element = $("#day_" + available_time.day + "_hour_" + String(hour));
+            element.addClass("calendar_available");
+            element.removeClass("calendar_free");
+            hour++;
+        }
+    }
     $("#schedule_class_modal").modal("show");
     $("#schedule_class_modal_title_teacher_anchor").text(teacher.display_name);
 }
