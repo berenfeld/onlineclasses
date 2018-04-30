@@ -1,3 +1,4 @@
+<%@page import="java.util.Calendar"%>
 <%@page import="com.onlineclasses.entities.AvailableTime"%>
 <%@page import="java.util.List"%>
 <%@page import="com.onlineclasses.entities.Teacher"%>
@@ -12,6 +13,10 @@
     int maxPrice = Utils.parseInt(request.getParameter("price_max"), CConfig.getInt("find_teachers.price.max"));
     String displayName = Utils.nonNullString(request.getParameter("display_name"));
     int availableDay = Utils.parseInt(request.getParameter("available_day"), 0);
+    final int startHour = Config.getInt("website.time.start_working_hour");
+    final int endHour = Config.getInt("website.time.end_working_hour");
+    Calendar now = Calendar.getInstance();
+    int hour, day;
 
     List<Teacher> teachers = DB.findTeachers(minPrice, maxPrice, displayName);
     for (Teacher teacher : teachers) {
@@ -74,7 +79,7 @@
                 </div>
             </div>
             <div id="schedule_class_modal" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-md">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" aria-label="close" data-dismiss="modal">
@@ -85,115 +90,151 @@
                                 <span id="schedule_class_modal_title_teacher_anchor"></span>
                             </h4>
                         </div>
-                        <div class="modal-body">                            
-                            <form>
-                                <div class="container-fluid">
-                                    <div class="col-md-10 col-md-offset-1">
-                                        <div class="form-group row">
-                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                                <label for="start_day_input" class="col-form-label">
-                                                    <%= Labels.get("schedule.class.modal.day")%>
-                                                </label>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                                <input type="text" class="form-control" name="start_day_input" 
-                                                       id="start_day_input" 
-                                                       placeholder="<%= Labels.get("schedule.class.modal.day_placeholder")%>">
-                                            </div>                                    
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                                <label for="schedule_class_start_minute"  class="col-form-label">
-                                                    <%= Labels.get("schedule.class.modal.start_hour")%>
-                                                </label>
-                                            </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form>
+                                        <div class="container-fluid">
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <div class="form-group row">
+                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                        <label for="start_day_input" class="col-form-label">
+                                                            <%= Labels.get("schedule.class.modal.day")%>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="form-control" name="start_day_input" 
+                                                               id="start_day_input" 
+                                                               placeholder="<%= Labels.get("schedule.class.modal.day_placeholder")%>">
+                                                    </div>                                    
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                        <label for="schedule_class_start_minute"  class="col-form-label">
+                                                            <%= Labels.get("schedule.class.modal.start_hour")%>
+                                                        </label>
+                                                    </div>
 
-                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                                <button class="btn btn-primary dropdown-toggle form-control" 
-                                                        id="schedule_class_start_minute"
-                                                        name="schedule_class_start_minute"
-                                                        data-toggle="dropdown">
-                                                    <span class="caret"></span>
-                                                    <%= Labels.get("schedule.class.modal.start_minute_choose")%>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <%
-                                                        int minute = 0;
-                                                        int minuteStep = Config.getInt("website.time.unit.minutes");
-                                                        while (minute < 60) {
-                                                    %>
-                                                    <li>
-                                                        <a href="javascript:schedule_class_select_minute('<%= String.format("%02d", minute)%>')">
-                                                            <%= String.format("%02d", minute)%>
-                                                        </a>
-                                                    </li>
-                                                    <%
-                                                            minute += minuteStep;
-                                                        }
-                                                    %>
-                                                </ul>
-                                            </div>                                        
-                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                                <button class="btn btn-primary dropdown-toggle form-control" 
-                                                        id="schedule_class_start_hour"
-                                                        name="schedule_class_start_hour" data-toggle="dropdown">
-                                                    <span class="caret"></span>
-                                                    <%= Labels.get("schedule.class.modal.start_hour_choose")%>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <%
-                                                        int startHour = Config.getInt("website.time.start_working_hour");
-                                                        int endHour = Config.getInt("website.time.end_working_hour");
-                                                        int hour = startHour;
-                                                        while (hour < endHour) {
-                                                    %>
-                                                    <li>
-                                                        <a href="javascript:schedule_class_select_hour('<%= String.format("%02d", hour)%>')">
-                                                            <%= String.format("%02d", hour)%> 
-                                                        </a>
-                                                    </li>
-                                                    <%
-                                                            ++hour;
-                                                        }
-                                                    %>
-                                                </ul>
+                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                        <button class="btn btn-primary dropdown-toggle form-control" 
+                                                                id="schedule_class_start_minute"
+                                                                name="schedule_class_start_minute"
+                                                                data-toggle="dropdown">
+                                                            <span class="caret"></span>
+                                                            <%= Labels.get("schedule.class.modal.start_minute_choose")%>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <%
+                                                                int minute = 0;
+                                                                int minuteStep = Config.getInt("website.time.unit.minutes");
+                                                                while (minute < 60) {
+                                                            %>
+                                                            <li>
+                                                                <a href="javascript:schedule_class_select_minute('<%= String.format("%02d", minute)%>')">
+                                                                    <%= String.format("%02d", minute)%>
+                                                                </a>
+                                                            </li>
+                                                            <%
+                                                                    minute += minuteStep;
+                                                                }
+                                                            %>
+                                                        </ul>
+                                                    </div>                                        
+                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                        <button class="btn btn-primary dropdown-toggle form-control" 
+                                                                id="schedule_class_start_hour"
+                                                                name="schedule_class_start_hour" data-toggle="dropdown">
+                                                            <span class="caret"></span>
+                                                            <%= Labels.get("schedule.class.modal.start_hour_choose")%>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <%
+                                                                hour = startHour;
+                                                                while (hour < endHour) {
+                                                            %>
+                                                            <li>
+                                                                <a href="javascript:schedule_class_select_hour('<%= String.format("%02d", hour)%>')">
+                                                                    <%= String.format("%02d", hour)%> 
+                                                                </a>
+                                                            </li>
+                                                            <%
+                                                                    ++hour;
+                                                                }
+                                                            %>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                        <label for="schedule_class_duration_input" class="col-form-label">
+                                                            <%= Labels.get("schedule.class.modal.duration")%>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <button class="btn btn-primary dropdown-toggle form-control" 
+                                                                id="schedule_class_duration_input"
+                                                                name="schedule_class_duration_input" data-toggle="dropdown">
+                                                            <span class="caret"></span>
+                                                            <%= Labels.get("schedule.class.modal.duration.select")%>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <%
+                                                                int maximumLessonLength = Config.getInt("website.time.max_lesson_length_minutes");
+                                                                int lessonLength = minuteStep;
+                                                                while (lessonLength <= maximumLessonLength) {
+                                                                    String lessonMinutes = String.format("%02d", lessonLength) + " " + Labels.get("language.minutes");
+                                                            %>
+                                                            <li>
+                                                                <a href="javascript:schedule_class_select_duration('<%= lessonMinutes%>')">
+                                                                    <%= lessonMinutes%> 
+                                                                </a>
+                                                            </li>
+                                                            <%
+                                                                    lessonLength += minuteStep;
+                                                                }
+                                                            %>
+                                                        </ul>
+                                                    </div>                                 
+                                                </div>                                
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                                <label for="schedule_class_duration_input" class="col-form-label">
-                                                    <%= Labels.get("schedule.class.modal.duration")%>
-                                                </label>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                                <button class="btn btn-primary dropdown-toggle form-control" 
-                                                        id="schedule_class_duration_input"
-                                                        name="schedule_class_duration_input" data-toggle="dropdown">
-                                                    <span class="caret"></span>
-                                                    <%= Labels.get("schedule.class.modal.duration.select")%>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <%
-                                                        int maximumLessonLength = Config.getInt("website.time.max_lesson_length_minutes");
-                                                        int lessonLength = minuteStep;
-                                                        while (lessonLength <= maximumLessonLength) {
-                                                            String lessonMinutes = String.format("%02d", lessonLength) + " " + Labels.get("language.minutes");
-                                                    %>
-                                                    <li>
-                                                        <a href="javascript:schedule_class_select_duration('<%= lessonMinutes %>')">
-                                                            <%= lessonMinutes %> 
-                                                        </a>
-                                                    </li>
-                                                    <%
-                                                            lessonLength += minuteStep;
-                                                        }
-                                                    %>
-                                                </ul>
-                                            </div>                                 
-                                        </div>                                
-                                    </div>
+                                    </form>
                                 </div>
-                            </form>
+                                <div class="col-lg-6">
+                                    <table class="table table-responsive table-hover table-sm">
+                                        <thead>
+                                        <th>
+                                            /
+                                        </th>
+                                        <% for (day = 0; day < 7; day++) {
+
+                                        %>
+                                        <th>
+                                            <%= dayNamesShort.get(day)%>
+                                        </th>
+                                        <% }%>
+                                        </thead>
+                                        <tbody>
+                                            <%
+                                                for (hour = startHour; hour <= endHour; hour++) {
+
+                                            %>  
+                                            <tr>
+                                                <td>
+                                                    <%= Utils.formatTime(hour, 0)%>
+                                                </td>
+                                                <% for (day = 0; day < 7; day++) { %>
+                                                <td>
+
+                                                </td>                                            
+                                                <% } %>
+                                            </tr>
+                                            <% }%>
+
+                                        </tbody>
+                                    </table>    
+                                </div>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success" onclick="schedule_class_confirm()" data-dismiss="modal"><%= Labels.get("schedule.class.modal.confirm_button")%></button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
@@ -249,6 +290,7 @@
                                 </option>
                                 <%
                                     for (int i = 0; i < dayNamesLong.size(); i++) {
+
                                 %>
                                 <option value="<%= i + 1%>" <% if (availableDay == (i + 1)) { %> selected <% }%>>
                                     <%=dayNamesLong.get(i)%>

@@ -68,4 +68,8 @@ public class Teacher_DB {
             return new ArrayList<Teacher>();
         }
     }
+    
+    public static Teacher getTeacher(int id) throws SQLException {
+        return _teachersDao.queryForId(id);
+    }
 }

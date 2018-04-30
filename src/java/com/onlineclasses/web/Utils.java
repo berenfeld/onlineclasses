@@ -5,7 +5,10 @@
  */
 package com.onlineclasses.web;
 
+import com.onlineclasses.entities.AvailableTime;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,5 +87,47 @@ public class Utils {
     public static List<String> toList(String str)
     {
         return Arrays.asList(str.split(","));
+    }
+    
+    public static String formatTime(int hour, int minute)
+    {
+        return String.format("%02d:%02d", hour, minute);
+    }
+    
+    public static final long MINUTES_IN_HOUR = 60;
+    
+    public static long durationInMinutes(AvailableTime availableTime)
+    {
+        return ( ( availableTime.end_hour - availableTime.start_hour ) * MINUTES_IN_HOUR ) + ( availableTime.end_minute - availableTime.start_minute );
+    }
+    
+    public static boolean available(List<AvailableTime> availableTimes, Date date)
+    {
+        Calendar eventDate = Calendar.getInstance();
+        eventDate.setTime(date);
+        
+        Calendar start = Calendar.getInstance();
+        start.setTime(date);
+        
+        Calendar end = Calendar.getInstance();
+        end.setTime(date);
+        
+        for (AvailableTime availableTime : availableTimes)
+        {
+            start.set(Calendar.DAY_OF_WEEK, availableTime.day);
+            start.set(Calendar.HOUR_OF_DAY, availableTime.start_hour);
+            start.set(Calendar.MINUTE, availableTime.start_minute);
+            
+            end.set(Calendar.DAY_OF_WEEK, availableTime.day);
+            end.set(Calendar.HOUR_OF_DAY, availableTime.end_hour);
+            end.set(Calendar.MINUTE, availableTime.end_minute);
+            
+            if ( ( eventDate.getTimeInMillis() >= start.getTimeInMillis() ) && 
+                    eventDate.getTimeInMillis() <= end.getTimeInMillis() )
+            {
+                return true;
+            }                    
+        }
+        return false;
     }
 }

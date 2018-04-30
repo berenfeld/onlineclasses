@@ -109,6 +109,7 @@ public class DB {
     private static Teacher_DB _teacher_db;
     private static AvailableTime_DB _availableTime_db;
     private static InstituteType_DB _instituteType_db;
+    private static ScheduledClass_DB _scheduledClass_db;
 
     private static void initORM(String dbUrl, String dbUser, String dbPassword) throws SQLException {
         _connectionSource = new JdbcConnectionSource(dbUrl, dbUser, dbPassword);
@@ -188,10 +189,14 @@ public class DB {
         conn.close();
     }
 
-    public static User getUser(int id) {
+    public static User getUser(int id) throws SQLException {
         return _student_db.getUser(id);
     }
 
+    public static Teacher getTeacher(int id) throws SQLException {
+        return _teacher_db.getTeacher(id);
+    }
+    
     public static int addStudent(Student student) throws SQLException {
         return _student_db.addStudent(student);
     }

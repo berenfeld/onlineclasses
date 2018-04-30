@@ -19,8 +19,6 @@ function find_teachers_price_per_hour_changed(event, ui)
     }
 }
 
-
-
 function find_teachers_refresh_results()
 {
     find_teachers.available_day = $("#find_teachers_available_in_days").val();
@@ -33,23 +31,37 @@ function find_teachers_refresh_results()
 
 function schedule_class_button_clicked(source)
 {
-    if ( ! login_isLoggedIn())
-    {        
+    if (!login_isLoggedIn())
+    {
         if (online_classes.cconfig["schedule_class.allow_schedule_if_not_logged_in"] == "false") {
-            $("#schedule_class_not_logged_in_modal").modal("show");        
+            $("#schedule_class_not_logged_in_modal").modal("show");
             return;
-        }        
+        }
     }
     var teacher_button = $("#" + event.target.id);
-    var teacher_display_name = teacher_button.attr("data-teacher-display-name");
+    var teacher_id = parseInt10(teacher_button.attr("data-teacher-id"));
+    var request = {};
+    request.teacher_id = teacher_id;
+    $.ajax("servlets/teacher_calendar",
+            {
+                type: "POST",
+                data: JSON.stringify(request),
+                dataType: "JSON",
+                success: schedule_class_received_teacher_calendar
+            })
+}
+
+function schedule_class_received_teacher_calendar(response)
+{
+    var teacher = response.teacher;    
     $("#schedule_class_modal").modal("show");
-    $("#schedule_class_modal_title_teacher_anchor").text(teacher_display_name);
+    $("#schedule_class_modal_title_teacher_anchor").text(teacher.display_name);
 }
 
 function schedule_class_login()
 {
-     $("#schedule_class_not_logged_in_modal").modal("hide");
-     login_showLoginModal("login_modal");
+    $("#schedule_class_not_logged_in_modal").modal("hide");
+    login_showLoginModal("login_modal");
 }
 
 function schedule_class_select_minute(minute)
@@ -97,7 +109,7 @@ function find_teachers_init()
         "isRTL": true,
         "changeYear": true,
     });
-    
+
 }
 
 find_teachers_init();
