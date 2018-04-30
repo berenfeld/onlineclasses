@@ -6,6 +6,7 @@
 package com.onlineclasses.web;
 
 import com.onlineclasses.entities.AvailableTime;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -92,6 +93,12 @@ public class Utils {
     public static String formatTime(int hour, int minute)
     {
         return String.format("%02d:%02d", hour, minute);
+    }
+
+    public static String formatDate(Date date)
+    {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM");
+        return format.format(date);
     }
     
     public static final long MINUTES_IN_HOUR = 60;

@@ -53,17 +53,41 @@ function schedule_class_button_clicked(source)
 
 function schedule_class_received_teacher_calendar(response)
 {
+    var today = new Date();
     var teacher = response.teacher;
     var available_times = response.available_times;
-    for (var i=0; i< available_times.length; i++)
+    var start_working_hour = parseInt10(online_classes.cconfig[ "website.time.start_working_hour"]);
+    var end_working_hour = parseInt10(online_classes.cconfig[ "website.time.end_working_hour"]);
+
+    for (var day = 1; day <= 7; day++) {
+        if (day == (today.getDay() + 1)) {
+            for (var hour = start_working_hour; hour <= end_working_hour; hour++) {
+                var element = $("#schedule_class_day_" + day + "_hour_" + hour);
+                element.addClass("calendar_today");
+            }
+            break;
+        }
+    }
+
+    while (today.getDay() != 0 ) {
+        today.setTime(today.getTime() - 1000 * 60 * 60 * 24);
+    }
+    for (var day = 1; day <= 7; day++) {        
+        var element = $("#schedule_class_day_" + day);
+        element.html(today.getDate() +"/" + (today.getMonth() + 1));
+        today.setTime(today.getTime() + 1000 * 60 * 60 * 24);
+    }
+    
+    for (var i = 0; i < available_times.length; i++)
     {
         var available_time = available_times[i];
         var hour = available_time.start_hour;
-                
+
         while (hour <= available_time.end_hour) {
-            var element = $("#day_" + available_time.day + "_hour_" + String(hour));
+            var element = $("#schedule_class_day_" + available_time.day + "_hour_" + hour);
             element.addClass("calendar_available");
             element.removeClass("calendar_free");
+            element.removeClass("calendar_today");
             hour++;
         }
     }
@@ -114,7 +138,7 @@ function find_teachers_init()
     $("#find_teachers_price_per_hour_value_min").text(min_value);
     $("#find_teachers_price_per_hour_value_max").text(max_value);
 
-    $("#start_day_input").datepicker({
+    $("#start_schedule_class_day_input").datepicker({
         "dayNames": online_classes.clabels[ "website.days.long" ].split(","),
         "dayNamesMin": online_classes.clabels[ "website.days.short" ].split(","),
         "monthNames": online_classes.clabels[ "website.months.long" ].split(","),
