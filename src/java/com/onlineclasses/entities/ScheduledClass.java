@@ -27,4 +27,10 @@ public class ScheduledClass extends BasicEntity  {
     
     @DatabaseField
     public int price_pre_hour;
+    
+    @DatabaseField
+    public String subject;
+    
+    @DatabaseField
+    public String student_comment;
 }

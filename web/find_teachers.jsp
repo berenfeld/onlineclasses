@@ -205,8 +205,35 @@
                                                         %>
                                                     </ul>
                                                 </div>                                 
-                                            </div>                                
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                    <label for="start_schedule_class_subject_input">
+                                                        <%= Labels.get("schedule.class.modal.subject")%>
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                    <input type="text" class="form-control" name="start_schedule_class_subject_input" 
+                                                           id="start_schedule_class_subject_input" 
+                                                           placeholder="<%= Labels.get("schedule.class.modal.subject_placeholder")%>">
+                                                </div>                                    
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                    <label for="start_schedule_class_comments_input">
+                                                        <%= Labels.get("schedule.class.modal.comments")%>
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                    <textarea rows="5" class="form-control" name="start_schedule_class_comments_input" 
+                                                              id="start_schedule_class_comments_input" ><%= Labels.get("schedule.class.modal.comments_placeholder")%>
+                                                    </textarea>
+                                                </div>                                    
+                                            </div>
                                         </div>
+
 
                                     </form>
                                 </div>
@@ -258,9 +285,9 @@
                                             <tr>
                                                 <%
                                                     if (rowCount == (rowsPerCell - 1)) {
-                                                        cellClass="schedule_class_row_end";
+                                                        cellClass = "schedule_class_row_end";
                                                     } else {
-                                                        cellClass="schedule_class_row_middle";
+                                                        cellClass = "schedule_class_row_middle";
                                                     }
                                                     if (rowCount == 0) {
                                                         cellClass = "schedule_class_row_start";
@@ -272,7 +299,7 @@
 
                                                 <% for (day = 0; day < 7; day++) {
                                                 %>
-                                                <td class="<%= cellClass %>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute %>">
+                                                <td class="<%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">
                                                 </td>                                            
                                                 <% } %>                                                                                                
                                             </tr>
@@ -340,7 +367,7 @@
                             </label>
                             <select class="form-control" id="find_teachers_available_in_days">
                                     <option value="0" <% if (availableDay
-                                            == 0) { %> selected <% }%>>
+                                                == 0) { %> selected <% }%>>
                                     <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                 </option>
                                 <%

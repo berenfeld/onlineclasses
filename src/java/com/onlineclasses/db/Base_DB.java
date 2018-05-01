@@ -29,6 +29,11 @@ public class Base_DB<T> {
     private DataSource _dataSource;
     private Dao<T, Integer> _dao;
 
+    public void createTable() throws SQLException {
+        TableUtils.dropTable(_dao, true);
+        TableUtils.createTable(_dao);
+    }
+
     public Dao<T, Integer> dao() {
         return _dao;
     }

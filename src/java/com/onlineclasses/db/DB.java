@@ -112,12 +112,22 @@ public class DB {
     private static InstituteType_DB _instituteType_db;
     private static ScheduledClass_DB _scheduledClass_db;
 
+    private static List<Base_DB> _entities_db;
+    
     private static void initORM(String dbUrl, String dbUser, String dbPassword) throws SQLException {
         _connectionSource = new JdbcConnectionSource(dbUrl, dbUser, dbPassword);
         _student_db = new Student_DB(_connectionSource);
         _teacher_db = new Teacher_DB(_connectionSource);
         _availableTime_db = new AvailableTime_DB(_connectionSource);
         _instituteType_db = new InstituteType_DB(_connectionSource);
+        _scheduledClass_db = new ScheduledClass_DB(_connectionSource);
+        
+        _entities_db = new ArrayList<>();
+        _entities_db.add(_student_db);
+        _entities_db.add(_teacher_db);
+        _entities_db.add(_availableTime_db);
+        _entities_db.add(_instituteType_db);
+        _entities_db.add(_scheduledClass_db);
     }
 
     public static Connection getConnection() throws SQLException {
@@ -137,15 +147,9 @@ public class DB {
     }
 
     private static void createAllTables() throws SQLException {
-        TableUtils.dropTable(_student_db.dao(), true);
-        TableUtils.dropTable(_teacher_db.dao(), true);
-        TableUtils.dropTable(_availableTime_db.dao(), true);        
-        TableUtils.dropTable(_instituteType_db.dao(), true);        
-        
-        TableUtils.createTable( _student_db.dao() );                
-        TableUtils.createTable( _teacher_db.dao() );
-        TableUtils.createTable( _availableTime_db.dao() );
-        TableUtils.createTable( _instituteType_db.dao() );
+        for (Base_DB baseDB : _entities_db) {
+            baseDB.createTable();
+        }                
     }
 
     private static void printAllTables() {
