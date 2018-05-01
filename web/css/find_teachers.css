@@ -3,20 +3,16 @@ th.schedule_class_calendar, td.schedule_class_calendar  {
     vertical-align: middle;
 }
 
+td.calendar_today {
+    background-color:#DCDCDC
+}
+
 td.calendar_available {
     background-color:#E0FFFF
 }
 
-td.calendar_free {
-    background-color:#ADD8E6
-}
-
-td.calendar_available:hover {
-    background-color:#ADD8E6
-}
-
-td.calendar_today {
-    background-color:#DCDCDC
+td.calendar_selected {
+    background-color:#7CFC00
 }
 
 #schedule_class_calendar_table td, #schedule_class_calendar_table th

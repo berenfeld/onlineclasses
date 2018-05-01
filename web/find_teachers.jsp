@@ -99,13 +99,13 @@
 
                                             <div class="form-group row">
                                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                                    <label for="start_day_input" class="col-form-label">
+                                                    <label for="start_schedule_class_day_input" class="col-form-label">
                                                         <%= Labels.get("schedule.class.modal.day")%>
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                     <input type="text" class="form-control" name="start_day_input" 
-                                                           id="start_day_input" 
+                                                           id="start_schedule_class_day_input" 
                                                            placeholder="<%= Labels.get("schedule.class.modal.day_placeholder")%>">
                                                 </div>                                    
                                             </div>
@@ -118,11 +118,13 @@
 
                                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                     <button class="btn btn-primary dropdown-toggle form-control" 
-                                                            id="schedule_class_start_minute"
+                                                            id="schedule_class_start_minute_button"
                                                             name="schedule_class_start_minute"
                                                             data-toggle="dropdown">
                                                         <span class="caret"></span>
-                                                        <%= Labels.get("schedule.class.modal.start_minute_choose")%>
+                                                        <span id="schedule_class_start_minute">
+                                                            <%= Labels.get("schedule.class.modal.start_minute_choose")%>
+                                                        </span>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-right">
                                                         <%
@@ -143,10 +145,12 @@
                                                 </div>                                        
                                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                     <button class="btn btn-primary dropdown-toggle form-control" 
-                                                            id="schedule_class_start_hour"
-                                                            name="schedule_class_start_hour" data-toggle="dropdown">
+                                                            id="schedule_class_start_hour_button"
+                                                            name="schedule_class_start_hour_button" data-toggle="dropdown">
                                                         <span class="caret"></span>
-                                                        <%= Labels.get("schedule.class.modal.start_hour_choose")%>
+                                                        <span id="schedule_class_start_hour">
+                                                            <%= Labels.get("schedule.class.modal.start_hour_choose")%>
+                                                        </span>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-right">
                                                         <%
@@ -170,13 +174,15 @@
                                                     <label for="schedule_class_duration_input" class="col-form-label">
                                                         <%= Labels.get("schedule.class.modal.duration")%>
                                                     </label>
-                                                </div>
+                                                </div>                                                    
                                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                     <button class="btn btn-primary dropdown-toggle form-control" 
                                                             id="schedule_class_duration_input"
                                                             name="schedule_class_duration_input" data-toggle="dropdown">
                                                         <span class="caret"></span>
-                                                        <%= Labels.get("schedule.class.modal.duration.select")%>
+                                                        <span id="schedule_class_duration">
+                                                            <%= Labels.get("schedule.class.modal.duration.select")%>
+                                                        </span>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-right">
                                                         <%
@@ -202,6 +208,29 @@
                                     </form>
                                 </div>
                                 <div class="col-lg-6 schedule_class_calendar_div">
+
+                                    <div class="column-centered text-center">
+                                        <nav id="schedule_class_week_select" aria-label="Page navigation">
+                                            <ul class="pagination">
+                                                <li>
+                                                    <a href="javascript:schedule_class_previous_week()" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <li>                                                    
+                                                    <a href="#"><span id="schedule_class_current_week_start"></span>
+                                                        -
+                                                        <span id="schedule_class_current_week_end"></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:schedule_class_next_week()" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+
                                     <table id="schedule_class_calendar_table" class="table table-responsive table-condensed">
                                         <thead>
                                         <th class="schedule_class_calendar" style="width: 12.5%">
@@ -225,7 +254,6 @@
                                                 </td>
                                                 <% for (day = 0; day < 7; day++) {%>
                                                 <td id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>">
-
                                                 </td>                                            
                                                 <% } %>
                                             </tr>

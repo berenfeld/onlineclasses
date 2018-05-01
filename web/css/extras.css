@@ -99,3 +99,8 @@
   left: auto;
   right: 13px;
 }
+
+.column-centered{
+    float: none;
+    margin: 0 auto;
+}
