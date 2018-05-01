@@ -47,7 +47,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" aria-label="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span>
+                                <span class="table_cell" aria-hidden="true">&times;</span>
                             </button>
 
                             <div class="modal-title"> 

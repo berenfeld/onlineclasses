@@ -45,7 +45,7 @@ public class Teacher_DB extends Base_DB<Teacher>{
     private static SelectArg _teacherFindQueryNameArg = new SelectArg();
     private static PreparedQuery<Teacher> _teacherFindQuery;
 
-    public List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName) {
+    public synchronized List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName) {
         try {
             _teacherFindQueryMinPriceArg.setValue(minPrice);
             _teacherFindQueryMaxPriceArg.setValue(maxPrice);

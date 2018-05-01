@@ -30,6 +30,7 @@ import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.table.TableUtils;
 import com.onlineclasses.entities.AvailableTime;
+import com.onlineclasses.entities.ScheduledClass;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.web.Config;
 import com.onlineclasses.web.Utils;
@@ -198,6 +199,10 @@ public class DB {
         return _student_db.getUser(id);
     }
 
+    public static Student getStudent(int id) throws SQLException {
+        return _student_db.get(id);
+    }
+    
     public static Teacher getTeacher(int id) throws SQLException {
         return _teacher_db.get(id);
     }
@@ -232,5 +237,9 @@ public class DB {
     
     public static List<Teacher> getAllTeachers() throws SQLException {
         return _teacher_db.dao().queryForAll();
+    }
+    
+    public static int addScheduledClass( ScheduledClass scheduledClass ) throws SQLException {
+        return _scheduledClass_db.add(scheduledClass);
     }
 }

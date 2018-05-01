@@ -19,14 +19,12 @@ public class ScheduledClass extends BasicEntity  {
     @DatabaseField(canBeNull = false, foreign = true, columnName = STUDENT_ID_COLUMN)
     public Student student;
     
-    @DatabaseField
-    public Date start_time;
+    @DatabaseField(canBeNull = false)
+    public Date start_date;
     
-    @DatabaseField
     public int duration;
     
-    @DatabaseField
-    public int price_pre_hour;
+    public int price_per_hour;
     
     @DatabaseField
     public String subject;

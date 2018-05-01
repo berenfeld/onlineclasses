@@ -1,0 +1,122 @@
+package com.onlineclasses.web;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+import com.onlineclasses.web.ServletBase;
+import com.google.gson.Gson;
+import com.onlineclasses.db.DB;
+import com.onlineclasses.entities.AvailableTime;
+import com.onlineclasses.entities.BasicRequest;
+import com.onlineclasses.entities.BasicResponse;
+import com.onlineclasses.entities.LoginRequest;
+import com.onlineclasses.entities.RegisterStudentRequest;
+import com.onlineclasses.entities.Student;
+import com.onlineclasses.entities.ScheduleClassRequest;
+import com.onlineclasses.entities.ScheduleClassResponse;
+import com.onlineclasses.entities.ScheduledClass;
+import com.onlineclasses.entities.Teacher;
+import com.onlineclasses.entities.TeacherCalendarResponse;
+import com.onlineclasses.entities.User;
+import static com.onlineclasses.web.ServletBase._gson;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.util.Calendar;
+import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
+
+@WebServlet(urlPatterns = {"/servlets/schedule_class"})
+public class ScheduleClassServlet extends ServletBase {
+
+    protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+
+        User user = ServletBase.getUser(request);
+        if (user == null) {
+            Utils.warning("not logged in user can't schedule class");
+            return new BasicResponse(-1, "can't schedule class");
+        }
+        Student student = DB.getStudent(user.id);
+        if (student == null) {
+            Utils.warning("teacher " + student.display_name + " can't schedule class");
+            return new BasicResponse(-1, "can't schedule class");
+        }
+
+        ScheduleClassRequest scheduleClassRequest = _gson.fromJson(requestString, ScheduleClassRequest.class);
+
+        Teacher teacher = DB.getTeacher(scheduleClassRequest.teacher_id);
+        if (student == null) {
+            Utils.warning("student " + student.display_name + " schedule with unknown teacher");
+            return new BasicResponse(-1, "can't schedule class");
+        }
+        
+        if ( ! checkClassInAvailableTime(scheduleClassRequest, teacher)) {
+            Utils.warning("student " + student.display_name + " can't schedule class with " + teacher.display_name + " not in available time");
+            return new BasicResponse(-1, "can't schedule class");
+        }
+ 
+        // check that it does not collide with other scheduled classes
+        
+        ScheduledClass scheduledClass = new ScheduledClass();
+        scheduledClass.teacher = teacher;
+        scheduledClass.student = student;
+        scheduledClass.start_date = scheduleClassRequest.start_date;
+        scheduledClass.duration = scheduleClassRequest.duration;
+        scheduledClass.price_per_hour = teacher.price_per_hour;
+        scheduledClass.subject = scheduleClassRequest.subject;
+        scheduledClass.student_comment = scheduleClassRequest.student_comment;
+        
+        DB.addScheduledClass(scheduledClass);
+        
+        ScheduleClassResponse scheduleClassResponse = new ScheduleClassResponse();
+       
+        return scheduleClassResponse;
+    }
+
+    private boolean checkClassInAvailableTime(ScheduleClassRequest scheduleClassRequest, Teacher teacher)
+    {
+               // check that the class is in the teacher available times
+        Calendar startDate = Calendar.getInstance();
+        startDate.setTime(scheduleClassRequest.start_date);
+        int startHour = startDate.get(Calendar.HOUR_OF_DAY);
+        int startMinute = startDate.get(Calendar.MINUTE);
+
+        Calendar endDate = Calendar.getInstance();
+        endDate.setTime(scheduleClassRequest.start_date);
+        endDate.add(Calendar.MINUTE, scheduleClassRequest.duration);
+        int endHour = endDate.get(Calendar.HOUR_OF_DAY);
+        int endMinute = endDate.get(Calendar.MINUTE);
+
+        List<AvailableTime> availableTimes = DB.getTeacherAvailableTime(teacher);
+        boolean found = false;
+        for (AvailableTime availableTime : availableTimes) {
+            if (availableTime.day != startDate.get(Calendar.DAY_OF_WEEK)) {
+                continue;
+            }
+            if (startHour < availableTime.start_hour) {
+                continue;
+            }
+            if ((startHour == availableTime.start_hour) && (startMinute < availableTime.start_minute)) {
+                continue;
+            }
+            if (endHour > availableTime.end_hour) {
+                continue;
+            }
+            if ((endHour == availableTime.end_hour) && (endMinute < availableTime.end_minute)) {
+                continue;
+            }
+            found = true;
+            break;
+        }
+        
+        return found;
+    }
+}
