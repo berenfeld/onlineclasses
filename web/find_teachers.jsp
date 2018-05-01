@@ -17,6 +17,9 @@
     final int endHour = CConfig.getInt("website.time.end_working_hour");
     Calendar today = Calendar.getInstance();
     int hour, day;
+    int minutesPerRow = CConfig.getInt("website.time.calendar_minutes_per_row");
+    int minutesPerUnit = CConfig.getInt("website.time.unit.minutes");
+    int rowsPerCell = minutesPerRow / minutesPerUnit;
 
     List<Teacher> teachers = DB.findTeachers(minPrice, maxPrice, displayName);
     for (Teacher teacher : teachers) {
@@ -129,7 +132,7 @@
                                                     <ul class="dropdown-menu dropdown-menu-right">
                                                         <%
                                                             int minute = 0;
-                                                            int minuteStep = Config.getInt("website.time.unit.minutes");
+                                                            int minuteStep = CConfig.getInt("website.time.unit.minutes");
                                                             while (minute < 60) {
                                                         %>
                                                         <li>
@@ -186,7 +189,7 @@
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-right">
                                                         <%
-                                                            int maximumLessonLength = Config.getInt("website.time.max_lesson_length_minutes");
+                                                            int maximumLessonLength = CConfig.getInt("website.time.max_lesson_length_minutes");
                                                             int lessonLength = minuteStep;
                                                             while (lessonLength <= maximumLessonLength) {
                                                                 String lessonMinutes = String.format("%02d", lessonLength) + " " + Labels.get("language.minutes");
@@ -218,7 +221,8 @@
                                                     </a>
                                                 </li>
                                                 <li>                                                    
-                                                    <a href="#"><span id="schedule_class_current_week_start"></span>
+                                                    <a class="left_to_right" href="#">
+                                                        <span id="schedule_class_current_week_start"></span>
                                                         -
                                                         <span id="schedule_class_current_week_end"></span></a>
                                                 </li>
@@ -245,20 +249,42 @@
                                         </thead>
                                         <tbody>
                                             <%
-                                                for (hour = startHour; hour <= endHour; hour++) {
-
+                                                hour = startHour;
+                                                minute = 0;
+                                                int rowCount = 0;
+                                                String cellClass = "";
+                                                while (hour < endHour) {
                                             %>  
                                             <tr>
-                                                <td class="schedule_class_calendar">
+                                                <%
+                                                    if (rowCount == (rowsPerCell - 1)) {
+                                                        cellClass="schedule_class_row_end";
+                                                    } else {
+                                                        cellClass="schedule_class_row_middle";
+                                                    }
+                                                    if (rowCount == 0) {
+                                                        cellClass = "schedule_class_row_start";
+                                                %>
+                                                <td rowspan="<%= rowsPerCell%>" class="schedule_class_calendar">
                                                     <%= Utils.formatTime(hour, 0)%>
                                                 </td>
-                                                <% for (day = 0; day < 7; day++) {%>
-                                                <td id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>">
-                                                </td>                                            
                                                 <% } %>
-                                            </tr>
-                                            <% }%>
 
+                                                <% for (day = 0; day < 7; day++) {
+                                                %>
+                                                <td class="<%= cellClass %>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute %>">
+                                                </td>                                            
+                                                <% } %>                                                                                                
+                                            </tr>
+                                            <%
+                                                    rowCount = (rowCount + 1) % rowsPerCell;
+                                                    minute += minutesPerUnit;
+                                                    if (minute == 60) {
+                                                        minute = 0;
+                                                        hour++;
+                                                    }
+                                                }
+                                            %>
                                         </tbody>
                                     </table>    
                                 </div>
@@ -313,11 +339,14 @@
                                 <%= Labels.get("find_teachers.sidebar.available_in_days")%>           
                             </label>
                             <select class="form-control" id="find_teachers_available_in_days">
-                                <option value="0" <% if (availableDay == 0) { %> selected <% }%>>
+                                    <option value="0" <% if (availableDay
+                                            == 0) { %> selected <% }%>>
                                     <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                 </option>
                                 <%
-                                    for (int i = 0; i < dayNamesLong.size(); i++) {
+                                    for (int i = 0;
+                                            i < dayNamesLong.size();
+                                            i++) {
 
                                 %>
                                 <option value="<%= i + 1%>" <% if (availableDay == (i + 1)) { %> selected <% }%>>
@@ -401,7 +430,7 @@
                                             %>
 
                                             <%= dayNamesLong.get(availableTime.day - 1)%>
-                                            <span style="direction: ltr; unicode-bidi: bidi-override;">                                        
+                                            <span class="left_to_right">                                        
                                                 <%= String.format("%02d:%02d", availableTime.start_hour, availableTime.start_minute)%>                                    
                                                 &nbsp;-&nbsp;
                                                 <%= String.format("%02d:%02d", availableTime.end_hour, availableTime.end_minute)%>                                    

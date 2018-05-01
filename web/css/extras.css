@@ -104,3 +104,13 @@
     float: none;
     margin: 0 auto;
 }
+
+.left_to_right {
+    direction: ltr; 
+    unicode-bidi: bidi-override;
+}
+
+.right_to_left {
+    direction: trl; 
+    unicode-bidi: bidi-override;
+}

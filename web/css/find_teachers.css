@@ -15,7 +15,24 @@ td.calendar_selected {
     background-color:#7CFC00
 }
 
+
 #schedule_class_calendar_table td, #schedule_class_calendar_table th
 {
     border: solid gray 1px;
+}
+
+#schedule_class_calendar_table td.schedule_class_row_start
+{
+    border-bottom: none
+}
+
+#schedule_class_calendar_table td.schedule_class_row_middle
+{
+    border-top: none;
+    border-bottom: none
+}
+
+#schedule_class_calendar_table td.schedule_class_row_end
+{
+    border-top: none
 }

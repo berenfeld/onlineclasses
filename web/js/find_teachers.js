@@ -76,18 +76,26 @@ function schedule_class_goto_date(date)
     var weekDay = new Date(find_teachers.calendar.first_date.getTime());
     $("#schedule_class_calendar_table td").removeClass("calendar_today");
     $("#schedule_class_calendar_table td").removeClass("calendar_available");
+
     for (var day = 1; day <= 7; day++) {
         var element = $("#schedule_class_day_" + day);
         element.html(parseDate(weekDay));
-        for (var hour = start_working_hour; hour <= end_working_hour; hour++) {
-            var element = $("#schedule_class_day_" + day + "_hour_" + hour);            
+        var minute = 0;
+        var hour = start_working_hour;
+        while (hour < end_working_hour) {
+            var element = $("#schedule_class_day_" + day + "_hour_" + hour + "_minute_" + minute);
+            minute += find_teachers.calendar.minutes_unit;
+            if (minute === 60) {
+                minute = 0;
+                hour++;
+            }
             if (sameDay(weekDay, today)) {
                 element.addClass("calendar_today");
             }
         }
         addDay(weekDay);
     }
-    
+
     find_teachers.calendar.last_date = new Date(find_teachers.calendar.first_date.getTime());
     addDays(find_teachers.calendar.last_date, 7);
 
@@ -98,11 +106,17 @@ function schedule_class_goto_date(date)
     {
         var available_time = find_teachers.available_times[i];
         var hour = available_time.start_hour;
+        var minute = available_time.start_minute;
 
-        while (hour <= available_time.end_hour) {
-            var element = $("#schedule_class_day_" + available_time.day + "_hour_" + hour);
+        while ((hour < available_time.end_hour) || 
+                (( (hour === available_time.end_hour) && (minute < available_time.end_minute))) ) {
+            var element = $("#schedule_class_day_" + available_time.day + "_hour_" + hour + "_minute_" + minute);
             element.addClass("calendar_available");
-            hour++;
+            minute += find_teachers.calendar.minutes_unit;
+            if (minute === 60 ){
+                hour++;
+                minute = 0;
+            }
         }
     }
 }
@@ -125,22 +139,36 @@ function schedule_class_login()
 
 function schedule_class_update_calendar()
 {
+    $("#schedule_class_calendar_table td").removeClass("calendar_selected");
+    
     var start_hour = parseInt10($("#schedule_class_start_hour").text(), -1);
     var start_minute = parseInt10($("#schedule_class_start_minute").text(), -1);
     var duration = parseInt10($("#schedule_class_duration_input").text(), -1);
     if ((start_hour === -1) || (start_minute === -1) || (duration === -1))
     {
-        // TODO clear selected date
         return;
     }
-    if (find_teachers.calendar.selected_day === null )
+    if (find_teachers.calendar.selected_day === null)
     {
         return;
     }
+    // TODO check if same day between selected and week view
     
     var day = find_teachers.calendar.selected_day.getDay() + 1;
-    var element = $("#schedule_class_day_" + day + "_hour_" + start_hour);   
-    element.addClass("calendar_selected");
+    var minute = start_minute;
+    var hour = start_hour;
+    var minutes = 0;
+    while (minutes < duration) {   
+        var element = $("#schedule_class_day_" + day + "_hour_" + hour + "_minute_" + minute);
+        element.addClass("calendar_selected");
+        minute += find_teachers.calendar.minutes_unit;
+        if (minute === 60 ) {
+            ++ hour;
+            minute = 0;
+        }
+        minutes += find_teachers.calendar.minutes_unit;
+    }
+    
 }
 
 function schedule_class_select_minute(minute)
@@ -166,15 +194,16 @@ function schedule_class_select_date(dateText, datePicker)
     find_teachers.calendar.selected_day = new Date(Date.parse(dateText));
     schedule_class_goto_date(find_teachers.calendar.selected_day);
     schedule_class_update_calendar();
-    
-    
-    
+
+
+
 }
 
 function find_teachers_init()
 {
     find_teachers.calendar = {};
     find_teachers.calendar.selected_day = null;
+    find_teachers.calendar.minutes_unit = parseInt10(online_classes.cconfig[ "website.time.unit.minutes"]);
     
     var min_value = parseInt(online_classes.cconfig[ "find_teachers.price.min" ]);
     var max_value = parseInt(online_classes.cconfig[ "find_teachers.price.max" ]);
