@@ -27,22 +27,10 @@ import javax.sql.DataSource;
  *
  * @author me
  */
-public class InstituteType_DB {
+public class InstituteType_DB extends Base_DB<InstituteType>{
 
-    public InstituteType_DB(DataSource dataSource, ConnectionSource connectionSource) throws SQLException {
-        _dataSource = dataSource;
-        _instituteTypeDao = DaoManager.createDao(connectionSource, InstituteType.class);
+    public InstituteType_DB(ConnectionSource connectionSource) throws SQLException {
+        super(connectionSource, InstituteType.class);
+
     }
-
-    private DataSource _dataSource;
-    private Dao<InstituteType, Integer> _instituteTypeDao;
-
-    public Dao dao() {
-        return _instituteTypeDao;
-    }
-
-    public void addInstituteType(InstituteType instituteType) throws SQLException {
-        _instituteTypeDao.create(instituteType);
-    }
-
 }

@@ -34,6 +34,7 @@ import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.web.Config;
 import com.onlineclasses.web.Utils;
 import java.util.ArrayList;
+import java.util.Map;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 
@@ -113,10 +114,10 @@ public class DB {
 
     private static void initORM(String dbUrl, String dbUser, String dbPassword) throws SQLException {
         _connectionSource = new JdbcConnectionSource(dbUrl, dbUser, dbPassword);
-        _student_db = new Student_DB(_dataSource, _connectionSource);
-        _teacher_db = new Teacher_DB(_dataSource, _connectionSource);
-        _availableTime_db = new AvailableTime_DB(_dataSource, _connectionSource);
-        _instituteType_db = new InstituteType_DB(_dataSource, _connectionSource);
+        _student_db = new Student_DB(_connectionSource);
+        _teacher_db = new Teacher_DB(_connectionSource);
+        _availableTime_db = new AvailableTime_DB(_connectionSource);
+        _instituteType_db = new InstituteType_DB(_connectionSource);
     }
 
     public static Connection getConnection() throws SQLException {
@@ -194,15 +195,15 @@ public class DB {
     }
 
     public static Teacher getTeacher(int id) throws SQLException {
-        return _teacher_db.getTeacher(id);
+        return _teacher_db.get(id);
     }
     
     public static int addStudent(Student student) throws SQLException {
-        return _student_db.addStudent(student);
+        return _student_db.add(student);
     }
 
     static void addTeacher(Teacher teacher) throws SQLException {
-        _teacher_db.addTeacher(teacher);
+        _teacher_db.add(teacher);
     }
 
     public static List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName) {
@@ -210,11 +211,11 @@ public class DB {
     }
 
     public static void addAvailableTime(AvailableTime availableTime) throws SQLException {
-        _availableTime_db.addAvailableTime(availableTime);
+        _availableTime_db.add(availableTime);
     }
 
     public static void addInstituteType(InstituteType instituteType) throws SQLException {
-        _instituteType_db.addInstituteType(instituteType);
+        _instituteType_db.add(instituteType);
     }
      
     public static List<AvailableTime> getTeacherAvailableTime(Teacher teacher) {

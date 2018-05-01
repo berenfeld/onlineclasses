@@ -26,12 +26,11 @@ import javax.sql.DataSource;
  *
  * @author me
  */
-public class Teacher_DB {
+public class Teacher_DB extends Base_DB<Teacher>{
 
-    public Teacher_DB(DataSource dataSource, ConnectionSource connectionSource) throws SQLException {
-        _dataSource = dataSource;
-        _teachersDao = DaoManager.createDao(connectionSource, Teacher.class);
-        QueryBuilder<Teacher, Integer> queryBuilder = _teachersDao.queryBuilder();
+    public Teacher_DB(ConnectionSource connectionSource) throws SQLException {
+        super(connectionSource, Teacher.class);
+        QueryBuilder<Teacher, Integer> queryBuilder = dao().queryBuilder();
         Where<Teacher, Integer> where = queryBuilder.where();
         where.ge(Teacher.PRICE_PER_HOUR_COLUMN, _teacherFindQueryMinPriceArg);
         where.and();
@@ -41,20 +40,10 @@ public class Teacher_DB {
         _teacherFindQuery = queryBuilder.prepare();
     }
 
-    private DataSource _dataSource;
-    private static Dao<Teacher, Integer> _teachersDao;
     private static SelectArg _teacherFindQueryMinPriceArg = new SelectArg();
     private static SelectArg _teacherFindQueryMaxPriceArg = new SelectArg();
     private static SelectArg _teacherFindQueryNameArg = new SelectArg();
     private static PreparedQuery<Teacher> _teacherFindQuery;
-
-    public Dao dao() {
-        return _teachersDao;
-    }
-
-    public void addTeacher(Teacher teacher) throws SQLException {
-        _teachersDao.create(teacher);
-    }
 
     public List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName) {
         try {
@@ -62,14 +51,10 @@ public class Teacher_DB {
             _teacherFindQueryMaxPriceArg.setValue(maxPrice);
             _teacherFindQueryNameArg.setValue("%" + displayName + "%");
             Utils.info("find teacher with args min price " + minPrice + " max price " + maxPrice + " display name " + displayName);
-            return _teachersDao.query(_teacherFindQuery);
+            return dao().query(_teacherFindQuery);
         } catch (SQLException ex) {
             Utils.exception(ex);
             return new ArrayList<Teacher>();
         }
-    }
-    
-    public static Teacher getTeacher(int id) throws SQLException {
-        return _teachersDao.queryForId(id);
-    }
+    }   
 }

@@ -27,35 +27,26 @@ import javax.sql.DataSource;
  *
  * @author me
  */
-public class AvailableTime_DB {
+public class AvailableTime_DB extends Base_DB<AvailableTime> {
 
-    public AvailableTime_DB(DataSource dataSource, ConnectionSource connectionSource) throws SQLException {
-        _dataSource = dataSource;
-        _availableTimeDao = DaoManager.createDao(connectionSource, AvailableTime.class);
-        QueryBuilder<AvailableTime, Integer> queryBuilder = _availableTimeDao.queryBuilder();
+    public AvailableTime_DB(ConnectionSource connectionSource) throws SQLException {
+        super(connectionSource, AvailableTime.class);
+        
+        QueryBuilder<AvailableTime, Integer> queryBuilder = dao().queryBuilder();
         Where<AvailableTime, Integer> where = queryBuilder.where();
         where.eq(AvailableTime.TEACHER_ID_COLUMN, _getTeacherAvailableTimeTeacherIdArg);        
         queryBuilder.orderBy(AvailableTime.DAY_COLUMN, true);
         _getTeacherAvailableTimeQuery = queryBuilder.prepare();
     }
 
-    private DataSource _dataSource;
-    private Dao<AvailableTime, Integer> _availableTimeDao;
+
     private SelectArg _getTeacherAvailableTimeTeacherIdArg = new SelectArg();
     private static PreparedQuery<AvailableTime> _getTeacherAvailableTimeQuery;
- 
-        public Dao dao() {
-        return _availableTimeDao;
-    }
-
-    public void addAvailableTime(AvailableTime availableTime) throws SQLException {
-        _availableTimeDao.create(availableTime);
-    }
     
     public synchronized List<AvailableTime> getTeacherAvailableTime(Teacher teacher) {        
         try {
             _getTeacherAvailableTimeTeacherIdArg.setValue(teacher);
-            return _availableTimeDao.query(_getTeacherAvailableTimeQuery);
+            return dao().query(_getTeacherAvailableTimeQuery);
         } catch (SQLException ex) {
             Utils.exception(ex);
             return new ArrayList<AvailableTime>();

@@ -10,28 +10,38 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.SelectArg;
-import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
-import com.onlineclasses.entities.InstituteType;
-import com.onlineclasses.entities.ScheduledClass;
+import com.j256.ormlite.table.TableUtils;
 import com.onlineclasses.entities.Student;
-import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.web.Utils;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 
-/**
- *
- * @author me
- */
-public class ScheduledClass_DB extends Base_DB<ScheduledClass>{
+public class Base_DB<T> {
 
-    public ScheduledClass_DB(ConnectionSource connectionSource) throws SQLException {
-        super(connectionSource, ScheduledClass.class);
+    public Base_DB(ConnectionSource connectionSource, Class<T> clazz) throws SQLException {
+        _dao = DaoManager.createDao(connectionSource, clazz);
+    }
 
+    private DataSource _dataSource;
+    private Dao<T, Integer> _dao;
+
+    public Dao<T, Integer> dao() {
+        return _dao;
+    }
+
+    public int add(T t) throws SQLException {
+        return _dao.create(t);
+    }
+
+    public List<T> getAll() throws SQLException {
+        return _dao.queryForAll();
+    }
+
+    public T get(int id) throws SQLException {
+        return _dao.queryForId(id);
     }
 }

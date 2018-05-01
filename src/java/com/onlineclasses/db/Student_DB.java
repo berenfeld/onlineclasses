@@ -23,33 +23,24 @@ import javax.sql.DataSource;
  *
  * @author me
  */
-public class Student_DB {
+public class Student_DB extends Base_DB<Student> {
 
-    public Student_DB(DataSource dataSource, ConnectionSource connectionSource) throws SQLException {
-        _dataSource = dataSource;
-        _studentsDao = DaoManager.createDao(connectionSource, Student.class);
-        QueryBuilder<Student, Integer> queryBuilder = _studentsDao.queryBuilder();
+    public Student_DB(ConnectionSource connectionSource) throws SQLException {
+        super(connectionSource, Student.class);
+        QueryBuilder<Student, Integer> queryBuilder = dao().queryBuilder();
         queryBuilder.where().eq(Student.EMAIL_COLUMN, _userQueryByEmailArg);
         _userQueryByEmail = queryBuilder.prepare();
     }
 
-    private DataSource _dataSource;
-    private Dao<Student, Integer> _studentsDao;
     private SelectArg _userQueryByEmailArg = new SelectArg();
     private PreparedQuery<Student> _userQueryByEmail;
-
-    public Dao dao()
-    {
-        return _studentsDao;
-    }
     
     public User getUserByEmail(String email) {
 
         try {
-            Connection connection = _dataSource.getConnection();
             _userQueryByEmailArg.setValue(email);
 
-            User user = _studentsDao.queryForFirst(_userQueryByEmail);
+            User user = dao().queryForFirst(_userQueryByEmail);
             // TODO can also be a teacher
             return user;
         } catch (SQLException ex) {
@@ -60,15 +51,11 @@ public class Student_DB {
 
     public User getUser(int id) {
         try {
-            User user = _studentsDao.queryForId(id);
+            User user = dao().queryForId(id);
             return user;
         } catch (SQLException ex) {
             Utils.exception(ex);
             return null;
         }
-    }
-    
-    public int addStudent(Student student) throws SQLException {
-        return _studentsDao.create(student);
-    }
+    }   
 }
