@@ -99,7 +99,7 @@ function schedule_class_goto_date(date)
 
     find_teachers.calendar.last_date = new Date(find_teachers.calendar.first_date.getTime());
     find_teachers.calendar.week_days = [];
-    for (var i=0;i<7;i++)
+    for (var i = 0; i < 7; i++)
     {
         find_teachers.calendar.week_days[i] = new Date(find_teachers.calendar.first_date.getTime());
         addDays(find_teachers.calendar.week_days[i], i);
@@ -132,14 +132,14 @@ function schedule_class_goto_date(date)
         var scheduled_class = find_teachers.scheduled_classes[i];
         var start_date = new Date(Date.parse(scheduled_class.start_date));
         var day = (start_date.getDay() + 1);
-        
-        if (! sameDay(find_teachers.calendar.week_days[day-1], start_date)) {
+
+        if (!sameDay(find_teachers.calendar.week_days[day - 1], start_date)) {
             continue;
         }
         var end_date = new Date(Date.parse(scheduled_class.start_date));
         addMinutes(end_date, scheduled_class.duration_minutes);
-        
-        
+
+
         var start_hour = start_date.getHours();
         var start_minute = start_date.getMinutes();
         var end_hour = end_date.getHours();
@@ -239,13 +239,13 @@ function schedule_class_select_date(dateText, datePicker)
 
 function schedule_class_select_time(element)
 {
-    var elem = $("#"+ element.id);
+    var elem = $("#" + element.id);
     var day = parseInt10(elem.attr("data-day"));
-    var hour = parseInt10(lem.attr("data-hour"));
+    var hour = parseInt10(elem.attr("data-hour"));
     var minute = parseInt10(elem.attr("data-minute"));
-    ranb
-    find_teachers.calendar.selected_day = new Date(Date.parse(dateText));
-    schedule_class_goto_date(find_teachers.calendar.selected_day);
+
+    find_teachers.calendar.selected_day = new Date(find_teachers.calendar.week_days[day].getTime());
+    $("#start_schedule_class_day_input").datepicker('setDate' ,find_teachers.calendar.selected_day );
     $("#schedule_class_start_hour").text(hour);
     $("#schedule_class_start_minute").text(minute);
 }
