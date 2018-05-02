@@ -11,6 +11,10 @@ td.calendar_available {
     background-color:#E0FFFF
 }
 
+td.calendar_busy {
+    background-color:#FF7F50
+}
+
 td.calendar_selected {
     background-color:#7CFC00
 }

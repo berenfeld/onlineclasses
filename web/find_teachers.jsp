@@ -82,6 +82,7 @@
 
                 </div>
             </div>
+
             <div id="schedule_class_modal" class="modal fade" role="dialog">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -233,9 +234,12 @@
                                                 </div>                                    
                                             </div>
                                         </div>
-
-
                                     </form>
+                                                    
+                                    <div id="schedule_class_warning_div" class="alert alert-warning hide alert-dismissible h4">
+                                        <span class="table_cell glyphicon glyphicon-warning-sign"></span>
+                                        <span class="table_cell" id="schedule_class_warning"></span>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6 schedule_class_calendar_div">
 
@@ -317,7 +321,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success" onclick="schedule_class_confirm()" data-dismiss="modal"><%= Labels.get("schedule.class.modal.confirm_button")%></button>
+                                <button type="button" class="btn btn-success" onclick="schedule_class_confirm()"><%= Labels.get("schedule.class.modal.confirm_button")%></button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
                             </div>
                         </div>
@@ -366,7 +370,7 @@
                                 <%= Labels.get("find_teachers.sidebar.available_in_days")%>           
                             </label>
                             <select class="form-control" id="find_teachers_available_in_days">
-                                    <option value="0" <% if (availableDay
+                                <option value="0" <% if (availableDay
                                                 == 0) { %> selected <% }%>>
                                     <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                 </option>

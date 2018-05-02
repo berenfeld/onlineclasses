@@ -35,9 +35,9 @@ function schedule_class_button_clicked(source)
         }
     }
     var teacher_button = $("#" + event.target.id);
-    var teacher_id = parseInt10(teacher_button.attr("data-teacher-id"));
+    find_teachers.teacher_id = parseInt10(teacher_button.attr("data-teacher-id"));
     var request = {};
-    request.teacher_id = teacher_id;
+    request.teacher_id = find_teachers.teacher_id;
     $.ajax("servlets/teacher_calendar",
             {
                 type: "POST",
@@ -76,6 +76,7 @@ function schedule_class_goto_date(date)
     var weekDay = new Date(find_teachers.calendar.first_date.getTime());
     $("#schedule_class_calendar_table td").removeClass("calendar_today");
     $("#schedule_class_calendar_table td").removeClass("calendar_available");
+    $("#schedule_class_calendar_table td").removeClass("calendar_busy");
 
     for (var day = 1; day <= 7; day++) {
         var element = $("#schedule_class_day_" + day);
@@ -99,8 +100,8 @@ function schedule_class_goto_date(date)
     find_teachers.calendar.last_date = new Date(find_teachers.calendar.first_date.getTime());
     addDays(find_teachers.calendar.last_date, 7);
 
-    $("#schedule_class_current_week_start").html(parseDateLong(find_teachers.calendar.first_date))
-    $("#schedule_class_current_week_end").html(parseDateLong(find_teachers.calendar.last_date))
+    $("#schedule_class_current_week_start").html(parseDateLong(find_teachers.calendar.first_date));
+    $("#schedule_class_current_week_end").html(parseDateLong(find_teachers.calendar.last_date));
 
     for (var i = 0; i < find_teachers.available_times.length; i++)
     {
@@ -108,12 +109,40 @@ function schedule_class_goto_date(date)
         var hour = available_time.start_hour;
         var minute = available_time.start_minute;
 
-        while ((hour < available_time.end_hour) || 
-                (( (hour === available_time.end_hour) && (minute < available_time.end_minute))) ) {
+        while ((hour < available_time.end_hour) ||
+                (((hour === available_time.end_hour) && (minute < available_time.end_minute)))) {
             var element = $("#schedule_class_day_" + available_time.day + "_hour_" + hour + "_minute_" + minute);
             element.addClass("calendar_available");
             minute += find_teachers.calendar.minutes_unit;
-            if (minute === 60 ){
+            if (minute === 60) {
+                hour++;
+                minute = 0;
+            }
+        }
+    }
+
+    for (var i = 0; i < find_teachers.scheduled_classes.length; i++)
+    {
+        var scheduled_class = find_teachers.scheduled_classes[i];
+        var start_date = new Date(Date.parse(scheduled_class.start_date));
+        var end_date = new Date(Date.parse(scheduled_class.start_date));
+        addMinutes(end_date, scheduled_class.duration_minutes);
+
+        var day = start_date.getDay();
+        var start_hour = start_date.getHours();
+        var start_minute = start_date.getMinutes();
+        var end_hour = end_date.getHours();
+        var end_minute = end_date.getMinutes();
+
+        var hour = start_hour;
+        var minute = start_minute;
+
+        while ((hour < end_hour) ||
+                (((hour === end_hour) && (minute < end_minute)))) {
+            var element = $("#schedule_class_day_" + day + "_hour_" + hour + "_minute_" + minute);
+            element.addClass("calendar_busy");
+            minute += find_teachers.calendar.minutes_unit;
+            if (minute === 60) {
                 hour++;
                 minute = 0;
             }
@@ -124,6 +153,7 @@ function schedule_class_received_teacher_calendar(response)
 {
     find_teachers.teacher = response.teacher;
     find_teachers.available_times = response.available_times;
+    find_teachers.scheduled_classes = response.scheduled_classes;
     var today = new Date();
     schedule_class_goto_date(today);
 
@@ -140,7 +170,7 @@ function schedule_class_login()
 function schedule_class_update_calendar()
 {
     $("#schedule_class_calendar_table td").removeClass("calendar_selected");
-    
+
     var start_hour = parseInt10($("#schedule_class_start_hour").text(), -1);
     var start_minute = parseInt10($("#schedule_class_start_minute").text(), -1);
     var duration = parseInt10($("#schedule_class_duration_input").text(), -1);
@@ -153,22 +183,22 @@ function schedule_class_update_calendar()
         return;
     }
     // TODO check if same day between selected and week view
-    
+
     var day = find_teachers.calendar.selected_day.getDay() + 1;
     var minute = start_minute;
     var hour = start_hour;
     var minutes = 0;
-    while (minutes < duration) {   
+    while (minutes < duration) {
         var element = $("#schedule_class_day_" + day + "_hour_" + hour + "_minute_" + minute);
         element.addClass("calendar_selected");
         minute += find_teachers.calendar.minutes_unit;
-        if (minute === 60 ) {
-            ++ hour;
+        if (minute === 60) {
+            ++hour;
             minute = 0;
         }
         minutes += find_teachers.calendar.minutes_unit;
     }
-    
+
 }
 
 function schedule_class_select_minute(minute)
@@ -194,17 +224,60 @@ function schedule_class_select_date(dateText, datePicker)
     find_teachers.calendar.selected_day = new Date(Date.parse(dateText));
     schedule_class_goto_date(find_teachers.calendar.selected_day);
     schedule_class_update_calendar();
-
-
-
 }
 
+function schedule_class_confirm()
+{
+    var start_hour = parseInt10($("#schedule_class_start_hour").text(), -1);
+    var start_minute = parseInt10($("#schedule_class_start_minute").text(), -1);
+    var duration = parseInt10($("#schedule_class_duration_input").text(), -1);
+
+    if ((start_hour === -1) || (start_minute === -1) || (duration === -1))
+    {
+        $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.please_choose_time"]);
+        $("#schedule_class_warning_div").removeClass("hide");
+        $("#schedule_class_warning_div").addClass("show");
+        $("#schedule_class_warning_div").alert("show");
+        return;
+    }
+    if (find_teachers.calendar.selected_day === null)
+    {
+        $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.please_choose_day"]);
+        $("#schedule_class_warning_div").removeClass("hide");
+        $("#schedule_class_warning_div").addClass("show");
+        $("#schedule_class_warning_div").alert("show");
+        return;
+    }
+
+    var start_date = new Date(find_teachers.calendar.selected_day.getTime());
+    start_date.setHours(start_hour);
+    start_date.setMinutes(start_minute);
+    var request = {};
+    request.teacher_id = find_teachers.teacher_id;
+    request.start_date = start_date;
+    request.duration_minutes = duration;
+    request.subject = $("#start_schedule_class_subject_input").val();
+    request.student_comment = $("#start_schedule_class_comment_input").val();
+    $.ajax("servlets/schedule_class",
+            {
+                type: "POST",
+                data: JSON.stringify(request),
+                dataType: "JSON",
+                success: schedule_class_response
+            });
+    $("#schedule_class_modal").modal("hide");
+}
+
+function schedule_class_response(response)
+{
+
+}
 function find_teachers_init()
 {
     find_teachers.calendar = {};
     find_teachers.calendar.selected_day = null;
     find_teachers.calendar.minutes_unit = parseInt10(online_classes.cconfig[ "website.time.unit.minutes"]);
-    
+
     var min_value = parseInt(online_classes.cconfig[ "find_teachers.price.min" ]);
     var max_value = parseInt(online_classes.cconfig[ "find_teachers.price.max" ]);
 

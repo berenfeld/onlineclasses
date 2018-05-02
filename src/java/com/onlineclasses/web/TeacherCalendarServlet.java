@@ -40,9 +40,7 @@ public class TeacherCalendarServlet extends ServletBase {
         
         teacherCalendarResponse.teacher = DB.getTeacher(teacherCalendarRequest.teacher_id);
         teacherCalendarResponse.available_times = DB.getTeacherAvailableTime(teacherCalendarResponse.teacher);
-        // TODO get scheduled classes
-        //teacherCalendarResponse.available_times = DB.getTeacherAvailableTime(teacherCalendarResponse.teacher);
-       
+        teacherCalendarResponse.scheduled_classes = DB.getTeacherScheduledClasses(teacherCalendarResponse.teacher);               
         return teacherCalendarResponse;
     }
 

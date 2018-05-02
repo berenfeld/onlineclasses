@@ -65,7 +65,7 @@ public class ScheduleClassServlet extends ServletBase {
         classEnd.setTime(scheduleClassRequest.start_date);
         classEnd.add(Calendar.MINUTE, scheduleClassRequest.duration_minutes);
 
-        int minTimeBeforeScheduleClassStartHours = CConfig.getInt("min_time_before_schedule_class_start_hours");
+        int minTimeBeforeScheduleClassStartHours = CConfig.getInt("website.time.min_time_before_schedule_class_start_hours");
 
         if ((classStart.getTimeInMillis() - now.getTimeInMillis()) < (minTimeBeforeScheduleClassStartHours * Utils.MS_IN_HOUR)) {
             Utils.warning("student " + student.display_name + " can't schedule class with " + teacher.display_name
@@ -106,8 +106,7 @@ public class ScheduleClassServlet extends ServletBase {
         if (1 != DB.addScheduledClass(scheduledClass)) {
             Utils.warning("student " + student.display_name + " schedule class failed. DB error");
             return new BasicResponse(-1, "can't schedule class");
-        }
-        
+        }        
 
         Utils.info("student " + student.display_name + " scheduled class with " + teacher.display_name + 
                 " at " + scheduledClass.start_date + " duration " + scheduledClass.duration_minutes + " subject " +

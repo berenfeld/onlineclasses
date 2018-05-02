@@ -33,6 +33,11 @@ function addDays(date, days)
     date.setTime(date.getTime() + (days * 1000 * 60 * 60 * 24));
 }
 
+function addMinutes(date, minutes)
+{
+    date.setTime(date.getTime() + (minutes * 1000 * 60 ));
+}
+
 function sameDay(date1, date2) {
     return (date1.getMonth() === date2.getMonth()) &&
             (date1.getFullYear() === date2.getFullYear()) &&
