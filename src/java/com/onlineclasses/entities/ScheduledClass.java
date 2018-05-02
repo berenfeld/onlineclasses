@@ -22,8 +22,9 @@ public class ScheduledClass extends BasicEntity  {
     @DatabaseField(canBeNull = false)
     public Date start_date;
     
-    public int duration;
-    
+    @DatabaseField(canBeNull = false)
+    public int duration_minutes;
+       
     public int price_per_hour;
     
     @DatabaseField

@@ -242,4 +242,9 @@ public class DB {
     public static int addScheduledClass( ScheduledClass scheduledClass ) throws SQLException {
         return _scheduledClass_db.add(scheduledClass);
     }
+    
+    public static List<ScheduledClass> getTeacherScheduledClasses(Teacher teacher) throws SQLException
+    {
+        return _scheduledClass_db.getTeacherScheduledClasses(teacher);
+    }
 }

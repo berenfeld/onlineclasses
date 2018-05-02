@@ -31,18 +31,19 @@ import javax.sql.DataSource;
 public class ScheduledClass_DB extends Base_DB<ScheduledClass>{
 
     public ScheduledClass_DB(ConnectionSource connectionSource) throws SQLException {
-        super(connectionSource, ScheduledClass.class);
+        super(connectionSource, ScheduledClass.class);        
         
-QueryBuilder<ScheduledClass, Integer> queryBuilder = dao().queryBuilder();
+        QueryBuilder<ScheduledClass, Integer> queryBuilder = dao().queryBuilder();
+        
         Where<ScheduledClass, Integer> where = queryBuilder.where();
-        where.eq(ScheduledClass.TEACHER_ID_COLUMN, _getTeacherClassesTeacherArg);        
-        _getTeacherClasses = queryBuilder.prepare();
+        where.eq(ScheduledClass.TEACHER_ID_COLUMN, _getTeacherClassesTeacherArg);
+        _getTeacherClasses = queryBuilder.prepare();          
     }
     
     private final PreparedQuery<ScheduledClass> _getTeacherClasses;
     private final SelectArg _getTeacherClassesTeacherArg = new SelectArg();
     
-    public synchronized List<ScheduledClass> getTeacherClasses(Teacher teacher) throws SQLException
+    public synchronized List<ScheduledClass> getTeacherScheduledClasses(Teacher teacher) throws SQLException
     {
         _getTeacherClassesTeacherArg.setValue(teacher);
         return dao().query(_getTeacherClasses);

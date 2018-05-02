@@ -53,37 +53,75 @@ public class ScheduleClassServlet extends ServletBase {
         ScheduleClassRequest scheduleClassRequest = _gson.fromJson(requestString, ScheduleClassRequest.class);
 
         Teacher teacher = DB.getTeacher(scheduleClassRequest.teacher_id);
-        if (student == null) {
+        if (teacher == null) {
             Utils.warning("student " + student.display_name + " schedule with unknown teacher");
             return new BasicResponse(-1, "can't schedule class");
         }
-        
-        if ( ! checkClassInAvailableTime(scheduleClassRequest, teacher)) {
+
+        Calendar now = Calendar.getInstance();
+        Calendar classStart = Calendar.getInstance();
+        classStart.setTime(scheduleClassRequest.start_date);
+        Calendar classEnd = Calendar.getInstance();
+        classEnd.setTime(scheduleClassRequest.start_date);
+        classEnd.add(Calendar.MINUTE, scheduleClassRequest.duration_minutes);
+
+        int minTimeBeforeScheduleClassStartHours = CConfig.getInt("min_time_before_schedule_class_start_hours");
+
+        if ((classStart.getTimeInMillis() - now.getTimeInMillis()) < (minTimeBeforeScheduleClassStartHours * Utils.MS_IN_HOUR)) {
+            Utils.warning("student " + student.display_name + " can't schedule class with " + teacher.display_name
+                    + " at " + scheduleClassRequest.start_date + " too late.");
+            return new BasicResponse(-1, "can't schedule class");
+        }
+
+        if (!checkClassInAvailableTime(scheduleClassRequest, teacher)) {
             Utils.warning("student " + student.display_name + " can't schedule class with " + teacher.display_name + " not in available time");
             return new BasicResponse(-1, "can't schedule class");
         }
- 
-        // check that it does not collide with other scheduled classes
+
+        List<ScheduledClass> allTeacherClasses = DB.getTeacherScheduledClasses(teacher);
+        for (ScheduledClass scheduledClass : allTeacherClasses) {
+            Calendar otherClassStart = Calendar.getInstance();
+            otherClassStart.setTime(scheduledClass.start_date);
+            Calendar otherClassEnd = Calendar.getInstance();
+            otherClassEnd.setTime(scheduledClass.start_date);
+            otherClassEnd.add(Calendar.MINUTE, scheduledClass.duration_minutes);
+
+            if (Utils.overlappingEvents(classStart, classEnd, otherClassStart, otherClassEnd)) {
+                Utils.warning("student " + student.display_name + " can't schedule class with " + teacher.display_name
+                        + " at " + scheduleClassRequest.start_date + " . conflict with other class.");
+                return new BasicResponse(-1, "can't schedule class");
+            }
+        }
         
+        // check that it does not collide with other scheduled classes
         ScheduledClass scheduledClass = new ScheduledClass();
         scheduledClass.teacher = teacher;
         scheduledClass.student = student;
         scheduledClass.start_date = scheduleClassRequest.start_date;
-        scheduledClass.duration = scheduleClassRequest.duration;
+        scheduledClass.duration_minutes = scheduleClassRequest.duration_minutes;
         scheduledClass.price_per_hour = teacher.price_per_hour;
         scheduledClass.subject = scheduleClassRequest.subject;
         scheduledClass.student_comment = scheduleClassRequest.student_comment;
+
+        if (1 != DB.addScheduledClass(scheduledClass)) {
+            Utils.warning("student " + student.display_name + " schedule class failed. DB error");
+            return new BasicResponse(-1, "can't schedule class");
+        }
         
-        DB.addScheduledClass(scheduledClass);
+
+        Utils.info("student " + student.display_name + " scheduled class with " + teacher.display_name + 
+                " at " + scheduledClass.start_date + " duration " + scheduledClass.duration_minutes + " subject " +
+                scheduledClass.subject);
         
         ScheduleClassResponse scheduleClassResponse = new ScheduleClassResponse();
-       
+        scheduleClassResponse.class_id = scheduledClass.id;
+
+        // TODO send email
         return scheduleClassResponse;
     }
 
-    private boolean checkClassInAvailableTime(ScheduleClassRequest scheduleClassRequest, Teacher teacher)
-    {
-               // check that the class is in the teacher available times
+    private boolean checkClassInAvailableTime(ScheduleClassRequest scheduleClassRequest, Teacher teacher) {
+
         Calendar startDate = Calendar.getInstance();
         startDate.setTime(scheduleClassRequest.start_date);
         int startHour = startDate.get(Calendar.HOUR_OF_DAY);
@@ -91,7 +129,7 @@ public class ScheduleClassServlet extends ServletBase {
 
         Calendar endDate = Calendar.getInstance();
         endDate.setTime(scheduleClassRequest.start_date);
-        endDate.add(Calendar.MINUTE, scheduleClassRequest.duration);
+        endDate.add(Calendar.MINUTE, scheduleClassRequest.duration_minutes);
         int endHour = endDate.get(Calendar.HOUR_OF_DAY);
         int endMinute = endDate.get(Calendar.MINUTE);
 
@@ -116,7 +154,7 @@ public class ScheduleClassServlet extends ServletBase {
             found = true;
             break;
         }
-        
+
         return found;
     }
 }

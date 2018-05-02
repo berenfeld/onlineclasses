@@ -17,7 +17,7 @@ public class ScheduleClassRequest extends BasicRequest {
     }
     public int teacher_id;
     public Date start_date;
-    public int duration;
+    public int duration_minutes;
     public String subject;
     public String student_comment;
 }
