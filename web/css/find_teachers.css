@@ -1,6 +1,7 @@
 th.schedule_class_calendar, td.schedule_class_calendar  {
     text-align:center;
     vertical-align: middle;
+    cursor: pointer;
 }
 
 td.calendar_today {

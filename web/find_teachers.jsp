@@ -303,7 +303,9 @@
 
                                                 <% for (day = 0; day < 7; day++) {
                                                 %>
-                                                <td class="<%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">
+                                                <td data-day="<%=day%>" data-hour="<%= hour %>" data-minute="<%= minute %>"
+                                                    onclick="javascript:schedule_class_select_time(this)"
+                                                    class="schedule_class_calendar <%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">
                                                 </td>                                            
                                                 <% } %>                                                                                                
                                             </tr>

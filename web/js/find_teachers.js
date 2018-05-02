@@ -226,6 +226,19 @@ function schedule_class_select_date(dateText, datePicker)
     schedule_class_update_calendar();
 }
 
+function schedule_class_select_time(element)
+{
+    var elem = $("#"+ element.id);
+    var day = parseInt10(elem.attr("data-day"));
+    var hour = parseInt10(lem.attr("data-hour"));
+    var minute = parseInt10(elem.attr("data-minute"));
+    ranb
+    find_teachers.calendar.selected_day = new Date(Date.parse(dateText));
+    schedule_class_goto_date(find_teachers.calendar.selected_day);
+    $("#schedule_class_start_hour").text(hour);
+    $("#schedule_class_start_minute").text(minute);
+}
+
 function schedule_class_confirm()
 {
     var start_hour = parseInt10($("#schedule_class_start_hour").text(), -1);
