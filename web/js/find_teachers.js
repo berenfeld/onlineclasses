@@ -341,6 +341,7 @@ function schedule_class_response(response)
         $("#schedule_class_info").text(online_classes.clabels["schedule.class.modal.schedule_class_response_error"]);
     } else {
         $("#schedule_class_info").text(online_classes.clabels["schedule.class.modal.schedule_class_response_ok"]);
+        redirectAfter("/scheduled_class?id=" + response.class_id);
     }
 
 }

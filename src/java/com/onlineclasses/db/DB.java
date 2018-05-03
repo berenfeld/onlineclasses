@@ -247,4 +247,10 @@ public class DB {
     public static List<ScheduledClass> getTeacherScheduledClasses(Teacher teacher) throws SQLException {
         return _scheduledClass_db.getTeacherScheduledClasses(teacher);
     }
+    
+    public static ScheduledClass getScheduledClass(int id) throws SQLException {
+        ScheduledClass scheduledClass = _scheduledClass_db.get(id);
+        scheduledClass.teacher = getTeacher(scheduledClass.teacher.id);
+        return scheduledClass;
+    }
 }

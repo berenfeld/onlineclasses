@@ -1,0 +1,27 @@
+#scheduled_class_main_board {
+    background-image: url("/img/black_board.jpg");
+    background-repeat: no-repeat;   
+    background-size: contain;
+    height:600px;
+    background-size:100%;
+    background-clip: padding-box;
+}
+
+#scheduled_class_main_board_title {
+    height:33%;
+    color:#B0C4DE;    
+    text-align: center;
+    vertical-align: middle;    
+}
+
+#scheduled_class_main_board_starting_in {
+    
+    color:#B0C4DE;    
+    text-align: center;
+    vertical-align: middle;     
+}
+
+#scheduled_class_main_board tr
+{
+    height:25%;
+}
