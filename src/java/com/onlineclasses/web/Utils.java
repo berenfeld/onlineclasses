@@ -5,6 +5,7 @@
  */
 package com.onlineclasses.web;
 
+import com.google.gson.Gson;
 import com.onlineclasses.entities.AvailableTime;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -160,4 +161,7 @@ public class Utils {
         }
         return false;
     }
+    
+    private static Gson _gson = new Gson();
+    public static Gson gson() { return _gson; }
 }

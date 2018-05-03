@@ -1,3 +1,5 @@
+<%@page import="com.onlineclasses.entities.Student"%>
+<%@page import="com.onlineclasses.web.Utils"%>
 <%@page import="com.onlineclasses.entities.Teacher"%>
 <%@page import="com.onlineclasses.db.DB"%>
 <%@page import="com.onlineclasses.entities.ScheduledClass"%>
@@ -8,6 +10,7 @@
     int classId = Integer.parseInt(request.getParameter("id"));
     ScheduledClass scheduledClass = DB.getScheduledClass(classId);
     Teacher teacher = scheduledClass.teacher;
+    Student student = scheduledClass.student;
     // TODO handle not found
 %>
 
@@ -34,9 +37,37 @@
                             </figcaption>
                         </figure>
                     </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <h5>
+                            <%= Labels.get("scheduled.class.sidebar.duration_text")%>&nbsp;
+                            <%= scheduledClass.duration_minutes%>&nbsp;
+                            <%= CLabels.get("language.minutes")%>
+                        </h5>
+                        <h5>
+                            <%= Labels.get("scheduled.class.sidebar.price_text")%>&nbsp;
+                            <%= scheduledClass.price_per_hour * scheduledClass.duration_minutes / Utils.MINUTES_IN_HOUR%>&nbsp;
+                            <%= CLabels.get("website.currency")%>
+                        </h5>
+                    </div>
                 </div>
                 <div class="alert alert-info row">
-                    Student
+                    <h4>
+                        <%= Labels.get("scheduled.class.sidebar.student")%>
+                    </h4>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <figure class="figure">
+                            <img src="<%= student.image_url%>" class="img-responsive img-fluid figure-img img-rounded"/>
+                            <figcaption class="figure-caption text-center">
+                                <%= student.display_name%>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <h5>
+                            <%= Labels.get("scheduled.class.sidebar.student_comment")%>&nbsp;
+                            <%= scheduledClass.student_comment %>
+                        </h5>
+                    </div>
                 </div>
             </div>
 
@@ -60,8 +91,14 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div>        
         <%@include file="footer.jsp" %>    
+        <script>
+            scheduled_class.scheduled_class = <%= Utils.gson().toJson(scheduledClass)%>;
+            scheduled_class.teacher = <%= Utils.gson().toJson(teacher)%>;
+            scheduled_class.student = <%= Utils.gson().toJson(student)%>;
+            scheduled_class_init();
+        </script>
     </body>
 
 </html>

@@ -251,6 +251,7 @@ public class DB {
     public static ScheduledClass getScheduledClass(int id) throws SQLException {
         ScheduledClass scheduledClass = _scheduledClass_db.get(id);
         scheduledClass.teacher = getTeacher(scheduledClass.teacher.id);
+        scheduledClass.student = getStudent(scheduledClass.student.id);
         return scheduledClass;
     }
 }

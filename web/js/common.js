@@ -1,3 +1,5 @@
+/* global online_classes */
+
 function parseInt10(str, defaultValue)
 {
     n = parseInt(str);
@@ -65,4 +67,16 @@ function parseDate(date) {
 
 function parseDateLong(date) {
     return date.getDate() + "/" + (date.getMonth() + 1 + "/" + date.getFullYear());
+}
+
+function parseRemainingMs(remainingMs) {
+    var minutes = Math.floor(remainingMs / ( 1000 * 60 ));
+    var hours = Math.floor(minutes / 60);
+    var days = Math.floor(hours / 24);
+    minutes = minutes - (hours * 60);
+    hours = hours - (days * 24);
+    
+    return days + " " + online_classes.clabels[ "language.days" ] + ", " +
+            hours + " " + online_classes.clabels[ "language.hours" ] + ", " +
+            minutes + " " + online_classes.clabels[ "language.minutes" ];
 }
