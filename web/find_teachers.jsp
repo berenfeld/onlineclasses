@@ -234,10 +234,14 @@
                                             </div>
                                         </div>
                                     </form>
-                                                    
+
                                     <div id="schedule_class_warning_div" class="alert alert-warning hide alert-dismissible h4">
                                         <span class="table_cell glyphicon glyphicon-warning-sign"></span>
                                         <span class="table_cell" id="schedule_class_warning"></span>
+                                    </div>
+                                    <div id="schedule_class_info_div" class="alert alert-info hide alert-dismissible h4">
+                                        <span class="table_cell glyphicon glyphicon-cog"></span>
+                                        <span class="table_cell" id="schedule_class_info"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 schedule_class_calendar_div">
@@ -302,7 +306,7 @@
 
                                                 <% for (day = 0; day < 7; day++) {
                                                 %>
-                                                <td data-day="<%=day%>" data-hour="<%= hour %>" data-minute="<%= minute %>"
+                                                <td data-day="<%=day%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
                                                     onclick="javascript:schedule_class_select_time(this)"
                                                     class="schedule_class_calendar <%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">
                                                 </td>                                            
@@ -371,8 +375,8 @@
                                 <%= Labels.get("find_teachers.sidebar.available_in_days")%>           
                             </label>
                             <select class="form-control" id="find_teachers_available_in_days">
-                                <option value="0" <% if (availableDay
-                                                == 0) { %> selected <% }%>>
+                                    <option value="0" <% if (availableDay
+                                            == 0) { %> selected <% }%>>
                                     <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                 </option>
                                 <%

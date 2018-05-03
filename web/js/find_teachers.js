@@ -186,7 +186,7 @@ function schedule_class_update_calendar()
     var start_hour = parseInt10($("#schedule_class_start_hour").text(), -1);
     var start_minute = parseInt10($("#schedule_class_start_minute").text(), -1);
     var duration = parseInt10($("#schedule_class_duration_input").text(), -1);
-    
+
     if ((start_hour === -1) || (start_minute === -1) || (duration === -1))
     {
         return;
@@ -195,13 +195,12 @@ function schedule_class_update_calendar()
     {
         return;
     }
-   
 
     var day = find_teachers.calendar.selected_day.getDay() + 1;
-    if (! sameDay(find_teachers.calendar.week_days[day-1], find_teachers.calendar.selected_day)) {
+    if (!sameDay(find_teachers.calendar.week_days[day - 1], find_teachers.calendar.selected_day)) {
         return;
     }
-    
+
     var minute = start_minute;
     var hour = start_hour;
     var minutes = 0;
@@ -220,13 +219,13 @@ function schedule_class_update_calendar()
 
 function schedule_class_select_minute(minute)
 {
-    $("#schedule_class_start_minute").text(padZeroes(minute,2));
+    $("#schedule_class_start_minute").text(padZeroes(minute, 2));
     schedule_class_update_calendar();
 }
 
 function schedule_class_select_hour(hour)
 {
-    $("#schedule_class_start_hour").text(padZeroes(hour,2));
+    $("#schedule_class_start_hour").text(padZeroes(hour, 2));
     schedule_class_update_calendar();
 }
 
@@ -251,15 +250,21 @@ function schedule_class_select_time(element)
     var minute = parseInt10(elem.attr("data-minute"));
 
     find_teachers.calendar.selected_day = new Date(find_teachers.calendar.week_days[day].getTime());
-    $("#start_schedule_class_day_input").datepicker('setDate' ,find_teachers.calendar.selected_day );
-    $("#schedule_class_start_hour").text(padZeroes(hour,2));
-    $("#schedule_class_start_minute").text(padZeroes(minute,2));
-    
+    $("#start_schedule_class_day_input").datepicker('setDate', find_teachers.calendar.selected_day);
+    $("#schedule_class_start_hour").text(padZeroes(hour, 2));
+    $("#schedule_class_start_minute").text(padZeroes(minute, 2));
+
     schedule_class_update_calendar();
 }
 
 function schedule_class_confirm()
 {
+    if ( ! login_isLoggedIn())
+    {
+        $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.not_logged_in"]);
+        $("#schedule_class_warning_div").removeClass("hide");
+        return;
+    }
     var start_hour = parseInt10($("#schedule_class_start_hour").text(), -1);
     var start_minute = parseInt10($("#schedule_class_start_minute").text(), -1);
     var duration = parseInt10($("#schedule_class_duration_input").text(), -1);
@@ -268,28 +273,60 @@ function schedule_class_confirm()
     {
         $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.please_choose_time"]);
         $("#schedule_class_warning_div").removeClass("hide");
-        $("#schedule_class_warning_div").addClass("show");
-        $("#schedule_class_warning_div").alert("show");
         return;
     }
     if (find_teachers.calendar.selected_day === null)
     {
         $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.please_choose_day"]);
         $("#schedule_class_warning_div").removeClass("hide");
-        $("#schedule_class_warning_div").addClass("show");
-        $("#schedule_class_warning_div").alert("show");
         return;
     }
 
     var start_date = new Date(find_teachers.calendar.selected_day.getTime());
     start_date.setHours(start_hour);
     start_date.setMinutes(start_minute);
+
+    // check if too late
+    var earliestDateToScheduleClass = new Date();
+    addHours(earliestDateToScheduleClass, parseInt10(online_classes.cconfig[ "website.time.min_time_before_schedule_class_start_hours" ]));
+    if (earliestDateToScheduleClass.getTime() > start_date.getTime()) {
+        $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.too_late_for_class"]);
+        $("#schedule_class_warning_div").removeClass("hide");
+        return;
+    }
+
+    // check if available
+    var day = find_teachers.calendar.selected_day.getDay() + 1;
+    var hour = start_hour;
+    var minute = start_minute;
+    var minutes = 0;
+
+    while (minutes < duration) {
+        var element = $("#schedule_class_day_" + day + "_hour_" + hour + "_minute_" + minute);
+        if (! element.hasClass("calendar_available")) {
+            $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.teacher_not_available"]);
+            $("#schedule_class_warning_div").removeClass("hide");
+            return;
+        }
+        minute += find_teachers.calendar.minutes_unit;
+        minutes += find_teachers.calendar.minutes_unit;
+        if (minute === 60) {
+            minute = 0;
+            hour++;
+        }
+    }
+
+
     var request = {};
     request.teacher_id = find_teachers.teacher_id;
     request.start_date = start_date;
     request.duration_minutes = duration;
     request.subject = $("#start_schedule_class_subject_input").val();
     request.student_comment = $("#start_schedule_class_comment_input").val();
+
+    $("#schedule_class_info_div").removeClass("hide");
+    $("#schedule_class_info").text(online_classes.clabels["schedule.class.modal.schedule_class_request_sent"]);
+
     $.ajax("servlets/schedule_class",
             {
                 type: "POST",
@@ -297,11 +334,15 @@ function schedule_class_confirm()
                 dataType: "JSON",
                 success: schedule_class_response
             });
-    $("#schedule_class_modal").modal("hide");
 }
 
 function schedule_class_response(response)
 {
+    if (response.rc !== 0) {
+        $("#schedule_class_info").text(online_classes.clabels["schedule.class.modal.schedule_class_response_error"]);
+    } else {
+        $("#schedule_class_info").text(online_classes.clabels["schedule.class.modal.schedule_class_response_ok"]);
+    }
 
 }
 function find_teachers_init()
@@ -312,9 +353,9 @@ function find_teachers_init()
 
     var duration = parseInt10(online_classes.cconfig[ "website.time.unit.default_class_duration"]);
     $("#schedule_class_duration").text(duration + " " + online_classes.clabels[ "language.minutes"]);
-    
+
     schedule_class_update_calendar();
-    
+
     var min_value = parseInt(online_classes.cconfig[ "find_teachers.price.min" ]);
     var max_value = parseInt(online_classes.cconfig[ "find_teachers.price.max" ]);
 
