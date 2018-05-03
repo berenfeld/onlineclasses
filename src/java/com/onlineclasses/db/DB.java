@@ -35,6 +35,7 @@ import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.web.Config;
 import com.onlineclasses.web.Utils;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Map;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
@@ -104,9 +105,9 @@ public class DB {
     }
 
     public static void close() {
-        _dataSource.close();
+        _dataSource.close();        
     }
-
+    
     private static Student_DB _student_db;
     private static Teacher_DB _teacher_db;
     private static AvailableTime_DB _availableTime_db;
@@ -114,7 +115,7 @@ public class DB {
     private static ScheduledClass_DB _scheduledClass_db;
 
     private static List<Base_DB> _entities_db;
-    
+
     private static void initORM(String dbUrl, String dbUser, String dbPassword) throws SQLException {
         _connectionSource = new JdbcConnectionSource(dbUrl, dbUser, dbPassword);
         _student_db = new Student_DB(_connectionSource);
@@ -122,7 +123,7 @@ public class DB {
         _availableTime_db = new AvailableTime_DB(_connectionSource);
         _instituteType_db = new InstituteType_DB(_connectionSource);
         _scheduledClass_db = new ScheduledClass_DB(_connectionSource);
-        
+
         _entities_db = new ArrayList<>();
         _entities_db.add(_student_db);
         _entities_db.add(_teacher_db);
@@ -150,7 +151,7 @@ public class DB {
     private static void createAllTables() throws SQLException {
         for (Base_DB baseDB : _entities_db) {
             baseDB.createTable();
-        }                
+        }
     }
 
     private static void printAllTables() {
@@ -174,7 +175,7 @@ public class DB {
     public static User getUserByEmail(String email) {
         return _student_db.getUserByEmail(email);
     }
-    
+
     static PreparedStatement openPreparedStatement(String sql) throws SQLException {
         Connection connection = _dataSource.getConnection();
         PreparedStatement st = connection.prepareStatement(sql);
@@ -202,11 +203,11 @@ public class DB {
     public static Student getStudent(int id) throws SQLException {
         return _student_db.get(id);
     }
-    
+
     public static Teacher getTeacher(int id) throws SQLException {
         return _teacher_db.get(id);
     }
-    
+
     public static int addStudent(Student student) throws SQLException {
         return _student_db.add(student);
     }
@@ -226,25 +227,24 @@ public class DB {
     public static void addInstituteType(InstituteType instituteType) throws SQLException {
         _instituteType_db.add(instituteType);
     }
-     
+
     public static List<AvailableTime> getTeacherAvailableTime(Teacher teacher) {
         return _availableTime_db.getTeacherAvailableTime(teacher);
     }
-    
+
     public static List<InstituteType> getAllInstituteTypes() throws SQLException {
         return _instituteType_db.dao().queryForAll();
     }
-    
+
     public static List<Teacher> getAllTeachers() throws SQLException {
         return _teacher_db.dao().queryForAll();
     }
-    
-    public static int addScheduledClass( ScheduledClass scheduledClass ) throws SQLException {
+
+    public static int addScheduledClass(ScheduledClass scheduledClass) throws SQLException {
         return _scheduledClass_db.add(scheduledClass);
     }
-    
-    public static List<ScheduledClass> getTeacherScheduledClasses(Teacher teacher) throws SQLException
-    {
+
+    public static List<ScheduledClass> getTeacherScheduledClasses(Teacher teacher) throws SQLException {
         return _scheduledClass_db.getTeacherScheduledClasses(teacher);
     }
 }

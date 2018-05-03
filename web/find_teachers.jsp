@@ -15,7 +15,6 @@
     int availableDay = Utils.parseInt(request.getParameter("available_day"), 0);
     final int startHour = CConfig.getInt("website.time.start_working_hour");
     final int endHour = CConfig.getInt("website.time.end_working_hour");
-    Calendar today = Calendar.getInstance();
     int hour, day;
     int minutesPerRow = CConfig.getInt("website.time.calendar_minutes_per_row");
     int minutesPerUnit = CConfig.getInt("website.time.unit.minutes");
@@ -193,7 +192,7 @@
                                                             int maximumLessonLength = CConfig.getInt("website.time.max_lesson_length_minutes");
                                                             int lessonLength = minuteStep;
                                                             while (lessonLength <= maximumLessonLength) {
-                                                                String lessonMinutes = String.format("%02d", lessonLength) + " " + Labels.get("language.minutes");
+                                                                String lessonMinutes = String.format("%02d", lessonLength) + " " + CLabels.get("language.minutes");
                                                         %>
                                                         <li>
                                                             <a href="javascript:schedule_class_select_duration('<%= lessonMinutes%>')">

@@ -159,6 +159,7 @@ function schedule_class_goto_date(date)
             }
         }
     }
+    schedule_class_update_calendar();
 }
 function schedule_class_received_teacher_calendar(response)
 {
@@ -185,6 +186,7 @@ function schedule_class_update_calendar()
     var start_hour = parseInt10($("#schedule_class_start_hour").text(), -1);
     var start_minute = parseInt10($("#schedule_class_start_minute").text(), -1);
     var duration = parseInt10($("#schedule_class_duration_input").text(), -1);
+    
     if ((start_hour === -1) || (start_minute === -1) || (duration === -1))
     {
         return;
@@ -193,9 +195,13 @@ function schedule_class_update_calendar()
     {
         return;
     }
-    // TODO check if same day between selected and week view
+   
 
     var day = find_teachers.calendar.selected_day.getDay() + 1;
+    if (! sameDay(find_teachers.calendar.week_days[day-1], find_teachers.calendar.selected_day)) {
+        return;
+    }
+    
     var minute = start_minute;
     var hour = start_hour;
     var minutes = 0;
@@ -214,13 +220,13 @@ function schedule_class_update_calendar()
 
 function schedule_class_select_minute(minute)
 {
-    $("#schedule_class_start_minute").text(minute);
+    $("#schedule_class_start_minute").text(padZeroes(minute,2));
     schedule_class_update_calendar();
 }
 
 function schedule_class_select_hour(hour)
 {
-    $("#schedule_class_start_hour").text(hour);
+    $("#schedule_class_start_hour").text(padZeroes(hour,2));
     schedule_class_update_calendar();
 }
 
@@ -246,8 +252,10 @@ function schedule_class_select_time(element)
 
     find_teachers.calendar.selected_day = new Date(find_teachers.calendar.week_days[day].getTime());
     $("#start_schedule_class_day_input").datepicker('setDate' ,find_teachers.calendar.selected_day );
-    $("#schedule_class_start_hour").text(hour);
-    $("#schedule_class_start_minute").text(minute);
+    $("#schedule_class_start_hour").text(padZeroes(hour,2));
+    $("#schedule_class_start_minute").text(padZeroes(minute,2));
+    
+    schedule_class_update_calendar();
 }
 
 function schedule_class_confirm()
@@ -302,6 +310,11 @@ function find_teachers_init()
     find_teachers.calendar.selected_day = null;
     find_teachers.calendar.minutes_unit = parseInt10(online_classes.cconfig[ "website.time.unit.minutes"]);
 
+    var duration = parseInt10(online_classes.cconfig[ "website.time.unit.default_class_duration"]);
+    $("#schedule_class_duration").text(duration + " " + online_classes.clabels[ "language.minutes"]);
+    
+    schedule_class_update_calendar();
+    
     var min_value = parseInt(online_classes.cconfig[ "find_teachers.price.min" ]);
     var max_value = parseInt(online_classes.cconfig[ "find_teachers.price.max" ]);
 

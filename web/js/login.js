@@ -1,10 +1,6 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/* global online_classes */
 
-var login = {}
+var login = {};
 
 function login_showLoginDialog()
 {
@@ -13,7 +9,7 @@ function login_showLoginDialog()
 
 function login_googleLoggedIn(googleUser)
 {
-    if (login.reason == "login_modal") {        
+    if (login.reason === "login_modal") {        
         $("#login_modal").modal('hide');
         progress_modal_show(online_classes.clabels["login.progress.title"],
                 online_classes.clabels["login.progress.start"], 0);
@@ -25,7 +21,7 @@ function login_googleLoggedIn(googleUser)
                     data: JSON.stringify(request),
                     dataType: "JSON",
                     success: login_loginRequestComplete
-                })
+                });
 
         progress_modal_show(online_classes.clabels["login.progress.title"],
                 online_classes.clabels["login.progress.start"], 50);
@@ -48,13 +44,13 @@ function login_googleLoggedOut()
 }
 
 function login_isLoggedIn() {
-    return login.user != null;
+    return login.user !== null;
 }
 
 function login_showLoginModal(reason)
 {
     login.reason = reason;
-    if (reason == "login_modal")
+    if (reason === "login_modal")
     {
         $("#login_modal").modal('show');
     }
@@ -81,7 +77,7 @@ function login_logoutFromNavBarConfirmed()
                 type: "POST",
                 dataType: "JSON",
                 success: logout_logoutRequestComplete
-            })
+            });
 
 }
 

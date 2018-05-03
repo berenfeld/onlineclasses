@@ -12,14 +12,13 @@ td.calendar_available {
     background-color:#E0FFFF
 }
 
-td.calendar_busy {
-    background-color:#FF7F50
-}
-
 td.calendar_selected {
     background-color:#7CFC00
 }
 
+td.calendar_busy {
+    background-color:#FF7F50
+}
 
 #schedule_class_calendar_table td, #schedule_class_calendar_table th
 {

@@ -1,6 +1,6 @@
 /* global online_classes */
 
-var start_learning = {}
+var start_learning = {};
 
 function start_learning_userLoggedInCallback(googleUser)
 {

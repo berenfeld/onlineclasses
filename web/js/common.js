@@ -18,6 +18,16 @@ function redirectAfter(url, seconds)
 
 }
 
+function padZeroes(number, toLength)
+{
+    var result = number.toString();
+    while (result.length < toLength)
+    {
+        result = "0" + result;
+    }
+    return result;
+}
+
 function addDay(date)
 {
     addDays(date, 1);
