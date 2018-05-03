@@ -227,9 +227,8 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                                    <textarea rows="5" class="form-control" name="start_schedule_class_comments_input" 
-                                                              id="start_schedule_class_comments_input" ><%= Labels.get("schedule.class.modal.comments_placeholder")%>
-                                                    </textarea>
+                                                    <textarea onfocus="javascript:schedule_class_comments_focus()" rows="5" class="form-control" name="start_schedule_class_comments_input" 
+                                                              id="start_schedule_class_comments_input" ><%= Labels.get("schedule.class.modal.comments_placeholder")%></textarea>
                                                 </div>                                    
                                             </div>
                                         </div>
@@ -272,12 +271,14 @@
                                     <table id="schedule_class_calendar_table" class="table table-responsive table-condensed">
                                         <thead>
                                         <th class="schedule_class_calendar" style="width: 12.5%">
-                                        </th>
+                                        </th>                                        
                                         <% for (day = 0; day < 7; day++) {
 
-                                        %>
-                                        <th class="schedule_class_calendar" id="schedule_class_day_<%= (day + 1)%>" style="width: 12.5%">
-                                            <%= dayNamesShort.get(day)%>
+                                        %>                                        
+                                        <th class="schedule_class_calendar"  style="width: 12.5%">
+                                            <span><%= dayNamesLong.get(day)%></span>
+                                            <br/>
+                                            <span id="schedule_class_day_<%= (day + 1)%>"></span>
                                         </th>
                                         <% }%>
                                         </thead>
@@ -375,8 +376,8 @@
                                 <%= Labels.get("find_teachers.sidebar.available_in_days")%>           
                             </label>
                             <select class="form-control" id="find_teachers_available_in_days">
-                                    <option value="0" <% if (availableDay
-                                            == 0) { %> selected <% }%>>
+                                <option value="0" <% if (availableDay
+                                                == 0) { %> selected <% }%>>
                                     <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                 </option>
                                 <%

@@ -316,7 +316,6 @@ function schedule_class_confirm()
         }
     }
 
-
     var request = {};
     request.teacher_id = find_teachers.teacher_id;
     request.start_date = start_date;
@@ -345,12 +344,22 @@ function schedule_class_response(response)
     }
 
 }
+
+function schedule_class_comments_focus()
+{
+    if (!find_teachers.calendar.comments_clicked) {
+        $("#start_schedule_class_comments_input").text("");
+        find_teachers.calendar.comments_clicked = true;
+    }
+}
+
 function find_teachers_init()
 {
     find_teachers.calendar = {};
     find_teachers.calendar.selected_day = null;
     find_teachers.calendar.minutes_unit = parseInt10(online_classes.cconfig[ "website.time.unit.minutes"]);
-
+    find_teachers.calendar.comments_clicked = false;
+    
     var duration = parseInt10(online_classes.cconfig[ "website.time.unit.default_class_duration"]);
     $("#schedule_class_duration").text(duration + " " + online_classes.clabels[ "language.minutes"]);
 
