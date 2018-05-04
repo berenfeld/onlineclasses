@@ -111,6 +111,6 @@
 }
 
 .right_to_left {
-    direction: trl; 
+    direction: rtl; 
     unicode-bidi: bidi-override;
 }

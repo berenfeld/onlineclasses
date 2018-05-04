@@ -102,18 +102,19 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-4" for="start_learning_phone_number_input">
+                            <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-4" for="start_learning_phone_number_input">
                                 <%= Labels.get("start_learning.form.login.phone_number")%>
                             </label>
-                            <div class="col-md-4">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                 <input type="text" class="form-control" id="start_learning_phone_number_input"
                                        placeholder="<%= Labels.get("start_learning.form.login.phone_number")%>">
                             </div>
-                            <label class="control-label col-md-2" for="start_learning_phone_area">
+                            
+                            <label class="control-label col-lg-2 col-md-2 col-sm-2 col-xs-2" for="start_learning_phone_area">
                                 <%= Labels.get("start_learning.form.login.phone_area")%>
                             </label>   
 
-                            <div class="col-md-2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                 <button class="btn btn-primary dropdown-toggle form-control" 
                                         id="start_learning_area_code_button" name="start_learning_area_code_button"
                                         type="button" data-toggle="dropdown">

@@ -24,6 +24,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.SelectArg;
@@ -47,7 +48,7 @@ import org.apache.tomcat.jdbc.pool.PoolProperties;
 public class DB {
 
     private static DataSource _dataSource;
-    private static ConnectionSource _connectionSource;
+    private static JdbcPooledConnectionSource _connectionSource;
 
     public static void initDBCP(String dbURL, String username, String password) {
         PoolProperties p = new PoolProperties();
@@ -117,7 +118,8 @@ public class DB {
     private static List<Base_DB> _entities_db;
 
     private static void initORM(String dbUrl, String dbUser, String dbPassword) throws SQLException {
-        _connectionSource = new JdbcConnectionSource(dbUrl, dbUser, dbPassword);
+        _connectionSource = new JdbcPooledConnectionSource(dbUrl, dbUser, dbPassword);
+        _connectionSource.setTestBeforeGet(true);
         _student_db = new Student_DB(_connectionSource);
         _teacher_db = new Teacher_DB(_connectionSource);
         _availableTime_db = new AvailableTime_DB(_connectionSource);
