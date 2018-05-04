@@ -23,8 +23,8 @@
                 <span class="icon-bar"></span>         
             </button>
         </div>
-        <div class="collapse navbar-collapse" id="navbar_main">
-            <ul class="nav navbar-nav col-md-6">            
+        <div class="collapse navbar-collapse row col-md-10" id="navbar_main">
+            <ul class="nav navbar-nav col-md-8">            
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= Labels.get("navbar.about.us")%>
                         <span class="caret"></span></a>
