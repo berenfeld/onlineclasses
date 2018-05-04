@@ -9,10 +9,10 @@
 <meta name="google-signin-client_id" content="519288456292-7s5am7pffeu8sl4tvhcjmflcopm8dqkl.apps.googleusercontent.com">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" crossorigin="anonymous">
 <link rel="stylesheet" href="css/jquery-ui.css">
 <% if ("rtl".equals(Config.get("website.direction"))) { %>        
-    <link rel='stylesheet' href='css/bootstrap-rtl.css'>
+    <link rel="stylesheet" href="css/bootstrap-rtl.css">
 <% }%>
 <link rel="stylesheet" href="css/extras.css">
 <link rel="stylesheet" href="css/common.css">

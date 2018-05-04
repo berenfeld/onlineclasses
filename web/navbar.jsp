@@ -14,39 +14,37 @@
 %>
 
 <div class="container">
-    <nav class="navbar navbar-inverse">    
-        <div class="navbar-header col-md-2">
-            <a class="navbar-brand" href="/"><%= Labels.get("navbar.website.name")%></a>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar_main">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>         
-            </button>
-        </div>
-        <div class="collapse navbar-collapse row col-md-10" id="navbar_main">
-            <ul class="nav navbar-nav col-md-8">            
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= Labels.get("navbar.about.us")%>
-                        <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><%= Labels.get("navbar.about.us.who.we.are")%></a></li>
-                        <li><a href="#"><%= Labels.get("navbar.about.us.who.we.are")%></a></li>
-                        <li><a href="#"><%= Labels.get("navbar.about.us.who.we.are")%></a></li>
-                    </ul>
-                </li>
-                <li class="hide"><a href="start_teaching"><%= Labels.get("navbar.start.teaching")%></a></li>
-                <li><a href="start_learning"><%= Labels.get("navbar.start.learning")%></a></li>
-                <li><a href="find_teachers"><%= Labels.get("navbar.find.teachers")%></a></li>
-            </ul>     
+    <nav class="navbar navbar-expand-lg navbar-expan-md navbar-dark bg-dark">   
 
-            <ul class="nav navbar-nav col-md-4">            
+        <a class="navbar-brand" href="/"><%= Labels.get("navbar.website.name")%></a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_main">
+            <span class="navbar-toggler-icon"></span>    
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar_main">
+            <ul class="navbar-nav">            
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><%= Labels.get("navbar.about.us")%>
+                        <span class="caret"></span></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#"><%= Labels.get("navbar.about.us.who.we.are")%></a>
+                        <a class="dropdown-item" href="#"><%= Labels.get("navbar.about.us.who.we.are")%></a>
+                        <a class="dropdown-item" href="#"><%= Labels.get("navbar.about.us.who.we.are")%></a>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="start_teaching"><%= Labels.get("navbar.start.teaching")%></a></li>
+                <li class="nav-item"><a class="nav-link" href="start_learning"><%= Labels.get("navbar.start.learning")%></a></li>
+                <li class="nav-item"><a class="nav-link" href="find_teachers"><%= Labels.get("navbar.find.teachers")%></a></li>
+
+            </ul>
+            <ul class="navbar-nav mr-auto">  
                 <% if (user_navbar == null) {%>                 
-                <li>                
+                <li class="nav-item">                
                     <span class="navbar-text">
                         <%= Labels.get("navbar.greeting")%>&nbsp;,&nbsp;<%= Labels.get("navbar.guest.name")%>                           
                     </span>
                 </li>
-                <li>                
+                <li class="nav-item">                
                     <a class="nav-link" href="javascript:login_showLoginModal('login_modal')">
                         <%= Labels.get("navbar.login")%>
                     </a>                 
@@ -55,13 +53,13 @@
                 <% } else {%>
                 <li>     
 
-                    <a href="#">
+                    <a class="nav-link" href="#">
                         <%= Labels.get("navbar.greeting")%>&nbsp;,&nbsp;<%= userName%>
                     </a>
 
                 </li>
                 <li> 
-                    <a href="homepage">     
+                    <a class="nav-link" href="homepage">     
                         <img src="<%= user_navbar.image_url%>" height="30"/>
                     </a>
                 </li>
