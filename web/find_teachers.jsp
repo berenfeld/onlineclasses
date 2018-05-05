@@ -439,7 +439,7 @@
                                     <tr>
                                         <td>
                                             <figure class="figure">
-                                                <img src="<%= teacher.image_url%>" class="img-responsive img-fluid figure-img img-rounded"/>
+                                                <img src="<%= teacher.image_url%>" class="img-fluid figure-img rounded"/>
                                                 <figcaption class="figure-caption text-center">
                                                     <%= teacher.display_name%>
                                                 </figcaption>
