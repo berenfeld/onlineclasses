@@ -4,9 +4,9 @@
     <div id="login_modal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header d-flex">
                     <div class="h5 modal-title text-success">
-                            <%= Labels.get("login.modal.title")%>                     
+                        <%= Labels.get("login.modal.title")%>                     
                     </div>
                 </div>
                 <div class="modal-body">
@@ -93,11 +93,10 @@
                     </button>
 
                     <div class="modal-title"> 
-                        <h4 class="text-warning">
-                            <span class="glyphicon glyphicon-alert"></span>
+                        <h5 class="text-warning">
                             <span id="progress_modal_title">                      
                             </span>
-                        </h4>
+                        </h5>
                     </div>
                 </div>
                 <div class="modal-body">

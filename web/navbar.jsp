@@ -28,11 +28,9 @@
                         <span class="caret"></span></a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#"><%= Labels.get("navbar.about.us.who.we.are")%></a>
-                        <a class="dropdown-item" href="#"><%= Labels.get("navbar.about.us.who.we.are")%></a>
-                        <a class="dropdown-item" href="#"><%= Labels.get("navbar.about.us.who.we.are")%></a>
                     </div>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="start_teaching"><%= Labels.get("navbar.start.teaching")%></a></li>
+                <li class="d-none nav-item"><a class="nav-link" href="start_teaching"><%= Labels.get("navbar.start.teaching")%></a></li>
                 <li class="nav-item"><a class="nav-link" href="start_learning"><%= Labels.get("navbar.start.learning")%></a></li>
                 <li class="nav-item"><a class="nav-link" href="find_teachers"><%= Labels.get("navbar.find.teachers")%></a></li>
 

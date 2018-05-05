@@ -52,12 +52,11 @@
                             </button>
 
                             <div class="modal-title"> 
-                                <h4 class="text-warning">
-                                    <span class="glyphicon glyphicon-alert"></span>
+                                <h5 class="text-warning">
                                     <span  id="schedule_class_not_logged_in_title">
                                         <%= Labels.get("website.schedule_class.not_logged_in.title")%>                        
                                     </span>
-                                </h4>
+                                </h5>
                             </div>
                         </div>
                         <div class="modal-body">
@@ -96,7 +95,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-5">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-5">
                                     <form class="form-horizontal">
 
                                         <div class="form-group form-row">
@@ -112,13 +111,13 @@
                                             </div>                                    
                                         </div>
                                         <div class="form-group form-row">
-                                            <div class="col-lg-3 col-md-3">
+                                            <div class="col-3">
                                                 <label for="schedule_class_start_minute"  class="col-form-label">
                                                     <%= Labels.get("schedule.class.modal.start_hour")%>
                                                 </label>
                                             </div>
 
-                                            <div class="col-lg-4 col-md-4">
+                                            <div class="col-4">
                                                 <button class="btn btn-info dropdown-toggle" 
                                                         id="schedule_class_start_minute_button"
                                                         name="schedule_class_start_minute"
@@ -145,7 +144,7 @@
                                                     %>
                                                 </div>
                                             </div>                                        
-                                            <div class="col-lg-4 col-md-4">
+                                            <div class="col-4">
                                                 <button class="btn btn-info dropdown-toggle" 
                                                         id="schedule_class_start_hour_button"
                                                         name="schedule_class_start_hour_button" data-toggle="dropdown">
@@ -230,17 +229,9 @@
                                                           id="start_schedule_class_comments_input" ><%= Labels.get("schedule.class.modal.comments_placeholder")%></textarea>
                                             </div>                                    
                                         </div>
-
                                     </form>
-
-                                    <div id="schedule_class_warning_div" class="alert alert-warning d-none alert-dismissible h4">
-                                        <span id="schedule_class_warning"></span>
-                                    </div>
-                                    <div id="schedule_class_info_div" class="alert alert-info d-none alert-dismissible h4">
-                                        <span id="schedule_class_info"></span>
-                                    </div>
                                 </div>
-                                <div class="col-7 schedule_class_calendar_div">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-7 schedule_class_calendar_div">
 
                                     <div class="column-centered text-center">
                                         <nav id="schedule_class_week_select" aria-label="Page navigation">
@@ -266,14 +257,14 @@
                                     </div>
 
                                     <div class="row">
-                                        <table id="schedule_class_calendar_table" class="table table-responsive table-sm">
+                                        <table id="schedule_class_calendar_table" class="mx-auto table table-responsive table-sm">
                                             <thead>
-                                            <th class="schedule_class_calendar" style="width: 12.5%">
+                                            <th class="schedule_class_calendar" style="width: 12%">
                                             </th>                                        
                                             <% for (day = 0; day < 7; day++) {
 
                                             %>                                        
-                                            <th class="schedule_class_calendar"  style="width: 12.5%">
+                                            <th class="schedule_class_calendar"  style="width: 12%">
                                                 <span><%= dayNamesShort.get(day)%></span>
                                                 <br/>
                                                 <span id="schedule_class_day_<%= (day + 1)%>"></span>
@@ -322,8 +313,16 @@
                                                 %>
                                             </tbody>
                                         </table> 
+
+
                                     </div>
                                 </div>
+                            </div>
+                            <div id="schedule_class_warning_div" class="alert alert-warning d-none fade show alert-dismissible h6">
+                                <span id="schedule_class_warning"></span>
+                            </div>
+                            <div id="schedule_class_info_div" class="alert alert-info d-none fade show alert-dismissible h6">
+                                <span id="schedule_class_info"></span>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success mx-1" onclick="schedule_class_confirm()"><%= Labels.get("schedule.class.modal.confirm_button")%></button>
@@ -399,8 +398,7 @@
                             <div class="form-group form-row">                                
                                 <button type="button" class="btn btn-primary mx-1 col" 
                                         id="find_teachers.sidebar.refresh_button"
-                                        onclick="find_teachers_refresh_results()" >
-                                    <span class="glyphicon glyphicon-refresh"></span>                                
+                                        onclick="find_teachers_refresh_results()" >                         
                                     <span>
                                         <%= Labels.get("find_teachers.sidebar.update_button.text")%>
                                     </span>
