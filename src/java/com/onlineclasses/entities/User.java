@@ -41,4 +41,10 @@ public class User extends BasicEntity {
     
     @DatabaseField(canBeNull = false)
     public Date registered;
+    
+    @Override
+    public String toString()
+    {
+        return display_name;
+    }
 }

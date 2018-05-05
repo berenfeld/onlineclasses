@@ -45,7 +45,7 @@ public abstract class ServletBase extends HttpServlet {
     private static String calculateUserHash(User user) throws Exception {
         MessageDigest md = MessageDigest.getInstance("MD5");
         String hashString = user.id + "." + user.email + "." + Config.get("website.secret.md5");
-        Utils.info("calculate hash of '" + hashString + "'");
+        Utils.debug("calculate hash of '" + hashString + "'");
         md.update(hashString.getBytes());
         String userHash = DatatypeConverter.printHexBinary(md.digest());
         return userHash;

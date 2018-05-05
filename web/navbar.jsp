@@ -40,9 +40,9 @@
             <ul class="navbar-nav mr-auto">  
                 <% if (user_navbar == null) {%>                 
                 <li class="nav-item">                
-                    <span class="navbar-text">
-                        <%= Labels.get("navbar.greeting")%>&nbsp;,&nbsp;<%= Labels.get("navbar.guest.name")%>                           
-                    </span>
+                    <a href="javascript:login_showLoginModal('login_modal')" class="nav-link">
+                        <%= Labels.get("navbar.guest.not_connected")%>                           
+                    </a>
                 </li>
                 <li class="nav-item">                
                     <a class="nav-link" href="javascript:login_showLoginModal('login_modal')">
@@ -54,7 +54,7 @@
                 <li>     
 
                     <a class="nav-link" href="#">
-                        <%= Labels.get("navbar.greeting")%>&nbsp;,&nbsp;<%= userName%>
+                        <%= userName%>
                     </a>
 
                 </li>

@@ -20,6 +20,8 @@
     int minutesPerUnit = CConfig.getInt("website.time.unit.minutes");
     int rowsPerCell = minutesPerRow / minutesPerUnit;
 
+    Utils.info("user " + ServletBase.getUser(request) + " find teachers");
+
     List<Teacher> teachers = DB.findTeachers(minPrice, maxPrice, displayName);
     for (Teacher teacher : teachers) {
         teacher.available_time = DB.getTeacherAvailableTime(teacher);
@@ -46,7 +48,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" aria-label="close" data-dismiss="modal">
-                                <span class="table_cell" aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span>
                             </button>
 
                             <div class="modal-title"> 
@@ -94,10 +96,10 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-4">
-                                    <form>
+                                <div class="col-5">
+                                    <form class="form-horizontal">
 
-                                        <div class="form-group row">
+                                        <div class="form-group form-row">
                                             <div class="col-lg-3">
                                                 <label for="start_schedule_class_day_input" class="col-form-label">
                                                     <%= Labels.get("schedule.class.modal.day")%>
@@ -109,14 +111,14 @@
                                                        placeholder="<%= Labels.get("schedule.class.modal.day_placeholder")%>">
                                             </div>                                    
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-lg-3">
+                                        <div class="form-group form-row">
+                                            <div class="col-lg-3 col-md-3">
                                                 <label for="schedule_class_start_minute"  class="col-form-label">
                                                     <%= Labels.get("schedule.class.modal.start_hour")%>
                                                 </label>
                                             </div>
 
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-4 col-md-4">
                                                 <button class="btn btn-info dropdown-toggle" 
                                                         id="schedule_class_start_minute_button"
                                                         name="schedule_class_start_minute"
@@ -143,7 +145,7 @@
                                                     %>
                                                 </div>
                                             </div>                                        
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-4 col-md-4">
                                                 <button class="btn btn-info dropdown-toggle" 
                                                         id="schedule_class_start_hour_button"
                                                         name="schedule_class_start_hour_button" data-toggle="dropdown">
@@ -169,13 +171,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-lg-3">
+                                        <div class="form-group form-row">
+                                            <div class="col-lg-3 col-md-3">
                                                 <label for="schedule_class_duration_input" class="col-form-label">
                                                     <%= Labels.get("schedule.class.modal.duration")%>
                                                 </label>
                                             </div>                                                    
-                                            <div class="col-lg-9">
+                                            <div class="col-lg-9 col-md-9">
                                                 <button class="btn btn-info dropdown-toggle" 
                                                         id="schedule_class_duration_input"
                                                         name="schedule_class_duration_input" data-toggle="dropdown">
@@ -204,7 +206,7 @@
                                             </div>                                 
                                         </div>
 
-                                        <div class="form-group row">
+                                        <div class="form-group form-row">
                                             <div class="col-lg-3">
                                                 <label for="start_schedule_class_subject_input">
                                                     <%= Labels.get("schedule.class.modal.subject")%>
@@ -217,7 +219,7 @@
                                             </div>                                    
                                         </div>
 
-                                        <div class="form-group row">
+                                        <div class="form-group form-row">
                                             <div class="col-lg-3">
                                                 <label for="start_schedule_class_comments_input">
                                                     <%= Labels.get("schedule.class.modal.comments")%>
@@ -232,19 +234,17 @@
                                     </form>
 
                                     <div id="schedule_class_warning_div" class="alert alert-warning d-none alert-dismissible h4">
-                                        <span class="table_cell glyphicon glyphicon-warning-sign"></span>
-                                        <span class="table_cell" id="schedule_class_warning"></span>
+                                        <span id="schedule_class_warning"></span>
                                     </div>
                                     <div id="schedule_class_info_div" class="alert alert-info d-none alert-dismissible h4">
-                                        <span class="table_cell glyphicon glyphicon-cog"></span>
-                                        <span class="table_cell" id="schedule_class_info"></span>
+                                        <span id="schedule_class_info"></span>
                                     </div>
                                 </div>
-                                <div class="col-lg-8 schedule_class_calendar_div">
+                                <div class="col-7 schedule_class_calendar_div">
 
                                     <div class="column-centered text-center">
                                         <nav id="schedule_class_week_select" aria-label="Page navigation">
-                                            <ul class="pagination">
+                                            <ul class="pagination justify-content-center">
                                                 <li class="page-item">
                                                     <a  class="page-link" href="javascript:schedule_class_previous_week()" aria-label="Previous">
                                                         <span aria-hidden="true">&laquo;</span>
@@ -274,7 +274,7 @@
 
                                             %>                                        
                                             <th class="schedule_class_calendar"  style="width: 12.5%">
-                                                <span><%= dayNamesLong.get(day)%></span>
+                                                <span><%= dayNamesShort.get(day)%></span>
                                                 <br/>
                                                 <span id="schedule_class_day_<%= (day + 1)%>"></span>
                                             </th>
@@ -326,8 +326,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success" onclick="schedule_class_confirm()"><%= Labels.get("schedule.class.modal.confirm_button")%></button>
-                                <button type="button" class="btn btn-info" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
+                                <button type="button" class="btn btn-success mx-1" onclick="schedule_class_confirm()"><%= Labels.get("schedule.class.modal.confirm_button")%></button>
+                                <button type="button" class="btn btn-info mx-1" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
                             </div>
                         </div>
 
@@ -397,19 +397,18 @@
                             </div>
 
                             <div class="form-group form-row">                                
-                                <button type="button" class="btn btn-primary col-lg-6" 
+                                <button type="button" class="btn btn-primary mx-1 col" 
                                         id="find_teachers.sidebar.refresh_button"
                                         onclick="find_teachers_refresh_results()" >
-                                    <span class="table_cell glyphicon glyphicon-refresh"></span>                                
-                                    <span class="table_cell">
+                                    <span class="glyphicon glyphicon-refresh"></span>                                
+                                    <span>
                                         <%= Labels.get("find_teachers.sidebar.update_button.text")%>
                                     </span>
                                 </button>    
 
-                                <button type="button" class="btn btn-info col-lg-6" 
+                                <button type="button" class="btn btn-info mx-1 col" 
                                         id="find_teachers.sidebar.clear_button">
-                                    <span class="table_cell glyphicon glyphicon-refresh"></span>
-                                    <span class="table_cell">
+                                    <span >
                                         <%= Labels.get("find_teachers.sidebar.clear_button.text")%>
                                     </span>
                                 </button>                            
@@ -454,7 +453,7 @@
                                             </cite>
 
                                             <p>
-                                                <a class="info" data-toggle="collapse" href="#find_teacher_details_teacher_<%= teacher.id%>" 
+                                                <a class="text-secondary" data-toggle="collapse" href="#find_teacher_details_teacher_<%= teacher.id%>" 
                                                    role="button" aria-expanded="false" aria-controls="find_teacher_details_teacher_<%= teacher.id%>">
                                                     <%= Labels.get("find_teachers.list.body.show_more_details")%>
                                                 </a>
@@ -483,14 +482,15 @@
 
                                         </td>
                                         <td>
-                                            <h6 class="text-info">
+                                            <h6 class="text-secondary">
                                                 <%= Labels.get("find_teachers.list.body.price_per_hour")%>
                                                 &nbsp;:&nbsp;
                                                 <%= teacher.price_per_hour%>
                                                 <%= CLabels.get("website.currency")%>
-                                            </h6>
+                                            </h6>                                            
                                             <button id="schedule_class_button_<%= teacher.id%>" data-teacher-id="<%= teacher.id%>" 
-                                                    data-teacher-display-name="<%= teacher.display_name%>" onclick="schedule_class_button_clicked()" class="btn btn-info">
+                                                    data-teacher-display-name="<%= teacher.display_name%>" 
+                                                    onclick="schedule_class_button_clicked()" class="btn btn-success">
                                                 <%= Labels.get("find_teachers.list.body.schedule_class_button")%>
                                             </button>
                                         </td>

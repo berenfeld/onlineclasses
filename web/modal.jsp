@@ -6,10 +6,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="h5 modal-title text-success">
-                        <span class="table_cell glyphicon glyphicon-log-in"></span>
-                        <span class="table_cell">
-                            <%= Labels.get("login.modal.title")%>
-                        </span>                        
+                            <%= Labels.get("login.modal.title")%>                     
                     </div>
                 </div>
                 <div class="modal-body">
@@ -41,22 +38,18 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header modal-header-success">
-                    <button type="button" class="close" aria-label="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title text-warning">
-                        <span class="table_cell glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-                        <span class="table_cell" id="confirm_modal_title"></span>
-                    </h4>
+                    <h5 class="modal-title text-warning">
+                        <span id="confirm_modal_title"></span>
+                    </h5>
                 </div>
                 <div class="modal-body">
-                    <h5 class="text-warning">
+                    <h6 class="text-warning">
                         <span id="confirm_modal_message"></span>
-                    </h5>                    
+                    </h6>                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-info" onclick="confirm_cancel()" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
-                    <button type="button" class="btn btn-success" onclick="confirm_ok()" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
+                    <button type="button" class="btn btn-info mx-1" onclick="confirm_cancel()" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
+                    <button type="button" class="btn btn-success mx-1" onclick="confirm_ok()" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
                 </div>
             </div>
 
@@ -70,8 +63,7 @@
                 <div class="modal-header modal-header-warning">
                     <div class="modal-title"> 
                         <h5>
-                            <span class="table_cell glyphicon glyphicon-alert"></span>
-                            <span class="table_cell" id="alert_modal_title">
+                            <span id="alert_modal_title">
                                 <%= Labels.get("alert.modal.title")%>
                             </span>
                         </h5>
