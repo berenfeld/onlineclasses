@@ -377,7 +377,7 @@
                                     <%= Labels.get("find_teachers.sidebar.available_in_days")%>           
                                 </label>
                                 <select class="form-control" id="find_teachers_available_in_days">
-                                        <option value="0" <% if (availableDay
+                                    <option value="0" <% if (availableDay
                                                     == 0) { %> selected <% }%>>
                                         <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                     </option>
@@ -459,22 +459,22 @@
                                                     <%= Labels.get("find_teachers.list.body.show_more_details")%>
                                                 </a>
                                             </p>
-                                            <div class="card text-white bg-warning collapse" id="find_teacher_details_teacher_<%= teacher.id%>">
-                                                <h6 class="text-info">
+                                            <div class="card text-white bg-info collapse" id="find_teacher_details_teacher_<%= teacher.id%>">
+                                                <h6>
                                                     <%= Labels.get("find_teachers.list.body.available_hours")%>
                                                 </h6>
                                                 <%
                                                     for (AvailableTime availableTime : teacher.available_time) {
                                                 %>
 
-                                                <%= dayNamesLong.get(availableTime.day - 1)%>
-                                                <span class="left_to_right">                                        
-                                                    <%= String.format("%02d:%02d", availableTime.start_hour, availableTime.start_minute)%>                                    
-                                                    &nbsp;-&nbsp;
-                                                    <%= String.format("%02d:%02d", availableTime.end_hour, availableTime.end_minute)%>                                    
-                                                </span>
-                                                <br/>
-
+                                                <p>
+                                                    <%= dayNamesLong.get(availableTime.day - 1)%>
+                                                    <span class="left_to_right">                                        
+                                                        <%= String.format("%02d:%02d", availableTime.start_hour, availableTime.start_minute)%>                                    
+                                                        &nbsp;-&nbsp;
+                                                        <%= String.format("%02d:%02d", availableTime.end_hour, availableTime.end_minute)%>                                    
+                                                    </span>
+                                                </p>
                                                 <%
                                                     }
                                                 %>  
