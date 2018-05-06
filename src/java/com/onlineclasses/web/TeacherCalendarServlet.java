@@ -16,7 +16,6 @@ import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.TeacherCalendarRequest;
 import com.onlineclasses.entities.TeacherCalendarResponse;
 import com.onlineclasses.entities.User;
-import static com.onlineclasses.web.ServletBase._gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
@@ -33,7 +32,7 @@ public class TeacherCalendarServlet extends ServletBase {
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        TeacherCalendarRequest teacherCalendarRequest = _gson.fromJson(requestString, TeacherCalendarRequest.class);
+        TeacherCalendarRequest teacherCalendarRequest = Utils.gson().fromJson(requestString, TeacherCalendarRequest.class);
         
         
         TeacherCalendarResponse teacherCalendarResponse = new TeacherCalendarResponse();

@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.web.Utils"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.onlineclasses.web.CConfig"%>
@@ -8,11 +9,10 @@
 
 <%
     User user_footer = ServletBase.getUser(request);
-    Gson gson_footer = new Gson();
-    String userGson = gson_footer.toJson(user_footer);
+    String userGson = Utils.gson().toJson(user_footer);
     String url_footer = request.getRequestURI();
     String pageName_footer = url_footer.substring(url_footer.lastIndexOf("/") + 1);
-    String parametersJson = gson_footer.toJson(request.getParameterMap());
+    String parametersJson = Utils.gson().toJson(request.getParameterMap());
 %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -23,8 +23,8 @@
 <script>
     online_classes = {};
     online_classes.user = <%= userGson %>;
-    online_classes.clabels = <%= gson_footer.toJson(CLabels.getAll()) %>;    
-    online_classes.cconfig = <%= gson_footer.toJson(CConfig.getAll()) %>;
+    online_classes.clabels = <%= Utils.gson().toJson(CLabels.getAll()) %>;    
+    online_classes.cconfig = <%= Utils.gson().toJson(CConfig.getAll()) %>;
     online_classes.parameters = <%= parametersJson %>;
 </script>
 

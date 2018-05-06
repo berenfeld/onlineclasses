@@ -6,6 +6,7 @@
 package com.onlineclasses.web;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.onlineclasses.entities.AvailableTime;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -162,6 +163,6 @@ public class Utils {
         return false;
     }
     
-    private static Gson _gson = new Gson();
+    private static Gson _gson = new GsonBuilder().registerTypeAdapter(Date.class, new GsonUTCDateAdapter()).create();
     public static Gson gson() { return _gson; }
 }

@@ -31,8 +31,6 @@ import javax.xml.bind.DatatypeConverter;
 
 public abstract class ServletBase extends HttpServlet {
 
-    protected static Gson _gson = new Gson();
-
     private String getRequestString(HttpServletRequest request) throws IOException {
         String requestString = "";
         BufferedReader reader = request.getReader();
@@ -100,7 +98,7 @@ public abstract class ServletBase extends HttpServlet {
             }
             
             String cookieStr = URLDecoder.decode(cookie.getValue(), "UTF-8");
-            WCookie websiteCookie = _gson.fromJson(cookieStr, WCookie.class);
+            WCookie websiteCookie = Utils.gson().fromJson(cookieStr, WCookie.class);
             user = DB.getUser(websiteCookie.user_id);
             if ( user == null ) {
                 Utils.info("no user id from cookie in session " + session);
@@ -134,7 +132,7 @@ public abstract class ServletBase extends HttpServlet {
             WCookie websiteCookie = new WCookie();
             websiteCookie.user_id = user.id;
             websiteCookie.hash = calculateUserHash(user);
-            String websiteCookieString = URLEncoder.encode( _gson.toJson(websiteCookie), "UTF-8");
+            String websiteCookieString = URLEncoder.encode( Utils.gson().toJson(websiteCookie), "UTF-8");
             cookie.setValue(websiteCookieString);
             cookie.setMaxAge((int) TimeUnit.DAYS.toSeconds(Config.getInt("website.cookie.age.days")));
         }
@@ -153,7 +151,7 @@ public abstract class ServletBase extends HttpServlet {
             Utils.info("request : " + requestString);
 
             BasicResponse responseObject = handleRequest(requestString, request, response);
-            String responseStr = _gson.toJson(responseObject);
+            String responseStr = Utils.gson().toJson(responseObject);
             
             response.setContentType("application/json;charset=UTF-8");
             handleLoginInResponse(request, response);

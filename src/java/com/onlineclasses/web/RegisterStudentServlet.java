@@ -31,7 +31,7 @@ public class RegisterStudentServlet extends ServletBase {
 
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        RegisterStudentRequest registerStudentRequest = _gson.fromJson(requestString, RegisterStudentRequest.class);
+        RegisterStudentRequest registerStudentRequest = Utils.gson().fromJson(requestString, RegisterStudentRequest.class);
 
         if (Utils.isNotEmpty(registerStudentRequest.google_id_token)) {
 

@@ -27,7 +27,7 @@ public class LoginServlet extends ServletBase {
 
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        LoginRequest loginRequest = _gson.fromJson(requestString, LoginRequest.class);
+        LoginRequest loginRequest = Utils.gson().fromJson(requestString, LoginRequest.class);
 
         if (Utils.isNotEmpty(loginRequest.google_id_token)) {
 

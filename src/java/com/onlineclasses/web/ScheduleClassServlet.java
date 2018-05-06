@@ -14,7 +14,6 @@ import com.onlineclasses.entities.ScheduledClass;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
-import static com.onlineclasses.web.ServletBase._gson;
 import java.util.Calendar;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +37,7 @@ public class ScheduleClassServlet extends ServletBase {
             return new BasicResponse(-1, "can't schedule class");
         }
 
-        ScheduleClassRequest scheduleClassRequest = _gson.fromJson(requestString, ScheduleClassRequest.class);
+        ScheduleClassRequest scheduleClassRequest = Utils.gson().fromJson(requestString, ScheduleClassRequest.class);
 
         Teacher teacher = DB.getTeacher(scheduleClassRequest.teacher_id);
         if (teacher == null) {

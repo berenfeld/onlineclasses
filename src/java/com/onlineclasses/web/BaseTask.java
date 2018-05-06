@@ -5,6 +5,7 @@
  */
 package com.onlineclasses.web;
 
+import java.time.Period;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,49 +14,69 @@ import java.util.TimerTask;
  *
  * @author me
  */
-public abstract class BaseTask extends TimerTask {
-    BaseTask(String name)
-    {
-        this.name = name;        
+public abstract class BaseTask {
+
+    BaseTask(String name) {
+        this._name = name;
     }
-        
-    public void schedule(int intervalInMinutes)
-    {
-        timer.scheduleAtFixedRate(this, new Date(), intervalInMinutes * 60 * 1000);
+
+    private InternalTimerTask _timerTask;
+    private long _period;
+
+    private static class InternalTimerTask extends TimerTask {
+
+        public InternalTimerTask(BaseTask baseTask) {
+            _baseTask = baseTask;
+        }
+
+        private final BaseTask _baseTask;
+
+        public void run() {
+            _baseTask.run();
+        }
     }
-    
-    public void schedule(Date start, int intervalInSeconds)
-    {
-        timer.scheduleAtFixedRate(this, start, intervalInSeconds * 1000);
+
+    private void scheduleAtFixedRate(Date firstDate, long period) {
+        _period = period;
+        if (_timerTask != null) {
+            _timerTask.cancel();
+        }
+        _timerTask = new InternalTimerTask(this);
+        _timer.scheduleAtFixedRate(_timerTask, firstDate, period);
     }
-      
-    public void runNow()
-    {
-        timer.schedule(this, 0);
+
+    public void schedule(long intervalInMinutes) {
+        scheduleAtFixedRate(new Date(), intervalInMinutes * 60 * 1000);
     }
-    
+
+    public void schedule(Date start, int intervalInSeconds) {
+        scheduleAtFixedRate(start, intervalInSeconds * 1000);
+    }
+
+    public void runNow() {
+        schedule(_period);
+    }
+
     protected abstract void runTask() throws Exception;
 
-    public void run() {
+    private synchronized void run() {
         try {
-            Utils.info("start task " + name);
+            Utils.info("start task " + _name);
         } catch (Exception ex) {
-            Utils.warning("exception on timer " + name);
+            Utils.warning("exception on timer " + _name);
             Utils.exception(ex);
         }
-        Utils.info("end task " + name);
+        Utils.info("end task " + _name);
     }
-    
-    public static void init()
-    {
-        timer = new Timer();
+
+    public static void init() {
+        _timer = new Timer();
     }
-    
-    public static void close()
-    {
-        timer.cancel();
+
+    public static void close() {
+        _timer.cancel();
         Utils.info("scheduled tasks terminated");
     }
-    private static Timer timer;    
-    private String name;
+    private static Timer _timer;
+    private final String _name;
 }

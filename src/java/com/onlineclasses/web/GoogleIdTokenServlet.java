@@ -83,7 +83,7 @@ public class GoogleIdTokenServlet extends ServletBase {
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
-        GoogleIdTokenRequest googleIdTokenRequest = _gson.fromJson(requestString, GoogleIdTokenRequest.class);
+        GoogleIdTokenRequest googleIdTokenRequest = Utils.gson().fromJson(requestString, GoogleIdTokenRequest.class);
 
         String googleIdToken = googleIdTokenRequest.google_id_token;
         Utils.debug("google id token from " + ServletBase.getUser(request) + " token " + googleIdToken);
