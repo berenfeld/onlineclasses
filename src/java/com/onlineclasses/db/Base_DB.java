@@ -30,6 +30,7 @@ public class Base_DB<T> {
     private Dao<T, Integer> _dao;
 
     public void createTable() throws SQLException {
+        Utils.info("dropping and creating table " + _dao.getTableName());
         TableUtils.dropTable(_dao, true);
         TableUtils.createTable(_dao);
     }
@@ -49,4 +50,8 @@ public class Base_DB<T> {
     public T get(int id) throws SQLException {
         return _dao.queryForId(id);
     }
+    
+    public int delete(T t)throws SQLException {
+        return _dao.delete(t);
+    }    
 }

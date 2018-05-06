@@ -28,7 +28,12 @@ public abstract class BaseTask extends TimerTask {
     {
         timer.scheduleAtFixedRate(this, start, intervalInSeconds * 1000);
     }
-        
+      
+    public void runNow()
+    {
+        timer.schedule(this, 0);
+    }
+    
     protected abstract void runTask() throws Exception;
 
     public void run() {

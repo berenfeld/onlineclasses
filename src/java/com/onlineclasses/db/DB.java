@@ -31,6 +31,7 @@ import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.table.TableUtils;
 import com.onlineclasses.entities.AvailableTime;
+import com.onlineclasses.entities.Email;
 import com.onlineclasses.entities.ScheduledClass;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.web.Config;
@@ -98,7 +99,6 @@ public class DB {
             if (Config.getBool("db.test")) {
                 TestDB.create();
             }
-            printAllTables();
 
         } catch (Exception ex) {
             Utils.exception(ex);
@@ -114,6 +114,7 @@ public class DB {
     private static AvailableTime_DB _availableTime_db;
     private static InstituteType_DB _instituteType_db;
     private static ScheduledClass_DB _scheduledClass_db;
+    private static Email_DB _email_db;
 
     private static List<Base_DB> _entities_db;
 
@@ -125,6 +126,7 @@ public class DB {
         _availableTime_db = new AvailableTime_DB(_connectionSource);
         _instituteType_db = new InstituteType_DB(_connectionSource);
         _scheduledClass_db = new ScheduledClass_DB(_connectionSource);
+        _email_db = new Email_DB(_connectionSource);
 
         _entities_db = new ArrayList<>();
         _entities_db.add(_student_db);
@@ -132,6 +134,7 @@ public class DB {
         _entities_db.add(_availableTime_db);
         _entities_db.add(_instituteType_db);
         _entities_db.add(_scheduledClass_db);
+        _entities_db.add(_email_db);
     }
 
     public static Connection getConnection() throws SQLException {
@@ -154,24 +157,6 @@ public class DB {
         for (Base_DB baseDB : _entities_db) {
             baseDB.createTable();
         }
-    }
-
-    private static void printAllTables() {
-        try {
-            Connection connection = _dataSource.getConnection();
-            Statement st = connection.createStatement();
-            ResultSet tables = st.executeQuery("Show Tables");
-            Utils.info("Tables list : ");
-            while (tables.next()) {
-                Utils.info(tables.getString(1));
-            }
-            tables.close();
-            st.close();
-            connection.close();
-        } catch (SQLException ex) {
-            Utils.exception(ex);
-        }
-
     }
 
     public static User getUserByEmail(String email) {
@@ -255,5 +240,17 @@ public class DB {
         scheduledClass.teacher = getTeacher(scheduledClass.teacher.id);
         scheduledClass.student = getStudent(scheduledClass.student.id);
         return scheduledClass;
+    }
+    
+    public static List<Email> getAllEmails() throws SQLException {
+        return _email_db.getAll();
+    }
+    
+    public static int deleteEmail(Email email) throws SQLException {
+        return _email_db.delete(email);
+    }
+    
+    public static int addEmail(Email email) throws SQLException {
+        return _email_db.add(email);
     }
 }

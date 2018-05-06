@@ -24,10 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 
-/**
- *
- * @author me
- */
 public class ScheduledClass_DB extends Base_DB<ScheduledClass>{
 
     public ScheduledClass_DB(ConnectionSource connectionSource) throws SQLException {

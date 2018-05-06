@@ -5,33 +5,21 @@ package com.onlineclasses.web;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import com.onlineclasses.web.ServletBase;
-import com.google.gson.Gson;
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.AvailableTime;
-import com.onlineclasses.entities.BasicRequest;
 import com.onlineclasses.entities.BasicResponse;
-import com.onlineclasses.entities.LoginRequest;
-import com.onlineclasses.entities.RegisterStudentRequest;
-import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.ScheduleClassRequest;
 import com.onlineclasses.entities.ScheduleClassResponse;
 import com.onlineclasses.entities.ScheduledClass;
+import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
-import com.onlineclasses.entities.TeacherCalendarResponse;
 import com.onlineclasses.entities.User;
 import static com.onlineclasses.web.ServletBase._gson;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.MessageDigest;
 import java.util.Calendar;
 import java.util.List;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DatatypeConverter;
 
 @WebServlet(urlPatterns = {"/servlets/schedule_class"})
 public class ScheduleClassServlet extends ServletBase {
@@ -111,6 +99,10 @@ public class ScheduleClassServlet extends ServletBase {
         Utils.info("student " + student.display_name + " scheduled class with " + teacher.display_name + 
                 " at " + scheduledClass.start_date + " duration " + scheduledClass.duration_minutes + " subject " +
                 scheduledClass.subject);
+
+        EmailSender.addEmail(student.email, "new scheduled class", "subject : " + scheduledClass.subject);
+        EmailSender.addEmail(teacher.email, "new scheduled class", "subject : " + scheduledClass.subject);
+        EmailSender.addEmail(Config.get("mail.admin"), "new scheduled class", "subject : " + scheduledClass.subject);
         
         ScheduleClassResponse scheduleClassResponse = new ScheduleClassResponse();
         scheduleClassResponse.class_id = scheduledClass.id;

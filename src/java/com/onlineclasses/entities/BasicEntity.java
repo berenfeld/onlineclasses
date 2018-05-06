@@ -6,6 +6,7 @@
 package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
+import javax.websocket.RemoteEndpoint;
 
 
 public class BasicEntity {
@@ -13,4 +14,10 @@ public class BasicEntity {
     public static final String ID_COLUMN = "id";    
     @DatabaseField(generatedId = true, columnName = ID_COLUMN)
     public int id;   
+    
+    @Override
+    public boolean equals(Object other)
+    {
+        return (other != null) && (other instanceof BasicEntity) && (((BasicEntity)other).id == id);
+    }
 }
