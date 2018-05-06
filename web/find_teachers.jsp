@@ -99,12 +99,12 @@
                                     <form class="form-horizontal">
 
                                         <div class="form-group form-row">
-                                            <div class="col-lg-3">
+                                            <div class="col-3">
                                                 <label for="start_schedule_class_day_input" class="col-form-label">
                                                     <%= Labels.get("schedule.class.modal.day")%>
                                                 </label>
                                             </div>
-                                            <div class="col-lg-9">
+                                            <div class="col-9">
                                                 <input type="text" class="form-control" name="start_day_input" 
                                                        id="start_schedule_class_day_input" 
                                                        placeholder="<%= Labels.get("schedule.class.modal.day_placeholder")%>">
@@ -171,12 +171,12 @@
                                             </div>
                                         </div>
                                         <div class="form-group form-row">
-                                            <div class="col-lg-3 col-md-3">
+                                            <div class="col-3">
                                                 <label for="schedule_class_duration_input" class="col-form-label">
                                                     <%= Labels.get("schedule.class.modal.duration")%>
                                                 </label>
                                             </div>                                                    
-                                            <div class="col-lg-9 col-md-9">
+                                            <div class="col-9">
                                                 <button class="btn btn-info dropdown-toggle" 
                                                         id="schedule_class_duration_input"
                                                         name="schedule_class_duration_input" data-toggle="dropdown">
@@ -206,12 +206,12 @@
                                         </div>
 
                                         <div class="form-group form-row">
-                                            <div class="col-lg-3">
+                                            <div class="col-3">
                                                 <label for="start_schedule_class_subject_input">
                                                     <%= Labels.get("schedule.class.modal.subject")%>
                                                 </label>
                                             </div>
-                                            <div class="col-lg-9">
+                                            <div class="col-9">
                                                 <input type="text" class="form-control" name="start_schedule_class_subject_input" 
                                                        id="start_schedule_class_subject_input" 
                                                        placeholder="<%= Labels.get("schedule.class.modal.subject_placeholder")%>">
@@ -225,8 +225,9 @@
                                                 </label>
                                             </div>
                                             <div class="col-lg-9">
-                                                <textarea onfocus="javascript:schedule_class_comments_focus()" rows="5" class="form-control" name="start_schedule_class_comments_input" 
-                                                          id="start_schedule_class_comments_input" ><%= Labels.get("schedule.class.modal.comments_placeholder")%></textarea>
+                                                <textarea rows="5" class="form-control" name="start_schedule_class_comments_input" 
+                                                          id="start_schedule_class_comments_input" 
+                                                          placeholder="<%= Labels.get("schedule.class.modal.comments_placeholder")%>"></textarea>
                                             </div>                                    
                                         </div>
                                     </form>
