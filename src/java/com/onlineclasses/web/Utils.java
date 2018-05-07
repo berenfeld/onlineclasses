@@ -24,8 +24,7 @@ public class Utils {
 
     public static void exception(Throwable ex) {
         String className = Thread.currentThread().getStackTrace()[1].getClassName();
-        Logger.getLogger(className).warning("Exception : " + ex.getMessage());
-        ex.printStackTrace();
+        Logger.getLogger(className).log(Level.WARNING, "Exception : {0}", ex.getMessage());
     }
 
     public static void debug(String message) {
@@ -57,7 +56,7 @@ public class Utils {
     public static void log(Level level, String message) {
 
         StackTraceElement ste = callingSTE();
-        Logger.getLogger(ste.getClassName()).log(level, ste.getFileName() + ":" + ste.getLineNumber() + " " + message);
+        Logger.getLogger(ste.getClassName()).log(level, "{0}:{1} {2}", new Object[]{ste.getFileName(), ste.getLineNumber(), message});
 
     }
 
@@ -109,15 +108,12 @@ public class Utils {
         return ((availableTime.end_hour - availableTime.start_hour) * MINUTES_IN_HOUR) + (availableTime.end_minute - availableTime.start_minute);
     }
 
+    public static boolean nonOverlappingEvents(long start1, long end1, long start2, long end2) {
+        return (start1>=end2)||(start2>=end1);
+    }
+    
     public static boolean overlappingEvents(long start1, long end1, long start2, long end2) {
-        if (end2 < start1) {
-            return false;
-        }
-
-        if (end1 < start2) {
-            return false;
-        }
-        return true;
+        return ! nonOverlappingEvents(start1, end1, start2, end2);
     }
 
     public static boolean overlappingEvents(Date start1, Date end1, Date start2, Date end2) {
@@ -162,7 +158,14 @@ public class Utils {
         }
         return false;
     }
+
+    public static String dayNameLong(int day) {
+        return toList(CLabels.get("website.days.long")).get(day-1);
+    }
     
-    private static Gson _gson = new GsonBuilder().registerTypeAdapter(Date.class, new GsonUTCDateAdapter()).create();
-    public static Gson gson() { return _gson; }
+    private static final Gson GSON = new GsonBuilder().registerTypeAdapter(Date.class, new GsonUTCDateAdapter()).create();
+
+    public static Gson gson() {
+        return GSON;
+    }
 }

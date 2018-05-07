@@ -78,7 +78,7 @@ public class TestDB {
 
         Random random = new Random();
         
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             teacher = new Teacher();
             teacher.display_name = "מורה בדיקה " + i;
             teacher.first_name = "מורה";
@@ -94,7 +94,7 @@ public class TestDB {
             teacher.gender = User.GENDER_FEMALE;
             DB.addTeacher(teacher);
 
-            for (int j = 1; j <= 7; j++) {
+            for (int j = 1; j <= 3; j++) {
                 availableTime = new AvailableTime();
                 availableTime.teacher = teacher;
                 availableTime.day = j;

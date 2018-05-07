@@ -8,9 +8,10 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.onlineclasses.web.Config;
+import java.io.Serializable;
 import java.util.Date;
 
-public class User extends BasicEntity {
+public class User extends BasicEntity implements Serializable {
 
     public static final int GENDER_MALE = Config.getInt("website.gender.male");
     public static final int GENDER_FEMALE = Config.getInt("website.gender.female");

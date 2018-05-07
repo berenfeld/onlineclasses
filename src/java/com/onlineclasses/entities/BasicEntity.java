@@ -6,10 +6,11 @@
 package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
+import java.io.Serializable;
 import javax.websocket.RemoteEndpoint;
 
 
-public class BasicEntity {
+public class BasicEntity implements Serializable {
         
     public static final String ID_COLUMN = "id";    
     @DatabaseField(generatedId = true, columnName = ID_COLUMN)

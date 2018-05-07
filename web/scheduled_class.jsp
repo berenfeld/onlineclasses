@@ -24,13 +24,13 @@
         <%@include file="body.jsp" %>    
         <div class="container">            
             <div class="row no-gutter">
-                <div class="col-4">
-                    <div class="card text-white bg-secondary">
+                <div class="col-xl-4 col-lg-4">                        
+                    <div class="card text-white bg-secondary my-2">
                         <div class="card-body">
                             <h5 class="card-title">                    
                                 <%= Labels.get("scheduled.class.sidebar.teacher")%>
                             </h5>
-                            <div class="row">
+                            <div class="row no-gutter">
                                 <div class="col-4">
                                     <figure class="figure">
                                         <img src="<%= teacher.image_url%>" class="img-responsive figure-img rounded"/>
@@ -52,9 +52,14 @@
                                     </h6>
                                 </div>
                             </div>
+                            <div>
+                                <button class="btn btn-info">
+                                    <%= Labels.get("scheduled.class.sidebar.update_price")%>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="card text-white bg-secondary">
+                    <div class="card text-white bg-secondary my-2">
                         <div class="card-body">
                             <h5 class="card-title">     
                                 <%= Labels.get("scheduled.class.sidebar.student")%>
@@ -78,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-xl-8 col-lg-8">
                     <div id="scheduled_class_main_board">
                         <table>
                             <tr ><h2 class="text-center">&nbsp;</h2></tr>

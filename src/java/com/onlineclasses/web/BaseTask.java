@@ -5,7 +5,6 @@
  */
 package com.onlineclasses.web;
 
-import java.time.Period;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,6 +30,7 @@ public abstract class BaseTask {
 
         private final BaseTask _baseTask;
 
+        @Override
         public void run() {
             _baseTask.run();
         }
@@ -54,7 +54,7 @@ public abstract class BaseTask {
     }
 
     public void runNow() {
-        schedule(_period);
+        scheduleAtFixedRate(new Date(), _period);
     }
 
     protected abstract void runTask() throws Exception;
@@ -62,8 +62,9 @@ public abstract class BaseTask {
     private synchronized void run() {
         try {
             Utils.info("start task " + _name);
+            runTask();
         } catch (Exception ex) {
-            Utils.warning("exception on timer " + _name);
+            Utils.warning("exception on task " + _name);
             Utils.exception(ex);
         }
         Utils.info("end task " + _name);
