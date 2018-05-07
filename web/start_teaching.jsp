@@ -5,7 +5,7 @@
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= Config.get("website.html_language") %>" dir="<%= Config.get("webiste.direction") %>">
     <head>
         <%@include file="header.jsp" %>
         <script src="js/start_teacher.js"></script>

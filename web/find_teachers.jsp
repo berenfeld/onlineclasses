@@ -32,7 +32,7 @@
 %>
 
 <!DOCTYPE html>
-<html lang="<%= Config.get("website.html_language")%>">
+<html lang="<%= Config.get("website.html_language") %>" dir="<%= Config.get("webiste.direction") %>">
     <head>
         <%@include file="header.jsp" %>
         <link rel="stylesheet" href="css/find_teachers.css">

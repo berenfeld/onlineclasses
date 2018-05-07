@@ -3,7 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ranb/Documents/onlineclasses/src/java/com/onlineclasses/db/DB.java</file>
+            <file>file:/home/me/onlineclasses/src/java/com/onlineclasses/web/Utils.java</file>
+            <file>file:/home/me/onlineclasses/src/java/com/onlineclasses/db/TestDB.java</file>
+            <file>file:/home/me/onlineclasses/src/java/com/onlineclasses/web/BaseTask.java</file>
+            <file>file:/home/me/onlineclasses/src/java/com/onlineclasses/web/EmailSender.java</file>
+            <file>file:/home/me/onlineclasses/src/java/com/onlineclasses/entities/User.java</file>
+            <file>file:/home/me/onlineclasses/web/scheduled_class.jsp</file>
+            <file>file:/home/me/onlineclasses/src/java/com/onlineclasses/web/TasksManager.java</file>
+            <file>file:/home/me/onlineclasses/src/java/com/onlineclasses/entities/BasicEntity.java</file>
+            <file>file:/home/me/onlineclasses/src/java/com/onlineclasses/db/Base_DB.java</file>
+            <file>file:/home/me/onlineclasses/src/java/labels.properties</file>
+            <file>file:/home/me/onlineclasses/src/java/com/onlineclasses/web/ScheduleClassServlet.java</file>
+            <file>file:/home/me/onlineclasses/src/java/com/onlineclasses/web/ServletBase.java</file>
+            <file>file:/home/me/onlineclasses/web/email/iw/new_schedule_class.html</file>
+            <file>file:/home/me/onlineclasses/src/java/labels_iw_IL.properties</file>
+            <file>file:/home/me/onlineclasses/src/java/config.properties</file>
+            <file>file:/home/me/onlineclasses/src/java/com/onlineclasses/db/DB.java</file>
+            <file>file:/home/me/onlineclasses/src/java/com/onlineclasses/entities/Email.java</file>
         </group>
     </open-files>
 </project-private>

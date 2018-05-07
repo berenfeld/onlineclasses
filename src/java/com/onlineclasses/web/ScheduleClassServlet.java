@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -31,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/servlets/schedule_class"})
 public class ScheduleClassServlet extends ServletBase {
 
+    @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
@@ -41,7 +41,7 @@ public class ScheduleClassServlet extends ServletBase {
         }
         Student student = DB.getStudent(user.id);
         if (student == null) {
-            Utils.warning("teacher " + student.display_name + " can't schedule class");
+            Utils.warning("teacher can't schedule class");
             return new BasicResponse(-1, "can't schedule class");
         }
 
@@ -113,10 +113,13 @@ public class ScheduleClassServlet extends ServletBase {
         InputStream is = getServletContext().getResourceAsStream(email_name);
         String emailContent = getStringFromInputStream(is);        
         
-        emailContent = emailContent.replace("<% teacherName %>", teacher.display_name);
-        emailContent = emailContent.replace("<% classDay %>", Utils.dayNameLong( classStart.get(Calendar.DAY_OF_WEEK)) + " " + new SimpleDateFormat("dd/MM/YYYY").format(scheduledClass.start_date));
-        emailContent = emailContent.replace("<% classTime %>", new SimpleDateFormat("HH:mm").format(scheduledClass.start_date));
-        
+        emailContent = emailContent.replaceAll("<% teacherName %>", teacher.display_name);
+        emailContent = emailContent.replaceAll("<% classDay %>", Utils.dayNameLong( classStart.get(Calendar.DAY_OF_WEEK)) + " " + new SimpleDateFormat("dd/MM/YYYY").format(scheduledClass.start_date));
+        emailContent = emailContent.replaceAll("<% classTime %>", new SimpleDateFormat("HH:mm").format(scheduledClass.start_date));
+        emailContent = emailContent.replaceAll("<% scheduledClassLink %>", Config.get("website.url") + "/scheduled_class?id=" + scheduledClass.id);
+        emailContent = emailContent.replaceAll("<% gotoClass %>", Labels.get("emails.new_scheduled_class.goto_class"));
+        emailContent = emailContent.replaceAll("<% classSubject %>", scheduledClass.subject);
+                
         List<String> to = Arrays.asList( student.email, teacher.email, Config.get("mail.admin") );
         EmailSender.addEmail(to, Labels.get("emails.new_scheduled_class.title"), emailContent);
         
@@ -132,7 +135,7 @@ public class ScheduleClassServlet extends ServletBase {
     // convert InputStream to String
     private static String getStringFromInputStream(InputStream is) {
 
-        BufferedReader br = null;
+        BufferedReader br;
         StringBuilder sb = new StringBuilder();
 
         String line;
@@ -144,15 +147,7 @@ public class ScheduleClassServlet extends ServletBase {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            return "";
         }
 
         return sb.toString();
