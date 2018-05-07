@@ -259,12 +259,13 @@ function schedule_class_select_time(element)
 
 function schedule_class_confirm()
 {
-    if ( ! login_isLoggedIn())
+    if (!login_isLoggedIn())
     {
         $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.not_logged_in"]);
         $("#schedule_class_warning_div").removeClass("d-none");
         return;
     }
+
     var start_hour = parseInt10($("#schedule_class_start_hour").text(), -1);
     var start_minute = parseInt10($("#schedule_class_start_minute").text(), -1);
     var duration = parseInt10($("#schedule_class_duration_input").text(), -1);
@@ -303,7 +304,7 @@ function schedule_class_confirm()
 
     while (minutes < duration) {
         var element = $("#schedule_class_day_" + day + "_hour_" + hour + "_minute_" + minute);
-        if (! element.hasClass("calendar_available")) {
+        if (!element.hasClass("calendar_available")) {
             $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.teacher_not_available"]);
             $("#schedule_class_warning_div").removeClass("d-none");
             return;
@@ -316,11 +317,18 @@ function schedule_class_confirm()
         }
     }
 
+    var subject = $("#start_schedule_class_subject_input").val();
+    if (! subject)
+    {
+        $("#schedule_class_warning").text(online_classes.clabels[ "schedule.class.modal.please_provide_title" ]);
+        $("#schedule_class_warning_div").removeClass("d-none");
+        return;
+    }
     var request = {};
     request.teacher_id = find_teachers.teacher_id;
     request.start_date = start_date;
     request.duration_minutes = duration;
-    request.subject = $("#start_schedule_class_subject_input").val();
+    request.subject = subject;
     request.student_comment = $("#start_schedule_class_comment_input").val();
 
     $("#schedule_class_info_div").removeClass("d-none");
@@ -341,7 +349,7 @@ function schedule_class_response(response)
         $("#schedule_class_info").text(online_classes.clabels["schedule.class.modal.schedule_class_response_error"]);
     } else {
         $("#schedule_class_info").text(online_classes.clabels["schedule.class.modal.schedule_class_response_ok"]);
-        redirectAfter("/scheduled_class?id=" + response.class_id);
+        redirectAfter("/scheduled_class?id=" + response.class_id, 3);
     }
 
 }
@@ -360,7 +368,7 @@ function find_teachers_init()
     find_teachers.calendar.selected_day = null;
     find_teachers.calendar.minutes_unit = parseInt10(online_classes.cconfig[ "website.time.unit.minutes"]);
     find_teachers.calendar.comments_clicked = false;
-    
+
     var duration = parseInt10(online_classes.cconfig[ "website.time.unit.default_class_duration"]);
     $("#schedule_class_duration").text(duration + " " + online_classes.clabels[ "language.minutes"]);
 

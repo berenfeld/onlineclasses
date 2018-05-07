@@ -113,7 +113,7 @@ public class Utils {
     }
     
     public static boolean overlappingEvents(long start1, long end1, long start2, long end2) {
-        return ! nonOverlappingEvents(start1, end1, start2, end2);
+        return ! nonOverlappingEvents(start1,end1,start2,end2);
     }
 
     public static boolean overlappingEvents(Date start1, Date end1, Date start2, Date end2) {
