@@ -38,7 +38,7 @@
 <script src="js/<%= pageName_footer %>.js"></script>
 
 <%
-    ServletBase.handleLoginInResponse(request, response);    
+    
 %>
 
 <a href="javascript:google_signOut()">GOOGLE SIGNOUT (DEBUG)</a>

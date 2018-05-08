@@ -39,6 +39,7 @@ public class ScheduleClassServlet extends ServletBase {
             Utils.warning("not logged in user can't schedule class");
             return new BasicResponse(-1, "can't schedule class");
         }
+        
         Student student = DB.getStudent(user.id);
         if (student == null) {
             Utils.warning("teacher can't schedule class");

@@ -4,6 +4,10 @@
 
 <%@page import="com.onlineclasses.web.Labels"%>
 <%@page import="com.onlineclasses.web.Config"%>
+<%
+    ServletBase.handleLoginInRequest(request);
+    ServletBase.handleLoginInResponse(request, response);    
+%>
 
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="519288456292-7s5am7pffeu8sl4tvhcjmflcopm8dqkl.apps.googleusercontent.com">
@@ -12,7 +16,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" crossorigin="anonymous">
 <link rel="stylesheet" href="css/jquery-ui.css">
 <% if ("rtl".equals(Config.get("website.direction"))) { %>        
-    <link rel="stylesheet" href="css/bootstrap-rtl.css">
+<link rel="stylesheet" href="css/bootstrap-rtl.css">
 <% }%>
 <link rel="stylesheet" href="css/extras.css">
 <link rel="stylesheet" href="css/common.css">

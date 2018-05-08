@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/servlets/login"})
 public class LoginServlet extends ServletBase {
 
+    @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         LoginRequest loginRequest = Utils.gson().fromJson(requestString, LoginRequest.class);

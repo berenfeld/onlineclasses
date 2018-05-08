@@ -79,7 +79,7 @@ public abstract class ServletBase extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
         if (user == null) {
-            Utils.info("no user in session " + session);
+            Utils.debug("no user in session " + session);
             Cookie cookie = findCookieFromUser(request);
             if (cookie == null) {                
                 Utils.info("no cookie in session " + session);
@@ -113,8 +113,7 @@ public abstract class ServletBase extends HttpServlet {
         User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
         
         String cookieName = Config.get("website.cookie.name");
-        Cookie cookie = new Cookie(cookieName,"");
-        cookie.setPath("/");
+        Cookie cookie = new Cookie(cookieName,"");        
         if ( user == null )
         {                        
             cookie.setMaxAge(0);         
@@ -126,8 +125,8 @@ public abstract class ServletBase extends HttpServlet {
             cookie.setValue(websiteCookieString);
             cookie.setMaxAge((int) TimeUnit.DAYS.toSeconds(Config.getInt("website.cookie.age.days")));
         }
-        Utils.debug("set cookie value " + cookie.getValue() + " age " + cookie.getMaxAge());
-        response.addCookie(cookie);        
+        response.addCookie(cookie);
+        Utils.info("set cookie value " + cookie.getValue() + " age " + cookie.getMaxAge() + " on url " + request.getRequestURI() );
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -154,6 +153,7 @@ public abstract class ServletBase extends HttpServlet {
 
     protected abstract BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response) throws Exception;
     
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
