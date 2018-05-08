@@ -100,19 +100,19 @@
                     <div class="text-secondary">
                         <form>
                             <div class="form-group row">
-                                <label class="col-form-label col-6" for="invite_other_student_name">
+                                <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_other_student_name">
                                     <%= Labels.get("invite_other_student.form.name_label")%>
                                 </label>
-                                <div class="col-6">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-12">
                                     <input type="text" class="form-control" id="invite_other_student_name" 
                                            placeholder="<%= Labels.get("invite_other_student.form.name")%>">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-form-label col-6" for="invite_other_student_email">
+                                <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_other_student_email">
                                     <%= Labels.get("invite_other_student.form.email_label")%>
                                 </label>
-                                <div class="col-6">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-12">
                                     <input type="email" class="form-control" id="invite_other_student_email" 
                                            placeholder="<%= Labels.get("invite_other_student.form.email")%>">
                                 </div>

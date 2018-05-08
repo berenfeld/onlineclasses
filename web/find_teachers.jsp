@@ -37,7 +37,7 @@
         <%@include file="header.jsp" %>
         <link rel="stylesheet" href="css/find_teachers.css">
     </head>
-    <body>
+    <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
         <%@include file="body.jsp" %>   
         <div class="container">
             <div id="schedule_class_not_logged_in_modal" class="modal fade" role="dialog">
@@ -381,7 +381,7 @@
                                     <%= Labels.get("find_teachers.sidebar.available_in_days")%>           
                                 </label>
                                 <select class="form-control" id="find_teachers_available_in_days">
-                                    <option value="0" <% if (availableDay
+                                        <option value="0" <% if (availableDay
                                                     == 0) { %> selected <% }%>>
                                         <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                     </option>
@@ -455,33 +455,33 @@
                                         <cite>
                                             <%= teacher.moto%>
                                         </cite>
-
                                         <p>
                                             <a class="text-secondary" data-toggle="collapse" href="#find_teacher_details_teacher_<%= teacher.id%>" 
                                                role="button" aria-expanded="false" aria-controls="find_teacher_details_teacher_<%= teacher.id%>">
                                                 <%= Labels.get("find_teachers.list.body.show_more_details")%>
                                             </a>
                                         </p>
-                                        <div class="card text-white bg-info collapse" id="find_teacher_details_teacher_<%= teacher.id%>">
-                                            <h6>
-                                                <%= Labels.get("find_teachers.list.body.available_hours")%>
-                                            </h6>
-                                            <%
-                                                for (AvailableTime availableTime : teacher.available_time) {
-                                            %>
+                                        <div class="card text-white bg-secondary collapse" id="find_teacher_details_teacher_<%= teacher.id%>">
+                                            <div class="card-body">
+                                                <div class="card-title">
+                                                    <%= Labels.get("find_teachers.list.body.available_hours")%>
+                                                </div>
+                                                <%
+                                                    for (AvailableTime availableTime : teacher.available_time) {
+                                                %>
 
-                                            <p>
+
                                                 <%= dayNamesLong.get(availableTime.day - 1)%>
                                                 <span class="left_to_right">                                        
                                                     <%= String.format("%02d:%02d", availableTime.start_hour, availableTime.start_minute)%>                                    
                                                     &nbsp;-&nbsp;
                                                     <%= String.format("%02d:%02d", availableTime.end_hour, availableTime.end_minute)%>                                    
                                                 </span>
-                                            </p>
-                                            <%
-                                                }
-                                            %>  
-
+                                                <br/>
+                                                <%
+                                                    }
+                                                %>  
+                                            </div>
                                         </div>
 
                                     </td>

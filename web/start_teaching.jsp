@@ -10,7 +10,7 @@
         <%@include file="header.jsp" %>
         <script src="js/start_teacher.js"></script>
     </head>
-    <body>
+    <body lang="<%= Config.get("website.html_language") %>" dir="<%= Config.get("webiste.direction") %>">
         <%@include file="body.jsp" %>
         <div class="container">
             <ul class="nav nav-tabs">

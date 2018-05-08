@@ -20,7 +20,7 @@
         <%@include file="header.jsp" %>
         <link rel="stylesheet" href="css/scheduled_class.css">
     </head>
-    <body>
+    <body lang="<%= Config.get("website.html_language") %>" dir="<%= Config.get("webiste.direction") %>">
         <%@include file="body.jsp" %>    
         <div class="container">            
             <div class="row no-gutter">
