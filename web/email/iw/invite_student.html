@@ -289,23 +289,23 @@
                                 <td class="wrapper">
                                     <table border="0" cellpadding="0" cellspacing="0">
                                         <tr>
-                                            <td>                        
+                                            <td> 
                                                 <h4>
-                                                    שיעון און ליין חדש נקבע עבורך !!
+                                                    שלום,
+                                                    <% invitedStudent %>
                                                 </h4>
                                                 <h4>
-                                                    עם המורה
-                                                    <% teacherName %>
+                                                    אנחנו מזמינים אותך ללמוד איתנו באתר המורים הפרטיים
+                                                    <a href="<% websiteUrl %>">
+                                                        <% websiteShortName %>
+                                                    </a>
                                                 </h4>
                                                 <h4>
-                                                    ביום : 
-                                                    <% classDay %>
-                                                    בשעה :
-                                                    <% classTime %>
-                                                </h4>
-                                                <h4>
-                                                    בנושא
-                                                    <% classSubject %>
+                                                    היכנס ל
+                                                    <a href="<% findTeachersUrl %>">
+                                                        עמוד המורים שלנו
+                                                    </a>
+                                                    לצפות ברשימת המורים ולקבוע שיעור און ליין
                                                 </h4>
                                                 <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                                                     <tbody>
@@ -314,7 +314,7 @@
                                                                 <table border="0" cellpadding="0" cellspacing="0">
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td> <a href="<% scheduledClassLink %>" target="_blank"><% gotoClass %></a> </td>
+                                                                            <td> <a href="<% registerStudentUrl %>" target="_blank">להרשמה לאתר</a> </td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -322,7 +322,6 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <p>בהצלחה בשיעור !</p>
                                             </td>
                                         </tr>
                                     </table>

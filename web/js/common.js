@@ -47,12 +47,12 @@ function addDays(date, days)
 
 function addMinutes(date, minutes)
 {
-    date.setTime(date.getTime() + (minutes * 1000 * 60 ));
+    date.setTime(date.getTime() + (minutes * 1000 * 60));
 }
 
 function addHours(date, hours)
 {
-    date.setTime(date.getTime() + (hours * 1000 * 60 * 60 ));
+    date.setTime(date.getTime() + (hours * 1000 * 60 * 60));
 }
 
 function sameDay(date1, date2) {
@@ -70,13 +70,36 @@ function parseDateLong(date) {
 }
 
 function parseRemainingMs(remainingMs) {
-    var minutes = Math.floor(remainingMs / ( 1000 * 60 ));
+    var minutes = Math.floor(remainingMs / (1000 * 60));
     var hours = Math.floor(minutes / 60);
     var days = Math.floor(hours / 24);
     minutes = minutes - (hours * 60);
     hours = hours - (days * 24);
-    
+
     return days + " " + online_classes.clabels[ "language.days" ] + ", " +
             hours + " " + online_classes.clabels[ "language.hours" ] + ", " +
             minutes + " " + online_classes.clabels[ "language.minutes" ];
+}
+
+function invite_other_student()
+{
+    $("#invite_other_student_modal").modal("show");
+}
+function invite_other_student_response(response)
+{
+
+}
+
+function invite_other_student_send()
+{
+    var request = {};
+    request.student_name = $("#invite_other_student_name").val();
+    request.student_email = $("#invite_other_student_email").val();
+    $.ajax("servlets/invite_student",
+            {
+                type: "POST",
+                data: JSON.stringify(request),
+                dataType: "JSON",
+                success: invite_other_student_response
+            });
 }

@@ -71,7 +71,7 @@ public class EmailSender extends BaseTask {
         }
     }
 
-    private static void addEmail(String to, String subject, String message) throws Exception {
+    public static void addEmail(String to, String subject, String message) throws Exception {
         Email email = new Email();
         email.to = to;
         email.subject = subject;
@@ -91,6 +91,7 @@ public class EmailSender extends BaseTask {
                 continue;
             }
             addEmail(to.email, subject, message);
-        }                        
+        }    
+        
     }
 }

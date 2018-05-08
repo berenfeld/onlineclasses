@@ -8,6 +8,10 @@ package com.onlineclasses.web;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.onlineclasses.entities.AvailableTime;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -17,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.xml.bind.DatatypeConverter;
 
 /**
@@ -186,4 +191,27 @@ public class Utils {
     public static Gson gson() {
         return GSON;
     }
+    
+
+    public static String getStringFromInputStream(ServletContext context, String email_name) {
+        InputStream is = context.getResourceAsStream(email_name);
+        BufferedReader br;
+        StringBuilder sb = new StringBuilder();
+
+        String line;
+        try {
+
+            br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+        } catch (IOException e) {
+            return "";
+        }
+
+        return sb.toString();
+
+    }
+
 }
