@@ -6,29 +6,19 @@ package com.onlineclasses.web;
  * and open the template in the editor.
  */
 import com.onlineclasses.db.DB;
-import com.onlineclasses.web.ServletBase;
-import com.google.gson.Gson;
 import com.onlineclasses.entities.BasicResponse;
-import com.onlineclasses.entities.LoginRequest;
 import com.onlineclasses.entities.RegisterStudentRequest;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.User;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.MessageDigest;
 import java.util.Date;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DatatypeConverter;
 
 @WebServlet(urlPatterns = {"/servlets/register_student"})
 public class RegisterStudentServlet extends ServletBase {
 
-    
-
+    @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         RegisterStudentRequest registerStudentRequest = Utils.gson().fromJson(requestString, RegisterStudentRequest.class);
@@ -57,6 +47,7 @@ public class RegisterStudentServlet extends ServletBase {
             registeringStudent.phone_area = registerStudentRequest.phone_area;
             registeringStudent.phone_number = registerStudentRequest.phone_number;
             registeringStudent.registered = new Date();
+            registeringStudent.emails_enabled = true;
             
             if (DB.addStudent(registeringStudent) != 1 ) {
                 Utils.warning("Could not add user " + registeringStudent.display_name);

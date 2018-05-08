@@ -5,40 +5,25 @@
  */
 package com.onlineclasses.db;
 
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
+import com.onlineclasses.entities.AvailableTime;
+import com.onlineclasses.entities.Email;
 import com.onlineclasses.entities.InstituteType;
+import com.onlineclasses.entities.ScheduledClass;
 import com.onlineclasses.entities.Student;
+import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
+import com.onlineclasses.web.Config;
+import com.onlineclasses.web.Utils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.servlet.ServletContext;
-import com.j256.ormlite.jdbc.JdbcConnectionSource;
-import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.stmt.SelectArg;
-import com.j256.ormlite.stmt.Where;
-import com.j256.ormlite.table.TableUtils;
-import com.onlineclasses.entities.AvailableTime;
-import com.onlineclasses.entities.Email;
-import com.onlineclasses.entities.ScheduledClass;
-import com.onlineclasses.entities.Teacher;
-import com.onlineclasses.web.Config;
-import com.onlineclasses.web.Utils;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Map;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 
@@ -106,9 +91,9 @@ public class DB {
     }
 
     public static void close() {
-        _dataSource.close();        
+        _dataSource.close();
     }
-    
+
     private static Student_DB _student_db;
     private static Teacher_DB _teacher_db;
     private static AvailableTime_DB _availableTime_db;
@@ -160,7 +145,19 @@ public class DB {
     }
 
     public static User getUserByEmail(String email) {
-        return _student_db.getUserByEmail(email);
+        Student student = _student_db.getStudentByEmail(email);
+        if (student != null) {
+            return student;
+        }
+        Teacher teacher = _teacher_db.getTeacherByEmail(email);
+        if (teacher != null) {
+            return teacher;
+        }
+        return null;
+    }
+
+    public static Student getStudentByEmail(String email) {
+        return _student_db.getStudentByEmail(email);
     }
 
     static PreparedStatement openPreparedStatement(String sql) throws SQLException {
@@ -220,11 +217,11 @@ public class DB {
     }
 
     public static List<InstituteType> getAllInstituteTypes() throws SQLException {
-        return _instituteType_db.dao().queryForAll();
+        return _instituteType_db.getAll();
     }
 
     public static List<Teacher> getAllTeachers() throws SQLException {
-        return _teacher_db.dao().queryForAll();
+        return _teacher_db.getAll();
     }
 
     public static int addScheduledClass(ScheduledClass scheduledClass) throws SQLException {
@@ -234,23 +231,27 @@ public class DB {
     public static List<ScheduledClass> getTeacherScheduledClasses(Teacher teacher) throws SQLException {
         return _scheduledClass_db.getTeacherScheduledClasses(teacher);
     }
-    
+
     public static ScheduledClass getScheduledClass(int id) throws SQLException {
         ScheduledClass scheduledClass = _scheduledClass_db.get(id);
         scheduledClass.teacher = getTeacher(scheduledClass.teacher.id);
         scheduledClass.student = getStudent(scheduledClass.student.id);
         return scheduledClass;
     }
-    
+
     public static List<Email> getAllEmails() throws SQLException {
         return _email_db.getAll();
     }
-    
+
     public static int deleteEmail(Email email) throws SQLException {
         return _email_db.delete(email);
     }
-    
+
     public static int addEmail(Email email) throws SQLException {
         return _email_db.add(email);
+    }
+
+    public static int updateUserEmailEnabled(Student student) throws SQLException {
+        return _student_db.updateEmailEnabled(student);
     }
 }

@@ -5,19 +5,15 @@
  */
 package com.onlineclasses.db;
 
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.SelectArg;
+import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.support.ConnectionSource;
-import com.j256.ormlite.table.TableUtils;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.web.Utils;
-import java.sql.Connection;
 import java.sql.SQLException;
-import javax.sql.DataSource;
 
 /**
  *
@@ -27,22 +23,22 @@ public class Student_DB extends Base_DB<Student> {
 
     public Student_DB(ConnectionSource connectionSource) throws SQLException {
         super(connectionSource, Student.class);
-        QueryBuilder<Student, Integer> queryBuilder = dao().queryBuilder();
-        queryBuilder.where().eq(Student.EMAIL_COLUMN, _userQueryByEmailArg);
-        _userQueryByEmail = queryBuilder.prepare();
+        QueryBuilder<Student, Integer> queryBuilder = _dao.queryBuilder();
+        queryBuilder.where().eq(Student.EMAIL_COLUMN, _queryByEmailArg);
+        _queryByEmail = queryBuilder.prepare();                
     }
 
-    private SelectArg _userQueryByEmailArg = new SelectArg();
-    private PreparedQuery<Student> _userQueryByEmail;
+    private final SelectArg _queryByEmailArg = new SelectArg();
+    private final PreparedQuery<Student> _queryByEmail;
     
-    public User getUserByEmail(String email) {
+    public Student getStudentByEmail(String email) {
 
         try {
-            _userQueryByEmailArg.setValue(email);
+            _queryByEmailArg.setValue(email);
 
-            User user = dao().queryForFirst(_userQueryByEmail);
+            Student student = _dao.queryForFirst(_queryByEmail);
             // TODO can also be a teacher
-            return user;
+            return student;
         } catch (SQLException ex) {
             Utils.exception(ex);
             return null;
@@ -51,11 +47,19 @@ public class Student_DB extends Base_DB<Student> {
 
     public User getUser(int id) {
         try {
-            User user = dao().queryForId(id);
+            User user = _dao.queryForId(id);
             return user;
         } catch (SQLException ex) {
             Utils.exception(ex);
             return null;
         }
     }   
+    
+    public int updateEmailEnabled(Student student) throws SQLException
+    {
+        UpdateBuilder<Student, Integer> updateBuilder = _dao.updateBuilder();
+        updateBuilder.where().idEq(student.id);
+        updateBuilder.updateColumnValue( Student.EMAILS_ENABLED_COLUMN, student.emails_enabled);
+        return updateBuilder.update();
+    }
 }

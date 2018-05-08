@@ -6,28 +6,20 @@ package com.onlineclasses.web;
  * and open the template in the editor.
  */
 import com.onlineclasses.db.DB;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.onlineclasses.entities.BasicResponse;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.entities.WCookie;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Reader;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.security.MessageDigest;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-import javax.xml.bind.DatatypeConverter;
 
 public abstract class ServletBase extends HttpServlet {
 
@@ -40,12 +32,10 @@ public abstract class ServletBase extends HttpServlet {
         return requestString;
     }
 
-    private static String calculateUserHash(User user) throws Exception {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+    private static String calculateUserHash(User user) throws Exception {        
         String hashString = user.id + "." + user.email + "." + Config.get("website.secret.md5");
-        Utils.debug("calculate hash of '" + hashString + "'");
-        md.update(hashString.getBytes());
-        String userHash = DatatypeConverter.printHexBinary(md.digest());
+        Utils.debug("calculate hash of '" + hashString + "'");                
+        String userHash = Utils.md5(hashString);
         return userHash;
     }    
 

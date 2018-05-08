@@ -19,18 +19,14 @@ public class Base_DB<T> {
         _dao = DaoManager.createDao(connectionSource, clazz);
     }
 
-    private final Dao<T, Integer> _dao;
+    protected final Dao<T, Integer> _dao;
 
     public void createTable() throws SQLException {
         Utils.info("dropping and creating table " + _dao.getTableName());
         TableUtils.dropTable(_dao, true);
         TableUtils.createTable(_dao);
     }
-
-    public Dao<T, Integer> dao() {
-        return _dao;
-    }
-
+    
     public int add(T t) throws SQLException {
         return _dao.create(t);
     }

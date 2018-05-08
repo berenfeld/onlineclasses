@@ -19,6 +19,10 @@
         <servlet-name>scheduled_class</servlet-name>
         <jsp-file>/scheduled_class.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>unsubscribe</servlet-name>
+        <jsp-file>/unsubscribe.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>start_teaching</servlet-name>
         <url-pattern>/start_teaching</url-pattern>
@@ -34,6 +38,10 @@
     <servlet-mapping>
         <servlet-name>scheduled_class</servlet-name>
         <url-pattern>/scheduled_class</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>unsubscribe</servlet-name>
+        <url-pattern>/unsubscribe</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

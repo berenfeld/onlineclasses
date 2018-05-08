@@ -5,23 +5,17 @@
  */
 package com.onlineclasses.db;
 
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
 import com.onlineclasses.entities.AvailableTime;
-import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
-import com.onlineclasses.entities.User;
 import com.onlineclasses.web.Utils;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.sql.DataSource;
 
 /**
  *
@@ -32,7 +26,7 @@ public class AvailableTime_DB extends Base_DB<AvailableTime> {
     public AvailableTime_DB(ConnectionSource connectionSource) throws SQLException {
         super(connectionSource, AvailableTime.class);
         
-        QueryBuilder<AvailableTime, Integer> queryBuilder = dao().queryBuilder();
+        QueryBuilder<AvailableTime, Integer> queryBuilder = _dao.queryBuilder();
         Where<AvailableTime, Integer> where = queryBuilder.where();
         where.eq(AvailableTime.TEACHER_ID_COLUMN, _getTeacherAvailableTimeTeacherIdArg);        
         queryBuilder.orderBy(AvailableTime.DAY_COLUMN, true);
@@ -46,7 +40,7 @@ public class AvailableTime_DB extends Base_DB<AvailableTime> {
     public synchronized List<AvailableTime> getTeacherAvailableTime(Teacher teacher) {        
         try {
             _getTeacherAvailableTimeTeacherIdArg.setValue(teacher);
-            return dao().query(_getTeacherAvailableTimeQuery);
+            return _dao.query(_getTeacherAvailableTimeQuery);
         } catch (SQLException ex) {
             Utils.exception(ex);
             return new ArrayList<AvailableTime>();

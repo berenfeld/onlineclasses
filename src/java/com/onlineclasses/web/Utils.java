@@ -8,6 +8,8 @@ package com.onlineclasses.web;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.onlineclasses.entities.AvailableTime;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -15,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -39,6 +42,21 @@ public class Utils {
         log(Level.WARNING, message);
     }
 
+    public static String md5(String hashString)
+    {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("MD5");        
+        }catch (NoSuchAlgorithmException ex) {
+            Utils.exception(ex);
+            Utils.warning("failed calculating hash of " + hashString);
+            return "";
+        }
+        md.update(hashString.getBytes());
+        String hash = DatatypeConverter.printHexBinary(md.digest());
+        return hash;
+    }    
+    
     public static StackTraceElement callingSTE() {
         for (StackTraceElement st : Thread.currentThread().getStackTrace()) {
             if (st.getFileName().equals("Thread.java")) {

@@ -120,7 +120,7 @@ public class ScheduleClassServlet extends ServletBase {
         emailContent = emailContent.replaceAll("<% gotoClass %>", Labels.get("emails.new_scheduled_class.goto_class"));
         emailContent = emailContent.replaceAll("<% classSubject %>", scheduledClass.subject);
                 
-        List<String> to = Arrays.asList( student.email, teacher.email, Config.get("mail.admin") );
+        List<User> to = Arrays.asList( student, teacher );
         EmailSender.addEmail(to, Labels.get("emails.new_scheduled_class.title"), emailContent);
         
         TasksManager.runNow(TasksManager.TASK_EMAIL);
