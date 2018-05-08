@@ -82,11 +82,14 @@ public class GoogleIdTokenServlet extends ServletBase {
             Utils.warning("google login from token failed");            
             return new BasicResponse(-1,"");            
         }
-        
+                
         User user = DB.getUserByEmail(googleUser.email);
         if (user == null) {
-            Utils.info("google login from new email " + googleUser.email);
-            DB.addOrUpdateGoogleUser(googleUser);
+            GoogleUser fromDB = DB.getGoogleUserByEmail(googleUser.email);
+            if ( fromDB == null) {
+                Utils.info("google login from new email " + googleUser.email);            
+                DB.addGoogleUser(googleUser);
+            }
             
         }
         return new GoogleIdTokenResponse(user != null);        

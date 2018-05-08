@@ -32,7 +32,7 @@
 %>
 
 <!DOCTYPE html>
-<html lang="<%= Config.get("website.html_language") %>" dir="<%= Config.get("webiste.direction") %>">
+<html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
     <head>
         <%@include file="header.jsp" %>
         <link rel="stylesheet" href="css/find_teachers.css">
@@ -314,13 +314,16 @@
                                                 %>
                                             </tbody>
                                         </table> 
-
-
                                     </div>
                                 </div>
                             </div>
                             <div id="schedule_class_warning_div" class="alert alert-warning d-none fade show alert-dismissible h6">
                                 <span id="schedule_class_warning"></span>
+                                &nbsp;
+                                <a class="alert-link d-none" id="schedule_class_warning_a"></a>
+                                &nbsp;
+                                <a class="alert-link d-none" id="schedule_class_warning_a_not_logged_in"
+                                   href="javascript:schedule_class_login_clicked()"></a>
                             </div>
                             <div id="schedule_class_info_div" class="alert alert-info d-none fade show alert-dismissible h6">
                                 <span id="schedule_class_info"></span>
@@ -378,8 +381,8 @@
                                     <%= Labels.get("find_teachers.sidebar.available_in_days")%>           
                                 </label>
                                 <select class="form-control" id="find_teachers_available_in_days">
-                                        <option value="0" <% if (availableDay
-                                                == 0) { %> selected <% }%>>
+                                    <option value="0" <% if (availableDay
+                                                    == 0) { %> selected <% }%>>
                                         <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                     </option>
                                     <%

@@ -259,10 +259,17 @@ function schedule_class_select_time(element)
 
 function schedule_class_confirm()
 {
+    $("#schedule_class_warning_a").addClass("d-none");
+    $("#schedule_class_warning_a_not_logged_in").addClass("d-none");
     if (!login_isLoggedIn())
     {
         $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.not_logged_in"]);
         $("#schedule_class_warning_div").removeClass("d-none");
+        $("#schedule_class_warning_a").attr("href", "start_learning");
+        $("#schedule_class_warning_a").html(online_classes.clabels[ "schedule.class.modal.register_here"]);
+        $("#schedule_class_warning_a").removeClass("d-none");
+        $("#schedule_class_warning_a_not_logged_in").html(online_classes.clabels[ "schedule.class.modal.click_here_to_connect"]);
+        $("#schedule_class_warning_a_not_logged_in").removeClass("d-none");
         return;
     }
 
@@ -405,6 +412,12 @@ function find_teachers_init()
         onSelect: schedule_class_select_date
     });
 
+}
+
+function schedule_class_login_clicked()
+{
+    $("#schedule_class_modal").modal("hide");
+    login_showLoginModal("login_modal");
 }
 
 find_teachers_init();

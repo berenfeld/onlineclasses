@@ -11,6 +11,7 @@ import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
 import com.onlineclasses.entities.GoogleUser;
+import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.web.Utils;
 import java.sql.SQLException;
@@ -26,5 +27,23 @@ public class GoogleUser_DB extends Base_DB<GoogleUser> {
     public GoogleUser_DB(ConnectionSource connectionSource) throws SQLException {
         super(connectionSource, GoogleUser.class);
 
+        QueryBuilder<GoogleUser, Integer> queryBuilder = _dao.queryBuilder();
+        queryBuilder.where().eq(Teacher.EMAIL_COLUMN, _queryByEmailArg);
+        _queryByEmail = queryBuilder.prepare();
+
+    }
+    private final SelectArg _queryByEmailArg = new SelectArg();
+    private final PreparedQuery<GoogleUser> _queryByEmail;
+
+    public GoogleUser getGoogleUserByEmail(String email) {
+
+        try {
+            _queryByEmailArg.setValue(email);
+            GoogleUser googleUser = _dao.queryForFirst(_queryByEmail);
+            return googleUser;
+        } catch (SQLException ex) {
+            Utils.exception(ex);
+            return null;
+        }
     }
 }

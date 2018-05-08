@@ -25,24 +25,15 @@ public class Student_DB extends Base_DB<Student> {
         super(connectionSource, Student.class);
         QueryBuilder<Student, Integer> queryBuilder = _dao.queryBuilder();
         queryBuilder.where().eq(Student.EMAIL_COLUMN, _queryByEmailArg);
-        _queryByEmail = queryBuilder.prepare();                
+        _queryByEmail = queryBuilder.prepare();
     }
 
     private final SelectArg _queryByEmailArg = new SelectArg();
     private final PreparedQuery<Student> _queryByEmail;
-    
-    public Student getStudentByEmail(String email) {
 
-        try {
-            _queryByEmailArg.setValue(email);
-
-            Student student = _dao.queryForFirst(_queryByEmail);
-            // TODO can also be a teacher
-            return student;
-        } catch (SQLException ex) {
-            Utils.exception(ex);
-            return null;
-        }
+    public synchronized Student getStudentByEmail(String email) throws SQLException {
+        _queryByEmailArg.setValue(email);
+        return _dao.queryForFirst(_queryByEmail);
     }
 
     public User getUser(int id) {
@@ -53,13 +44,12 @@ public class Student_DB extends Base_DB<Student> {
             Utils.exception(ex);
             return null;
         }
-    }   
-    
-    public int updateEmailEnabled(Student student) throws SQLException
-    {
+    }
+
+    public int updateEmailEnabled(Student student) throws SQLException {
         UpdateBuilder<Student, Integer> updateBuilder = _dao.updateBuilder();
         updateBuilder.where().idEq(student.id);
-        updateBuilder.updateColumnValue( Student.EMAILS_ENABLED_COLUMN, student.emails_enabled);
+        updateBuilder.updateColumnValue(Student.EMAILS_ENABLED_COLUMN, student.emails_enabled);
         return updateBuilder.update();
     }
 }

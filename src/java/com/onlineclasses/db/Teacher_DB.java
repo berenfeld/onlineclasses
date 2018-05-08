@@ -58,15 +58,8 @@ public class Teacher_DB extends Base_DB<Teacher> {
         }
     }
 
-    public Teacher getTeacherByEmail(String email) {
-
-        try {
-            _queryByEmailArg.setValue(email);
-            Teacher teacher = _dao.queryForFirst(_queryByEmail);
-            return teacher;
-        } catch (SQLException ex) {
-            Utils.exception(ex);
-            return null;
-        }
+    public synchronized Teacher getTeacherByEmail(String email) throws SQLException {
+        _queryByEmailArg.setValue(email);
+        return _dao.queryForFirst(_queryByEmail);
     }
 }

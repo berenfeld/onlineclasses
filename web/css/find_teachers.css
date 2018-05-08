@@ -9,11 +9,11 @@ td.calendar_today {
 }
 
 td.calendar_available {
-    background-color:#E0FFFF
+    background-color:#17a2b8
 }
 
 td.calendar_selected {
-    background-color:#7CFC00
+    background-color:#6BEB00
 }
 
 td.calendar_busy {

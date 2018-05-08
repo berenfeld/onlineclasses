@@ -10,15 +10,14 @@ import com.onlineclasses.web.Config;
 import java.io.Serializable;
 import java.util.Date;
 
-public class GoogleUser { 
+public class GoogleUser extends BasicEntity { 
     
     public static final int GENDER_MALE = Config.getInt("website.gender.male");
     public static final int GENDER_FEMALE = Config.getInt("website.gender.female");
 
     public static final String EMAIL_COLUMN = "email";
-    @DatabaseField( id = true,  canBeNull = false, unique = true, columnName = EMAIL_COLUMN)
+    @DatabaseField(canBeNull = false, unique = true, columnName = EMAIL_COLUMN)
     public String email;
-    
     @DatabaseField
     public String first_name;
     @DatabaseField

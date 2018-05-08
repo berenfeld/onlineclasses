@@ -148,7 +148,7 @@ public class DB {
         }
     }
 
-    public static User getUserByEmail(String email) {
+    public static User getUserByEmail(String email) throws SQLException  {
         Student student = _student_db.getStudentByEmail(email);
         if (student != null) {
             return student;
@@ -160,7 +160,7 @@ public class DB {
         return null;
     }
 
-    public static Student getStudentByEmail(String email) {
+    public static Student getStudentByEmail(String email) throws SQLException {
         return _student_db.getStudentByEmail(email);
     }
 
@@ -259,7 +259,11 @@ public class DB {
         return _student_db.updateEmailEnabled(student);
     }
     
-    public static boolean addOrUpdateGoogleUser(GoogleUser googleUser) throws SQLException {
-        return _googleUser_db.addOrUpdate(googleUser);
+    public static GoogleUser getGoogleUserByEmail(String email) throws SQLException  {
+        return _googleUser_db.getGoogleUserByEmail(email);
+    }
+    
+    public static int addGoogleUser(GoogleUser googleUser) throws SQLException {
+        return _googleUser_db.add(googleUser);
     }
 }

@@ -44,8 +44,4 @@ public class Base_DB<T> {
         return _dao.delete(t);
     }    
     
-    public boolean addOrUpdate(T t) throws SQLException {
-        CreateOrUpdateStatus status = _dao.createOrUpdate(t);
-        return (status.isCreated()) || (status.isUpdated());
-    }
 }

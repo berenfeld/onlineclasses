@@ -4,7 +4,7 @@
     <div id="login_modal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
-                <div class="modal-header d-flex">
+                <div class="modal-header">
                     <div class="h5 modal-title text-success">
                         <%= Labels.get("login.modal.title")%>                     
                     </div>
@@ -34,16 +34,15 @@
 
     <div id="confirm_modal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-sm">
-
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header modal-header-success">
-                    <h5 class="modal-title text-warning">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success">
                         <span id="confirm_modal_title"></span>
                     </h5>
                 </div>
                 <div class="modal-body">
-                    <h6 class="text-warning">
+                    <h6 class="text-info">
                         <span id="confirm_modal_message"></span>
                     </h6>                    
                 </div>
@@ -60,8 +59,8 @@
         <div class="modal-dialog modal-sm">
 
             <div class="modal-content">
-                <div class="modal-header modal-header-warning">
-                    <div class="modal-title"> 
+                <div class="modal-header">
+                    <div class="modal-title text-success"> 
                         <h5>
                             <span id="alert_modal_title">
                                 <%= Labels.get("alert.modal.title")%>
@@ -69,7 +68,7 @@
                         </h5>
                     </div>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-info">
                     <h6 id="alert_modal_text1">
                         <%= Labels.get("alert.modal.text1")%>
                     </h6>                    
@@ -87,7 +86,7 @@
         <div class="modal-dialog modal-sm">
 
             <div class="modal-content">
-                <div class="modal-header modal-header-info">
+                <div class="modal-header">
                     <button type="button" class="close" aria-label="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span>
                     </button>
