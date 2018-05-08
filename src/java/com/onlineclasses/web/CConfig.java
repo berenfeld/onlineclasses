@@ -5,13 +5,10 @@
  */
 package com.onlineclasses.web;
 
-import static com.onlineclasses.web.CLabels.get;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

@@ -8,6 +8,7 @@ package com.onlineclasses.db;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.Email;
+import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.ScheduledClass;
 import com.onlineclasses.entities.Student;
@@ -100,6 +101,7 @@ public class DB {
     private static InstituteType_DB _instituteType_db;
     private static ScheduledClass_DB _scheduledClass_db;
     private static Email_DB _email_db;
+    private static GoogleUser_DB _googleUser_db;
 
     private static List<Base_DB> _entities_db;
 
@@ -112,6 +114,7 @@ public class DB {
         _instituteType_db = new InstituteType_DB(_connectionSource);
         _scheduledClass_db = new ScheduledClass_DB(_connectionSource);
         _email_db = new Email_DB(_connectionSource);
+        _googleUser_db = new GoogleUser_DB(_connectionSource);
 
         _entities_db = new ArrayList<>();
         _entities_db.add(_student_db);
@@ -120,6 +123,7 @@ public class DB {
         _entities_db.add(_instituteType_db);
         _entities_db.add(_scheduledClass_db);
         _entities_db.add(_email_db);
+        _entities_db.add(_googleUser_db);
     }
 
     public static Connection getConnection() throws SQLException {
@@ -253,5 +257,9 @@ public class DB {
 
     public static int updateUserEmailEnabled(Student student) throws SQLException {
         return _student_db.updateEmailEnabled(student);
+    }
+    
+    public static boolean addOrUpdateGoogleUser(GoogleUser googleUser) throws SQLException {
+        return _googleUser_db.addOrUpdate(googleUser);
     }
 }

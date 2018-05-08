@@ -6,7 +6,6 @@
 package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
 import java.util.Date;
 
 public class ScheduledClass extends BasicEntity  {

@@ -5,8 +5,6 @@
  */
 package com.onlineclasses.entities;
 
-import java.util.List;
-
 /**
  *
  * @author me

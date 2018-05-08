@@ -6,6 +6,7 @@
 package com.onlineclasses.db;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.Dao.CreateOrUpdateStatus;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -42,4 +43,9 @@ public class Base_DB<T> {
     public int delete(T t)throws SQLException {
         return _dao.delete(t);
     }    
+    
+    public boolean addOrUpdate(T t) throws SQLException {
+        CreateOrUpdateStatus status = _dao.createOrUpdate(t);
+        return (status.isCreated()) || (status.isUpdated());
+    }
 }

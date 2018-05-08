@@ -47,13 +47,17 @@ public class EmailSender extends BaseTask {
         HtmlEmail email = new HtmlEmail();
 
         email.setCharset(org.apache.commons.mail.EmailConstants.UTF_8);
+        email.addHeader( "Content-Language", Config.get("website.html_language"));        
+        email.addHeader( "List-Unsubscribe", "<mailto:" + Config.get("mail.admin") + ">, <" + unsubscribeURL + ">");
+        
         email.setHostName(Config.get("mail.host"));
         email.setSmtpPort(Config.getInt("mail.port"));
         email.setFrom(Config.get("mail.from"), Config.get("mail.from.name"));
+        email.addReplyTo(Config.get("mail.reply_to"));
         email.setSubject(emailToSend.subject);
         email.setHtmlMsg(emailToSend.message);
         email.addTo(emailToSend.to);
-        email.addBcc(Config.get("mail.admin"));
+        email.addBcc(Config.get("mail.admin"));                                
         
         try {
             email.send();

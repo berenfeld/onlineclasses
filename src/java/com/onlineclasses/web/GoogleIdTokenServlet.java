@@ -5,44 +5,32 @@ package com.onlineclasses.web;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import com.onlineclasses.web.ServletBase;
-import com.google.gson.Gson;
-import com.onlineclasses.entities.BasicRequest;
-import com.onlineclasses.entities.BasicResponse;
-import com.onlineclasses.entities.GoogleIdTokenRequest;
-import com.onlineclasses.entities.LoginRequest;
-import com.onlineclasses.entities.Student;
-import com.onlineclasses.entities.User;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.MessageDigest;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DatatypeConverter;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.onlineclasses.db.DB;
+import com.onlineclasses.entities.BasicResponse;
+import com.onlineclasses.entities.GoogleIdTokenRequest;
 import com.onlineclasses.entities.GoogleIdTokenResponse;
+import com.onlineclasses.entities.GoogleUser;
+import com.onlineclasses.entities.User;
 import java.util.Collections;
-import javax.servlet.ServletConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = {"/servlets/google_id_token"})
 public class GoogleIdTokenServlet extends ServletBase {
 
-    private static JacksonFactory _jacksonFactory = new JacksonFactory();
+    private static final JacksonFactory JACKSON_FACTORY = new JacksonFactory();
 
-    private static GoogleIdTokenVerifier _verifier;
+    private static final GoogleIdTokenVerifier GOOGLE_ID_TOKEN_VERIFIER;
 
     static {
-
         String clientId = Config.get("webiste.google.client_id");
-        _verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), _jacksonFactory)
+        GOOGLE_ID_TOKEN_VERIFIER = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), JACKSON_FACTORY)
                 // Specify the CLIENT_ID of the app that accesses the backend:
                 .setAudience(Collections.singletonList(clientId))
                 // Or, if multiple clients access the backend:
@@ -51,16 +39,16 @@ public class GoogleIdTokenServlet extends ServletBase {
 
     }
 
-    public static User userFromGoogleToken(String googleToken) {
+    public static GoogleUser userFromGoogleToken(String googleToken) {
         try {
-            GoogleIdToken idToken = _verifier.verify(googleToken);
+            GoogleIdToken idToken = GOOGLE_ID_TOKEN_VERIFIER.verify(googleToken);
 
             if (idToken == null) {
                 return null;
             }
             Payload payload = idToken.getPayload();
 
-            User user = new User();
+            GoogleUser user = new GoogleUser();
 
             // Get profile information from payload
             user.email = payload.getEmail();
@@ -80,23 +68,26 @@ public class GoogleIdTokenServlet extends ServletBase {
         }
     }
 
+    @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
         GoogleIdTokenRequest googleIdTokenRequest = Utils.gson().fromJson(requestString, GoogleIdTokenRequest.class);
 
         String googleIdToken = googleIdTokenRequest.google_id_token;
-        Utils.debug("google id token from " + ServletBase.getUser(request) + " token " + googleIdToken);
+        Utils.info("google id token from " + ServletBase.getUser(request) + " token " + googleIdToken);
 
-        User googleUser = userFromGoogleToken(googleIdToken);        
+        GoogleUser googleUser = userFromGoogleToken(googleIdToken);        
         if ( googleUser == null ) {
             Utils.warning("google login from token failed");            
-            return new BasicResponse(-1,"");
-            
+            return new BasicResponse(-1,"");            
         }
+        
         User user = DB.getUserByEmail(googleUser.email);
         if (user == null) {
             Utils.info("google login from new email " + googleUser.email);
+            DB.addOrUpdateGoogleUser(googleUser);
+            
         }
         return new GoogleIdTokenResponse(user != null);        
     }

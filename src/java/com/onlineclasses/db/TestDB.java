@@ -5,18 +5,15 @@
  */
 package com.onlineclasses.db;
 
-import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
+import com.onlineclasses.web.CConfig;
 import com.onlineclasses.web.Labels;
 import com.onlineclasses.web.Utils;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -94,14 +91,19 @@ public class TestDB {
             teacher.gender = User.GENDER_FEMALE;
             DB.addTeacher(teacher);
 
-            for (int j = 1; j <= 3; j++) {
+            int minutesUnit = CConfig.getInt("website.time.unit.minutes");
+            int startWorkingHour = CConfig.getInt("website.time.start_working_hour");
+            int endWorkingHour = CConfig.getInt("website.time.end_working_hour");
+            int hoursInDay = endWorkingHour - startWorkingHour;
+            int unitsInHour = 60 / minutesUnit;
+            for (int j = 1; j <= 5; j++) {
                 availableTime = new AvailableTime();
                 availableTime.teacher = teacher;
                 availableTime.day = j;
-                availableTime.start_hour = random.nextInt(20);
-                availableTime.start_minute = random.nextInt(30);
-                availableTime.end_hour = availableTime.start_hour + random.nextInt(4);
-                availableTime.end_minute = availableTime.start_minute + random.nextInt(30);
+                availableTime.start_hour = startWorkingHour + random.nextInt(hoursInDay - 8);
+                availableTime.start_minute = random.nextInt(unitsInHour) * minutesUnit;
+                availableTime.end_hour = availableTime.start_hour + random.nextInt(7) + 1;
+                availableTime.end_minute = random.nextInt(unitsInHour) * minutesUnit;
                 DB.addAvailableTime(availableTime);
             }
         }

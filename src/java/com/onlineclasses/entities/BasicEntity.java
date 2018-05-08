@@ -7,7 +7,6 @@ package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
 import java.io.Serializable;
-import javax.websocket.RemoteEndpoint;
 
 
 public class BasicEntity implements Serializable {

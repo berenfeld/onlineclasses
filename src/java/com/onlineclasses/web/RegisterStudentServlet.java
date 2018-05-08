@@ -7,6 +7,7 @@ package com.onlineclasses.web;
  */
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
+import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.RegisterStudentRequest;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.User;
@@ -25,7 +26,7 @@ public class RegisterStudentServlet extends ServletBase {
 
         if (Utils.isNotEmpty(registerStudentRequest.google_id_token)) {
 
-            User googleUser = GoogleIdTokenServlet.userFromGoogleToken(registerStudentRequest.google_id_token);
+            GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(registerStudentRequest.google_id_token);
             if (googleUser == null) {
                 Utils.warning("failed to get user from google id token");
                 return new BasicResponse(-1, "user was not found");
@@ -39,7 +40,7 @@ public class RegisterStudentServlet extends ServletBase {
             
             Student registeringStudent = new Student();
             registeringStudent.email = googleUser.email;            
-            registeringStudent.display_name = googleUser.display_name;
+            registeringStudent.display_name = registerStudentRequest.display_name;
             registeringStudent.image_url = googleUser.image_url;
             registeringStudent.first_name = registerStudentRequest.first_name;
             registeringStudent.last_name = registerStudentRequest.last_name;
