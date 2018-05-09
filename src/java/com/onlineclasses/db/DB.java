@@ -6,6 +6,14 @@
 package com.onlineclasses.db;
 
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
+import com.onlineclasses.db.orm.AvailableTime_DB;
+import com.onlineclasses.db.orm.Base_DB;
+import com.onlineclasses.db.orm.Email_DB;
+import com.onlineclasses.db.orm.GoogleUser_DB;
+import com.onlineclasses.db.orm.InstituteType_DB;
+import com.onlineclasses.db.orm.ScheduledClass_DB;
+import com.onlineclasses.db.orm.Student_DB;
+import com.onlineclasses.db.orm.Teacher_DB;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.Email;
 import com.onlineclasses.entities.GoogleUser;
@@ -14,8 +22,8 @@ import com.onlineclasses.entities.ScheduledClass;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
-import com.onlineclasses.web.Config;
-import com.onlineclasses.web.Utils;
+import com.onlineclasses.utils.Config;
+import com.onlineclasses.utils.Utils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

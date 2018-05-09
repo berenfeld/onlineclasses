@@ -6,9 +6,7 @@
 package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
-import com.onlineclasses.web.Config;
-import java.io.Serializable;
-import java.util.Date;
+import com.onlineclasses.utils.Config;
 
 public class GoogleUser extends BasicEntity { 
     
