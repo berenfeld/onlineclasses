@@ -79,7 +79,7 @@
                             <a class="dropdown-item" href="scheduled_class?id=<%= studentUpcomingClass.id%>">
                                 <%= studentUpcomingClass.subject%>
                                 &nbsp;
-                                <%= Utils.formatDate(studentUpcomingClass.start_date ) %>
+                                <%= Utils.formatDateTime(studentUpcomingClass.start_date ) %>
                             </a>
                             <%
                                 }

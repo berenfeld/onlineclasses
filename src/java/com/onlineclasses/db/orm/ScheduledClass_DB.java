@@ -36,6 +36,7 @@ public class ScheduledClass_DB extends Base_DB<ScheduledClass>{
         where.eq(ScheduledClass.STATUS_COLUMN, ScheduledClass.STATUS_SCHEDULED);
         where.and();
         where.le(ScheduledClass.START_DATE_COLUMN, _getStudentUpcomingClassesStartDateArg); 
+        queryBuilder.orderBy(ScheduledClass.START_DATE_COLUMN, true);
         _getStudentUpcomingClasses = queryBuilder.prepare();
     }
     

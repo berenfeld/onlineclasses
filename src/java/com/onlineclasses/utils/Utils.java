@@ -122,6 +122,11 @@ public class Utils {
         return format.format(date);
     }
 
+    public static String formatDateTime(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM, HH:mm");
+        return format.format(date);
+    }
+    
     public static final long MINUTES_IN_HOUR = 60;
     public static final long SECONDS_IN_MINUTE = 60;
     public static final long MS_IN_SECOND = 1000;
