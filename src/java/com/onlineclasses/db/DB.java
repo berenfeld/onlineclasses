@@ -233,7 +233,7 @@ public class DB {
     }
 
     public static List<ScheduledClass> getTeacherScheduledClasses(Teacher teacher) throws SQLException {
-        return _scheduledClass_db.getTeacherScheduledClasses(teacher);
+        return _scheduledClass_db.getTeacherNotCanceledScheduledClasses(teacher);
     }
 
     public static ScheduledClass getScheduledClass(int id) throws SQLException {

@@ -256,64 +256,67 @@
                                             </ul>
                                         </nav>
                                     </div>
+                                    <div class="row no-gutter">
+                                        <div class="mx-auto">
+                                            <table id="schedule_class_calendar_table" class="table table-responsive table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="schedule_class_calendar" style="width: 12%">
+                                                        </th>                                        
+                                                        <% for (day = 0; day < 7; day++) {
 
-                                    <div class="row">
-                                        <table id="schedule_class_calendar_table" class="mx-auto table table-responsive table-sm">
-                                            <thead>
-                                            <th class="schedule_class_calendar" style="width: 12%">
-                                            </th>                                        
-                                            <% for (day = 0; day < 7; day++) {
-
-                                            %>                                        
-                                            <th class="schedule_class_calendar"  style="width: 12%">
-                                                <span><%= dayNamesShort.get(day)%></span>
-                                                <br/>
-                                                <span id="schedule_class_day_<%= (day + 1)%>"></span>
-                                            </th>
-                                            <% }%>
-                                            </thead>
-                                            <tbody>
-                                                <%
-                                                    hour = startHour;
-                                                    minute = 0;
-                                                    int rowCount = 0;
-                                                    String cellClass = "";
-                                                    while (hour < endHour) {
-                                                %>  
-                                                <tr>
+                                                        %>                                        
+                                                        <th class="schedule_class_calendar"  style="width: 12%">
+                                                            <span><%= dayNamesShort.get(day)%></span>
+                                                            <br/>
+                                                            <span id="schedule_class_day_<%= (day + 1)%>"></span>
+                                                        </th>
+                                                        <% }%>
+                                                    <tr/>
+                                                </thead>
+                                                <tbody>
                                                     <%
-                                                        if (rowCount == (rowsPerCell - 1)) {
-                                                            cellClass = "schedule_class_row_end";
-                                                        } else {
-                                                            cellClass = "schedule_class_row_middle";
-                                                        }
-                                                        if (rowCount == 0) {
-                                                            cellClass = "schedule_class_row_start";
-                                                    %>
-                                                    <td rowspan="<%= rowsPerCell%>" class="schedule_class_calendar">
-                                                        <%= Utils.formatTime(hour, 0)%>
-                                                    </td>
-                                                    <% } %>
+                                                        hour = startHour;
+                                                        minute = 0;
+                                                        int rowCount = 0;
+                                                        String cellClass = "";
+                                                        while (hour < endHour) {
+                                                    %>  
+                                                    <tr>
+                                                        <%
+                                                            if (rowCount == (rowsPerCell - 1)) {
+                                                                cellClass = "schedule_class_row_end";
+                                                            } else {
+                                                                cellClass = "schedule_class_row_middle";
+                                                            }
+                                                            if (rowCount == 0) {
+                                                                cellClass = "schedule_class_row_start";
+                                                        %>
+                                                        <td rowspan="<%= rowsPerCell%>" class="schedule_class_calendar">
+                                                            <%= Utils.formatTime(hour, 0)%>
+                                                        </td>
+                                                        <% } %>
 
-                                                    <% for (day = 0; day < 7; day++) {
-                                                    %>
-                                                    <td data-day="<%=day%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
-                                                        onclick="javascript:schedule_class_select_time(this)"
-                                                        class="schedule_class_calendar <%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">
-                                                    </td>                                            
-                                                    <% } %>                                                                                                
-                                                </tr>
-                                                <%
-                                                        rowCount = (rowCount + 1) % rowsPerCell;
-                                                        minute += minutesPerUnit;
-                                                        if (minute == 60) {
-                                                            minute = 0;
-                                                            hour++;
+                                                        <% for (day = 0; day < 7; day++) {
+                                                        %>
+                                                        <td data-day="<%=day%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
+                                                            onclick="javascript:schedule_class_select_time(this)"
+                                                            class="schedule_class_calendar <%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">
+                                                        </td>                                            
+                                                        <% } %>                                                                                                
+                                                    </tr>
+                                                    <%
+                                                            rowCount = (rowCount + 1) % rowsPerCell;
+                                                            minute += minutesPerUnit;
+                                                            if (minute == 60) {
+                                                                minute = 0;
+                                                                hour++;
+                                                            }
                                                         }
-                                                    }
-                                                %>
-                                            </tbody>
-                                        </table> 
+                                                    %>
+                                                </tbody>
+                                            </table> 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -340,8 +343,7 @@
         </div>
 
         <div class="container">
-            <div class="row no-gutters">
-
+            <div class="row no-gutters my-1">
                 <div class="card text-white bg-secondary col-xl-3 col-lg-3">
                     <div class="card-body">
                         <h6 class="card-title">                        

@@ -20,6 +20,10 @@ td.calendar_busy {
     background-color:#FF7F50
 }
 
+#schedule_class_calendar_table
+{
+    table-layout: fixed;
+}
 #schedule_class_calendar_table td, #schedule_class_calendar_table th
 {
     border: solid gray 1px;

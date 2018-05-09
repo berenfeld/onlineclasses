@@ -6,6 +6,7 @@
 package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.onlineclasses.web.Config;
 import java.util.Date;
 
 public class ScheduledClass extends BasicEntity  {
@@ -32,4 +33,16 @@ public class ScheduledClass extends BasicEntity  {
     
     @DatabaseField
     public String student_comment;
+    
+    @DatabaseField( canBeNull = false)
+    public Date registered;
+    
+    public static final int STATUS_SCHEDULED = Config.getInt("website.scheduled_class.status.scheduled");
+    public static final int STATUS_CANCELCED = Config.getInt("website.scheduled_class.status.canceled");
+    public static final int STATUS_DONE = Config.getInt("website.scheduled_class.status.done");
+    
+    public static final String STATUS_COLUMN = "status";
+    @DatabaseField( canBeNull = false, columnName = STATUS_COLUMN)
+    public int status;
+    
 }

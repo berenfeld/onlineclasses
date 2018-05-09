@@ -24,15 +24,17 @@ public class ScheduledClass_DB extends Base_DB<ScheduledClass>{
         
         Where<ScheduledClass, Integer> where = queryBuilder.where();
         where.eq(ScheduledClass.TEACHER_ID_COLUMN, _getTeacherClassesTeacherArg);
-        _getTeacherClasses = queryBuilder.prepare();          
+        where.and();
+        where.ne(ScheduledClass.STATUS_COLUMN, ScheduledClass.STATUS_CANCELCED);
+        _getTeacherNotCanceledClasses = queryBuilder.prepare();          
     }
     
-    private final PreparedQuery<ScheduledClass> _getTeacherClasses;
+    private final PreparedQuery<ScheduledClass> _getTeacherNotCanceledClasses;
     private final SelectArg _getTeacherClassesTeacherArg = new SelectArg();
     
-    public synchronized List<ScheduledClass> getTeacherScheduledClasses(Teacher teacher) throws SQLException
+    public synchronized List<ScheduledClass> getTeacherNotCanceledScheduledClasses(Teacher teacher) throws SQLException
     {
         _getTeacherClassesTeacherArg.setValue(teacher);
-        return _dao.query(_getTeacherClasses);
+        return _dao.query(_getTeacherNotCanceledClasses);
     }
 }

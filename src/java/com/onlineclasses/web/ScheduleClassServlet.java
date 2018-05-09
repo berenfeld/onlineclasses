@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -98,6 +99,8 @@ public class ScheduleClassServlet extends ServletBase {
         scheduledClass.price_per_hour = teacher.price_per_hour;
         scheduledClass.subject = scheduleClassRequest.subject;
         scheduledClass.student_comment = scheduleClassRequest.student_comment;
+        scheduledClass.registered = new Date();
+        scheduledClass.status = ScheduledClass.STATUS_SCHEDULED;
 
         if (1 != DB.addScheduledClass(scheduledClass)) {
             Utils.warning("student " + student.display_name + " schedule class failed. DB error");
