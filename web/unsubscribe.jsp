@@ -1,6 +1,6 @@
 <%@page import="com.onlineclasses.db.DB"%>
 <%@page import="com.onlineclasses.entities.Student"%>
-<%@page import="com.onlineclasses.web.Config"%>
+<%@page import="com.onlineclasses.utils.Config"%>
 <!DOCTYPE html>
 <%
     String email;

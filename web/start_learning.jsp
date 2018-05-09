@@ -1,9 +1,9 @@
 <%@page import="com.onlineclasses.entities.InstituteType"%>
 <%@page import="com.onlineclasses.db.DB"%>
 <%@page import="java.util.List"%>
-<%@page import="com.onlineclasses.web.Utils"%>
-<%@page import="com.onlineclasses.web.Labels"%>
-<%@page import="com.onlineclasses.web.CLabels"%>
+<%@page import="com.onlineclasses.utils.Utils"%>
+<%@page import="com.onlineclasses.utils.Labels"%>
+<%@page import="com.onlineclasses.utils.CLabels"%>
 
 <%
     String phoneAreas = CLabels.get("website.phone_areas");

@@ -3,10 +3,10 @@
 <%@page import="java.util.List"%>
 <%@page import="com.onlineclasses.entities.Teacher"%>
 <%@page import="com.onlineclasses.db.DB"%>
-<%@page import="com.onlineclasses.web.Utils"%>
-<%@page import="com.onlineclasses.web.CConfig"%>
-<%@page import="com.onlineclasses.web.Config"%>
-<%@page import="com.onlineclasses.web.Labels"%>
+<%@page import="com.onlineclasses.utils.Utils"%>
+<%@page import="com.onlineclasses.utils.CConfig"%>
+<%@page import="com.onlineclasses.utils.Config"%>
+<%@page import="com.onlineclasses.utils.Labels"%>
 
 <%
     int minPrice = Utils.parseInt(request.getParameter("price_min"), CConfig.getInt("find_teachers.price.min"));

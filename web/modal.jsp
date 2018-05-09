@@ -1,4 +1,4 @@
-<%@page import="com.onlineclasses.web.Labels"%>
+<%@page import="com.onlineclasses.utils.Labels"%>
 
 <div class="container">
     <div id="login_modal" class="modal fade" role="dialog">

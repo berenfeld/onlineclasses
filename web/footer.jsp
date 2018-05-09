@@ -1,9 +1,9 @@
-<%@page import="com.onlineclasses.web.Utils"%>
+<%@page import="com.onlineclasses.utils.Utils"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<%@page import="com.onlineclasses.web.CConfig"%>
-<%@page import="com.onlineclasses.web.CLabels"%>
-<%@page import="com.onlineclasses.web.ServletBase"%>
+<%@page import="com.onlineclasses.utils.CConfig"%>
+<%@page import="com.onlineclasses.utils.CLabels"%>
+<%@page import="com.onlineclasses.servlets.ServletBase"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="com.onlineclasses.entities.User"%>
 

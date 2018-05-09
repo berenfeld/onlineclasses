@@ -1,4 +1,4 @@
-<%@page import="com.onlineclasses.web.Labels"%>
+<%@page import="com.onlineclasses.utils.Labels"%>
 
 <%
     ResourceBundle l_start_treaching = ResourceBundle.getBundle("labels");

@@ -1,5 +1,5 @@
-<%@page import="com.onlineclasses.web.ServletBase"%>
-<%@page import="com.onlineclasses.web.Labels"%>
+<%@page import="com.onlineclasses.servlets.ServletBase"%>
+<%@page import="com.onlineclasses.utils.Labels"%>
 <%@page import="com.onlineclasses.entities.User"%>
 <%@page import="java.util.ResourceBundle"%>
 
