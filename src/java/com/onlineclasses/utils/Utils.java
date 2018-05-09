@@ -192,7 +192,13 @@ public class Utils {
         return GSON;
     }
     
-
+    public static Date xHoursFromNow( int hours)
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR, hours);
+        return calendar.getTime();
+    }
+    
     public static String getStringFromInputStream(ServletContext context, String email_name) {
         InputStream is = context.getResourceAsStream(email_name);
         BufferedReader br;

@@ -19,7 +19,8 @@ public class ScheduledClass extends BasicEntity  {
     @DatabaseField(canBeNull = false, foreign = true, columnName = STUDENT_ID_COLUMN)
     public Student student;
     
-    @DatabaseField(canBeNull = false)
+    public static final String START_DATE_COLUMN = "start_date";
+    @DatabaseField(canBeNull = false, columnName = START_DATE_COLUMN)
     public Date start_date;
     
     @DatabaseField(canBeNull = false)

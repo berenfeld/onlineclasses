@@ -274,4 +274,9 @@ public class DB {
     public static int addGoogleUser(GoogleUser googleUser) throws SQLException {
         return _googleUser_db.add(googleUser);
     }
+    
+      public static List<ScheduledClass> getStudentUpcomingClasses(Student student) throws SQLException {
+        return _scheduledClass_db.getStudentUpcomingClasses(student);
+    }
+
 }

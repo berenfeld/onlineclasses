@@ -1,10 +1,10 @@
 <%@page import="com.onlineclasses.entities.Student"%>
-<%@page import="com.onlineclasses.web.Utils"%>
+<%@page import="com.onlineclasses.utils.Utils"%>
 <%@page import="com.onlineclasses.entities.Teacher"%>
 <%@page import="com.onlineclasses.db.DB"%>
 <%@page import="com.onlineclasses.entities.ScheduledClass"%>
-<%@page import="com.onlineclasses.web.Config"%>
-<%@page import="com.onlineclasses.web.Labels"%>
+<%@page import="com.onlineclasses.utils.Config"%>
+<%@page import="com.onlineclasses.utils.Labels"%>
 
 <%
     int classId = Integer.parseInt(request.getParameter("id"));
