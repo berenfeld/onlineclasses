@@ -33,7 +33,7 @@ public class TestDB {
 
     public static void addStudents() throws Exception {
         Student student = new Student();
-        student.display_name = "רן ברנפלד";
+        student.display_name = "רן ברנפלד תלמיד";
         student.first_name = "רן";
         student.last_name = "ברנפלד";
         student.email = "ichess@ichess.co.il";
@@ -46,7 +46,7 @@ public class TestDB {
 
     public static void addTeachers() throws Exception {
         Teacher teacher = new Teacher();
-        teacher.display_name = "רן ברנפלד";
+        teacher.display_name = "רן ברנפלד מורה";
         teacher.first_name = "רן";
         teacher.last_name = "ברנפלד";
         teacher.email = "berenfeldran@gmail.com";

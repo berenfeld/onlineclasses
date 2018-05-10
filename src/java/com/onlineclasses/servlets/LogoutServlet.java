@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/servlets/logout"})
 public class LogoutServlet extends ServletBase {
 
+    @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         

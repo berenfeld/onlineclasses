@@ -59,6 +59,7 @@ function login_showLoginModal(reason)
 function logout_logoutRequestComplete(response)
 {
     $("#login_modal").modal('hide');
+    google_signOut();
     location.reload();
 }
 

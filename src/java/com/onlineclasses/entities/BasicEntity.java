@@ -18,6 +18,11 @@ public class BasicEntity implements Serializable {
     @Override
     public boolean equals(Object other)
     {
-        return (other != null) && (other instanceof BasicEntity) && (((BasicEntity)other).id == id);
+        return ((other != null) && (other.getClass().equals(getClass())) && (((BasicEntity)other).id == id));
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

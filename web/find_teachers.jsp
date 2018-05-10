@@ -220,14 +220,14 @@
 
                                         <div class="form-group form-row">
                                             <div class="col-lg-3">
-                                                <label for="start_schedule_class_comments_input">
-                                                    <%= Labels.get("schedule.class.modal.comments")%>
+                                                <label for="start_schedule_class_student_comment_input">
+                                                    <%= Labels.get("schedule.class.modal.student_comment")%>
                                                 </label>
                                             </div>
                                             <div class="col-lg-9">
-                                                <textarea rows="5" class="form-control" name="start_schedule_class_comments_input" 
-                                                          id="start_schedule_class_comments_input" 
-                                                          placeholder="<%= Labels.get("schedule.class.modal.comments_placeholder")%>"></textarea>
+                                                <textarea rows="5" class="form-control" name="start_schedule_class_student_comment_input" 
+                                                          id="start_schedule_class_student_comment_input" 
+                                                          placeholder="<%= Labels.get("schedule.class.modal.student_comment_placeholder")%>"></textarea>
                                             </div>                                    
                                         </div>
                                     </form>

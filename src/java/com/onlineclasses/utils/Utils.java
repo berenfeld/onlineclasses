@@ -123,8 +123,10 @@ public class Utils {
     }
 
     public static String formatDateTime(Date date) {
+        Calendar dateCalendar = Calendar.getInstance();
+        dateCalendar.setTime(date);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM, HH:mm");
-        return format.format(date);
+        return  dayNameLong(dateCalendar.get(Calendar.DAY_OF_WEEK)) + ", " + format.format(date);
     }
     
     public static final long MINUTES_IN_HOUR = 60;

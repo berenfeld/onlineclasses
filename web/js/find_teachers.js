@@ -336,7 +336,7 @@ function schedule_class_confirm()
     request.start_date = start_date;
     request.duration_minutes = duration;
     request.subject = subject;
-    request.student_comment = $("#start_schedule_class_comment_input").val();
+    request.student_comment = $("#start_schedule_class_student_comment_input").val();
 
     $("#schedule_class_info_div").removeClass("d-none");
     $("#schedule_class_info").text(online_classes.clabels["schedule.class.modal.schedule_class_request_sent"]);

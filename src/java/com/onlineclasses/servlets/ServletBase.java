@@ -128,6 +128,7 @@ public abstract class ServletBase extends HttpServlet {
         
         String cookieName = Config.get("website.cookie.name");
         Cookie cookie = new Cookie(cookieName,"");        
+        cookie.setPath("/");
         if ( user == null )
         {                        
             cookie.setMaxAge(0);         
