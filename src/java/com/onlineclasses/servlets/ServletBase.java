@@ -8,6 +8,7 @@ package com.onlineclasses.servlets;
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
 import com.onlineclasses.entities.Student;
+import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.entities.WCookie;
 import com.onlineclasses.utils.Config;
@@ -87,6 +88,12 @@ public abstract class ServletBase extends HttpServlet {
     {
         User user = getUser(request);
         return ( user != null ) && ( user instanceof Student );
+    }
+    
+    public static boolean isTeacher(HttpServletRequest request)
+    {
+        User user = getUser(request);
+        return ( user != null ) && ( user instanceof Teacher );
     }
     
     public static User handleLoginInRequest(HttpServletRequest request) throws Exception {

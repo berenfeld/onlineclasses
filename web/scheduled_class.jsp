@@ -15,6 +15,8 @@
     Teacher teacher = scheduledClass.teacher;
     Student student = scheduledClass.student;
 
+    boolean isStudent = student.equals(ServletBase.getUser(request));
+    boolean isTeacher = teacher.equals(ServletBase.getUser(request));
     List<ScheduledClassComment> scheduledClassComments = DB.getScheuduledClassComments(scheduledClass);
 
 %>
@@ -63,14 +65,29 @@
                                 <%= CLabels.get("website.currency")%>
                             </h6>
                         </div>
-                        <div class="card-footer">                            
+                        <div class="card-footer">     
+                            <%
+                                if (isStudent) {
+                            %>
+                            <button class="btn btn-success">
+                                <%= Labels.get("scheduled.class.sidebar.pay_for_class")%>
+                            </button>
+                            <%
+                                }
+                            %>
+                            <%
+                                if (isTeacher) {
+                            %>
                             <button class="btn btn-info">
                                 <%= Labels.get("scheduled.class.sidebar.update_price")%>
                             </button>
-
+                            <%
+                                }
+                            %>
                             <button class="btn btn-danger">
                                 <%= Labels.get("scheduled.class.sidebar.cancel_class")%>
                             </button>
+
                         </div>
                     </div>
                     <div class="card my-2">
@@ -97,7 +114,7 @@
                             %>
                             <h6>
                                 <span class="font-weight-bold">
-                                    <% 
+                                    <%
                                         if (scheduledClassComment.student != null) {
                                             out.write(scheduledClassComment.student.display_name);
                                         } else {

@@ -46,4 +46,7 @@ public class ScheduledClass extends BasicEntity  {
     @DatabaseField( canBeNull = false, columnName = STATUS_COLUMN)
     public int status;
     
+    @DatabaseField
+    public Payment payment;
+    
 }

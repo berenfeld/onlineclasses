@@ -11,6 +11,7 @@ import com.onlineclasses.db.orm.Base_DB;
 import com.onlineclasses.db.orm.Email_DB;
 import com.onlineclasses.db.orm.GoogleUser_DB;
 import com.onlineclasses.db.orm.InstituteType_DB;
+import com.onlineclasses.db.orm.Payment_DB;
 import com.onlineclasses.db.orm.ScheduledClassComment_DB;
 import com.onlineclasses.db.orm.ScheduledClass_DB;
 import com.onlineclasses.db.orm.Student_DB;
@@ -19,6 +20,7 @@ import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.Email;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.InstituteType;
+import com.onlineclasses.entities.Payment;
 import com.onlineclasses.entities.ScheduledClass;
 import com.onlineclasses.entities.ScheduledClassComment;
 import com.onlineclasses.entities.Student;
@@ -31,7 +33,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,8 +116,9 @@ public class DB {
     private static Email_DB _email_db;
     private static GoogleUser_DB _googleUser_db;
     private static ScheduledClassComment_DB _scheduledClassComment_DB;
+    private static Payment_DB _payment_DB;
 
-    private static Map<Class, Base_DB> _entities_db = new HashMap<>();
+    private static final Map<Class, Base_DB> ORM_ENTITIES = new HashMap<>();
 
     private static void initORM(String dbUrl, String dbUser, String dbPassword) throws SQLException {
         _connectionSource = new JdbcPooledConnectionSource(dbUrl, dbUser, dbPassword);
@@ -129,15 +131,17 @@ public class DB {
         _email_db = new Email_DB(_connectionSource);
         _googleUser_db = new GoogleUser_DB(_connectionSource);
         _scheduledClassComment_DB = new ScheduledClassComment_DB(_connectionSource);
+        _payment_DB = new Payment_DB(_connectionSource);
 
-        _entities_db.put( Student.class, _student_db);
-        _entities_db.put( Teacher.class, _teacher_db);
-        _entities_db.put( AvailableTime.class, _availableTime_db);
-        _entities_db.put( InstituteType.class, _instituteType_db);
-        _entities_db.put( ScheduledClass.class, _scheduledClass_db);
-        _entities_db.put( Email.class, _email_db);
-        _entities_db.put( GoogleUser.class, _googleUser_db);
-        _entities_db.put( ScheduledClassComment.class, _scheduledClassComment_DB);
+        ORM_ENTITIES.put(Student.class, _student_db);
+        ORM_ENTITIES.put(Teacher.class, _teacher_db);
+        ORM_ENTITIES.put(AvailableTime.class, _availableTime_db);
+        ORM_ENTITIES.put(InstituteType.class, _instituteType_db);
+        ORM_ENTITIES.put(ScheduledClass.class, _scheduledClass_db);
+        ORM_ENTITIES.put(Email.class, _email_db);
+        ORM_ENTITIES.put(GoogleUser.class, _googleUser_db);
+        ORM_ENTITIES.put(ScheduledClassComment.class, _scheduledClassComment_DB);
+        ORM_ENTITIES.put(Payment.class, _payment_DB);
     }
 
     public static Connection getConnection() throws SQLException {
@@ -157,7 +161,7 @@ public class DB {
     }
 
     private static void createAllTables() throws SQLException {
-        for (Base_DB baseDB : _entities_db.values()) {
+        for (Base_DB baseDB : ORM_ENTITIES.values()) {
             baseDB.createTable();
         }
     }
@@ -288,13 +292,12 @@ public class DB {
     public static int addScheduledClassComment(ScheduledClassComment scheduledClassComment) throws SQLException {
         return _scheduledClassComment_DB.add(scheduledClassComment);
     }
-    
-    public static<T> int add(T t) throws SQLException {
-        return _entities_db.get(t.getClass()).add(t);
+
+    public static <T> int add(T t) throws SQLException {
+        return ORM_ENTITIES.get(t.getClass()).add(t);
     }
-    
-    public static List<ScheduledClassComment> getScheuduledClassComments(ScheduledClass scheduledClass) throws SQLException
-    {
+
+    public static List<ScheduledClassComment> getScheuduledClassComments(ScheduledClass scheduledClass) throws SQLException {
         List<ScheduledClassComment> scheduledClassComments = _scheduledClassComment_DB.getScheuduledClassComments(scheduledClass);
         for (ScheduledClassComment scheduledClassComment : scheduledClassComments) {
             if (scheduledClassComment.student != null) {

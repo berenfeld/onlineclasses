@@ -89,7 +89,7 @@
                         <div class="modal-header">
 
                             <h5 id="schedule_class_modal_title" class="modal-title">
-                                <%= Labels.get("schedule.class.modal.title")%>
+                                <%= Labels.get("scheduled.class.modal.title")%>
                                 <span id="schedule_class_modal_title_teacher_anchor"></span>
                             </h5>
                         </div>
@@ -101,19 +101,19 @@
                                         <div class="form-group form-row">
                                             <div class="col-3">
                                                 <label for="start_schedule_class_day_input" class="col-form-label">
-                                                    <%= Labels.get("schedule.class.modal.day")%>
+                                                    <%= Labels.get("scheduled.class.modal.day")%>
                                                 </label>
                                             </div>
                                             <div class="col-9">
                                                 <input type="text" class="form-control" name="start_day_input" 
                                                        id="start_schedule_class_day_input" 
-                                                       placeholder="<%= Labels.get("schedule.class.modal.day_placeholder")%>">
+                                                       placeholder="<%= Labels.get("scheduled.class.modal.day_placeholder")%>">
                                             </div>                                    
                                         </div>
                                         <div class="form-group form-row">
                                             <div class="col-3">
                                                 <label for="schedule_class_start_minute"  class="col-form-label">
-                                                    <%= Labels.get("schedule.class.modal.start_hour")%>
+                                                    <%= Labels.get("scheduled.class.modal.start_hour")%>
                                                 </label>
                                             </div>
 
@@ -124,7 +124,7 @@
                                                         data-toggle="dropdown">
                                                     <span class="caret"></span>
                                                     <span id="schedule_class_start_minute">
-                                                        <%= Labels.get("schedule.class.modal.start_minute_choose")%>
+                                                        <%= Labels.get("scheduled.class.modal.start_minute_choose")%>
                                                     </span>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-right">
@@ -150,7 +150,7 @@
                                                         name="schedule_class_start_hour_button" data-toggle="dropdown">
                                                     <span class="caret"></span>
                                                     <span id="schedule_class_start_hour">
-                                                        <%= Labels.get("schedule.class.modal.start_hour_choose")%>
+                                                        <%= Labels.get("scheduled.class.modal.start_hour_choose")%>
                                                     </span>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-right">
@@ -173,7 +173,7 @@
                                         <div class="form-group form-row">
                                             <div class="col-3">
                                                 <label for="schedule_class_duration_input" class="col-form-label">
-                                                    <%= Labels.get("schedule.class.modal.duration")%>
+                                                    <%= Labels.get("scheduled.class.modal.duration")%>
                                                 </label>
                                             </div>                                                    
                                             <div class="col-9">
@@ -182,7 +182,7 @@
                                                         name="schedule_class_duration_input" data-toggle="dropdown">
                                                     <span class="caret"></span>
                                                     <span id="schedule_class_duration">
-                                                        <%= Labels.get("schedule.class.modal.duration.select")%>
+                                                        <%= Labels.get("scheduled.class.modal.duration.select")%>
                                                     </span>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-right">
@@ -208,26 +208,26 @@
                                         <div class="form-group form-row">
                                             <div class="col-3">
                                                 <label for="start_schedule_class_subject_input">
-                                                    <%= Labels.get("schedule.class.modal.subject")%>
+                                                    <%= Labels.get("scheduled.class.modal.subject")%>
                                                 </label>
                                             </div>
                                             <div class="col-9">
                                                 <input type="text" class="form-control" name="start_schedule_class_subject_input" 
                                                        id="start_schedule_class_subject_input" 
-                                                       placeholder="<%= Labels.get("schedule.class.modal.subject_placeholder")%>">
+                                                       placeholder="<%= Labels.get("scheduled.class.modal.subject_placeholder")%>">
                                             </div>                                    
                                         </div>
 
                                         <div class="form-group form-row">
                                             <div class="col-lg-3">
                                                 <label for="start_schedule_class_student_comment_input">
-                                                    <%= Labels.get("schedule.class.modal.student_comment")%>
+                                                    <%= Labels.get("scheduled.class.modal.student_comment")%>
                                                 </label>
                                             </div>
                                             <div class="col-lg-9">
                                                 <textarea rows="5" class="form-control" name="start_schedule_class_student_comment_input" 
                                                           id="start_schedule_class_student_comment_input" 
-                                                          placeholder="<%= Labels.get("schedule.class.modal.student_comment_placeholder")%>"></textarea>
+                                                          placeholder="<%= Labels.get("scheduled.class.modal.student_comment_placeholder")%>"></textarea>
                                             </div>                                    
                                         </div>
                                     </form>
@@ -332,7 +332,7 @@
                                 <span id="schedule_class_info"></span>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success mx-1" onclick="schedule_class_confirm()"><%= Labels.get("schedule.class.modal.confirm_button")%></button>
+                                <button type="button" class="btn btn-success mx-1" onclick="schedule_class_confirm()"><%= Labels.get("scheduled.class.modal.confirm_button")%></button>
                                 <button type="button" class="btn btn-info mx-1" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
                             </div>
                         </div>

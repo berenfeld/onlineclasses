@@ -43,12 +43,12 @@ public class ScheduleClassServlet extends ServletBase {
             return new BasicResponse(-1, "can't schedule class");
         }
 
-        Student student = DB.getStudent(user.id);
-        if (student == null) {
+        if (!(user instanceof Student)) {
             Utils.warning("teacher can't schedule class");
             return new BasicResponse(-1, "can't schedule class");
         }
-
+        
+        Student student = (Student)user;
         ScheduleClassRequest scheduleClassRequest = Utils.gson().fromJson(requestString, ScheduleClassRequest.class);
 
         Teacher teacher = DB.getTeacher(scheduleClassRequest.teacher_id);

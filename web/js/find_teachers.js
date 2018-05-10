@@ -263,12 +263,12 @@ function schedule_class_confirm()
     $("#schedule_class_warning_a_not_logged_in").addClass("d-none");
     if (!login_isLoggedIn())
     {
-        $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.not_logged_in"]);
+        $("#schedule_class_warning").html(online_classes.clabels[ "scheduled.class.modal.not_logged_in"]);
         $("#schedule_class_warning_div").removeClass("d-none");
         $("#schedule_class_warning_a").attr("href", "start_learning");
-        $("#schedule_class_warning_a").html(online_classes.clabels[ "schedule.class.modal.register_here"]);
+        $("#schedule_class_warning_a").html(online_classes.clabels[ "scheduled.class.modal.register_here"]);
         $("#schedule_class_warning_a").removeClass("d-none");
-        $("#schedule_class_warning_a_not_logged_in").html(online_classes.clabels[ "schedule.class.modal.click_here_to_connect"]);
+        $("#schedule_class_warning_a_not_logged_in").html(online_classes.clabels[ "scheduled.class.modal.click_here_to_connect"]);
         $("#schedule_class_warning_a_not_logged_in").removeClass("d-none");
         return;
     }
@@ -279,13 +279,13 @@ function schedule_class_confirm()
 
     if ((start_hour === -1) || (start_minute === -1) || (duration === -1))
     {
-        $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.please_choose_time"]);
+        $("#schedule_class_warning").html(online_classes.clabels[ "scheduled.class.modal.please_choose_time"]);
         $("#schedule_class_warning_div").removeClass("d-none");
         return;
     }
     if (find_teachers.calendar.selected_day === null)
     {
-        $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.please_choose_day"]);
+        $("#schedule_class_warning").html(online_classes.clabels[ "scheduled.class.modal.please_choose_day"]);
         $("#schedule_class_warning_div").removeClass("d-none");
         return;
     }
@@ -298,7 +298,7 @@ function schedule_class_confirm()
     var earliestDateToScheduleClass = new Date();
     addHours(earliestDateToScheduleClass, parseInt10(online_classes.cconfig[ "website.time.min_time_before_schedule_class_start_hours" ]));
     if (earliestDateToScheduleClass.getTime() > start_date.getTime()) {
-        $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.too_late_for_class"]);
+        $("#schedule_class_warning").html(online_classes.clabels[ "scheduled.class.modal.too_late_for_class"]);
         $("#schedule_class_warning_div").removeClass("d-none");
         return;
     }
@@ -312,7 +312,7 @@ function schedule_class_confirm()
     while (minutes < duration) {
         var element = $("#schedule_class_day_" + day + "_hour_" + hour + "_minute_" + minute);
         if (!element.hasClass("calendar_available")) {
-            $("#schedule_class_warning").html(online_classes.clabels[ "schedule.class.modal.teacher_not_available"]);
+            $("#schedule_class_warning").html(online_classes.clabels[ "scheduled.class.modal.teacher_not_available"]);
             $("#schedule_class_warning_div").removeClass("d-none");
             return;
         }
@@ -327,7 +327,7 @@ function schedule_class_confirm()
     var subject = $("#start_schedule_class_subject_input").val();
     if (! subject)
     {
-        $("#schedule_class_warning").text(online_classes.clabels[ "schedule.class.modal.please_provide_title" ]);
+        $("#schedule_class_warning").text(online_classes.clabels[ "scheduled.class.modal.please_provide_title" ]);
         $("#schedule_class_warning_div").removeClass("d-none");
         return;
     }
@@ -339,7 +339,7 @@ function schedule_class_confirm()
     request.student_comment = $("#start_schedule_class_student_comment_input").val();
 
     $("#schedule_class_info_div").removeClass("d-none");
-    $("#schedule_class_info").text(online_classes.clabels["schedule.class.modal.schedule_class_request_sent"]);
+    $("#schedule_class_info").text(online_classes.clabels["scheduled.class.modal.schedule_class_request_sent"]);
 
     $.ajax("servlets/schedule_class",
             {
@@ -353,9 +353,9 @@ function schedule_class_confirm()
 function schedule_class_response(response)
 {
     if (response.rc !== 0) {
-        $("#schedule_class_info").text(online_classes.clabels["schedule.class.modal.schedule_class_response_error"]);
+        $("#schedule_class_info").text(online_classes.clabels["scheduled.class.modal.schedule_class_response_error"]);
     } else {
-        $("#schedule_class_info").text(online_classes.clabels["schedule.class.modal.schedule_class_response_ok"]);
+        $("#schedule_class_info").text(online_classes.clabels["scheduled.class.modal.schedule_class_response_ok"]);
         redirectAfter("/scheduled_class?id=" + response.class_id, 3);
     }
 
