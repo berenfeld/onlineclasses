@@ -88,7 +88,8 @@ public class DB {
             String dbName = Config.get("db.name");
             String dbUrl = "jdbc:mysql://localhost:3306/" + dbName
                     + "?useUnicode=true"
-                    + "&characterEncoding=utf-8";
+                    + "&characterEncoding=utf-8"
+                    + "&useSSL=false";
             Utils.info("DB URL is '" + dbUrl + "'");
             initDBCP(dbUrl, dbUser, dbPassword);
             initORM(dbUrl, dbUser, dbPassword);

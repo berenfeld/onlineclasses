@@ -5,17 +5,15 @@
  */
 package com.onlineclasses.entities;
 
-import static com.j256.ormlite.field.DataType.LONG_STRING;
 import com.j256.ormlite.field.DatabaseField;
 import java.util.Date;
-
 
 public class Payment extends BasicEntity {
         
     @DatabaseField(canBeNull = false)
     public Date date;
     
-    @DatabaseField
+    @DatabaseField(foreign = true)
     public ScheduledClass scheduled_class;
     
     @DatabaseField

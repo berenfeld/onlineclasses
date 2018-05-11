@@ -25,13 +25,13 @@ public class ScheduledClass_DB extends Base_DB<ScheduledClass>{
         
         QueryBuilder<ScheduledClass, Integer> queryBuilder = _dao.queryBuilder();        
         Where<ScheduledClass, Integer> where = queryBuilder.where();
-        where.eq(ScheduledClass.TEACHER_ID_COLUMN, _getTeacherClassesTeacherArg);
+        where.eq(ScheduledClass.TEACHER_COLUMN, _getTeacherClassesTeacherArg);
         where.and();
         where.ne(ScheduledClass.STATUS_COLUMN, ScheduledClass.STATUS_CANCELCED);
         _getTeacherNotCanceledClasses = queryBuilder.prepare();  
                 
         where.reset();
-        where.eq(ScheduledClass.STUDENT_ID_COLUMN, _getStudentUpcomingClassesStudentArg);
+        where.eq(ScheduledClass.STUDENT_COLUMN, _getStudentUpcomingClassesStudentArg);
         where.and();
         where.eq(ScheduledClass.STATUS_COLUMN, ScheduledClass.STATUS_SCHEDULED);
         where.and();
@@ -55,6 +55,7 @@ public class ScheduledClass_DB extends Base_DB<ScheduledClass>{
     
     public synchronized List<ScheduledClass> getStudentUpcomingClasses(Student student) throws SQLException
     {
+        Utils.info("xxxx");
         _getStudentUpcomingClassesStudentArg.setValue(student);
         _getStudentUpcomingClassesStartDateArg.setValue(Utils.xHoursFromNow(CConfig.getInt("website.time.upcoming_student_classes_hours")));  
         return _dao.query(_getStudentUpcomingClasses);

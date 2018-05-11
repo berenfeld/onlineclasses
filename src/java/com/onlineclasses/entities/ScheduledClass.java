@@ -11,12 +11,12 @@ import java.util.Date;
 
 public class ScheduledClass extends BasicEntity  {
 
-    public static final String TEACHER_ID_COLUMN = "teacher_id";
-    @DatabaseField(canBeNull = false, foreign = true, columnName = TEACHER_ID_COLUMN)
+    public static final String TEACHER_COLUMN = "teacher";
+    @DatabaseField(canBeNull = false, foreign = true, columnName = TEACHER_COLUMN)
     public Teacher teacher;
     
-    public static final String STUDENT_ID_COLUMN = "student_id";
-    @DatabaseField(canBeNull = false, foreign = true, columnName = STUDENT_ID_COLUMN)
+    public static final String STUDENT_COLUMN = "student";
+    @DatabaseField(canBeNull = false, foreign = true, columnName = STUDENT_COLUMN)
     public Student student;
     
     public static final String START_DATE_COLUMN = "start_date";
@@ -46,7 +46,7 @@ public class ScheduledClass extends BasicEntity  {
     @DatabaseField( canBeNull = false, columnName = STATUS_COLUMN)
     public int status;
     
-    @DatabaseField
+    @DatabaseField( foreign = true)
     public Payment payment;
     
 }

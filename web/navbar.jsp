@@ -15,7 +15,7 @@
     String userName = Labels.get("navbar.guest.name");
     if (user != null) {
         userName = user.display_name;
-        if (user instanceof Student) {
+        if (user instanceof Student) {         
             studentUpcomingClasses = DB.getStudentUpcomingClasses((Student) user);
         }
     }
