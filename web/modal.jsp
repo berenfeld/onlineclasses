@@ -41,6 +41,7 @@
                     <span class="oi" data-glyph="check"></span>
                     <span id="confirm_modal_title"></span>
                 </h6>
+                <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body">
                 <span id="confirm_modal_message"></span>                   
@@ -67,6 +68,7 @@
                         </span>
                     </h6>
                 </div>
+                <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body">
                 <h6 id="alert_modal_text1">
@@ -88,15 +90,16 @@
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
                 <div class="modal-title"> 
-                    <h5>
+                    <h6>
                         <%= Labels.get("invite_other_student.modal.title")%>                            
-                    </h5>
+                    </h6>
                 </div>
+                <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body  text-secondary">
-                <h6>
+                <p>
                     <%= Labels.get("invite_other_student.modal.text")%>      
-                </h6>
+                </p>
                 <form>
                     <div class="form-group row">
                         <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_other_student_name">
@@ -121,7 +124,7 @@
                 <div class="alert alert-warning d-none" role="alert" id="invite_other_student_warning">                    
                     <span class="oi" data-glyph="warning"></span>
                     <span id="invite_other_student_warning_text"></span>
-                    <span class="oi close_button" data-glyph="x"></span>      
+                    <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
                 </div>
             </div>
             <div class="modal-footer">
