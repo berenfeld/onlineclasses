@@ -27,7 +27,10 @@ function scheduled_class_add_comment_response(response)
 {
     
 }
-
+function scheduled_class_pay()
+{
+    $("#schedule_class_payment_modal").modal("show");
+}
 function scheduled_class_init()
 {    
     var today = new Date();

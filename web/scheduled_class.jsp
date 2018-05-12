@@ -18,7 +18,8 @@
     boolean isStudent = student.equals(ServletBase.getUser(request));
     boolean isTeacher = teacher.equals(ServletBase.getUser(request));
     List<ScheduledClassComment> scheduledClassComments = DB.getScheuduledClassComments(scheduledClass);
-
+    float schedledClassPrice = (((float) scheduledClass.duration_minutes * scheduledClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
+    String schedledClassPriceFormatted = Utils.formatPrice(schedledClassPrice);
 %>
 
 <!DOCTYPE html>
@@ -29,7 +30,59 @@
     </head>
     <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
         <%@include file="body.jsp" %>    
-        <div class="container">            
+
+        <div class="container">   
+            <div id="schedule_class_payment_modal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                            <input type="hidden" name="cmd" value="_xclick">
+                            <input type="hidden" name="business" value="<%= Config.get("website.paypal.account")%>">
+                            <INPUT TYPE="hidden" name="charset" value="utf-8">
+                            <input type="hidden" name="amount" value=" <%= schedledClassPriceFormatted%> ">
+                            <input type="hidden" name="item_name" value="scheduled class">
+                            <input type="hidden" name="item_number" value="<%= scheduledClass.id %>">
+                            <input type="hidden" name="currency_code" value="<%= Config.get("website.paypal.currency_code") %>">
+                            <INPUT TYPE="hidden" NAME="return" value="<%= Utils.buildWebsiteURL("scheduled_class", "id=" + scheduledClass.id) %>">
+
+                            <div class="modal-header bg-info">
+                                <div class="modal-title"> 
+                                    <%= Labels.get("scheduled.class.payment_modal.title")%>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <h6>
+                                    <%= Labels.get("scheduled.class.payment_modal.text1")%>
+                                    <br/>
+                                    <%= Labels.get("scheduled.class.payment_modal.text2")%>
+                                </h6>
+                                <div class="form-group row">
+                                    <label for="schedule_class_payment_modal_price" class="col col-form-label">
+                                        <%= Labels.get("scheduled.class.payment_modal.totla_price")%>
+                                    </label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" 
+                                               id="schedule_class_payment_modal_price"
+                                               name="schedule_class_payment_modal_price"
+                                               value="<%= schedledClassPriceFormatted%>" disabled/>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <input type="image" name="submit"
+                                       src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" 
+                                       alt="Check out with PayPal" />
+                                <button type="button" class="btn btn-info mx-1" data-dismiss="modal">
+                                    <%= Labels.get("buttons.cancel")%>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
             <div class="row no-gutter">
                 <div class="col-xl-4 col-lg-4">                        
                     <div class="card my-2">
@@ -61,15 +114,24 @@
                             </h6>
                             <h6>
                                 <%= Labels.get("scheduled.class.sidebar.price_text")%>&nbsp;
-                                <%= scheduledClass.price_per_hour * scheduledClass.duration_minutes / Utils.MINUTES_IN_HOUR%>&nbsp;
+                                <%=  schedledClassPriceFormatted%>&nbsp;
                                 <%= CLabels.get("website.currency")%>
+                                <%
+                                    if (scheduledClass.payment == null) {
+                                %>
+                                <a class="text-warning" href="javascript:scheduled_class_pay()">
+                                    <%= Labels.get("scheduled.class.sidebar.payment.not_paid_yet")%>                                
+                                </a>
+                                <%
+                                    }
+                                %>
                             </h6>
                         </div>
                         <div class="card-footer">     
                             <%
                                 if (isStudent) {
                             %>
-                            <button class="btn btn-success">
+                            <button class="btn btn-warning" onclick="javascript:scheduled_class_pay()">
                                 <%= Labels.get("scheduled.class.sidebar.pay_for_class")%>
                             </button>
                             <%

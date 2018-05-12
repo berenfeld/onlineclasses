@@ -227,4 +227,24 @@ public class Utils {
 
     }
 
+    public static String formatPrice(float price)
+    {
+        return String.format("%.2f", price);
+    }
+    
+    public static String buildWebsiteURL(String path, String ... params)
+    {
+        String url = Config.get("website.url") + "/"+ path;
+        boolean firstParam = true;
+        for (String param : params) {
+            if ( firstParam) {
+                url += "?";
+                firstParam = false;
+            } else {
+                url += "&";
+            }
+            url += param;
+        }
+        return url;
+    }
 }
