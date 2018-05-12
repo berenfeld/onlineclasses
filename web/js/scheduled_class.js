@@ -25,7 +25,9 @@ function scheduled_class_add_comment_ok(comment)
 
 function scheduled_class_add_comment_response(response)
 {
-    
+    if (response.rc === 0 ){
+        window.location.reload();
+    }
 }
 function scheduled_class_pay()
 {

@@ -9,6 +9,7 @@ import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.BasicResponse;
 import com.onlineclasses.entities.ScheduledClass;
+import com.onlineclasses.entities.ScheduledClassComment;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
@@ -47,8 +48,8 @@ public class ScheduleClassServlet extends ServletBase {
             Utils.warning("teacher can't schedule class");
             return new BasicResponse(-1, "can't schedule class");
         }
-        
-        Student student = (Student)user;
+
+        Student student = (Student) user;
         ScheduleClassRequest scheduleClassRequest = Utils.gson().fromJson(requestString, ScheduleClassRequest.class);
 
         Teacher teacher = DB.getTeacher(scheduleClassRequest.teacher_id);
@@ -100,7 +101,6 @@ public class ScheduleClassServlet extends ServletBase {
         scheduledClass.duration_minutes = scheduleClassRequest.duration_minutes;
         scheduledClass.price_per_hour = teacher.price_per_hour;
         scheduledClass.subject = scheduleClassRequest.subject;
-        scheduledClass.student_comment = scheduleClassRequest.student_comment;
         scheduledClass.registered = new Date();
         scheduledClass.status = ScheduledClass.STATUS_SCHEDULED;
 
@@ -113,7 +113,15 @@ public class ScheduleClassServlet extends ServletBase {
                 + " at " + scheduledClass.start_date + " duration " + scheduledClass.duration_minutes + " subject "
                 + scheduledClass.subject);
 
-        sendEmail(student, teacher, scheduledClass, classStart);        
+        if (!Utils.isEmpty(scheduleClassRequest.student_comment)) {
+            ScheduledClassComment scheduledClassComment = new ScheduledClassComment();
+            scheduledClassComment.added = new Date();
+            scheduledClassComment.student = student;
+            scheduledClassComment.comment = scheduleClassRequest.student_comment;
+            DB.add(scheduledClassComment);
+        }
+  
+        sendEmail(student, teacher, scheduledClass, classStart);
 
         ScheduleClassResponse scheduleClassResponse = new ScheduleClassResponse();
         scheduleClassResponse.class_id = scheduledClass.id;
@@ -126,7 +134,7 @@ public class ScheduleClassServlet extends ServletBase {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "new_schedule_class.html";
         Utils.info("sending email " + email_name);
-        
+
         String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
 
         emailContent = emailContent.replaceAll("<% teacherName %>", teacher.display_name);

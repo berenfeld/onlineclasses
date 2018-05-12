@@ -163,16 +163,16 @@
     <div class="modal-dialog modal-md">
 
         <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title text-success"> 
-                    <h5>
+            <div class="modal-header text-white bg-secondary">
+                <div class="modal-title"> 
+                    <h6>
                         <span id="text_input_modal_title">
                             <%= Labels.get("text_input.modal.title")%>
                         </span>
-                    </h5>
+                    </h6>
                 </div>
             </div>
-            <div class="modal-body text-info">
+            <div class="modal-body">
                 <label id="text_input_modal_text1" for="text_input_modal_input">
                     <%= Labels.get("text_input.modal.text1")%>
                 </label>   

@@ -33,22 +33,14 @@
 
         <div class="container">   
             <div id="schedule_class_payment_modal" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-md">
-                    <div class="modal-content">
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                            <input type="hidden" name="cmd" value="_xclick">
-                            <input type="hidden" name="business" value="<%= Config.get("website.paypal.account")%>">
-                            <INPUT TYPE="hidden" name="charset" value="utf-8">
-                            <input type="hidden" name="amount" value=" <%= schedledClassPriceFormatted%> ">
-                            <input type="hidden" name="item_name" value="scheduled class">
-                            <input type="hidden" name="item_number" value="<%= scheduledClass.id %>">
-                            <input type="hidden" name="currency_code" value="<%= Config.get("website.paypal.currency_code") %>">
-                            <INPUT TYPE="hidden" NAME="return" value="<%= Utils.buildWebsiteURL("scheduled_class", "id=" + scheduledClass.id) %>">
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                    <div class="modal-dialog modal-md">
 
-                            <div class="modal-header bg-info">
-                                <div class="modal-title"> 
+                        <div class="modal-content">
+                            <div class="modal-header bg-secondary text-white">
+                                <h6 class="modal-title"> 
                                     <%= Labels.get("scheduled.class.payment_modal.title")%>
-                                </div>
+                                </h6>
                             </div>
                             <div class="modal-body">
                                 <h6>
@@ -77,10 +69,11 @@
                                     <%= Labels.get("buttons.cancel")%>
                                 </button>
                             </div>
-                        </form>
-                    </div>
 
-                </div>
+                        </div>
+
+                    </div>
+                </form>
             </div>
 
             <div class="row no-gutter">
@@ -157,24 +150,11 @@
                             <%= Labels.get("scheduled.class.sidebar.comments.title")%>
                         </div>
                         <div class="card-body bg-secondary text-white">
-                            <%
-                                if (!Utils.isEmpty(scheduledClass.student_comment)) {
-                            %>
+                            <p>
+                                <%
+                                    for (ScheduledClassComment scheduledClassComment : scheduledClassComments) {
+                                %>
 
-                            <h6>
-                                <span class="font-weight-bold">
-                                    <%= scheduledClass.student.display_name%>:&nbsp;
-                                </span>
-                                <%= scheduledClass.student_comment%>&nbsp;
-                            </h6>                            
-                            <%
-                                }
-                            %>
-
-                            <%
-                                for (ScheduledClassComment scheduledClassComment : scheduledClassComments) {
-                            %>
-                            <h6>
                                 <span class="font-weight-bold">
                                     <%
                                         if (scheduledClassComment.student != null) {
@@ -183,12 +163,17 @@
                                             out.write(scheduledClassComment.teacher.display_name);
                                         }
                                     %>
+
+                                    &nbsp;,&nbsp;
+                                    <%= Utils.formatDateTime(scheduledClassComment.added)%>                                
+                                    &nbsp;:&nbsp;
                                 </span>
-                                <%= scheduledClassComment.comment%>&nbsp;
-                            </h6>    
-                            <%
-                                }
-                            %>
+                                <%= scheduledClassComment.comment%>                            
+                                <br/>
+                                <%
+                                    }
+                                %>
+                            </p>
                         </div>
                         <div class="card-footer">                            
                             <div class="row">

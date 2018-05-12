@@ -32,7 +32,6 @@ public class ScheduledClass extends BasicEntity  {
     @DatabaseField
     public String subject;
     
-    @DatabaseField
     public String student_comment;
     
     @DatabaseField( canBeNull = false)
