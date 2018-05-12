@@ -7,3 +7,12 @@
     position: static;
     padding-left: 10px;
 }
+
+.close_button {
+    float:left;
+    cursor:pointer;
+}
+
+.close_button:hover {
+    font-weight: bold;  
+}

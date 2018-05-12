@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
     <head>
         <meta name="viewport" content="width=device-width" />
@@ -94,7 +95,9 @@
             h1,
             h2,
             h3,
-            h4 {
+            h4,
+            h5,
+            h6 {
                 color: #000000;
                 font-family: sans-serif;
                 font-weight: 400;
@@ -282,7 +285,7 @@
 
                         <!-- START CENTERED WHITE CONTAINER -->
                         <span class="preheader"><% emailTitle %></span>
-                        <table class="main">
+                        <table class="main" style="border:solid gray 1px">
 
                             <!-- START MAIN CONTENT AREA -->
                             <tr>
@@ -290,31 +293,41 @@
                                     <table border="0" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td> 
-                                                <h4>
+                                                <p>
                                                     שלום,
-                                                    <% invitedStudent %>
-                                                </h4>
-                                                <h4>
+                                                    <% invitedStudent %>.
+                                                    מה שלומך ? איך הולך בלימודים?
+                                                </p>
+                                                <p>
                                                     אנחנו מזמינים אותך ללמוד איתנו באתר המורים הפרטיים
                                                     <a href="<% websiteUrl %>">
                                                         <% websiteShortName %>
-                                                    </a>
-                                                </h4>
-                                                <h4>
-                                                    היכנס ל
+                                                    </a>                                                    
+                                                </p>
+                                                <p>
+                                                    ההרשמה לאתר היא חינם ופתוחה לכולם.
+                                                </p>
+                                                <p>
+                                                    באתר תוכל לבחור מורים פרטיים למקצועות המחשבים והטכנולוגיה,
+                                                    להירשם לשיעורים פרטיים או שיעורי און ליין,
+                                                    לצפות בחומרים ובשיעורים מוקלטים ועוד....
+                                                <p>
+                                                    ב
                                                     <a href="<% findTeachersUrl %>">
                                                         עמוד המורים שלנו
                                                     </a>
-                                                    לצפות ברשימת המורים ולקבוע שיעור און ליין
-                                                </h4>
+                                                    תוכל לצפות ברשימת המורים שלנו, לבחור מורה זמין ולקבוע איתו שיעור.
+                                                </p>
                                                 <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                                                     <tbody>
                                                         <tr>
-                                                            <td align="right">
+                                                            <td align="center">
                                                                 <table border="0" cellpadding="0" cellspacing="0">
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td> <a href="<% registerStudentUrl %>" target="_blank">להרשמה לאתר</a> </td>
+                                                                            <td> <a href="<% registerStudentUrl %>" target="_blank">
+                                                                                    להרשמה לאתר לחץ כאן
+                                                                                </a> </td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -322,6 +335,13 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                                <p>
+                                                    ניפגש באתר ! לכל שאלה או הצעה בקשר לאתר ניתן לפנות אלינו 
+                                                    <a href="mailto:<% adminEmail %>">
+                                                        בדואר אלקטרוני  לכתובת  <% adminEmail %>
+                                                    </a>
+                                                    
+                                                </p>
                                             </td>
                                         </tr>
                                     </table>

@@ -38,6 +38,8 @@ public class EmailSender extends BaseTask {
         emailToSend.message = emailToSend.message.replaceAll("<% emailTitle %>", emailToSend.subject);
         emailToSend.message = emailToSend.message.replaceAll("<% websiteURL %>", Config.get("website.url"));
         emailToSend.message = emailToSend.message.replaceAll("<% websiteName %>", Labels.get("mail.website.name"));
+        emailToSend.message = emailToSend.message.replaceAll("<% adminEmail %>", Config.get("website.admin_email"));
+        
         
         String hashString = emailToSend.to + "." + Config.get("website.secret.md5");
         String unsubscribeURL = Config.get("website.url") + "/unsubscribe?email=" + emailToSend.to + "&hash=" + hashString;

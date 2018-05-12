@@ -1,5 +1,7 @@
 /* global online_classes */
 
+var common = {};
+
 function parseInt10(str, defaultValue)
 {
     n = parseInt(str);
@@ -81,20 +83,65 @@ function parseRemainingMs(remainingMs) {
             minutes + " " + online_classes.clabels[ "language.minutes" ];
 }
 
+function emailIsValid(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+function stringNotEmpty(str) {
+    if (!str) {
+        return false;
+    }
+    if ((str.replace(/\s/g, '').length) === 0) {
+        return false;
+    }
+    return true;
+}
 function invite_other_student()
 {
     $("#invite_other_student_modal").modal("show");
 }
 function invite_other_student_response(response)
 {
-
+    if (response.rc === 0) {
+        alert_show(online_classes.clabels["invite_friend.sent.modal.title"],
+                online_classes.clabels["invite_friend.sent.modal.text1"] +
+                " " +
+                common.invite_student.name +
+                " " +
+                online_classes.clabels["invite_friend.sent.modal.text2"] +
+                " " +
+                common.invite_student.email
+                );
+    }
+    $("#invite_other_student_modal").modal("hide");
 }
 
+function invite_other_student_modal_hide()
+{
+    $("#invite_other_student_warning").addClass("d-none");
+}
 function invite_other_student_send()
 {
+    common.invite_student = {};
+    common.invite_student.name = $("#invite_other_student_name").val();
+    common.invite_student.email = $("#invite_other_student_email").val();
+
     var request = {};
-    request.student_name = $("#invite_other_student_name").val();
-    request.student_email = $("#invite_other_student_email").val();
+    request.student_name = common.invite_student.name;
+    request.student_email = common.invite_student.email;
+
+    if (!emailIsValid(request.student_email)) {
+        $("#invite_other_student_warning_text").html(online_classes.clabels[ "invite_friend.sent.modal.invalid_email" ]);
+        $("#invite_other_student_warning").removeClass("d-none");
+        return;
+    }
+    if (!stringNotEmpty(request.student_name))
+    {
+        $("#invite_other_student_warning_text").html(online_classes.clabels[ "invite_friend.sent.modal.invalid_name" ]);
+        $("#invite_other_student_warning").removeClass("d-none");
+        return;
+    }
     $.ajax("servlets/invite_student",
             {
                 type: "POST",

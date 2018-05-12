@@ -26,6 +26,7 @@ function scheduled_class_add_comment_ok(comment)
 function scheduled_class_add_comment_response(response)
 {
     if (response.rc === 0 ){
+        // TODO update the page, don't reload
         window.location.reload();
     }
 }

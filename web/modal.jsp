@@ -58,16 +58,16 @@
     <div class="modal-dialog modal-sm">
 
         <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title text-success"> 
-                    <h5>
+            <div class="modal-header bg-secondary text-white">
+                <div class="modal-title"> 
+                    <h6>
                         <span id="alert_modal_title">
                             <%= Labels.get("alert.modal.title")%>
                         </span>
-                    </h5>
+                    </h6>
                 </div>
             </div>
-            <div class="modal-body text-info">
+            <div class="modal-body">
                 <h6 id="alert_modal_text1">
                     <%= Labels.get("alert.modal.text1")%>
                 </h6>                    
@@ -85,43 +85,50 @@
     <div class="modal-dialog modal-md">
 
         <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title text-success"> 
+            <div class="modal-header bg-secondary text-white">
+                <div class="modal-title"> 
                     <h5>
                         <%= Labels.get("invite_other_student.modal.title")%>                            
                     </h5>
                 </div>
             </div>
-            <div class="modal-body text-info">
+            <div class="modal-body  text-secondary">
                 <h6>
                     <%= Labels.get("invite_other_student.modal.text")%>      
                 </h6>
-                <div class="text-secondary">
-                    <form>
-                        <div class="form-group row">
-                            <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_other_student_name">
-                                <%= Labels.get("invite_other_student.form.name_label")%>
-                            </label>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-12">
-                                <input type="text" class="form-control" id="invite_other_student_name" 
-                                       placeholder="<%= Labels.get("invite_other_student.form.name")%>">
-                            </div>
+                <form>
+                    <div class="form-group row">
+                        <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_other_student_name">
+                            <%= Labels.get("invite_other_student.form.name_label")%>
+                        </label>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <input type="text" class="form-control" id="invite_other_student_name" 
+                                   placeholder="<%= Labels.get("invite_other_student.form.name")%>">
                         </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_other_student_email">
-                                <%= Labels.get("invite_other_student.form.email_label")%>
-                            </label>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-12">
-                                <input type="email" class="form-control" id="invite_other_student_email" 
-                                       placeholder="<%= Labels.get("invite_other_student.form.email")%>">
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_other_student_email">
+                            <%= Labels.get("invite_other_student.form.email_label")%>
+                        </label>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <input type="email" class="form-control" id="invite_other_student_email" 
+                                   placeholder="<%= Labels.get("invite_other_student.form.email")%>">
                         </div>
-                    </form>
+                    </div>
+                </form>
+
+                <div class="alert alert-warning d-none" role="alert" id="invite_other_student_warning">                    
+                    <span id="invite_other_student_warning_text"></span>
+                    <h5 class="close_button">
+                        <a onclick="javascript:invite_other_student_modal_hide()">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </h5>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info mx-1" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
-                <button type="button" class="btn btn-success mx-1" onclick="javascript:invite_other_student_send()" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
+                <button type="button" class="btn btn-success mx-1" onclick="javascript:invite_other_student_send()"><%= Labels.get("buttons.ok")%></button>
             </div>
 
         </div>
