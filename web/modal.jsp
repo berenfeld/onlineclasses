@@ -33,17 +33,14 @@
 
 <div id="confirm_modal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-sm">
-        <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-success">
+            <div class="modal-header bg-secondary text-white">
+                <h6 class="modal-title">
                     <span id="confirm_modal_title"></span>
-                </h5>
+                </h6>
             </div>
             <div class="modal-body">
-                <h6 class="text-info">
-                    <span id="confirm_modal_message"></span>
-                </h6>                    
+                <span id="confirm_modal_message"></span>                   
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info mx-1" onclick="confirm_cancel()" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>

@@ -121,6 +121,7 @@ function invite_other_student_modal_hide()
 {
     $("#invite_other_student_warning").addClass("d-none");
 }
+
 function invite_other_student_send()
 {
     common.invite_student = {};
@@ -130,6 +131,8 @@ function invite_other_student_send()
     var request = {};
     request.student_name = common.invite_student.name;
     request.student_email = common.invite_student.email;
+
+    invite_other_student_modal_hide();
 
     if (!emailIsValid(request.student_email)) {
         $("#invite_other_student_warning_text").html(online_classes.clabels[ "invite_friend.sent.modal.invalid_email" ]);

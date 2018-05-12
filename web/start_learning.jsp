@@ -11,30 +11,28 @@
     List<InstituteType> instituteTypeList = DB.getAllInstituteTypes();
 %>
 <!DOCTYPE html>
-<html lang="<%= Config.get("website.html_language") %>" dir="<%= Config.get("webiste.direction") %>">
+<html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
     <head>
         <%@include file="header.jsp" %>
     </head>
-    <body lang="<%= Config.get("website.html_language") %>" dir="<%= Config.get("webiste.direction") %>">
+    <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
         <%@include file="body.jsp" %>    
 
         <div class="container">
-
-            <div>
-                <h5>
-                    <%= Labels.get("start_learning.title1")%>                        
-                </h5>
-            </div>
-            <div class="card text-white bg-info">
+            <h6>
+                <%= Labels.get("start_learning.title1")%>    
+                <br/>
+                <%= Labels.get("start_learning.text1")%>       
+            </h6>
+            <div class="card text-white bg-secondary my-1">
                 <div class="card-header">
+
                     <div style="float:left">
                         <div class="g-signin2" data-theme="dark"></div>
                     </div>
                     <h6>
                         <%= Labels.get("start_learning.form.login.text1")%>     
                     </h6>                    
-
-
                 </div>
                 <div class="card-body">
                     <form>
@@ -165,9 +163,9 @@
                                     for (InstituteType instituteType : instituteTypeList) {
                                 %>
 
-                                    <a class="dropdown-item" href="#">
-                                        <%= instituteType.name%>
-                                    </a>
+                                <a class="dropdown-item" href="#">
+                                    <%= instituteType.name%>
+                                </a>
 
                                 <%
                                     }
@@ -178,7 +176,7 @@
                     </div>
                 </div>
             </div>
-<hr/>
+            <hr/>
             <div class="card text-white bg-secondary">
                 <div class="card-header">
                     <h6>
@@ -228,6 +226,7 @@
                 </div>
             </div>
             <%@include file="footer.jsp" %>    
+        </div>
     </body>
 
 </html>
