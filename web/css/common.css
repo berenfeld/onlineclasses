@@ -16,3 +16,7 @@
 .close_button:hover {
     font-weight: bold;  
 }
+
+span.oi {
+    vertical-align: middle;
+}

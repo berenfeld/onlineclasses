@@ -20,5 +20,6 @@
 <% }%>
 <link rel="stylesheet" href="css/extras.css">
 <link rel="stylesheet" href="css/common.css">
+<link href="css/open-iconic.css" rel="stylesheet">
 
 <title><%= Labels.get("website.title")%> | <%= Labels.get("index.title")%></title>

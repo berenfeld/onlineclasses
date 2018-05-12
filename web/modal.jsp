@@ -1,14 +1,16 @@
 <%@page import="com.onlineclasses.utils.Labels"%>
 
 <div id="login_modal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-md " role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <div class="h5 modal-title text-success">
-                    <%= Labels.get("login.modal.title")%>                     
+            <div class="modal-header bg-secondary text-white">
+                <div class="modal-title">
+                    <span class="oi mx-1" data-glyph="account-login"></span>                   
+                    <%= Labels.get("login.modal.title")%>                        
                 </div>
+                <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
-            <div class="modal-body text-secondary">
+            <div class="modal-body">
                 <h6>
                     <%= Labels.get("login.modal.text1")%>
                 </h6>
@@ -36,6 +38,7 @@
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
                 <h6 class="modal-title">
+                    <span class="oi" data-glyph="check"></span>
                     <span id="confirm_modal_title"></span>
                 </h6>
             </div>
@@ -58,6 +61,7 @@
             <div class="modal-header bg-secondary text-white">
                 <div class="modal-title"> 
                     <h6>
+                        <span class="oi mx-1" data-glyph="info"></span>       
                         <span id="alert_modal_title">
                             <%= Labels.get("alert.modal.title")%>
                         </span>
@@ -115,12 +119,9 @@
                 </form>
 
                 <div class="alert alert-warning d-none" role="alert" id="invite_other_student_warning">                    
+                    <span class="oi" data-glyph="warning"></span>
                     <span id="invite_other_student_warning_text"></span>
-                    <h5 class="close_button">
-                        <a onclick="javascript:invite_other_student_modal_hide()">
-                            <span aria-hidden="true">&times;</span>
-                        </a>
-                    </h5>
+                    <span class="oi close_button" data-glyph="x"></span>      
                 </div>
             </div>
             <div class="modal-footer">
