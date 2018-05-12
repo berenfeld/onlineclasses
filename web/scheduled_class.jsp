@@ -35,12 +35,13 @@
             <div id="schedule_class_payment_modal" class="modal fade" role="dialog">
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
                     <div class="modal-dialog modal-md">
-
                         <div class="modal-content">
-                            <div class="modal-header bg-secondary text-white">
-                                <h6 class="modal-title"> 
-                                    <%= Labels.get("scheduled.class.payment_modal.title")%>
-                                </h6>
+                            <div class="modal-header bg-secondary text-white">                                
+                                <div class="modal-title"> 
+                                        <span class="oi" data-glyph="dollar"></span> 
+                                        <%= Labels.get("scheduled.class.payment_modal.title")%>
+                                </div>
+                                <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>   
                             </div>
                             <div class="modal-body">
                                 <h6>

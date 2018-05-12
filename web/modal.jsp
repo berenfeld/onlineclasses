@@ -37,10 +37,10 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
-                <h6 class="modal-title">
+                <div class="modal-title">
                     <span class="oi" data-glyph="check"></span>
                     <span id="confirm_modal_title"></span>
-                </h6>
+                </div>
                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body">
