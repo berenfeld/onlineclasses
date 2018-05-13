@@ -13,8 +13,9 @@
     Map<Integer, List<Institute>> institutes = new HashMap<>();
     for (InstituteType instituteType : instituteTypes) {
         List<Institute> instituteNames = DB.getInstitutes(instituteType);
+        institutes.put(instituteType.id, instituteNames);
     }
-        
+
 
 %>
 <!DOCTYPE html>
@@ -198,13 +199,45 @@
                                 </div>
                             </div>
 
-                            <label id="start_learning_institute_other_text_label"
+                            <label id="start_learning_institute_1_label" class="col-6 col-lg-3 col-xl-3 my-1 col-form-label d-none" 
+                                   for="start_learning_institute_1_select">
+                                <%= Labels.get("start_learning.form.learning.institue_1.select")%>
+                            </label>
+
+                            <div class="col-6 col-lg-3 col-xl-3 my-1 d-none" id="start_learning_institute_1_div">
+                                <button class="btn btn-info dropdown-toggle" type="button" 
+                                        data-toggle="dropdown" id="start_learning_institute_1_select">
+                                    <span class="caret"></span>
+                                    <%= Labels.get("start_learning.form.learning.institue_1.select")%>
+
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="start_learning_institute_1_button">
+                                    <%
+                                        List<Institute> institutes1 = institutes.get(1);
+                                        for (Institute Institute : institutes1) {
+                                    %>
+
+                                    <a class="dropdown-item" href="javascript:start_learning_select_institute_1_type(<%= Institute.id%>)">
+                                        <%= Institute.name%>
+                                    </a>
+
+                                    <%
+                                        }
+                                    %>
+
+                                    <a class="dropdown-item" id="start_learning_institute_type_other" href="javascript:start_learning_select_institute_type(0)">
+                                        <%= Labels.get("start_learning.form.learning.institue_type.other")%>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <label id="start_learning_institute_0_label"
                                    class="col-6 col-lg-3 col-xl-3 my-1 col-form-label d-none" 
                                    for="start_learning_institute_other_text">
                                 <%= Labels.get("start_learning.form.learning.institue.other.choose")%>
                             </label>
 
-                            <div id="start_learning_institute_other_text_div" class="col-6 col-lg-3 col-xl-3 my-1 d-none">
+                            <div id="start_learning_institute_0_div" class="col-6 col-lg-3 col-xl-3 my-1 d-none">
                                 <input type="text" class="form-control" id="start_learning_institute_other_text" 
                                        name="start_learning_institute_other_text"
                                        placeholder="<%= Labels.get("start_learning.form.learning.institue.other.choose")%>">
@@ -266,6 +299,7 @@
 
             <script>
                 online_classes.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
+                online_classes.institutes = <%= Utils.gson().toJson(institutes)%>;
             </script>
         </div>
 
