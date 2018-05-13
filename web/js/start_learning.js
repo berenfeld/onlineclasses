@@ -84,7 +84,9 @@ function start_learning_form_submit()
     request.phone_number = $("#start_learning_phone_number_input").val();
     request.phone_area = start_learning.phone_area;
     request.day_of_birth = start_learning.day_of_birth;
-
+    request.institute_id = start_learning.institute_id;
+    request.institute_name = $("#start_learning_institute_other_text").val();
+    
     if ($("#start_learning_gender_input_male").attr("checked")) {
         request.gender = parseInt10($("#start_learning_gender_input_male").val());
     }
@@ -113,8 +115,10 @@ function start_learning_select_area_code(phone_area)
     $("#start_learning_area_code_value").html(phone_area);
 }
 
-function start_learning_select_institute_type(institute_type)
+function start_learning_select_institute_type(institute_type, institute_id)
 {    
+    start_learning.institute_type = institute_type;
+     
     for (var i=0;i<online_classes.institute_type.length;i++)
     {
         $("#start_learning_institute_" + i + "_label").addClass("d-none");
@@ -122,10 +126,12 @@ function start_learning_select_institute_type(institute_type)
     }
     
     if (institute_type === 0 ) {
+        start_learning.institute_id = 0;
         $("#start_learning_institute_type_button").html($("#start_learning_institute_type_other").html());
         $("#start_learning_institute_0_label").removeClass("d-none");
         $("#start_learning_institute_0_div").removeClass("d-none");                
     } else {
+        start_learning.institute_id = institute_id;
         $("#start_learning_institute_type_button").html(online_classes.institute_type[institute_type - 1].name);
         $("#start_learning_institute_" + institute_type + "_label").removeClass("d-none");
         $("#start_learning_institute_" + institute_type + "_div").removeClass("d-none");

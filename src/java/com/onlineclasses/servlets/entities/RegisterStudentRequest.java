@@ -24,5 +24,7 @@ public class RegisterStudentRequest extends BasicRequest {
     public String phone_number;
     public String phone_area;
     public int gender;
-    public Date day_of_birth;
+    public Date day_of_birth;   
+    public int institute_id;
+    public String institute_name;
 }

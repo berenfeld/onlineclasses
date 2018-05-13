@@ -8,6 +8,7 @@ package com.onlineclasses.servlets;
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
 import com.onlineclasses.entities.GoogleUser;
+import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.servlets.entities.RegisterStudentRequest;
@@ -52,6 +53,11 @@ public class RegisterStudentServlet extends ServletBase {
             registeringStudent.registered = new Date();
             registeringStudent.emails_enabled = true;
             
+            if ( registerStudentRequest.institute_id != 0 ) {                
+                registeringStudent.institute = DB.getInstitute(registerStudentRequest.institute_id);
+            } else {
+                registeringStudent.institute_name = registerStudentRequest.institute_name;
+            }
             if (DB.addStudent(registeringStudent) != 1 ) {
                 Utils.warning("Could not add user " + registeringStudent.display_name);
                 return new BasicResponse(-1, "user is already registered");

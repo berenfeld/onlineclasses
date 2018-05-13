@@ -18,6 +18,7 @@ import com.onlineclasses.db.orm.ScheduledClass_DB;
 import com.onlineclasses.db.orm.Student_DB;
 import com.onlineclasses.db.orm.Teacher_DB;
 import com.onlineclasses.entities.AvailableTime;
+import com.onlineclasses.entities.BasicEntity;
 import com.onlineclasses.entities.Email;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.Institute;
@@ -306,7 +307,11 @@ public class DB {
     public static <T> int add(T t) throws SQLException {
         return ORM_ENTITIES.get(t.getClass()).add(t);
     }
-
+    
+    public static Institute getInstitute(int id) throws SQLException {
+        return _institute_db.get(id);
+    }
+    
     public static List<ScheduledClassComment> getScheuduledClassComments(ScheduledClass scheduledClass) throws SQLException {
         List<ScheduledClassComment> scheduledClassComments = _scheduledClassComment_DB.getScheuduledClassComments(scheduledClass);
         for (ScheduledClassComment scheduledClassComment : scheduledClassComments) {

@@ -204,20 +204,26 @@
                                 <%= Labels.get("start_learning.form.learning.institue_1.select")%>
                             </label>
 
-                            <div class="col-6 col-lg-3 col-xl-3 my-1 d-none" id="start_learning_institute_1_div">
+                            <%
+                                for (int instituteType : institutes.keySet()) {
+                                    List<Institute> institutesList = institutes.get(instituteType);
+
+                            %>
+                            <div class="col-6 col-lg-3 col-xl-3 my-1 d-none" id="start_learning_institute_<%= instituteType %>_div">
                                 <button class="btn btn-info dropdown-toggle" type="button" 
-                                        data-toggle="dropdown" id="start_learning_institute_1_select">
+                                        data-toggle="dropdown" id="start_learning_institute_<%= instituteType %>_select">
                                     <span class="caret"></span>
-                                    <%= Labels.get("start_learning.form.learning.institue_1.select")%>
+                                    <%= Labels.get("start_learning.form.learning.institue_" + instituteType + ".select")%>
 
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="start_learning_institute_1_button">
                                     <%
-                                        List<Institute> institutes1 = institutes.get(1);
-                                        for (Institute Institute : institutes1) {
+
+                                        for (Institute Institute : institutesList) {
                                     %>
 
-                                    <a class="dropdown-item" href="javascript:start_learning_select_institute_1_type(<%= Institute.id%>)">
+                                    <a class="dropdown-item" 
+                                       href="javascript:start_learning_select_institute_type(<%= instituteType %>, <%= Institute.id %>)">
                                         <%= Institute.name%>
                                     </a>
 
@@ -225,12 +231,16 @@
                                         }
                                     %>
 
-                                    <a class="dropdown-item" id="start_learning_institute_type_other" href="javascript:start_learning_select_institute_type(0)">
+                                    <a class="dropdown-item" id="start_learning_institute_type_other" 
+                                       href="javascript:start_learning_select_institute_type(0)">
                                         <%= Labels.get("start_learning.form.learning.institue_type.other")%>
                                     </a>
                                 </div>
                             </div>
 
+                            <%
+                                }
+                            %>
                             <label id="start_learning_institute_0_label"
                                    class="col-6 col-lg-3 col-xl-3 my-1 col-form-label d-none" 
                                    for="start_learning_institute_other_text">
