@@ -97,6 +97,16 @@ function stringNotEmpty(str) {
     }
     return true;
 }
+
+function isNumberKey(event)
+{
+    var charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+
+    return true;
+}
+
 function invite_other_student()
 {
     $("#invite_other_student_modal").modal("show");

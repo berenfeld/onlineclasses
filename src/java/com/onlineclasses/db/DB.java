@@ -11,6 +11,7 @@ import com.onlineclasses.db.orm.Base_DB;
 import com.onlineclasses.db.orm.Email_DB;
 import com.onlineclasses.db.orm.GoogleUser_DB;
 import com.onlineclasses.db.orm.InstituteType_DB;
+import com.onlineclasses.db.orm.Institute_DB;
 import com.onlineclasses.db.orm.Payment_DB;
 import com.onlineclasses.db.orm.ScheduledClassComment_DB;
 import com.onlineclasses.db.orm.ScheduledClass_DB;
@@ -19,6 +20,7 @@ import com.onlineclasses.db.orm.Teacher_DB;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.Email;
 import com.onlineclasses.entities.GoogleUser;
+import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.Payment;
 import com.onlineclasses.entities.ScheduledClass;
@@ -113,6 +115,7 @@ public class DB {
     private static Teacher_DB _teacher_db;
     private static AvailableTime_DB _availableTime_db;
     private static InstituteType_DB _instituteType_db;
+    private static Institute_DB _institute_db;
     private static ScheduledClass_DB _scheduledClass_db;
     private static Email_DB _email_db;
     private static GoogleUser_DB _googleUser_db;
@@ -128,6 +131,7 @@ public class DB {
         _teacher_db = new Teacher_DB(_connectionSource);
         _availableTime_db = new AvailableTime_DB(_connectionSource);
         _instituteType_db = new InstituteType_DB(_connectionSource);
+        _institute_db = new Institute_DB(_connectionSource);
         _scheduledClass_db = new ScheduledClass_DB(_connectionSource);
         _email_db = new Email_DB(_connectionSource);
         _googleUser_db = new GoogleUser_DB(_connectionSource);
@@ -138,6 +142,7 @@ public class DB {
         ORM_ENTITIES.put(Teacher.class, _teacher_db);
         ORM_ENTITIES.put(AvailableTime.class, _availableTime_db);
         ORM_ENTITIES.put(InstituteType.class, _instituteType_db);
+        ORM_ENTITIES.put(Institute.class, _institute_db);
         ORM_ENTITIES.put(ScheduledClass.class, _scheduledClass_db);
         ORM_ENTITIES.put(Email.class, _email_db);
         ORM_ENTITIES.put(GoogleUser.class, _googleUser_db);
@@ -243,6 +248,10 @@ public class DB {
         return _instituteType_db.getAll();
     }
 
+    public static List<Institute> getInstitutes(InstituteType instituteType) throws SQLException {
+        return _institute_db.getInstitutes(instituteType);
+    }
+    
     public static List<Teacher> getAllTeachers() throws SQLException {
         return _teacher_db.getAll();
     }

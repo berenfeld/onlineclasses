@@ -6,6 +6,7 @@
 package com.onlineclasses.db;
 
 import com.onlineclasses.entities.AvailableTime;
+import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
@@ -29,6 +30,7 @@ public class TestDB {
         addStudents();
         addTeachers();
         addInstituteTypes();
+        addInstitutes();
     }
 
     public static void addStudents() throws Exception {
@@ -120,4 +122,19 @@ public class TestDB {
         }
     }
 
+    private static void addInstitutes() throws SQLException
+    {
+        List<InstituteType> instituteTypes = DB.getAllInstituteTypes();
+        for (InstituteType instituteType : instituteTypes)
+        {
+            List<String> instituteNames = Utils.toList(Labels.get("db.institutes." + instituteType.id));
+            for (String instituteName : instituteNames ) {
+                Institute institute = new Institute();
+                institute.institute_type = instituteType;
+                institute.name = instituteName;
+                DB.add(institute);
+            }
+            
+        }       
+    }
 }
