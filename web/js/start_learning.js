@@ -112,4 +112,18 @@ function start_learning_select_area_code(phone_area)
     start_learning.phone_area = phone_area;
     $("#start_learning_area_code_value").html(phone_area);
 }
+
+function start_learning_select_institute_type(institute_type)
+{
+    if (institute_type === 0 ) {
+        $("#start_learning_institute_type_button").html($("#start_learning_institute_type_other").html());
+        $("#start_learning_institute_other_text_label").removeClass("d-none");
+        $("#start_learning_institute_other_text_div").removeClass("d-none");
+    } else {
+        $("#start_learning_institute_type_button").html(online_classes.institute_type[institute_type - 1].name);
+        $("#start_learning_institute_other_text_label").addClass("d-none");
+        $("#start_learning_institute_other_text_div").addClass("d-none");
+    }
+}
+
 start_learning_init();

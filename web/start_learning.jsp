@@ -159,14 +159,16 @@
 
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="col-form-label col-lg-2" for="start_learning_institute_type">
-                                        <%= Labels.get("start_learning.form.learning.institue")%>
+
+                                    <label class="col-6 col-lg-3 col-xl-3 my-1 col-form-label" for="start_learning_institute_type">
+                                        <%= Labels.get("start_learning.form.learning.education.title")%>
                                     </label>
-                                    <div class="dropdown col-lg-2">
+
+                                    <div class="col-6 col-lg-3 col-xl-3 my-1">
                                         <button class="btn btn-info dropdown-toggle" type="button" 
                                                 data-toggle="dropdown" id="start_learning_institute_type_button">
                                             <span class="caret"></span>
-                                            <%= Labels.get("start_learning.form.learning.institue.text")%>
+                                            <%= Labels.get("start_learning.form.learning.institue_type.select")%>
 
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="start_learning_institute_type_button">
@@ -174,70 +176,92 @@
                                                 for (InstituteType instituteType : instituteTypeList) {
                                             %>
 
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" href="javascript:start_learning_select_institute_type(<%= instituteType.id%>)">
                                                 <%= instituteType.name%>
                                             </a>
 
                                             <%
                                                 }
                                             %>
-                                        </div>
 
+                                            <a class="dropdown-item" id="start_learning_institute_type_other" href="javascript:start_learning_select_institute_type(0)">
+                                                <%= Labels.get("start_learning.form.learning.institue_type.other")%>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <label id="start_learning_institute_other_text_label"
+                                           class="col-6 col-lg-3 col-xl-3 my-1 col-form-label d-none" 
+                                           for="start_learning_institute_other_text">
+                                        <%= Labels.get("start_learning.form.learning.institue.other.choose")%>
+                                    </label>
+
+                                    <div id="start_learning_institute_other_text_div" class="col-6 col-lg-3 col-xl-3 my-1 d-none">
+                                        <input type="text" class="form-control" id="start_learning_institute_other_text" 
+                                               name="start_learning_institute_other_text"
+                                               placeholder="<%= Labels.get("start_learning.form.learning.institue.other.choose")%>">
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="card">
-                            <div class="card-header  text-white bg-secondary">
-                                <h6>
-                                    <%= Labels.get("start_learning.form.submit.title")%>   
-                                </h6>
 
                             </div>
-                            <div class="card-body">
-                                <h6>
-                                    <%= Labels.get("start_learning.form.submit.accept_terms_of_usage")%>  
-                                </h6>
-                                <div class="well">
-                                    <h6>
-                                        <%= Labels.get("start_learning.form.submit.terms_of_usage.heading")%>  
-                                    </h6>
-                                    <ul>
-                                        <li>
-                                            <%= Labels.get("start_learning.form.submit.terms_of_usage.text1")%>  
-                                        </li>
-                                        <li>
-                                            <%= Labels.get("start_learning.form.submit.terms_of_usage.text2")%>  
-                                        </li>
-                                        <li>
-                                            <%= Labels.get("start_learning.form.submit.terms_of_usage.text3")%>  
-                                        </li>
-                                        <li>
-                                            <%= Labels.get("start_learning.form.submit.terms_of_usage.text4")%>  
-                                        </li>
-                                        <li>
-                                            <%= Labels.get("start_learning.form.submit.terms_of_usage.text5")%>  
-                                        </li>
-                                        <li>
-                                            <%= Labels.get("start_learning.form.submit.terms_of_usage.text6")%>  
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="checkbox" id="start_learning_accept_terms_checkbox_div">
-                                    <label for="start_learning_accept_terms_checkbox">
-                                        <input id="start_learning_accept_terms_checkbox" name="start_learning_accept_terms_checkbox" 
-                                               type="checkbox" value="">
-                                        <%= Labels.get("start_learning.form.submit.terms_of_usage.read_and_accept")%>  
-                                    </label>
-                                </div>
-                                <button class="btn btn-success" onclick="start_learning_form_submit()">
-                                    <%= Labels.get("start_learning.form.submit.button.text")%>   
-                                </button>
-                            </div>
                         </div>
-                        <%@include file="footer.jsp" %>    
                 </div>
-                </body>
+            </div>
+            <hr/>
+            <div class="card">
+                <div class="card-header  text-white bg-secondary">
+                    <h6>
+                        <%= Labels.get("start_learning.form.submit.title")%>   
+                    </h6>
 
-                </html>
+                </div>
+                <div class="card-body">
+                    <h6>
+                        <%= Labels.get("start_learning.form.submit.accept_terms_of_usage")%>  
+                    </h6>
+                    <div class="well">
+                        <h6>
+                            <%= Labels.get("start_learning.form.submit.terms_of_usage.heading")%>  
+                        </h6>
+                        <ul>
+                            <li>
+                                <%= Labels.get("start_learning.form.submit.terms_of_usage.text1")%>  
+                            </li>
+                            <li>
+                                <%= Labels.get("start_learning.form.submit.terms_of_usage.text2")%>  
+                            </li>
+                            <li>
+                                <%= Labels.get("start_learning.form.submit.terms_of_usage.text3")%>  
+                            </li>
+                            <li>
+                                <%= Labels.get("start_learning.form.submit.terms_of_usage.text4")%>  
+                            </li>
+                            <li>
+                                <%= Labels.get("start_learning.form.submit.terms_of_usage.text5")%>  
+                            </li>
+                            <li>
+                                <%= Labels.get("start_learning.form.submit.terms_of_usage.text6")%>  
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="checkbox" id="start_learning_accept_terms_checkbox_div">
+                        <label for="start_learning_accept_terms_checkbox">
+                            <input id="start_learning_accept_terms_checkbox" name="start_learning_accept_terms_checkbox" 
+                                   type="checkbox" value="">
+                            <%= Labels.get("start_learning.form.submit.terms_of_usage.read_and_accept")%>  
+                        </label>
+                    </div>
+                    <button class="btn btn-success" onclick="start_learning_form_submit()">
+                        <%= Labels.get("start_learning.form.submit.button.text")%>   
+                    </button>
+                </div>
+            </div>
+            <%@include file="footer.jsp" %>    
+
+            <script>
+                online_classes.institute_type = <%= Utils.gson().toJson(instituteTypeList)%>;
+            </script>
+        </div>
+
+    </body>
+
+</html>
