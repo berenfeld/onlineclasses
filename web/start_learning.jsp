@@ -83,7 +83,7 @@
                                         <input type="radio" checked class="form-check form-check-inline" 
                                                value="<%= Config.get("website.gender.male")%>" 
                                                id="start_learning_gender_input_male" name="start_learning_gender_input" placeholder="">
-                                        <label class="col-form-label form-check-label" for="start_learning_gender_input_male">
+                                        <label class="col-form-label my-1" for="start_learning_gender_input_male">
                                             <%= Labels.get("start_learning.form.login.gender.male")%>   
                                         </label>
                                     </div>
@@ -91,7 +91,7 @@
                                         <input type="radio" class="form-check form-check-inline" 
                                                value="<%= Config.get("website.gender.female")%>" 
                                                id="start_learning_gender_input_female" name="start_learning_gender_input" placeholder="">
-                                        <label class="col-form-label form-check-label" for="start_learning_gender_input_female">
+                                        <label class="col-form-label my-1" for="start_learning_gender_input_female">
                                             <%= Labels.get("start_learning.form.login.gender.female")%>   
                                         </label>
                                     </div>
@@ -139,8 +139,17 @@
 
                             </div>
 
+                            <label class="col-6 col-lg-3 col-xl-3 my-1 col-form-label" for="start_learning_day_of_birth_input">
+                                <%= Labels.get("start_learning.form.login.day_of_birth")%>
+                            </label>
+
+                            <div class="col-6 col-lg-3 col-xl-3 my-1">
+                                <input type="text" class="form-control" id="start_learning_day_of_birth_input"
+                                       name="start_learning_day_of_birth_input"
+                                       placeholder="<%= Labels.get("start_learning.form.login.day_of_birth")%>">
+                            </div>
                         </div>
-                        
+
                         <div class="card my-1">
                             <div class="card-header text-white bg-primary">
                                 <h6>
@@ -179,8 +188,8 @@
                             </div>
                         </div>
                         <hr/>
-                        <div class="card text-white bg-secondary">
-                            <div class="card-header">
+                        <div class="card">
+                            <div class="card-header  text-white bg-secondary">
                                 <h6>
                                     <%= Labels.get("start_learning.form.submit.title")%>   
                                 </h6>

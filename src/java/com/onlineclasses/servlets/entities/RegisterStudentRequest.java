@@ -6,6 +6,7 @@
 package com.onlineclasses.servlets.entities;
 
 import com.onlineclasses.entities.BasicRequest;
+import java.util.Date;
 
 /**
  *
@@ -23,4 +24,5 @@ public class RegisterStudentRequest extends BasicRequest {
     public String phone_number;
     public String phone_area;
     public int gender;
+    public Date day_of_birth;
 }

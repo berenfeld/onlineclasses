@@ -46,4 +46,7 @@ public class User extends BasicEntity implements Serializable {
     public String toString() {
         return display_name;
     }
+    
+    @DatabaseField
+    public Date day_of_birth;
 }

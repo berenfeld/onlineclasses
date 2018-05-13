@@ -48,6 +48,7 @@ public class RegisterStudentServlet extends ServletBase {
             registeringStudent.gender = registerStudentRequest.gender;
             registeringStudent.phone_area = registerStudentRequest.phone_area;
             registeringStudent.phone_number = registerStudentRequest.phone_number;
+            registeringStudent.day_of_birth = registerStudentRequest.day_of_birth;
             registeringStudent.registered = new Date();
             registeringStudent.emails_enabled = true;
             
