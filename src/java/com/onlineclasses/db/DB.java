@@ -16,9 +16,9 @@ import com.onlineclasses.db.orm.Payment_DB;
 import com.onlineclasses.db.orm.ScheduledClassComment_DB;
 import com.onlineclasses.db.orm.ScheduledClass_DB;
 import com.onlineclasses.db.orm.Student_DB;
+import com.onlineclasses.db.orm.Subject_DB;
 import com.onlineclasses.db.orm.Teacher_DB;
 import com.onlineclasses.entities.AvailableTime;
-import com.onlineclasses.entities.BasicEntity;
 import com.onlineclasses.entities.Email;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.Institute;
@@ -27,6 +27,7 @@ import com.onlineclasses.entities.Payment;
 import com.onlineclasses.entities.ScheduledClass;
 import com.onlineclasses.entities.ScheduledClassComment;
 import com.onlineclasses.entities.Student;
+import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.Config;
@@ -122,6 +123,7 @@ public class DB {
     private static GoogleUser_DB _googleUser_db;
     private static ScheduledClassComment_DB _scheduledClassComment_DB;
     private static Payment_DB _payment_DB;
+    private static Subject_DB _subject_DB;
 
     private static final Map<Class, Base_DB> ORM_ENTITIES = new HashMap<>();
 
@@ -138,6 +140,7 @@ public class DB {
         _googleUser_db = new GoogleUser_DB(_connectionSource);
         _scheduledClassComment_DB = new ScheduledClassComment_DB(_connectionSource);
         _payment_DB = new Payment_DB(_connectionSource);
+        _subject_DB = new Subject_DB(_connectionSource);
 
         ORM_ENTITIES.put(Student.class, _student_db);
         ORM_ENTITIES.put(Teacher.class, _teacher_db);
@@ -149,6 +152,7 @@ public class DB {
         ORM_ENTITIES.put(GoogleUser.class, _googleUser_db);
         ORM_ENTITIES.put(ScheduledClassComment.class, _scheduledClassComment_DB);
         ORM_ENTITIES.put(Payment.class, _payment_DB);
+        ORM_ENTITIES.put(Subject.class, _subject_DB);
     }
 
     public static Connection getConnection() throws SQLException {
@@ -252,7 +256,7 @@ public class DB {
     public static List<Institute> getInstitutes(InstituteType instituteType) throws SQLException {
         return _institute_db.getInstitutes(instituteType);
     }
-    
+
     public static List<Teacher> getAllTeachers() throws SQLException {
         return _teacher_db.getAll();
     }
@@ -307,11 +311,19 @@ public class DB {
     public static <T> int add(T t) throws SQLException {
         return ORM_ENTITIES.get(t.getClass()).add(t);
     }
-    
+
+    public static <T> List<T> getAll(Class cls) throws SQLException {
+        return ORM_ENTITIES.get(cls).getAll();
+    }
+
+     public static <T> T get(int id, Class cls) throws SQLException {
+        return (T) ORM_ENTITIES.get(cls).get(id);
+    }
+     
     public static Institute getInstitute(int id) throws SQLException {
         return _institute_db.get(id);
     }
-    
+
     public static List<ScheduledClassComment> getScheuduledClassComments(ScheduledClass scheduledClass) throws SQLException {
         List<ScheduledClassComment> scheduledClassComments = _scheduledClassComment_DB.getScheuduledClassComments(scheduledClass);
         for (ScheduledClassComment scheduledClassComment : scheduledClassComments) {
@@ -323,4 +335,5 @@ public class DB {
         }
         return scheduledClassComments;
     }
+
 }

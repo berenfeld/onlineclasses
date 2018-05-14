@@ -18,5 +18,10 @@ public class Student extends User {
     @DatabaseField
     public String institute_name;
     
+    @DatabaseField(foreign = true)
+    public Subject subject;
+    
+    @DatabaseField
+    public String subject_name;
     
 }

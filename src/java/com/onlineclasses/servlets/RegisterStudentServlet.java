@@ -10,6 +10,7 @@ import com.onlineclasses.entities.BasicResponse;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.Student;
+import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.servlets.entities.RegisterStudentRequest;
 import com.onlineclasses.utils.Utils;
@@ -26,47 +27,54 @@ public class RegisterStudentServlet extends ServletBase {
             throws Exception {
         RegisterStudentRequest registerStudentRequest = Utils.gson().fromJson(requestString, RegisterStudentRequest.class);
 
-        if (Utils.isNotEmpty(registerStudentRequest.google_id_token)) {
-
-            GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(registerStudentRequest.google_id_token);
-            if (googleUser == null) {
-                Utils.warning("failed to get user from google id token");
-                return new BasicResponse(-1, "user was not found");
-            }
-            
-            User user = DB.getUserByEmail(googleUser.email);
-            if (user != null) {
-                Utils.warning("user " + user.display_name + " email " + user.email + " already registered");
-                return new BasicResponse(-1, "user is already registered");
-            }                       
-            
-            Student registeringStudent = new Student();
-            registeringStudent.email = googleUser.email;            
-            registeringStudent.display_name = registerStudentRequest.display_name;
-            registeringStudent.image_url = googleUser.image_url;
-            registeringStudent.first_name = registerStudentRequest.first_name;
-            registeringStudent.last_name = registerStudentRequest.last_name;
-            registeringStudent.gender = registerStudentRequest.gender;
-            registeringStudent.phone_area = registerStudentRequest.phone_area;
-            registeringStudent.phone_number = registerStudentRequest.phone_number;
-            registeringStudent.day_of_birth = registerStudentRequest.day_of_birth;
-            registeringStudent.registered = new Date();
-            registeringStudent.emails_enabled = true;
-            
-            if ( registerStudentRequest.institute_id != 0 ) {                
-                registeringStudent.institute = DB.getInstitute(registerStudentRequest.institute_id);
-            } else {
-                registeringStudent.institute_name = registerStudentRequest.institute_name;
-            }
-            if (DB.addStudent(registeringStudent) != 1 ) {
-                Utils.warning("Could not add user " + registeringStudent.display_name);
-                return new BasicResponse(-1, "user is already registered");
-            }
-            ServletBase.loginUser(request, registeringStudent);
-            Utils.info("user " + registeringStudent.display_name + " email " + registeringStudent.email + " registered");
-        } else {
+        if (Utils.isEmpty(registerStudentRequest.google_id_token)) {
             Utils.warning("no google id in login request");
+            return new BasicResponse(-1, "no google id");
         }
+        GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(registerStudentRequest.google_id_token);
+        if (googleUser == null) {
+            Utils.warning("failed to get user from google id token");
+            return new BasicResponse(-1, "user was not found");
+        }
+
+        User user = DB.getUserByEmail(googleUser.email);
+        if (user != null) {
+            Utils.warning("user " + user.display_name + " email " + user.email + " already registered");
+            return new BasicResponse(-1, "user is already registered");
+        }
+
+        Student registeringStudent = new Student();
+        registeringStudent.email = googleUser.email;
+        registeringStudent.display_name = registerStudentRequest.display_name;
+        registeringStudent.image_url = googleUser.image_url;
+        registeringStudent.first_name = registerStudentRequest.first_name;
+        registeringStudent.last_name = registerStudentRequest.last_name;
+        registeringStudent.gender = registerStudentRequest.gender;
+        registeringStudent.phone_area = registerStudentRequest.phone_area;
+        registeringStudent.phone_number = registerStudentRequest.phone_number;
+        registeringStudent.day_of_birth = registerStudentRequest.day_of_birth;
+        registeringStudent.registered = new Date();
+        registeringStudent.emails_enabled = true;
+
+        if (registerStudentRequest.institute_id != 0) {
+            registeringStudent.institute = DB.get(registerStudentRequest.institute_id, Institute.class);
+        } else {
+            registeringStudent.institute_name = registerStudentRequest.institute_name;
+        }
+
+        if (registerStudentRequest.subject_id != 0) {
+            registeringStudent.subject = DB.get(registerStudentRequest.subject_id, Subject.class);
+        } else {
+            registeringStudent.subject_name = registerStudentRequest.subject_name;
+        }
+
+        if (DB.addStudent(registeringStudent) != 1) {
+            Utils.warning("Could not add user " + registeringStudent.display_name);
+            return new BasicResponse(-1, "user is already registered");
+        }
+        ServletBase.loginUser(request, registeringStudent);
+        Utils.info("user " + registeringStudent.display_name + " email " + registeringStudent.email + " registered");
+    
         return new BasicResponse(0, "");
     }
 

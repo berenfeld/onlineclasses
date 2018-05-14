@@ -9,6 +9,7 @@ import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.Student;
+import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.CConfig;
@@ -31,6 +32,7 @@ public class TestDB {
         addTeachers();
         addInstituteTypes();
         addInstitutes();
+        addSubjects();
     }
 
     public static void addStudents() throws Exception {
@@ -136,5 +138,16 @@ public class TestDB {
             }
             
         }       
+    }
+    
+    private static void addSubjects() throws SQLException
+    {
+        String subjects = Labels.get("db.subjects");
+        List<String> subjectList = Utils.toList(subjects);
+        for (String subjectName : subjectList) {            
+            Subject subject = new Subject();
+            subject.name = subjectName;
+            DB.add(subject);
+        }
     }
 }

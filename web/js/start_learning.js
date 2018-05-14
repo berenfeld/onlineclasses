@@ -86,6 +86,8 @@ function start_learning_form_submit()
     request.day_of_birth = start_learning.day_of_birth;
     request.institute_id = start_learning.institute_id;
     request.institute_name = $("#start_learning_institute_other_text").val();
+    request.subject_id = start_learning.subject_id;
+    request.subject_name = $("#start_learning_subject_0_text").val();
     
     if ($("#start_learning_gender_input_male").attr("checked")) {
         request.gender = parseInt10($("#start_learning_gender_input_male").val());
@@ -138,4 +140,20 @@ function start_learning_select_institute_type(institute_type, institute_id)
     }
 }
 
+function start_learning_select_subject(subject_id)
+{
+    start_learning.subject_id = subject_id;
+    
+    if (subject_id === 0 ) {
+        start_learning.subject_id = 0;
+        $("#start_learning_subject_0_div").removeClass("d-none");
+        $("#start_learning_subject_0_label").removeClass("d-none");
+    } else {
+        $("#start_learning_subject_0_div").addClass("d-none");
+        $("#start_learning_subject_0_label").addClass("d-none");
+        $("#start_learning_subject_button").html(online_classes.subjects[subject_id - 1].name);
+        start_learning.subject_id = subject_id;
+    }
+    
+}
 start_learning_init();
