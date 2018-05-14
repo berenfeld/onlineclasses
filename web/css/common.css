@@ -11,6 +11,7 @@
 .close_button {
     float:left;
     cursor:pointer;
+    font-size: small;
 }
 
 .close_button:hover {
@@ -19,4 +20,6 @@
 
 span.oi {
     vertical-align: middle;
+    margin-bottom: auto;
+    margin-top: auto;
 }

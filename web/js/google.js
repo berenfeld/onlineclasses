@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 
-var google = {}
+/* global gapi */
+
+var google = {};
 
 function google_init()
 {
@@ -84,7 +86,7 @@ function google_userChanged(value)
     );
 
     var profile = googleUser.getBasicProfile();
-    var user = {}
+    var user = {};
     user.name = profile.getName();
     user.first_name = profile.getGivenName();
     user.last_name = profile.getFamilyName();
