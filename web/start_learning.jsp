@@ -11,9 +11,15 @@
     String phoneAreas = CLabels.get("website.phone_areas");
     List<String> phoneAreasList = Utils.toList(phoneAreas);
     List<InstituteType> instituteTypes = DB.getAllInstituteTypes();
-    Map<Integer, List<Institute>> institutes = new HashMap<>();
+    Map<Integer, Map<Integer, String>> institutes = new HashMap<>();
     for (InstituteType instituteType : instituteTypes) {
-        List<Institute> instituteNames = DB.getInstitutes(instituteType);
+
+        List<Institute> allInstitutes = DB.getInstitutes(instituteType);
+
+        Map<Integer, String> instituteNames = new HashMap<>();
+        for (Institute institute : allInstitutes) {
+            instituteNames.put(institute.id, institute.name);
+        }
         institutes.put(instituteType.id, instituteNames);
     }
     List<Subject> subjects = DB.getAll(Subject.class);
@@ -208,32 +214,36 @@
                                 </div>
                             </div>
 
-                            <label id="start_learning_institute_1_label" class="col-6 col-lg-3 my-1 col-form-label d-none" 
-                                   for="start_learning_institute_1_select">
-                                <%= Labels.get("start_learning.form.learning.institue_1.select")%>
-                            </label>
+
 
                             <%
                                 for (int instituteType : institutes.keySet()) {
-                                    List<Institute> institutesList = institutes.get(instituteType);
+                                    Map<Integer, String> institutesMap = institutes.get(instituteType);
 
                             %>
+
+                            <label id="start_learning_institute_<%= instituteType%>_label" class="col-6 col-lg-3 my-1 col-form-label d-none" 
+                                   for="start_learning_institute_<%= instituteType%>_select">
+                                <%= Labels.get("start_learning.form.learning.institue_" + instituteType + "_select")%>
+                            </label>
+
                             <div class="col-6 col-lg-3 my-1 d-none" id="start_learning_institute_<%= instituteType%>_div">
                                 <button class="btn btn-info dropdown-toggle" type="button" 
                                         data-toggle="dropdown" id="start_learning_institute_<%= instituteType%>_select">
                                     <span class="caret"></span>
-                                    <%= Labels.get("start_learning.form.learning.institue_" + instituteType + ".select")%>
+                                    <%= Labels.get("start_learning.form.learning.institue_" + instituteType + "_select")%>
 
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="start_learning_institute_1_button">
+                                <div class="dropdown-menu" aria-labelledby="start_learning_institute_<%= instituteType%>_button">
                                     <%
 
-                                        for (Institute Institute : institutesList) {
+                                        for (int instituteId : institutesMap.keySet()) {
+                                            String instituteName = institutesMap.get(instituteId);
                                     %>
 
                                     <a class="dropdown-item" 
-                                       href="javascript:start_learning_select_institute_type(<%= instituteType%>, <%= Institute.id%>)">
-                                        <%= Institute.name%>
+                                       href="javascript:start_learning_select_institute_type(<%= instituteType%>, <%= instituteId%>)">
+                                        <%= instituteName%>
                                     </a>
 
                                     <%

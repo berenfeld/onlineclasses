@@ -25,31 +25,6 @@ function start_learning_googleUserEmailExistsCallback(email_exists)
                 online_classes.clabels[ "start_learning.login.email_exists.text"]);
     }
 }
-function start_learning_init()
-{
-    start_learning.google_id_token = null;
-    login_showLoginModal('start_learning');
-    google_addUserLoggedinCallback(start_learning_userLoggedInCallback);
-    google_addUserLoggedOutCallback(start_learning_userLoggedOutCallback);
-    google_addEmailExistsCallback(start_learning_googleUserEmailExistsCallback);
-
-
-    $("#start_learning_day_of_birth_input").datepicker({
-        dayNames: online_classes.clabels[ "website.days.long" ].split(","),
-        dayNamesMin: online_classes.clabels[ "website.days.short" ].split(","),
-        monthNames: online_classes.clabels[ "website.months.long" ].split(","),
-        monthNamesShort: online_classes.clabels[ "website.months.short" ].split(","),
-        isRTL: true,
-        changeYear: true,
-        onSelect: start_learning_select_day_of_birth
-    });
-
-    if (login_isLoggedIn())
-    {
-        alert_show(online_classes.clabels[ "start_learning.login.already_logged_in.title"],
-                online_classes.clabels[ "start_learning.login.already_logged_in.text"]);
-    }
-}
 
 function start_learning_register_complete(response)
 {
@@ -106,7 +81,7 @@ function start_learning_form_submit()
     );
 }
 
-function start_learning_select_day_of_birth(dateText, datePicker)
+function start_learning_select_day_of_birth(dateText)
 {
     start_learning.day_of_birth = new Date(Date.parse(dateText));
 }
@@ -121,22 +96,26 @@ function start_learning_select_institute_type(institute_type, institute_id)
 {    
     start_learning.institute_type = institute_type;
      
-    for (var i=0;i<online_classes.institute_type.length;i++)
+    for (var i=0;i<=online_classes.institute_type.length;i++)
     {
         $("#start_learning_institute_" + i + "_label").addClass("d-none");
         $("#start_learning_institute_" + i + "_div").addClass("d-none");
     }
     
-    if (institute_type === 0 ) {
-        start_learning.institute_id = 0;
+    start_learning.institute_id = 0;
+    
+    if (institute_type === 0 ) {        
         $("#start_learning_institute_type_button").html($("#start_learning_institute_type_other").html());
         $("#start_learning_institute_0_label").removeClass("d-none");
         $("#start_learning_institute_0_div").removeClass("d-none");                
-    } else {
-        start_learning.institute_id = institute_id;
+    } else {        
         $("#start_learning_institute_type_button").html(online_classes.institute_type[institute_type - 1].name);
         $("#start_learning_institute_" + institute_type + "_label").removeClass("d-none");
-        $("#start_learning_institute_" + institute_type + "_div").removeClass("d-none");
+        $("#start_learning_institute_" + institute_type + "_div").removeClass("d-none");        
+        if (institute_id !== 0) {
+            start_learning.institute_id = institute_id;
+            $("#start_learning_institute_" + institute_type + "_select").html(online_classes.institutes[institute_type][institute_id]);
+        }
     }
 }
 
@@ -156,4 +135,31 @@ function start_learning_select_subject(subject_id)
     }
     
 }
+
+function start_learning_init()
+{
+    start_learning.google_id_token = null;
+    login_showLoginModal('start_learning');
+    google_addUserLoggedinCallback(start_learning_userLoggedInCallback);
+    google_addUserLoggedOutCallback(start_learning_userLoggedOutCallback);
+    google_addEmailExistsCallback(start_learning_googleUserEmailExistsCallback);
+
+
+    $("#start_learning_day_of_birth_input").datepicker({
+        dayNames: online_classes.clabels[ "website.days.long" ].split(","),
+        dayNamesMin: online_classes.clabels[ "website.days.short" ].split(","),
+        monthNames: online_classes.clabels[ "website.months.long" ].split(","),
+        monthNamesShort: online_classes.clabels[ "website.months.short" ].split(","),
+        isRTL: true,
+        changeYear: true,
+        onSelect: start_learning_select_day_of_birth
+    });
+
+    if (login_isLoggedIn())
+    {
+        alert_show(online_classes.clabels[ "start_learning.login.already_logged_in.title"],
+                online_classes.clabels[ "start_learning.login.already_logged_in.text"]);
+    }
+}
+
 start_learning_init();
