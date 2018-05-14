@@ -64,23 +64,7 @@ public class AddClassCommentServlet extends ServletBase {
                        
         scheduledClassComment.added = new Date();
         DB.add(scheduledClassComment);
-        
-        /*
-        String email_name = Config.get("mail.emails.path") + File.separator
-                + Config.get("website.language") + File.separator + "invite_student.html";
-        
-        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
-           
-        emailContent = emailContent.replaceAll("<% invitedStudent %>", inviteStudentRequest.student_name);
-        emailContent = emailContent.replaceAll("<% websiteUrl %>", Config.get("website.url"));
-        emailContent = emailContent.replaceAll("<% websiteShortName %>", Labels.get("website.name"));
-        emailContent = emailContent.replaceAll("<% findTeachersUrl %>", Config.get("website.url") +"/find_teachers");
-        emailContent = emailContent.replaceAll("<% registerStudentUrl %>", Config.get("website.url") +"/start_learning");
-
-        EmailSender.addEmail(inviteStudentRequest.student_email, Labels.get("emails.invite_student.title"), emailContent);
-        TasksManager.runNow(TasksManager.TASK_EMAIL);
-*/
-        
+          
         return new BasicResponse(0, "");
     }
 

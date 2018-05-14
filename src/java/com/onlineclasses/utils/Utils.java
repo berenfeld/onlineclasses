@@ -206,8 +206,8 @@ public class Utils {
         return calendar.getTime();
     }
     
-    public static String getStringFromInputStream(ServletContext context, String email_name) {
-        InputStream is = context.getResourceAsStream(email_name);
+    public static String getStringFromInputStream(ServletContext context, String fileName) {
+        InputStream is = context.getResourceAsStream(fileName);
         BufferedReader br;
         StringBuilder sb = new StringBuilder();
 
