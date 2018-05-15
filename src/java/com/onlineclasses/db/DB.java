@@ -109,8 +109,9 @@ public class DB {
         }
     }
 
-    public static void close() {
+    public static void close() throws Exception {
         _dataSource.close();
+        _connectionSource.close();
     }
 
     private static Student_DB _student_db;

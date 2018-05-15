@@ -55,7 +55,6 @@ public class ScheduledClass_DB extends Base_DB<ScheduledClass>{
     
     public synchronized List<ScheduledClass> getStudentUpcomingClasses(Student student) throws SQLException
     {
-        Utils.info("xxxx");
         _getStudentUpcomingClassesStudentArg.setValue(student);
         _getStudentUpcomingClassesStartDateArg.setValue(Utils.xHoursFromNow(CConfig.getInt("website.time.upcoming_student_classes_hours")));  
         return _dao.query(_getStudentUpcomingClasses);

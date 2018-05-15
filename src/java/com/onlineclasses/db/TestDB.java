@@ -44,6 +44,7 @@ public class TestDB {
         student.image_url = "https://lh4.googleusercontent.com/-RvMyRqrpEIM/AAAAAAAAAAI/AAAAAAAAAT4/jewL_O1LF_8/s96-c/photo.jpg";
         student.registered = new Date();
         student.gender = User.GENDER_MALE;
+        student.emails_enabled = true;
         
         DB.addStudent(student);
     }

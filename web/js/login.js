@@ -31,7 +31,7 @@ function login_loginRequestComplete(response)
     {
         $("#login_modal_info_text").html(online_classes.clabels["login.progress.success"]);
         $("#login_modal_info_div").removeClass("d-none");
-        redirectAfter("/", 2);
+        reloadAfter(1);
     }    
     login.reason = null;
     

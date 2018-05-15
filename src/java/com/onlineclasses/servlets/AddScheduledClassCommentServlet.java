@@ -93,7 +93,7 @@ public class AddScheduledClassCommentServlet extends ServletBase {
         emailContent = emailContent.replaceAll("<% classSubject %>", scheduledClass.subject);
 
         List<User> to = Arrays.asList(scheduledClass.student, scheduledClass.teacher);
-        EmailSender.addEmail(to, Labels.get("emails.new_scheduled_class.title"), emailContent);
+        EmailSender.addEmail(to, Labels.get("emails.scheduled_class_added_comment.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);
     }
 
