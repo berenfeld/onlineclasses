@@ -194,12 +194,16 @@
                     </input>
                 </form>
             </div>
+            <div id="text_input_modal_info_div" class="alert alert-info d-none" role="alert">
+                <span class="oi" data-glyph="info"></span>    
+                <span id="text_input_modal_info_text"></span>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info mx-1" data-dismiss="modal">
                     <%= Labels.get("buttons.cancel")%>
                 </button>
 
-                <button type="button" class="btn btn-success mx-1" onclick="javascript:text_input_modal_ok()" data-dismiss="modal">
+                <button type="button" class="btn btn-success mx-1" onclick="javascript:text_input_modal_ok()">
                     <%= Labels.get("buttons.ok")%>
                 </button>            
             </div>

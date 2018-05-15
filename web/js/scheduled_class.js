@@ -4,6 +4,7 @@ scheduled_class = {};
 
 function schedule_class_add_comment()
 {
+    text_input_modal_hide_info();
     text_input_modal_show(online_classes.clabels[ "scheduled.class.comments.modal.title"],
             online_classes.clabels[ "scheduled.class.comments.modal.text"],
             scheduled_class_add_comment_ok);
@@ -11,6 +12,7 @@ function schedule_class_add_comment()
 
 function scheduled_class_add_comment_ok(comment)
 {
+    text_input_modal_show_info( online_classes.clabels[ "scheduled.class.comments.modal.adding_comment"] );
     var request = {};
     request.scheduled_class_id = scheduled_class.scheduled_class.id;
     request.comment = comment;
@@ -26,8 +28,8 @@ function scheduled_class_add_comment_ok(comment)
 function scheduled_class_add_comment_response(response)
 {
     if (response.rc === 0 ){
-        // TODO update the page, don't reload
-        window.location.reload();
+        text_input_modal_show_info( online_classes.clabels[ "scheduled.class.comments.modal.comment_added"] );
+        reloadAfter(2);
     }
 }
 function scheduled_class_pay()

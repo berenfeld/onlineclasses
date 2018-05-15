@@ -14,9 +14,15 @@ function parseInt10(str, defaultValue)
 function redirectAfter(url, seconds)
 {
     window.setTimeout(function () {
-
-        // Move to a new location or you can do something else
         window.location.href = url;
+    }, seconds * 1000);
+
+}
+
+function reloadAfter(seconds)
+{
+    window.setTimeout(function () {
+        window.location.reload();
 
     }, seconds * 1000);
 

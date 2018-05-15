@@ -94,7 +94,10 @@
             h1,
             h2,
             h3,
-            h4 {
+            h4,
+            h5,
+            h6
+            {
                 color: #000000;
                 font-family: sans-serif;
                 font-weight: 400;
@@ -108,6 +111,16 @@
                 text-align: center;
                 text-transform: capitalize; }
 
+            h5 {
+                font-size: 15px;
+                font-weight: 300;
+                text-transform: capitalize; }
+            
+            h6 {
+                font-size: 12px;
+                font-weight: 300;
+                text-transform: capitalize; }
+            
             p,
             ul,
             ol {
@@ -290,27 +303,27 @@
                                     <table border="0" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td>                        
-                                                <h4>
+                                                <h5>
                                                     שיעון און ליין חדש נקבע עבורך !!
-                                                </h4>
-                                                <h4>
+                                                </h5>
+                                                <p>
                                                     עם המורה
                                                     <% teacherName %>
-                                                </h4>
-                                                <h4>
+                                                </p>
+                                                <p>
                                                     ביום : 
                                                     <% classDay %>
                                                     בשעה :
                                                     <% classTime %>
-                                                </h4>
-                                                <h4>
+                                                </p>
+                                                <p>
                                                     בנושא
                                                     <% classSubject %>
-                                                </h4>
+                                                </p>
                                                 <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                                                     <tbody>
                                                         <tr>
-                                                            <td align="right">
+                                                            <td align="center">
                                                                 <table border="0" cellpadding="0" cellspacing="0">
                                                                     <tbody>
                                                                         <tr>
