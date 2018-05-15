@@ -11,15 +11,14 @@
 .close_button {
     float:left;
     cursor:pointer;
-    font-size: small;
 }
 
 .close_button:hover {
-    font-weight: bold;  
+    color: rgb(17, 122, 139);
 }
 
 span.oi {
-    vertical-align: middle;
     margin-bottom: auto;
     margin-top: auto;
+    font-size: small;
 }

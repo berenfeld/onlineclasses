@@ -9,10 +9,10 @@ function login_showLoginDialog()
 
 function login_googleLoggedIn(googleUser)
 {
-    if (login.reason === "login_modal") {        
-        $("#login_modal").modal('hide');
-        progress_modal_show(online_classes.clabels["login.progress.title"],
-                online_classes.clabels["login.progress.start"], 0);
+    if (login.reason === "login_modal") {                        
+        $("#login_modal_info_text").html(online_classes.clabels["login.progress.start"]);
+        $("#login_modal_info_div").removeClass("d-none");
+        
         var request = {};
         request.google_id_token = googleUser.google_id_token;
         $.ajax("servlets/login",
@@ -22,20 +22,19 @@ function login_googleLoggedIn(googleUser)
                     dataType: "JSON",
                     success: login_loginRequestComplete
                 });
-
-        progress_modal_show(online_classes.clabels["login.progress.title"],
-                online_classes.clabels["login.progress.start"], 50);
     }
 }
 
 function login_loginRequestComplete(response)
 {
-    // TODO test response !
-    progress_modal_show(online_classes.clabels["login.progress.title"],
-            online_classes.clabels["login.progress.success"], 100);
-    console.log(response);
+    if (response.rc === 0)
+    {
+        $("#login_modal_info_text").html(online_classes.clabels["login.progress.success"]);
+        $("#login_modal_info_div").removeClass("d-none");
+        redirectAfter("/", 2);
+    }    
     login.reason = null;
-    location.reload();
+    
 }
 
 function login_googleLoggedOut()

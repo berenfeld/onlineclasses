@@ -38,8 +38,8 @@
                         <div class="modal-content">
                             <div class="modal-header bg-secondary text-white">                                
                                 <div class="modal-title"> 
-                                        <span class="oi" data-glyph="dollar"></span> 
-                                        <%= Labels.get("scheduled.class.payment_modal.title")%>
+                                    <span class="oi" data-glyph="dollar"></span> 
+                                    <%= Labels.get("scheduled.class.payment_modal.title")%>
                                 </div>
                                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>   
                             </div>
@@ -50,15 +50,35 @@
                                     <%= Labels.get("scheduled.class.payment_modal.text2")%>
                                 </h6>
                                 <div class="form-group row">
-                                    <label for="schedule_class_payment_modal_price" class="col col-form-label">
-                                        <%= Labels.get("scheduled.class.payment_modal.totla_price")%>
+                                    <label for="schedule_class_payment_modal_price" class="col-6 col-form-label my-1">
+                                        <%= Labels.get("scheduled.class.payment_modal.total_price")%>
                                     </label>
-                                    <div class="col">
-                                        <input type="text" class="form-control" 
-                                               id="schedule_class_payment_modal_price"
-                                               name="schedule_class_payment_modal_price"
-                                               value="<%= schedledClassPriceFormatted%>" disabled/>
+                                    <div class="col-6 my-1">
+                                        <div class="input-group">
+
+                                            <input type="text" class="form-control" 
+                                                   id="schedule_class_payment_modal_price"
+                                                   name="schedule_class_payment_modal_price"
+                                                   value="<%= schedledClassPriceFormatted%>" disabled/>
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <%= CLabels.get("website.currency")%>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <br/>
+                                    <p class="col-12 my-1">
+                                        <small>
+                                            <%= Labels.get("scheduled.class.payment_modal.calculation_start")%>                                        
+                                            <%= scheduledClass.duration_minutes / 60%>
+                                            <%= CLabels.get("language.hours")%>
+                                            &times;
+                                            <%= Labels.get("scheduled.class.payment_modal.calculation_end")%>                                        
+                                            <%= Utils.formatPrice(scheduledClass.price_per_hour)%>
+                                            <%= CLabels.get("website.currency")%>
+                                        </small>
+                                    </p>
                                 </div>
 
                             </div>

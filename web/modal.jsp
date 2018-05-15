@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
                 <div class="modal-title">
-                    <span class="oi mx-1" data-glyph="account-login"></span>                   
+                    <span class="oi mx-1" data-glyph="account-login"></span>                                       
                     <%= Labels.get("login.modal.title")%>                        
                 </div>
                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
@@ -22,6 +22,10 @@
                     <a class="alert-link" href="start_learning">
                         <%= Labels.get("login.modal.register.student")%>
                     </a>                            
+                </div>
+                <div id="login_modal_info_div" class="alert alert-info d-none" role="alert">
+                    <span class="oi" data-glyph="info"></span>    
+                    <span id="login_modal_info_text"></span>
                 </div>
             </div>
             <div class="modal-footer">
@@ -172,14 +176,14 @@
     <div class="modal-dialog modal-md">
 
         <div class="modal-content">
-            <div class="modal-header text-white bg-secondary">
-                <div class="modal-title"> 
-                    <h6>
-                        <span id="text_input_modal_title">
-                            <%= Labels.get("text_input.modal.title")%>
-                        </span>
-                    </h6>
-                </div>
+            <div class="modal-header text-white bg-secondary">                
+                <div class="modal-title">                     
+                    <span class="oi" data-glyph="comment-square"></span>                     
+                    <span id="text_input_modal_title">                        
+                        <%= Labels.get("text_input.modal.title")%>
+                    </span>
+                </div>                                             
+                <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body">
                 <label id="text_input_modal_text1" for="text_input_modal_input">

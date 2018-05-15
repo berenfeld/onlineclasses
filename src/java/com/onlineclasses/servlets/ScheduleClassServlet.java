@@ -104,7 +104,7 @@ public class ScheduleClassServlet extends ServletBase {
         scheduledClass.registered = new Date();
         scheduledClass.status = ScheduledClass.STATUS_SCHEDULED;
 
-        if (1 != DB.addScheduledClass(scheduledClass)) {
+        if (1 != DB.add(scheduledClass)) {
             Utils.warning("student " + student.display_name + " schedule class failed. DB error");
             return new BasicResponse(-1, "can't schedule class");
         }
@@ -118,6 +118,7 @@ public class ScheduleClassServlet extends ServletBase {
             scheduledClassComment.added = new Date();
             scheduledClassComment.student = student;
             scheduledClassComment.comment = scheduleClassRequest.student_comment;
+            scheduledClassComment.scheduled_class = scheduledClass;
             DB.add(scheduledClassComment);
         }
   
