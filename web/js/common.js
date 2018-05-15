@@ -169,3 +169,21 @@ function invite_other_student_send()
                 success: invite_other_student_response
             });
 }
+
+function appendToSearchString(search_string, token)
+{
+    if (! search_string) {
+        search_string = token;
+    } else {
+        search_string = search_string + "&" + token;
+    }
+    return search_string;
+}
+function common_init()
+{
+    $(".modal").draggable({
+        handle: "div.modal-header"
+    });
+}
+
+common_init();

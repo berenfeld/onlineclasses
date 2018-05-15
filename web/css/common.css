@@ -22,3 +22,7 @@ span.oi {
     margin-top: auto;
     font-size: small;
 }
+
+div.modal-header {
+    cursor: move;
+}
