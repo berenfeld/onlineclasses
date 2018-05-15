@@ -13,6 +13,7 @@ import com.onlineclasses.db.orm.GoogleUser_DB;
 import com.onlineclasses.db.orm.InstituteType_DB;
 import com.onlineclasses.db.orm.Institute_DB;
 import com.onlineclasses.db.orm.Payment_DB;
+import com.onlineclasses.db.orm.ScheduledClassAttachedFile_DB;
 import com.onlineclasses.db.orm.ScheduledClassComment_DB;
 import com.onlineclasses.db.orm.ScheduledClass_DB;
 import com.onlineclasses.db.orm.Student_DB;
@@ -25,6 +26,7 @@ import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.Payment;
 import com.onlineclasses.entities.ScheduledClass;
+import com.onlineclasses.entities.ScheduledClassAttachedFile;
 import com.onlineclasses.entities.ScheduledClassComment;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
@@ -123,6 +125,7 @@ public class DB {
     private static Email_DB _email_db;
     private static GoogleUser_DB _googleUser_db;
     private static ScheduledClassComment_DB _scheduledClassComment_DB;
+    private static ScheduledClassAttachedFile_DB _scheduledClassAttachedFile_DB;
     private static Payment_DB _payment_DB;
     private static Subject_DB _subject_DB;
 
@@ -140,6 +143,7 @@ public class DB {
         _email_db = new Email_DB(_connectionSource);
         _googleUser_db = new GoogleUser_DB(_connectionSource);
         _scheduledClassComment_DB = new ScheduledClassComment_DB(_connectionSource);
+        _scheduledClassAttachedFile_DB = new ScheduledClassAttachedFile_DB(_connectionSource);
         _payment_DB = new Payment_DB(_connectionSource);
         _subject_DB = new Subject_DB(_connectionSource);
 
@@ -152,6 +156,7 @@ public class DB {
         ORM_ENTITIES.put(Email.class, _email_db);
         ORM_ENTITIES.put(GoogleUser.class, _googleUser_db);
         ORM_ENTITIES.put(ScheduledClassComment.class, _scheduledClassComment_DB);
+        ORM_ENTITIES.put(ScheduledClassAttachedFile_DB.class, _scheduledClassAttachedFile_DB);
         ORM_ENTITIES.put(Payment.class, _payment_DB);
         ORM_ENTITIES.put(Subject.class, _subject_DB);
     }
@@ -336,5 +341,17 @@ public class DB {
         }
         return scheduledClassComments;
     }
+    
+     public static List<ScheduledClassAttachedFile> getScheuduledClassAttachedFiles(ScheduledClass scheduledClass) throws SQLException {
+        List<ScheduledClassAttachedFile> scheduledClassAttachedFiles = _scheduledClassAttachedFile_DB.getScheuduledClassAttachedFiles(scheduledClass);
+        for (ScheduledClassAttachedFile scheduledClassAttachedFile : scheduledClassAttachedFiles) {
+            if (scheduledClassAttachedFile.student != null) {
+                scheduledClassAttachedFile.student = getStudent(scheduledClassAttachedFile.student.id);
+            } else if (scheduledClassAttachedFile.teacher != null) {
+                scheduledClassAttachedFile.teacher = getTeacher(scheduledClassAttachedFile.teacher.id);
+            }
+        }
+        return scheduledClassAttachedFiles;
+     }      
 
 }

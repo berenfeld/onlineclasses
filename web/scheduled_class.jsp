@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.entities.ScheduledClassAttachedFile"%>
 <%@page import="com.onlineclasses.entities.ScheduledClassComment"%>
 <%@page import="com.onlineclasses.entities.Student"%>
 <%@page import="com.onlineclasses.utils.Utils"%>
@@ -20,6 +21,7 @@
     List<ScheduledClassComment> scheduledClassComments = DB.getScheuduledClassComments(scheduledClass);
     float schedledClassPrice = (((float) scheduledClass.duration_minutes * scheduledClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
     String schedledClassPriceFormatted = Utils.formatPrice(schedledClassPrice);
+    List<ScheduledClassAttachedFile> scheduledClassAttachedFiles = DB.getScheuduledClassAttachedFiles(scheduledClass);
 %>
 
 <!DOCTYPE html>
@@ -201,6 +203,47 @@
                                 <div class="col mx-auto">
                                     <button onclick="javascript:schedule_class_add_comment()" class="btn btn-info">
                                         <%= Labels.get("scheduled.class.sidebar.add_comment")%>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card my-2">
+                        <div class="card-header h5">
+                            <%= Labels.get("scheduled.class.sidebar.attached_files")%>
+                        </div>
+                        <div class="card-body bg-secondary text-white">
+                            <p>
+                                <%
+                                    for (ScheduledClassAttachedFile scheduledClassAttachedFile : scheduledClassAttachedFiles) {
+                                %>
+
+                                <span class="font-weight-bold">
+                                    <%
+                                        if (scheduledClassAttachedFile.student != null) {
+                                            out.write(scheduledClassAttachedFile.student.display_name);
+                                        } else {
+                                            out.write(scheduledClassAttachedFile.teacher.display_name);
+                                        }
+                                    %>
+
+                                    &nbsp;,&nbsp;
+                                    <%= Utils.formatDateTime(scheduledClassAttachedFile.added)%>                                
+                                    &nbsp;:&nbsp;
+                                </span>
+                                <%= scheduledClassAttachedFile.name%>                            
+                                <br/>
+                                <%
+                                    }
+                                %>
+                            </p>
+                        </div>
+                        <div class="card-footer">                            
+                            <div class="row">
+                                <div class="col mx-auto">
+                                    <button onclick="javascript:schedule_class_attach_file()" class="btn btn-info">
+                                        <%= Labels.get("scheduled.class.sidebar.attache_file")%>
                                     </button>
                                 </div>
                             </div>
