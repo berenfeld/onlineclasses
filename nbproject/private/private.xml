@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/me/onlineclasses/web/start_learning.jsp</file>
-            <file>file:/home/me/onlineclasses/web/js/start_learning.js</file>
-            <file>file:/home/me/onlineclasses/src/java/labels.properties</file>
-            <file>file:/home/me/onlineclasses/src/java/labels_iw_IL.properties</file>
+            <file>file:/C:/Users/ranb/Documents/onlineclasses/src/java/com/onlineclasses/web/ContextListener.java</file>
+            <file>file:/C:/Users/ranb/Documents/onlineclasses/src/java/com/onlineclasses/entities/Teacher.java</file>
+            <file>file:/C:/Users/ranb/Documents/onlineclasses/src/java/com/onlineclasses/db/DB.java</file>
+            <file>file:/C:/Users/ranb/Documents/onlineclasses/src/java/config.properties</file>
+            <file>file:/C:/Users/ranb/Documents/onlineclasses/web/scheduled_class.jsp</file>
         </group>
     </open-files>
 </project-private>

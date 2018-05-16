@@ -111,9 +111,13 @@ public class DB {
         }
     }
 
-    public static void close() throws Exception {
-        _dataSource.close();
-        _connectionSource.close();
+    public static void close() {
+        try {
+            _dataSource.close();
+            _connectionSource.close();
+        } catch (Exception ex) {
+            Utils.exception(ex);
+        }
     }
 
     private static Student_DB _student_db;

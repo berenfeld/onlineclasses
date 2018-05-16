@@ -36,6 +36,21 @@
         <div class="container">   
             <div id="schedule_class_payment_modal" class="modal fade" role="dialog">
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <input type="hidden" name="business" value="<%= teacher.paypal_email%>">
+                    <input type="hidden" name="amount" value="<%= schedledClassPriceFormatted%>">
+                    <input type="hidden" name="currency_code" value="<%= Config.get("website.paypal.currency_code")%>">
+                    <INPUT TYPE="hidden" name="charset" value="utf-8">
+                    <INPUT TYPE="hidden" NAME="return" value="<%= Utils.buildWebsiteURL("scheduled_class", "id=" + scheduledClass.id)%>">
+                    <input type="hidden" name="<email>" value="<%= student.email%>">
+                    <input type="hidden" name="<first_name>" value="<%= student.first_name%>">"
+                    <input type="hidden" name="<last_name>" value="<%= student.last_name%> ">"
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="item_name" value="scheduled class">">
+                    <input type="hidden" name="item_number" value="<%= scheduledClass.id %>">
+
+
+
                     <div class="modal-dialog modal-md">
                         <div class="modal-content">
                             <div class="modal-header bg-secondary text-white">                                
