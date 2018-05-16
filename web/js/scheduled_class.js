@@ -36,6 +36,11 @@ function scheduled_class_pay()
 {
     $("#schedule_class_payment_modal").modal("show");
 }
+function schedule_class_attach_file()
+{
+    $("#scheduled_class_attach_file_modal").modal("show");
+}
+
 function scheduled_class_init()
 {    
     var today = new Date();
