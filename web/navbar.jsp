@@ -15,7 +15,7 @@
     String userName = Labels.get("navbar.guest.name");
     if (user != null) {
         userName = user.display_name;
-        if (user instanceof Student) {         
+        if (user instanceof Student) {
             studentUpcomingClasses = DB.getStudentUpcomingClasses((Student) user);
         }
     }
@@ -51,12 +51,7 @@
             <ul class="navbar-nav mr-auto">  
                 <% if (user == null) {%>                 
                 <li class="nav-item">                
-                    <a href="javascript:login_showLoginModal('login_modal')" class="nav-link">
-                        <%= Labels.get("navbar.guest.not_connected")%>                           
-                    </a>
-                </li>
-                <li class="nav-item">                
-                    <a class="nav-link" href="javascript:login_showLoginModal('login_modal')">
+                    <a class="nav-link text-info" href="javascript:login_showLoginModal('login_modal')">
                         <%= Labels.get("navbar.login")%>
                     </a>                 
                 </li>
@@ -73,17 +68,19 @@
                         </a>
                         <div class="dropdown-divider"></div>
 
-                            <%
-                                for (ScheduledClass studentUpcomingClass : studentUpcomingClasses) {
-                            %>
-                            <a class="dropdown-item" href="scheduled_class?id=<%= studentUpcomingClass.id%>">
-                                <%= studentUpcomingClass.subject%>
-                                &nbsp;
-                                <%= Utils.formatDateTime(studentUpcomingClass.start_date ) %>
-                            </a>
-                            <%
-                                }
-                            %>
+                        <%
+                            for (ScheduledClass studentUpcomingClass : studentUpcomingClasses) {
+                        %>
+                        <a class="dropdown-item" href="scheduled_class?id=<%= studentUpcomingClass.id%>">
+                            <%= studentUpcomingClass.subject%>
+                            &nbsp;
+                            <%= Utils.formatDateTime(studentUpcomingClass.start_date)%>
+                        </a>
+                        <%
+                            }
+                        %>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:login_logoutFromNavBar()"><%= Labels.get("navbar.logout")%></a>
                     </div>
                 </li>
                 <li> 
@@ -92,11 +89,11 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="javascript:login_logoutFromNavBar()"><%= Labels.get("navbar.logout")%></a>
+
                 </li>
                 <% }%>
             </ul>
         </div>
     </nav>
 </div>
-            
+
