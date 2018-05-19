@@ -358,4 +358,7 @@ public class DB {
         return scheduledClassAttachedFiles;
      }      
 
+     public static int updateClassStatus(ScheduledClass scheduledClass, int status) throws SQLException {
+         return _scheduledClass_db.updateClassStatus(scheduledClass, status);
+     }
 }

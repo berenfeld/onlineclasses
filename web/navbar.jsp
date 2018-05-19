@@ -44,7 +44,15 @@
                     </div>
                 </li>
                 <li class="d-none nav-item"><a class="nav-link" href="start_teaching"><%= Labels.get("navbar.start.teaching")%></a></li>
-                <li class="nav-item"><a class="nav-link" href="start_learning"><%= Labels.get("navbar.start.learning")%></a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="start_learning">
+                        <%= Labels.get("navbar.start.learning")%>
+                        <small class="text-info">
+                        <%= Labels.get("navbar.start.learning.free")%>
+                    </small>
+                    </a>
+                    
+                </li>
                 <li class="nav-item"><a class="nav-link" href="find_teachers"><%= Labels.get("navbar.find.teachers")%></a></li>
 
             </ul>
@@ -58,16 +66,19 @@
 
                 <% } else {%>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="text-success nav-link dropdown-toggle" data-toggle="dropdown" href="#">
                         <%= userName%>
                         <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu">
+
+                        <%
+                            if (!studentUpcomingClasses.isEmpty()) {
+                        %>
                         <a class="dropdown-item" href="#">
                             <%= Labels.get("navbar.user.upcoming_classes")%>
                         </a>
                         <div class="dropdown-divider"></div>
-
                         <%
                             for (ScheduledClass studentUpcomingClass : studentUpcomingClasses) {
                         %>
@@ -80,6 +91,9 @@
                             }
                         %>
                         <div class="dropdown-divider"></div>
+                        <%
+                            }
+                        %>
                         <a class="dropdown-item" href="javascript:login_logoutFromNavBar()"><%= Labels.get("navbar.logout")%></a>
                     </div>
                 </li>

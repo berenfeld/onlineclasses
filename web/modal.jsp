@@ -185,20 +185,20 @@
                 </div>                                             
                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
-            <div class="modal-body">
-                <label id="text_input_modal_text1" for="text_input_modal_input">
+            <div class="modal-body">     
+                <label id="text_input_modal_text1" class="col-form-label" for="text_input_modal_input">
                     <%= Labels.get("text_input.modal.text1")%>
                 </label>   
-                <form>
-                    <input id ="text_input_modal_input" class="form-control" type="text" >
-                    </input>
-                </form>
+
+                <input id ="text_input_modal_input" class="form-control" type="text" >
+                </input>
             </div>
-            <div id="text_input_modal_info_div" class="alert alert-info d-none" role="alert">
+            <div id="text_input_modal_info_div" class="alert alert-info d-none my-0" role="alert">
                 <span class="oi" data-glyph="info"></span>    
                 <span id="text_input_modal_info_text"></span>
             </div>
             <div class="modal-footer">
+
                 <button type="button" class="btn btn-info mx-1" data-dismiss="modal">
                     <%= Labels.get("buttons.cancel")%>
                 </button>

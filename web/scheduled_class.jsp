@@ -101,7 +101,7 @@
                             <input type="button" name="submit"
                                    class="btn btn-success mx-1"                                   
                                    alt="Check out with PayPal" 
-                                   value="paypal"/>
+                                   value="<%= Labels.get("website.paypal.pay_now_button")%>"/>
                             <button type="button" class="btn btn-info mx-1" data-dismiss="modal">
                                 <%= Labels.get("buttons.cancel")%>
                             </button>
@@ -215,7 +215,7 @@
                         <%
                             }
                         %>
-                        <button class="btn btn-danger">
+                        <button class="btn btn-danger" onclick="schedule_class_cancel_click()">
                             <%= Labels.get("scheduled.class.sidebar.cancel_class")%>
                         </button>
 

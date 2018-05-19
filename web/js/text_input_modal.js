@@ -21,6 +21,7 @@ function text_input_modal_hide()
 
 function text_input_modal_show(title, message, ok_cb)
 {
+    text_input_modal_hide_info();
     text_input_modal.ok_cb = ok_cb;
     
     $("#text_input_modal_title").html(title);

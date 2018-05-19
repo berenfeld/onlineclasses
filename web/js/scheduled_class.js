@@ -12,7 +12,11 @@ function schedule_class_add_comment()
 
 function scheduled_class_add_comment_ok(comment)
 {
-    text_input_modal_show_info( online_classes.clabels[ "scheduled.class.comments.modal.adding_comment"] );
+    if (!stringNotEmpty(comment)) {
+        text_input_modal_show_info(online_classes.clabels[ "scheduled.class.comments.modal.comment_empty" ]);
+        return;
+    }
+    text_input_modal_show_info(online_classes.clabels[ "scheduled.class.comments.modal.adding_comment"]);
     var request = {};
     request.scheduled_class_id = scheduled_class.scheduled_class.id;
     request.comment = comment;
@@ -27,8 +31,8 @@ function scheduled_class_add_comment_ok(comment)
 
 function scheduled_class_add_comment_response(response)
 {
-    if (response.rc === 0 ){
-        text_input_modal_show_info( online_classes.clabels[ "scheduled.class.comments.modal.comment_added"] );
+    if (response.rc === 0) {
+        text_input_modal_show_info(online_classes.clabels[ "scheduled.class.comments.modal.comment_added"]);
         reloadAfter(2);
     }
 }
@@ -41,8 +45,39 @@ function schedule_class_attach_file()
     $("#scheduled_class_attach_file_modal").modal("show");
 }
 
+function scheduled_class_cancel_class_response(response)
+{
+    if (response.rc === 0) {
+        text_input_modal_show_info("failed to cancel class");
+        return;
+    }
+    text_input_modal_show_info("class canceled. You are forwarded to the main page");
+    redirectAfter("/", 2);
+}
+
+function scheduled_class_cancel_class_ok(comment)
+{
+    text_input_modal_show_info("calceling class request sent");
+    var request = {};
+    request.scheduled_class_id = scheduled_class.scheduled_class.id;
+    request.comment = comment;
+    $.ajax("servlets/cancel_class",
+            {
+                type: "POST",
+                data: JSON.stringify(request),
+                dataType: "JSON",
+                success: scheduled_class_cancel_class_response
+            });
+}
+
+function schedule_class_cancel_click()
+{
+    text_input_modal_show(online_classes.clabels[ "scheduled.class.cancel_class.title"],
+            online_classes.clabels[ "scheduled.class.cancel_class.text"],
+            scheduled_class_cancel_class_ok);
+}
 function scheduled_class_init()
-{    
+{
     var today = new Date();
     var start_date = new Date(Date.parse(scheduled_class.scheduled_class.start_date));
     var remainingMs = start_date.getTime() - today.getTime();
