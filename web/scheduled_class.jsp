@@ -136,8 +136,7 @@
                                     </button>
                                 </div>
                                 <div class="col-8">     
-                                    <label type="text" for="scheduled_class_attach_file_input"
-                                           
+                                    <label type="text" for="scheduled_class_attach_file_input"                                           
                                            class="form-control">
                                         <span id="scheduled_class_attach_file_chosen_file_name">
                                             <%= Labels.get("scheduled.class.attach_file_modal.no_file_chosen")%>
@@ -251,9 +250,7 @@
                         <%= Labels.get("scheduled.class.sidebar.comments.title")%>
                     </div>
                     <div class="card-body bg-secondary text-white">
-
-
-                        <p>
+                        <p class="my-0">
                             <%
                                 if (classComments.isEmpty()) {
                                     out.write(Labels.get("scheduled.class.sidebar.comments.no_comments"));
@@ -297,7 +294,7 @@
                         <%= Labels.get("scheduled.class.sidebar.attached_files")%>
                     </div>
                     <div class="card-body bg-secondary text-white">
-                        <p>
+                        <p class="my-0">
                             <%
                                 if (classAttachedFiles.isEmpty()) {
                                     out.write(Labels.get("scheduled.class.sidebar.attache_file.no_attached_files"));
