@@ -45,7 +45,7 @@ public class CancelClassServlet extends ServletBase {
         
         Utils.info(user + " cancel class " +  cancelClassRequest.scheduled_class_id + " comment " + cancelClassRequest.comment);
 
-        OClass scheduledClass  = DB.getScheduledClass(cancelClassRequest.scheduled_class_id);
+        OClass scheduledClass  = DB.getOClass(cancelClassRequest.scheduled_class_id);
         if ( scheduledClass == null ) {
             Utils.warning("can'd find scheduled class id " + cancelClassRequest.scheduled_class_id);
             return new BasicResponse(-1, "scheduled class not found");

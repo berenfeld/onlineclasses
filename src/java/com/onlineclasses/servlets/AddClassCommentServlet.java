@@ -44,7 +44,7 @@ public class AddClassCommentServlet extends ServletBase {
         
         Utils.info(user + " add comment " + addClassCommentRequest.comment + " on class id " + addClassCommentRequest.scheduled_class_id);
 
-        OClass scheduledClass  = DB.getScheduledClass(addClassCommentRequest.scheduled_class_id);
+        OClass scheduledClass  = DB.getOClass(addClassCommentRequest.scheduled_class_id);
         if ( scheduledClass == null ) {
             Utils.warning("can'f find scheduled class id " + addClassCommentRequest.scheduled_class_id);
             return new BasicResponse(-1, "scheduled class not found");

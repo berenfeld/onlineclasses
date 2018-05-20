@@ -34,6 +34,7 @@ import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.Utils;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -115,7 +116,7 @@ public class DB {
         try {
             _dataSource.close();
             _connectionSource.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Utils.exception(ex);
         }
     }
@@ -125,11 +126,11 @@ public class DB {
     private static AvailableTime_DB _availableTime_db;
     private static InstituteType_DB _instituteType_db;
     private static Institute_DB _institute_db;
-    private static OClass_DB _scheduledClass_db;
+    private static OClass_DB _oclass_db;
     private static Email_DB _email_db;
     private static GoogleUser_DB _googleUser_db;
-    private static ClassComment_DB _scheduledClassComment_DB;
-    private static AttachedFile_DB _scheduledClassAttachedFile_DB;
+    private static ClassComment_DB _classComment_DB;
+    private static AttachedFile_DB _attachedFile_DB;
     private static Payment_DB _payment_DB;
     private static Subject_DB _subject_DB;
 
@@ -143,11 +144,11 @@ public class DB {
         _availableTime_db = new AvailableTime_DB(_connectionSource);
         _instituteType_db = new InstituteType_DB(_connectionSource);
         _institute_db = new Institute_DB(_connectionSource);
-        _scheduledClass_db = new OClass_DB(_connectionSource);
+        _oclass_db = new OClass_DB(_connectionSource);
         _email_db = new Email_DB(_connectionSource);
         _googleUser_db = new GoogleUser_DB(_connectionSource);
-        _scheduledClassComment_DB = new ClassComment_DB(_connectionSource);
-        _scheduledClassAttachedFile_DB = new AttachedFile_DB(_connectionSource);
+        _classComment_DB = new ClassComment_DB(_connectionSource);
+        _attachedFile_DB = new AttachedFile_DB(_connectionSource);
         _payment_DB = new Payment_DB(_connectionSource);
         _subject_DB = new Subject_DB(_connectionSource);
 
@@ -156,11 +157,11 @@ public class DB {
         ORM_ENTITIES.put(AvailableTime.class, _availableTime_db);
         ORM_ENTITIES.put(InstituteType.class, _instituteType_db);
         ORM_ENTITIES.put(Institute.class, _institute_db);
-        ORM_ENTITIES.put(OClass.class, _scheduledClass_db);
+        ORM_ENTITIES.put(OClass.class, _oclass_db);
         ORM_ENTITIES.put(Email.class, _email_db);
         ORM_ENTITIES.put(GoogleUser.class, _googleUser_db);
-        ORM_ENTITIES.put(ClassComment.class, _scheduledClassComment_DB);
-        ORM_ENTITIES.put(AttachedFile_DB.class, _scheduledClassAttachedFile_DB);
+        ORM_ENTITIES.put(ClassComment.class, _classComment_DB);
+        ORM_ENTITIES.put(AttachedFile_DB.class, _attachedFile_DB);
         ORM_ENTITIES.put(Payment.class, _payment_DB);
         ORM_ENTITIES.put(Subject.class, _subject_DB);
     }
@@ -272,15 +273,15 @@ public class DB {
     }
 
     public static int addScheduledClass(OClass scheduledClass) throws SQLException {
-        return _scheduledClass_db.add(scheduledClass);
+        return _oclass_db.add(scheduledClass);
     }
 
     public static List<OClass> getTeacherScheduledClasses(Teacher teacher) throws SQLException {
-        return _scheduledClass_db.getTeacherNotCanceledScheduledClasses(teacher);
+        return _oclass_db.getTeacherNotCanceledScheduledClasses(teacher);
     }
 
-    public static OClass getScheduledClass(int id) throws SQLException {
-        OClass scheduledClass = _scheduledClass_db.get(id);
+    public static OClass getOClass(int id) throws SQLException {
+        OClass scheduledClass = _oclass_db.get(id);
         scheduledClass.teacher = getTeacher(scheduledClass.teacher.id);
         scheduledClass.student = getStudent(scheduledClass.student.id);
         return scheduledClass;
@@ -311,11 +312,11 @@ public class DB {
     }
 
     public static List<OClass> getStudentUpcomingClasses(Student student) throws SQLException {
-        return _scheduledClass_db.getStudentUpcomingClasses(student);
+        return _oclass_db.getStudentUpcomingClasses(student);
     }
 
     public static int addScheduledClassComment(ClassComment scheduledClassComment) throws SQLException {
-        return _scheduledClassComment_DB.add(scheduledClassComment);
+        return _classComment_DB.add(scheduledClassComment);
     }
 
     public static <T> int add(T t) throws SQLException {
@@ -335,7 +336,7 @@ public class DB {
     }
 
     public static List<ClassComment> getScheuduledClassComments(OClass scheduledClass) throws SQLException {
-        List<ClassComment> scheduledClassComments = _scheduledClassComment_DB.getScheuduledClassComments(scheduledClass);
+        List<ClassComment> scheduledClassComments = _classComment_DB.getScheuduledClassComments(scheduledClass);
         for (ClassComment scheduledClassComment : scheduledClassComments) {
             if (scheduledClassComment.student != null) {
                 scheduledClassComment.student = getStudent(scheduledClassComment.student.id);
@@ -347,7 +348,7 @@ public class DB {
     }
     
      public static List<AttachedFile> getScheuduledClassAttachedFiles(OClass scheduledClass) throws SQLException {
-        List<AttachedFile> scheduledClassAttachedFiles = _scheduledClassAttachedFile_DB.getScheuduledClassAttachedFiles(scheduledClass);
+        List<AttachedFile> scheduledClassAttachedFiles = _attachedFile_DB.getScheuduledClassAttachedFiles(scheduledClass);
         for (AttachedFile scheduledClassAttachedFile : scheduledClassAttachedFiles) {
             if (scheduledClassAttachedFile.student != null) {
                 scheduledClassAttachedFile.student = getStudent(scheduledClassAttachedFile.student.id);
@@ -359,6 +360,6 @@ public class DB {
      }      
 
      public static int updateClassStatus(OClass scheduledClass, int status) throws SQLException {
-         return _scheduledClass_db.updateClassStatus(scheduledClass, status);
+         return _oclass_db.updateClassStatus(scheduledClass, status);
      }
 }

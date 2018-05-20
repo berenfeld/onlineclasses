@@ -2,7 +2,7 @@
 <%@page import="com.onlineclasses.db.DB"%>
 <%@page import="com.onlineclasses.entities.Student"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.onlineclasses.entities.ScheduledClass"%>
+<%@page import="com.onlineclasses.entities.OClass"%>
 <%@page import="java.util.List"%>
 <%@page import="com.onlineclasses.servlets.ServletBase"%>
 <%@page import="com.onlineclasses.utils.Labels"%>
@@ -11,7 +11,7 @@
 
 <%
     User user = ServletBase.getUser(request);
-    List<ScheduledClass> studentUpcomingClasses = new ArrayList<>();
+    List<OClass> studentUpcomingClasses = new ArrayList<>();
     String userName = Labels.get("navbar.guest.name");
     if (user != null) {
         userName = user.display_name;
@@ -80,7 +80,7 @@
                         </a>
                         <div class="dropdown-divider"></div>
                         <%
-                            for (ScheduledClass studentUpcomingClass : studentUpcomingClasses) {
+                            for (OClass studentUpcomingClass : studentUpcomingClasses) {
                         %>
                         <a class="dropdown-item" href="scheduled_class?id=<%= studentUpcomingClass.id%>">
                             <%= studentUpcomingClass.subject%>

@@ -1,16 +1,16 @@
-<%@page import="com.onlineclasses.entities.ScheduledClassAttachedFile"%>
-<%@page import="com.onlineclasses.entities.ScheduledClassComment"%>
+<%@page import="com.onlineclasses.entities.AttachedFile"%>
+<%@page import="com.onlineclasses.entities.ClassComment"%>
 <%@page import="com.onlineclasses.entities.Student"%>
 <%@page import="com.onlineclasses.utils.Utils"%>
 <%@page import="com.onlineclasses.entities.Teacher"%>
 <%@page import="com.onlineclasses.db.DB"%>
-<%@page import="com.onlineclasses.entities.ScheduledClass"%>
+<%@page import="com.onlineclasses.entities.OClass"%>
 <%@page import="com.onlineclasses.utils.Config"%>
 <%@page import="com.onlineclasses.utils.Labels"%>
 
 <%
     int classId = Integer.parseInt(request.getParameter("id"));
-    ScheduledClass scheduledClass = DB.getScheduledClass(classId);
+    OClass scheduledClass = DB.getOClass(classId);
     
     // TODO handle not found / canceled
 
@@ -19,10 +19,10 @@
 
     boolean isStudent = student.equals(ServletBase.getUser(request));
     boolean isTeacher = teacher.equals(ServletBase.getUser(request));
-    List<ScheduledClassComment> scheduledClassComments = DB.getScheuduledClassComments(scheduledClass);
+    List<ClassComment> scheduledClassComments = DB.getScheuduledClassComments(scheduledClass);
     float schedledClassPrice = (((float) scheduledClass.duration_minutes * scheduledClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
     String schedledClassPriceFormatted = Utils.formatPrice(schedledClassPrice);
-    List<ScheduledClassAttachedFile> scheduledClassAttachedFiles = DB.getScheuduledClassAttachedFiles(scheduledClass);
+    List<AttachedFile> scheduledClassAttachedFiles = DB.getScheuduledClassAttachedFiles(scheduledClass);
 %>
 
 <!DOCTYPE html>
@@ -167,7 +167,7 @@
                         </h6>
                         <h6>
                             <%= Labels.get("scheduled.class.sidebar.status")%>&nbsp;
-                            <%= scheduledClass.status %>&nbsp;
+                            <%= Utils.toList(Labels.get("scheduled_class.status.text")).get(scheduledClass.status - 1) %>&nbsp;
                         </h6>
                         <h6>
                             <%= Labels.get("scheduled.class.sidebar.teacher")%>&nbsp;
@@ -233,7 +233,7 @@
                     <div class="card-body bg-secondary text-white">
                         <p>
                             <%
-                                for (ScheduledClassComment scheduledClassComment : scheduledClassComments) {
+                                for (ClassComment scheduledClassComment : scheduledClassComments) {
                             %>
 
                             <span class="font-weight-bold">
@@ -274,7 +274,7 @@
                     <div class="card-body bg-secondary text-white">
                         <p>
                             <%
-                                for (ScheduledClassAttachedFile scheduledClassAttachedFile : scheduledClassAttachedFiles) {
+                                for (AttachedFile scheduledClassAttachedFile : scheduledClassAttachedFiles) {
                             %>
 
                             <span class="font-weight-bold">
