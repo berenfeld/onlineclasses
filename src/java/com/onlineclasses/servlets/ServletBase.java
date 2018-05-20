@@ -36,12 +36,12 @@ public abstract class ServletBase extends HttpServlet {
         return requestString;
     }
 
-    private static String calculateUserHash(User user) throws Exception {        
+    private static String calculateUserHash(User user) throws Exception {
         String hashString = user.id + "." + user.email + "." + Config.get("website.secret.md5");
-        Utils.debug("calculate hash of '" + hashString + "'");                
+        Utils.debug("calculate hash of '" + hashString + "'");
         String userHash = Utils.md5(hashString);
         return userHash;
-    }    
+    }
 
     private static boolean verifyHash(User user, String hash) throws Exception {
         String userHash = calculateUserHash(user);
@@ -61,7 +61,7 @@ public abstract class ServletBase extends HttpServlet {
     public static User loginUser(HttpServletRequest request, User user) throws Exception {
         HttpSession session = request.getSession();
         session.setAttribute(Config.get("website.session.variable.name"), user);
-                
+
         Utils.info("user " + user.display_name + " logged in session " + session);
         return user;
     }
@@ -71,52 +71,47 @@ public abstract class ServletBase extends HttpServlet {
         session.removeAttribute(Config.get("website.session.variable.name"));
     }
 
-    
-    public static User getUser(HttpServletRequest request)
-    {
+    public static User getUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
         return user;
     }
-    
-    public static boolean isLoggedIn(HttpServletRequest request)
-    {
+
+    public static boolean isLoggedIn(HttpServletRequest request) {
         return getUser(request) != null;
     }
-    
-    public static boolean isStudent(HttpServletRequest request)
-    {
+
+    public static boolean isStudent(HttpServletRequest request) {
         User user = getUser(request);
-        return ( user != null ) && ( user instanceof Student );
+        return (user != null) && (user instanceof Student);
     }
-    
-    public static boolean isTeacher(HttpServletRequest request)
-    {
+
+    public static boolean isTeacher(HttpServletRequest request) {
         User user = getUser(request);
-        return ( user != null ) && ( user instanceof Teacher );
+        return (user != null) && (user instanceof Teacher);
     }
-    
+
     public static User handleLoginInRequest(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
         if (user == null) {
             Utils.debug("no user in session " + session);
             Cookie cookie = findCookieFromUser(request);
-            if (cookie == null) {                
+            if (cookie == null) {
                 Utils.info("no cookie in session " + session);
                 logoutUser(request);
                 return null;
             }
-            
+
             String cookieStr = URLDecoder.decode(cookie.getValue(), "UTF-8");
             WCookie websiteCookie = Utils.gson().fromJson(cookieStr, WCookie.class);
             user = DB.getUser(websiteCookie.user_id);
-            if ( user == null ) {
+            if (user == null) {
                 Utils.info("no user id from cookie in session " + session);
                 logoutUser(request);
                 return null;
             }
-            
+
             if (!verifyHash(user, websiteCookie.hash)) {
                 Utils.info("incorrect hash in cookie in session " + session);
                 logoutUser(request);
@@ -128,34 +123,32 @@ public abstract class ServletBase extends HttpServlet {
         }
     }
 
-    public static void handleLoginInResponse(HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
+    public static void handleLoginInResponse(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
-        
+
         String cookieName = Config.get("website.cookie.name");
-        Cookie cookie = new Cookie(cookieName,"");        
+        Cookie cookie = new Cookie(cookieName, "");
         cookie.setPath("/");
-        if ( user == null )
-        {                        
-            cookie.setMaxAge(0);         
+        if (user == null) {
+            cookie.setMaxAge(0);
         } else {
             WCookie websiteCookie = new WCookie();
             websiteCookie.user_id = user.id;
             websiteCookie.hash = calculateUserHash(user);
-            String websiteCookieString = URLEncoder.encode( Utils.gson().toJson(websiteCookie), "UTF-8");
+            String websiteCookieString = URLEncoder.encode(Utils.gson().toJson(websiteCookie), "UTF-8");
             cookie.setValue(websiteCookieString);
             cookie.setMaxAge((int) TimeUnit.DAYS.toSeconds(Config.getInt("website.cookie.age.days")));
         }
         response.addCookie(cookie);
-        Utils.info("set cookie value " + cookie.getValue() + " age " + cookie.getMaxAge() + " on url " + request.getRequestURI() );
+        Utils.info("set cookie value " + cookie.getValue() + " age " + cookie.getMaxAge() + " on url " + request.getRequestURI());
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
-
+            request.setCharacterEncoding("UTF-8");
             handleLoginInRequest(request);
 
             String requestString = getRequestString(request);
@@ -163,7 +156,7 @@ public abstract class ServletBase extends HttpServlet {
 
             BasicResponse responseObject = handleRequest(requestString, request, response);
             String responseStr = Utils.gson().toJson(responseObject);
-            
+
             response.setContentType("application/json;charset=UTF-8");
             handleLoginInResponse(request, response);
             response.getWriter().write(responseStr);
@@ -174,7 +167,7 @@ public abstract class ServletBase extends HttpServlet {
     }
 
     protected abstract BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response) throws Exception;
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

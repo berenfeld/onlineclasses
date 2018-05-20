@@ -25,6 +25,10 @@ public class EmailSender extends BaseTask {
 
     @Override
     protected void runTask() throws Exception {
+        if ( ! Config.getBool("mail.enabled")) {
+            Utils.warning("not sending email. email disabled");
+            return;
+        }
         List<Email> emails = DB.getAllEmails();
         for (Email email : emails) {
             sendEmail(email);

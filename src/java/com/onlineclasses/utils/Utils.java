@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -33,7 +35,12 @@ public class Utils {
 
     public static void exception(Throwable ex) {
         String className = Thread.currentThread().getStackTrace()[1].getClassName();
-        Logger.getLogger(className).log(Level.WARNING, "Exception : {0}", ex.getMessage());
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        ex.printStackTrace(pw);
+        Logger logger = Logger.getLogger(className);
+        logger.log(Level.WARNING, "Exception : {0}", ex.getMessage());
+        logger.log(Level.WARNING, sw.toString());
     }
 
     public static void debug(String message) {
@@ -237,11 +244,13 @@ public class Utils {
     public static String getRealPath(ServletContext context, String fileName, String... dirs) {
         String realPath = context.getRealPath("");
         for (String dir : dirs) {
-            fileName += File.separator;
-            fileName += dir;
+            realPath += File.separator;
+            realPath += dir;
         }
-        realPath += File.separator;
-        realPath += fileName;
+        if (Utils.isNotEmpty(fileName)) {
+            realPath += File.separator;
+            realPath += fileName;
+        }
         return realPath;
     }
 

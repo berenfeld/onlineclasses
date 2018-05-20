@@ -13,11 +13,13 @@ import com.onlineclasses.entities.OClass;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.Utils;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.Date;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -31,9 +33,20 @@ import javax.servlet.http.Part;
 @WebServlet(urlPatterns = {"/servlets/file_upload"})
 public class FileUploadServlet extends HttpServlet {
 
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        String uploadDirName = Utils.getRealPath(config.getServletContext(), "", Config.get("website.file.upload.root"));
+        File uploadDir = new File(uploadDirName);
+        if (!uploadDir.exists()) {
+            Utils.info("creating root folder " + uploadDirName);
+            uploadDir.mkdir();
+        }
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
         try {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
@@ -55,7 +68,7 @@ public class FileUploadServlet extends HttpServlet {
                 Utils.warning("guest can't upload file");
                 return;
             }
-            
+
             AttachedFile attachedFile = new AttachedFile();
             attachedFile.added = new Date();
             attachedFile.scheduled_class = oclass;
@@ -77,14 +90,30 @@ public class FileUploadServlet extends HttpServlet {
                 return;
             }
 
-            String outputFileName = Utils.getRealPath(getServletContext(), fileName,
+            String classRootDirName = Utils.getRealPath(request.getServletContext(), "",
+                    Config.get("website.file.upload.root"),
+                    Config.get("website.file.upload.classes_prefix") + scheduledClassId);
+            Utils.info("class root dir name " + classRootDirName);
+            
+            File classRootDir = new File(classRootDirName);
+            if (!classRootDir.exists()) {
+                Utils.info("creating scheduled class root folder " + classRootDirName);
+                classRootDir.mkdir();
+            }
+
+            String outputFileName = Utils.getRealPath(request.getServletContext(), fileName,
                     Config.get("website.file.upload.root"),
                     Config.get("website.file.upload.classes_prefix") + scheduledClassId);
 
+            Utils.info("output file name " + outputFileName);
+
             InputStream fi = filePart.getInputStream();
+            File outputFile = new File(outputFileName);
+            // TODO handle file exist
+            outputFile.createNewFile();
             FileOutputStream fo = new FileOutputStream(outputFileName);
             int chunkSize = Config.getInt("website.file.upload.chunk_size");
-            
+
             int read;
             int written = 0;
             final byte[] bytes = new byte[chunkSize];
@@ -95,7 +124,7 @@ public class FileUploadServlet extends HttpServlet {
                 attachedFile.uploaded = written;
                 DB.updateAttachedFileUploadedBytes(attachedFile);
             }
-            Utils.info("upload file done file " + fileName + " size " + fileSize );
+            Utils.info("upload file done file " + fileName + " size " + fileSize);
         } catch (Exception ex) {
             Utils.exception(ex);
         }

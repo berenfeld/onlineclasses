@@ -113,9 +113,12 @@
             </form>
         </div>
 
+        <iframe id="scheduled_class_post_hidden_iframe" name="scheduled_class_post_hidden_iframe"></iframe>
+
         <div id="scheduled_class_attach_file_modal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-md">
-                <form action="/servlets/file_upload" method="post" enctype="multipart/form-data">
+                <form action="/servlets/file_upload" method="post" enctype="multipart/form-data"
+                      target="scheduled_class_post_hidden_iframe">
                     <div class="modal-content">
                         <div class="modal-header bg-secondary text-white">                                
                             <div class="modal-title"> 
@@ -141,7 +144,7 @@
                                         <span id="scheduled_class_attach_file_chosen_file_name">
                                             <%= Labels.get("scheduled.class.attach_file_modal.no_file_chosen")%>
                                         </span>
-                                              
+
                                     </label>
                                 </div>
                             </div>

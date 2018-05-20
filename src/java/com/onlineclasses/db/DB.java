@@ -161,7 +161,7 @@ public class DB {
         ORM_ENTITIES.put(Email.class, _email_db);
         ORM_ENTITIES.put(GoogleUser.class, _googleUser_db);
         ORM_ENTITIES.put(ClassComment.class, _classComment_DB);
-        ORM_ENTITIES.put(AttachedFile_DB.class, _attachedFile_DB);
+        ORM_ENTITIES.put(AttachedFile.class, _attachedFile_DB);
         ORM_ENTITIES.put(Payment.class, _payment_DB);
         ORM_ENTITIES.put(Subject.class, _subject_DB);
     }
