@@ -115,7 +115,7 @@
 
         <div id="scheduled_class_attach_file_modal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-md">
-                <form action="/servlets/upload_file" method="post" enctype="multipart/form-data">
+                <form action="/servlets/file_upload" method="post" enctype="multipart/form-data">
                     <div class="modal-content">
                         <div class="modal-header bg-secondary text-white">                                
                             <div class="modal-title"> 

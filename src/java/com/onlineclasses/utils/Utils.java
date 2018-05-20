@@ -109,6 +109,10 @@ public class Utils {
         }
     }
 
+    public static int parseInt(String str) {
+        return parseInt(str, 0);
+    }
+    
     public static List<String> toList(String str) {
         return Arrays.asList(str.split(","));
     }
