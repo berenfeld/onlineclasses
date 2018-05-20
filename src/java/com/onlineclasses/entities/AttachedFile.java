@@ -8,11 +8,11 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 import java.util.Date;
 
-public class ScheduledClassAttachedFile extends BasicEntity {
+public class AttachedFile extends BasicEntity {
 
     public static final String SCHEDULED_CLASS_FIELD = "scheduled_class";
     @DatabaseField(canBeNull = false, foreign = true, columnName = SCHEDULED_CLASS_FIELD)
-    public ScheduledClass scheduled_class;
+    public OClass scheduled_class;
 
     @DatabaseField(canBeNull = false)
     public String name;

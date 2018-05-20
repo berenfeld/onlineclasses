@@ -8,14 +8,14 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 import java.util.Date;
 
-public class ScheduledClassComment extends BasicEntity {
+public class ClassComment extends BasicEntity {
         
     @DatabaseField(canBeNull = false)
     public String comment;
     
     public static final String SCHEDULED_CLASS_FIELD = "scheduled_class";
     @DatabaseField(canBeNull = false, foreign = true, columnName = SCHEDULED_CLASS_FIELD)
-    public ScheduledClass scheduled_class;
+    public OClass scheduled_class;
     
     @DatabaseField(foreign = true)
     public Student student;

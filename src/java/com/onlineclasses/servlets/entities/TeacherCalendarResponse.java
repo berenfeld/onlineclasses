@@ -7,7 +7,7 @@ package com.onlineclasses.servlets.entities;
 
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.BasicResponse;
-import com.onlineclasses.entities.ScheduledClass;
+import com.onlineclasses.entities.OClass;
 import com.onlineclasses.entities.Teacher;
 import java.util.List;
 
@@ -23,6 +23,6 @@ public class TeacherCalendarResponse extends BasicResponse {
    
     public Teacher teacher;
     public List<AvailableTime> available_times;
-    public List<ScheduledClass> scheduled_classes;
+    public List<OClass> scheduled_classes;
 
 }

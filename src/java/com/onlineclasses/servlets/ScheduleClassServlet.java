@@ -8,8 +8,8 @@ package com.onlineclasses.servlets;
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.BasicResponse;
-import com.onlineclasses.entities.ScheduledClass;
-import com.onlineclasses.entities.ScheduledClassComment;
+import com.onlineclasses.entities.OClass;
+import com.onlineclasses.entities.ClassComment;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
@@ -78,8 +78,8 @@ public class ScheduleClassServlet extends ServletBase {
             return new BasicResponse(-1, "can't schedule class");
         }
 
-        List<ScheduledClass> allTeacherClasses = DB.getTeacherScheduledClasses(teacher);
-        for (ScheduledClass scheduledClass : allTeacherClasses) {
+        List<OClass> allTeacherClasses = DB.getTeacherScheduledClasses(teacher);
+        for (OClass scheduledClass : allTeacherClasses) {
             Calendar otherClassStart = Calendar.getInstance();
             otherClassStart.setTime(scheduledClass.start_date);
             Calendar otherClassEnd = Calendar.getInstance();
@@ -94,7 +94,7 @@ public class ScheduleClassServlet extends ServletBase {
         }
 
         // check that it does not collide with other scheduled classes
-        ScheduledClass scheduledClass = new ScheduledClass();
+        OClass scheduledClass = new OClass();
         scheduledClass.teacher = teacher;
         scheduledClass.student = student;
         scheduledClass.start_date = scheduleClassRequest.start_date;
@@ -102,7 +102,7 @@ public class ScheduleClassServlet extends ServletBase {
         scheduledClass.price_per_hour = teacher.price_per_hour;
         scheduledClass.subject = scheduleClassRequest.subject;
         scheduledClass.registered = new Date();
-        scheduledClass.status = ScheduledClass.STATUS_SCHEDULED;
+        scheduledClass.status = OClass.STATUS_SCHEDULED;
 
         if (1 != DB.add(scheduledClass)) {
             Utils.warning("student " + student.display_name + " schedule class failed. DB error");
@@ -114,7 +114,7 @@ public class ScheduleClassServlet extends ServletBase {
                 + scheduledClass.subject);
 
         if (!Utils.isEmpty(scheduleClassRequest.student_comment)) {
-            ScheduledClassComment scheduledClassComment = new ScheduledClassComment();
+            ClassComment scheduledClassComment = new ClassComment();
             scheduledClassComment.added = new Date();
             scheduledClassComment.student = student;
             scheduledClassComment.comment = scheduleClassRequest.student_comment;
@@ -131,7 +131,7 @@ public class ScheduleClassServlet extends ServletBase {
         return scheduleClassResponse;
     }
 
-    private void sendEmail(Student student, Teacher teacher, ScheduledClass scheduledClass, Calendar classStart) throws Exception {
+    private void sendEmail(Student student, Teacher teacher, OClass scheduledClass, Calendar classStart) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "new_scheduled_class.html";
         Utils.info("sending email " + email_name);

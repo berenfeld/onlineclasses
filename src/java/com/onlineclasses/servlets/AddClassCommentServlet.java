@@ -7,8 +7,8 @@ package com.onlineclasses.servlets;
  */
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
-import com.onlineclasses.entities.ScheduledClass;
-import com.onlineclasses.entities.ScheduledClassComment;
+import com.onlineclasses.entities.OClass;
+import com.onlineclasses.entities.ClassComment;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = {"/servlets/add_class_comment"})
-public class AddScheduledClassCommentServlet extends ServletBase {
+public class AddClassCommentServlet extends ServletBase {
 
     @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
@@ -44,13 +44,13 @@ public class AddScheduledClassCommentServlet extends ServletBase {
         
         Utils.info(user + " add comment " + addClassCommentRequest.comment + " on class id " + addClassCommentRequest.scheduled_class_id);
 
-        ScheduledClass scheduledClass  = DB.getScheduledClass(addClassCommentRequest.scheduled_class_id);
+        OClass scheduledClass  = DB.getScheduledClass(addClassCommentRequest.scheduled_class_id);
         if ( scheduledClass == null ) {
             Utils.warning("can'f find scheduled class id " + addClassCommentRequest.scheduled_class_id);
             return new BasicResponse(-1, "scheduled class not found");
         }
        
-        ScheduledClassComment scheduledClassComment = new ScheduledClassComment();
+        ClassComment scheduledClassComment = new ClassComment();
         scheduledClassComment.comment = addClassCommentRequest.comment;
         scheduledClassComment.scheduled_class = scheduledClass;
         
@@ -77,7 +77,7 @@ public class AddScheduledClassCommentServlet extends ServletBase {
         return new BasicResponse(0, "");
     }
     
-     private void sendEmail(User commentator, ScheduledClass scheduledClass, Calendar classStart, String comment) throws Exception {
+     private void sendEmail(User commentator, OClass scheduledClass, Calendar classStart, String comment) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "scheduled_class_added_comment.html";
         Utils.info("sending email " + email_name);

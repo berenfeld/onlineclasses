@@ -7,8 +7,8 @@ package com.onlineclasses.servlets;
  */
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
-import com.onlineclasses.entities.ScheduledClass;
-import com.onlineclasses.entities.ScheduledClassComment;
+import com.onlineclasses.entities.OClass;
+import com.onlineclasses.entities.ClassComment;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
@@ -45,7 +45,7 @@ public class CancelClassServlet extends ServletBase {
         
         Utils.info(user + " cancel class " +  cancelClassRequest.scheduled_class_id + " comment " + cancelClassRequest.comment);
 
-        ScheduledClass scheduledClass  = DB.getScheduledClass(cancelClassRequest.scheduled_class_id);
+        OClass scheduledClass  = DB.getScheduledClass(cancelClassRequest.scheduled_class_id);
         if ( scheduledClass == null ) {
             Utils.warning("can'd find scheduled class id " + cancelClassRequest.scheduled_class_id);
             return new BasicResponse(-1, "scheduled class not found");
@@ -62,7 +62,7 @@ public class CancelClassServlet extends ServletBase {
             return new BasicResponse(-1, "not student not teacher");
         }
               
-        ScheduledClassComment scheduledClassComment = new ScheduledClassComment();
+        ClassComment scheduledClassComment = new ClassComment();
         scheduledClassComment.scheduled_class = scheduledClass;
         scheduledClassComment.student = student;
         scheduledClassComment.teacher = teacher;
@@ -70,30 +70,33 @@ public class CancelClassServlet extends ServletBase {
         scheduledClassComment.added = new Date();
         DB.add(scheduledClassComment);
         
-        DB.updateClassStatus(scheduledClass, ScheduledClass.STATUS_CANCELCED);
+        DB.updateClassStatus(scheduledClass, OClass.STATUS_CANCELCED);
                 
-        sendEmail(scheduledClass, scheduledClassComment.comment );
+        sendEmail(user, scheduledClass, scheduledClassComment.comment );
         
         return new BasicResponse(0, "");
     }
     
-     private void sendEmail(User commentator, ScheduledClass scheduledClass, Calendar classStart, String comment) throws Exception {
+     private void sendEmail(User user, OClass scheduledClass, String comment) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
-                + Config.get("website.language") + File.separator + "scheduled_class_added_comment.html";
+                + Config.get("website.language") + File.separator + "class_canceled.html";
         Utils.info("sending email " + email_name);
 
+        Teacher teacher = DB.get(scheduledClass.teacher.id, Teacher.class);
+        Student student = DB.get(scheduledClass.student.id, Student.class);
+        
         String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
 
-        emailContent = emailContent.replaceAll("<% commentator %>", commentator.display_name);
-        emailContent = emailContent.replaceAll("<% comment %>", comment);
-        emailContent = emailContent.replaceAll("<% classDay %>", Utils.dayNameLong(classStart.get(Calendar.DAY_OF_WEEK)) + " " + new SimpleDateFormat("dd/MM/YYYY").format(scheduledClass.start_date));
-        emailContent = emailContent.replaceAll("<% classTime %>", new SimpleDateFormat("HH:mm").format(scheduledClass.start_date));
-        emailContent = emailContent.replaceAll("<% scheduledClassLink %>", Config.get("website.url") + "/scheduled_class?id=" + scheduledClass.id);
-        emailContent = emailContent.replaceAll("<% gotoClass %>", Labels.get("emails.new_scheduled_class.goto_class"));
+        emailContent = emailContent.replaceAll("<% cancelingUser %>", user.display_name);
+        emailContent = emailContent.replaceAll("<% studentName %>", student.display_name);
+        emailContent = emailContent.replaceAll("<% teacherName %>", teacher.display_name);
+        emailContent = emailContent.replaceAll("<% cancelReason %>", comment);
         emailContent = emailContent.replaceAll("<% classSubject %>", scheduledClass.subject);
+        emailContent = emailContent.replaceAll("<% findTeachersUrl %>", Config.get("website.url") +"/find_teachers");        
 
-        List<User> to = Arrays.asList(scheduledClass.student, scheduledClass.teacher);
-        EmailSender.addEmail(to, Labels.get("emails.scheduled_class_added_comment.title"), emailContent);
+        
+        List<User> to = Arrays.asList(student, teacher);
+        EmailSender.addEmail(to, Labels.get("emails.class_canceled.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);
     }
 

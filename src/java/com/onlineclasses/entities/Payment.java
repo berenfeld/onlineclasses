@@ -14,7 +14,7 @@ public class Payment extends BasicEntity {
     public Date date;
     
     @DatabaseField(foreign = true)
-    public ScheduledClass scheduled_class;
+    public OClass scheduled_class;
     
     @DatabaseField
     public int amount;

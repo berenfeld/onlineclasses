@@ -9,7 +9,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.onlineclasses.utils.Config;
 import java.util.Date;
 
-public class ScheduledClass extends BasicEntity  {
+public class OClass extends BasicEntity  {
 
     public static final String TEACHER_COLUMN = "teacher";
     @DatabaseField(canBeNull = false, foreign = true, columnName = TEACHER_COLUMN)

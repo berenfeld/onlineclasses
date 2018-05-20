@@ -13,9 +13,9 @@ import com.onlineclasses.db.orm.GoogleUser_DB;
 import com.onlineclasses.db.orm.InstituteType_DB;
 import com.onlineclasses.db.orm.Institute_DB;
 import com.onlineclasses.db.orm.Payment_DB;
-import com.onlineclasses.db.orm.ScheduledClassAttachedFile_DB;
-import com.onlineclasses.db.orm.ScheduledClassComment_DB;
-import com.onlineclasses.db.orm.ScheduledClass_DB;
+import com.onlineclasses.db.orm.AttachedFile_DB;
+import com.onlineclasses.db.orm.ClassComment_DB;
+import com.onlineclasses.db.orm.OClass_DB;
 import com.onlineclasses.db.orm.Student_DB;
 import com.onlineclasses.db.orm.Subject_DB;
 import com.onlineclasses.db.orm.Teacher_DB;
@@ -25,9 +25,9 @@ import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.Payment;
-import com.onlineclasses.entities.ScheduledClass;
-import com.onlineclasses.entities.ScheduledClassAttachedFile;
-import com.onlineclasses.entities.ScheduledClassComment;
+import com.onlineclasses.entities.OClass;
+import com.onlineclasses.entities.AttachedFile;
+import com.onlineclasses.entities.ClassComment;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
@@ -125,11 +125,11 @@ public class DB {
     private static AvailableTime_DB _availableTime_db;
     private static InstituteType_DB _instituteType_db;
     private static Institute_DB _institute_db;
-    private static ScheduledClass_DB _scheduledClass_db;
+    private static OClass_DB _scheduledClass_db;
     private static Email_DB _email_db;
     private static GoogleUser_DB _googleUser_db;
-    private static ScheduledClassComment_DB _scheduledClassComment_DB;
-    private static ScheduledClassAttachedFile_DB _scheduledClassAttachedFile_DB;
+    private static ClassComment_DB _scheduledClassComment_DB;
+    private static AttachedFile_DB _scheduledClassAttachedFile_DB;
     private static Payment_DB _payment_DB;
     private static Subject_DB _subject_DB;
 
@@ -143,11 +143,11 @@ public class DB {
         _availableTime_db = new AvailableTime_DB(_connectionSource);
         _instituteType_db = new InstituteType_DB(_connectionSource);
         _institute_db = new Institute_DB(_connectionSource);
-        _scheduledClass_db = new ScheduledClass_DB(_connectionSource);
+        _scheduledClass_db = new OClass_DB(_connectionSource);
         _email_db = new Email_DB(_connectionSource);
         _googleUser_db = new GoogleUser_DB(_connectionSource);
-        _scheduledClassComment_DB = new ScheduledClassComment_DB(_connectionSource);
-        _scheduledClassAttachedFile_DB = new ScheduledClassAttachedFile_DB(_connectionSource);
+        _scheduledClassComment_DB = new ClassComment_DB(_connectionSource);
+        _scheduledClassAttachedFile_DB = new AttachedFile_DB(_connectionSource);
         _payment_DB = new Payment_DB(_connectionSource);
         _subject_DB = new Subject_DB(_connectionSource);
 
@@ -156,11 +156,11 @@ public class DB {
         ORM_ENTITIES.put(AvailableTime.class, _availableTime_db);
         ORM_ENTITIES.put(InstituteType.class, _instituteType_db);
         ORM_ENTITIES.put(Institute.class, _institute_db);
-        ORM_ENTITIES.put(ScheduledClass.class, _scheduledClass_db);
+        ORM_ENTITIES.put(OClass.class, _scheduledClass_db);
         ORM_ENTITIES.put(Email.class, _email_db);
         ORM_ENTITIES.put(GoogleUser.class, _googleUser_db);
-        ORM_ENTITIES.put(ScheduledClassComment.class, _scheduledClassComment_DB);
-        ORM_ENTITIES.put(ScheduledClassAttachedFile_DB.class, _scheduledClassAttachedFile_DB);
+        ORM_ENTITIES.put(ClassComment.class, _scheduledClassComment_DB);
+        ORM_ENTITIES.put(AttachedFile_DB.class, _scheduledClassAttachedFile_DB);
         ORM_ENTITIES.put(Payment.class, _payment_DB);
         ORM_ENTITIES.put(Subject.class, _subject_DB);
     }
@@ -271,16 +271,16 @@ public class DB {
         return _teacher_db.getAll();
     }
 
-    public static int addScheduledClass(ScheduledClass scheduledClass) throws SQLException {
+    public static int addScheduledClass(OClass scheduledClass) throws SQLException {
         return _scheduledClass_db.add(scheduledClass);
     }
 
-    public static List<ScheduledClass> getTeacherScheduledClasses(Teacher teacher) throws SQLException {
+    public static List<OClass> getTeacherScheduledClasses(Teacher teacher) throws SQLException {
         return _scheduledClass_db.getTeacherNotCanceledScheduledClasses(teacher);
     }
 
-    public static ScheduledClass getScheduledClass(int id) throws SQLException {
-        ScheduledClass scheduledClass = _scheduledClass_db.get(id);
+    public static OClass getScheduledClass(int id) throws SQLException {
+        OClass scheduledClass = _scheduledClass_db.get(id);
         scheduledClass.teacher = getTeacher(scheduledClass.teacher.id);
         scheduledClass.student = getStudent(scheduledClass.student.id);
         return scheduledClass;
@@ -310,11 +310,11 @@ public class DB {
         return _googleUser_db.add(googleUser);
     }
 
-    public static List<ScheduledClass> getStudentUpcomingClasses(Student student) throws SQLException {
+    public static List<OClass> getStudentUpcomingClasses(Student student) throws SQLException {
         return _scheduledClass_db.getStudentUpcomingClasses(student);
     }
 
-    public static int addScheduledClassComment(ScheduledClassComment scheduledClassComment) throws SQLException {
+    public static int addScheduledClassComment(ClassComment scheduledClassComment) throws SQLException {
         return _scheduledClassComment_DB.add(scheduledClassComment);
     }
 
@@ -334,9 +334,9 @@ public class DB {
         return _institute_db.get(id);
     }
 
-    public static List<ScheduledClassComment> getScheuduledClassComments(ScheduledClass scheduledClass) throws SQLException {
-        List<ScheduledClassComment> scheduledClassComments = _scheduledClassComment_DB.getScheuduledClassComments(scheduledClass);
-        for (ScheduledClassComment scheduledClassComment : scheduledClassComments) {
+    public static List<ClassComment> getScheuduledClassComments(OClass scheduledClass) throws SQLException {
+        List<ClassComment> scheduledClassComments = _scheduledClassComment_DB.getScheuduledClassComments(scheduledClass);
+        for (ClassComment scheduledClassComment : scheduledClassComments) {
             if (scheduledClassComment.student != null) {
                 scheduledClassComment.student = getStudent(scheduledClassComment.student.id);
             } else if (scheduledClassComment.teacher != null) {
@@ -346,9 +346,9 @@ public class DB {
         return scheduledClassComments;
     }
     
-     public static List<ScheduledClassAttachedFile> getScheuduledClassAttachedFiles(ScheduledClass scheduledClass) throws SQLException {
-        List<ScheduledClassAttachedFile> scheduledClassAttachedFiles = _scheduledClassAttachedFile_DB.getScheuduledClassAttachedFiles(scheduledClass);
-        for (ScheduledClassAttachedFile scheduledClassAttachedFile : scheduledClassAttachedFiles) {
+     public static List<AttachedFile> getScheuduledClassAttachedFiles(OClass scheduledClass) throws SQLException {
+        List<AttachedFile> scheduledClassAttachedFiles = _scheduledClassAttachedFile_DB.getScheuduledClassAttachedFiles(scheduledClass);
+        for (AttachedFile scheduledClassAttachedFile : scheduledClassAttachedFiles) {
             if (scheduledClassAttachedFile.student != null) {
                 scheduledClassAttachedFile.student = getStudent(scheduledClassAttachedFile.student.id);
             } else if (scheduledClassAttachedFile.teacher != null) {
@@ -358,7 +358,7 @@ public class DB {
         return scheduledClassAttachedFiles;
      }      
 
-     public static int updateClassStatus(ScheduledClass scheduledClass, int status) throws SQLException {
+     public static int updateClassStatus(OClass scheduledClass, int status) throws SQLException {
          return _scheduledClass_db.updateClassStatus(scheduledClass, status);
      }
 }

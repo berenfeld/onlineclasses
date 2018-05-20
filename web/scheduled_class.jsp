@@ -11,7 +11,8 @@
 <%
     int classId = Integer.parseInt(request.getParameter("id"));
     ScheduledClass scheduledClass = DB.getScheduledClass(classId);
-    // TODO handle not found
+    
+    // TODO handle not found / canceled
 
     Teacher teacher = scheduledClass.teacher;
     Student student = scheduledClass.student;
@@ -98,7 +99,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <input type="button" name="submit"
+                            <input type="submit" name="submit"
                                    class="btn btn-success mx-1"                                   
                                    alt="Check out with PayPal" 
                                    value="<%= Labels.get("website.paypal.pay_now_button")%>"/>
@@ -163,6 +164,10 @@
                         <h6>
                             <%= Labels.get("scheduled.class.sidebar.subject")%>&nbsp;
                             <%= scheduledClass.subject%>&nbsp;
+                        </h6>
+                        <h6>
+                            <%= Labels.get("scheduled.class.sidebar.status")%>&nbsp;
+                            <%= scheduledClass.status %>&nbsp;
                         </h6>
                         <h6>
                             <%= Labels.get("scheduled.class.sidebar.teacher")%>&nbsp;

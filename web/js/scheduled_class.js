@@ -47,7 +47,7 @@ function schedule_class_attach_file()
 
 function scheduled_class_cancel_class_response(response)
 {
-    if (response.rc === 0) {
+    if (response.rc !== 0) {
         text_input_modal_show_info("failed to cancel class");
         return;
     }
