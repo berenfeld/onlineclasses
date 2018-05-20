@@ -362,4 +362,8 @@ public class DB {
      public static int updateClassStatus(OClass scheduledClass, int status) throws SQLException {
          return _oclass_db.updateClassStatus(scheduledClass, status);
      }
+     
+     public static int updateAttachedFileUploadedBytes(AttachedFile attachedFile) throws SQLException {
+         return _attachedFile_DB.updateAttachedFileUploadedBytes(attachedFile);
+     }
 }

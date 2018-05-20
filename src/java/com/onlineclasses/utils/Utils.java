@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.onlineclasses.entities.AvailableTime;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -47,12 +48,11 @@ public class Utils {
         log(Level.WARNING, message);
     }
 
-    public static String md5(String hashString)
-    {
+    public static String md5(String hashString) {
         MessageDigest md;
         try {
-            md = MessageDigest.getInstance("MD5");        
-        }catch (NoSuchAlgorithmException ex) {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException ex) {
             Utils.exception(ex);
             Utils.warning("failed calculating hash of " + hashString);
             return "";
@@ -60,8 +60,8 @@ public class Utils {
         md.update(hashString.getBytes());
         String hash = DatatypeConverter.printHexBinary(md.digest());
         return hash;
-    }    
-    
+    }
+
     public static StackTraceElement callingSTE() {
         for (StackTraceElement st : Thread.currentThread().getStackTrace()) {
             if (st.getFileName().equals("Thread.java")) {
@@ -112,7 +112,7 @@ public class Utils {
     public static int parseInt(String str) {
         return parseInt(str, 0);
     }
-    
+
     public static List<String> toList(String str) {
         return Arrays.asList(str.split(","));
     }
@@ -130,9 +130,9 @@ public class Utils {
         Calendar dateCalendar = Calendar.getInstance();
         dateCalendar.setTime(date);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM, HH:mm");
-        return  dayNameLong(dateCalendar.get(Calendar.DAY_OF_WEEK)) + ", " + format.format(date);
+        return dayNameLong(dateCalendar.get(Calendar.DAY_OF_WEEK)) + ", " + format.format(date);
     }
-    
+
     public static final long MINUTES_IN_HOUR = 60;
     public static final long SECONDS_IN_MINUTE = 60;
     public static final long MS_IN_SECOND = 1000;
@@ -143,11 +143,11 @@ public class Utils {
     }
 
     public static boolean nonOverlappingEvents(long start1, long end1, long start2, long end2) {
-        return (start1>=end2)||(start2>=end1);
+        return (start1 >= end2) || (start2 >= end1);
     }
-    
+
     public static boolean overlappingEvents(long start1, long end1, long start2, long end2) {
-        return ! nonOverlappingEvents(start1,end1,start2,end2);
+        return !nonOverlappingEvents(start1, end1, start2, end2);
     }
 
     public static boolean overlappingEvents(Date start1, Date end1, Date start2, Date end2) {
@@ -194,22 +194,21 @@ public class Utils {
     }
 
     public static String dayNameLong(int day) {
-        return toList(CLabels.get("website.days.long")).get(day-1);
+        return toList(CLabels.get("website.days.long")).get(day - 1);
     }
-    
+
     private static final Gson GSON = new GsonBuilder().registerTypeAdapter(Date.class, new GsonUTCDateAdapter()).create();
 
     public static Gson gson() {
         return GSON;
     }
-    
-    public static Date xHoursFromNow( int hours)
-    {
+
+    public static Date xHoursFromNow(int hours) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, hours);
         return calendar.getTime();
     }
-    
+
     public static String getStringFromInputStream(ServletContext context, String fileName) {
         InputStream is = context.getResourceAsStream(fileName);
         BufferedReader br;
@@ -231,17 +230,26 @@ public class Utils {
 
     }
 
-    public static String formatPrice(float price)
-    {
+    public static String formatPrice(float price) {
         return String.format("%.2f", price);
     }
-    
-    public static String buildWebsiteURL(String path, String ... params)
-    {
-        String url = Config.get("website.url") + "/"+ path;
+
+    public static String getRealPath(ServletContext context, String fileName, String... dirs) {
+        String realPath = context.getRealPath("");
+        for (String dir : dirs) {
+            fileName += File.separator;
+            fileName += dir;
+        }
+        realPath += File.separator;
+        realPath += fileName;
+        return realPath;
+    }
+
+    public static String buildWebsiteURL(String path, String... params) {
+        String url = Config.get("website.url") + "/" + path;
         boolean firstParam = true;
         for (String param : params) {
-            if ( firstParam) {
+            if (firstParam) {
                 url += "?";
                 firstParam = false;
             } else {
