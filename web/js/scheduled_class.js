@@ -49,7 +49,7 @@ function scheduled_class_update_chosen_file()
 {
     filename = $("#scheduled_class_attach_file_input").val();
     filename = filename.replace(/.*[\/\\]/, '');
-    $("#scheduled_class_attach_file_chosen_file_name").val(filename);
+    $("#scheduled_class_attach_file_chosen_file_name").html(filename);
     scheduled_class.filename = filename;
 }
 

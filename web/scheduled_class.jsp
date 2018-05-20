@@ -125,12 +125,9 @@
                             <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>   
                         </div>
                         <div class="modal-body">
-                            <h6>
-                                <%= Labels.get("scheduled.class.attach_file_modal.text1")%>
-                            </h6>
                             <input type="hidden" name="scheduled_class_id" value="<%= oClass.id%>">
                             <div class="form-group row">                                 
-                                <div id="scheduled_class_attach_file_button_wrapper" class="col-6">                                
+                                <div id="scheduled_class_attach_file_button_wrapper" class="col-4">                                
                                     <input type="file" name="scheduled_class_attach_file_input"
                                            id="scheduled_class_attach_file_input"                                           
                                            onchange="scheduled_class_update_chosen_file()">  
@@ -138,19 +135,23 @@
                                         <%= Labels.get("scheduled.class.attach_file_modal.choose_file")%>
                                     </button>
                                 </div>
-                                <div class="col-6">     
-                                    <input type="text" for="scheduled_class_attach_file_input"
-                                           id="scheduled_class_attach_file_chosen_file_name"
-                                           class="form-control" disabled>
-                                    </input>
+                                <div class="col-8">     
+                                    <label type="text" for="scheduled_class_attach_file_input"
+                                           
+                                           class="form-control">
+                                        <span id="scheduled_class_attach_file_chosen_file_name">
+                                            <%= Labels.get("scheduled.class.attach_file_modal.no_file_chosen")%>
+                                        </span>
+                                              
+                                    </label>
                                 </div>
                             </div>
                             <div class="form-group row">     
                                 <label for="scheduled_class_attach_file_comment"
-                                       class="col-form-label col-6">
-                                    add comment to the file
+                                       class="col-form-label col-4">
+                                    <%= Labels.get("scheduled.class.attach_file_modal.add_comment")%>
                                 </label>
-                                <div class="col-6">                                
+                                <div class="col-8">                                
                                     <input type="text" class="form-control"
                                            name="scheduled_class_attach_file_comment"
                                            id="scheduled_class_attach_file_comment">  
