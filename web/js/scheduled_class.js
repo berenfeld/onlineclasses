@@ -57,6 +57,10 @@ function scheduled_class_cancel_class_response(response)
 
 function scheduled_class_cancel_class_ok(comment)
 {
+    if (!stringNotEmpty(comment)) {
+        text_input_modal_show_info(online_classes.clabels[ "scheduled.class.cancel_class.comment_empty" ]);
+        return;
+    }
     text_input_modal_show_info("calceling class request sent");
     var request = {};
     request.scheduled_class_id = scheduled_class.scheduled_class.id;

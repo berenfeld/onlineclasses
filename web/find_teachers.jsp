@@ -296,7 +296,7 @@
                                                         <% for (day = 0; day < 7; day++) {
                                                         %>
                                                         <td data-day="<%=day%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
-                                                            onclick="javascript:schedule_class_select_time(this)"
+                                                            onclick="schedule_class_select_time(this)"
                                                             class="schedule_class_calendar <%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">
                                                         </td>                                            
                                                         <% } %>                                                                                                
@@ -317,6 +317,7 @@
                                 </div>
                             </div>
                             <div id="schedule_class_warning_div" class="alert alert-warning d-none fade show alert-dismissible h6">
+                                <span class="oi" data-glyph="warning"></span>    
                                 <span id="schedule_class_warning"></span>
                                 &nbsp;
                                 <a class="alert-link d-none" id="schedule_class_warning_a"></a>
@@ -325,6 +326,7 @@
                                    href="javascript:schedule_class_login_clicked()"></a>
                             </div>
                             <div id="schedule_class_info_div" class="alert alert-info d-none fade show alert-dismissible h6">
+                                <span class="oi" data-glyph="info"></span>    
                                 <span id="schedule_class_info"></span>
                             </div>
                             <div class="modal-footer">                            

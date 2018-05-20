@@ -19,9 +19,9 @@
 
     boolean isStudent = student.equals(ServletBase.getUser(request));
     boolean isTeacher = teacher.equals(ServletBase.getUser(request));
-    List<ClassComment> scheduledClassComments = DB.getScheuduledClassComments(scheduledClass);
-    float schedledClassPrice = (((float) scheduledClass.duration_minutes * scheduledClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
-    String schedledClassPriceFormatted = Utils.formatPrice(schedledClassPrice);
+    List<ClassComment> classComments = DB.getScheuduledClassComments(scheduledClass);
+    float classPrice = (((float) scheduledClass.duration_minutes * scheduledClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
+    String classPriceFormatted = Utils.formatPrice(classPrice);
     List<AttachedFile> scheduledClassAttachedFiles = DB.getScheuduledClassAttachedFiles(scheduledClass);
 %>
 
@@ -38,7 +38,7 @@
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
                 <input type="hidden" name="cmd" value="_xclick">
                 <input type="hidden" name="business" value="<%= teacher.paypal_email%>">
-                <input type="hidden" name="amount" value="<%= schedledClassPriceFormatted%>">
+                <input type="hidden" name="amount" value="<%= classPriceFormatted %>">
                 <input type="hidden" name="currency_code" value="<%= Config.get("website.paypal.currency_code")%>">
                 <INPUT TYPE="hidden" name="charset" value="utf-8">
                 <INPUT TYPE="hidden" NAME="return" value="<%= Utils.buildWebsiteURL("scheduled_class", "id=" + scheduledClass.id)%>">
@@ -75,7 +75,7 @@
                                         <input type="text" class="form-control" 
                                                id="schedule_class_payment_modal_price"
                                                name="schedule_class_payment_modal_price"
-                                               value="<%= schedledClassPriceFormatted%>" disabled/>
+                                               value="<%= classPriceFormatted %>" disabled/>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                                 <%= CLabels.get("website.currency")%>
@@ -188,7 +188,7 @@
                         </h6>
                         <h6>
                             <%= Labels.get("scheduled.class.sidebar.price_text")%>&nbsp;
-                            <%=  schedledClassPriceFormatted%>&nbsp;
+                            <%=  classPriceFormatted %>&nbsp;
                             <%= CLabels.get("website.currency")%>
                             <%
                                 if (scheduledClass.payment == null) {
@@ -205,7 +205,7 @@
                         <%
                             if (isStudent) {
                         %>
-                        <button class="btn btn-warning" onclick="javascript:scheduled_class_pay()">
+                        <button class="btn btn-warning" onclick="scheduled_class_pay()">
                             <%= Labels.get("scheduled.class.sidebar.pay_for_class")%>
                         </button>
                         <%
@@ -233,23 +233,23 @@
                     <div class="card-body bg-secondary text-white">
                         <p>
                             <%
-                                for (ClassComment scheduledClassComment : scheduledClassComments) {
+                                for (ClassComment comment : classComments) {
                             %>
 
                             <span class="font-weight-bold">
                                 <%
-                                    if (scheduledClassComment.student != null) {
-                                        out.write(scheduledClassComment.student.display_name);
+                                    if (comment.student != null) {
+                                        out.write(comment.student.display_name);
                                     } else {
-                                        out.write(scheduledClassComment.teacher.display_name);
+                                        out.write(comment.teacher.display_name);
                                     }
                                 %>
 
                                 &nbsp;,&nbsp;
-                                <%= Utils.formatDateTime(scheduledClassComment.added)%>                                
+                                <%= Utils.formatDateTime(comment.added)%>                                
                                 &nbsp;:&nbsp;
                             </span>
-                            <%= scheduledClassComment.comment%>                            
+                            <%= comment.comment%>                            
                             <br/>
                             <%
                                 }
@@ -259,7 +259,7 @@
                     <div class="card-footer">                            
                         <div class="row">
                             <div class="col mx-auto">
-                                <button onclick="javascript:schedule_class_add_comment()" class="btn btn-info">
+                                <button onclick="schedule_class_add_comment()" class="btn btn-info">
                                     <%= Labels.get("scheduled.class.sidebar.add_comment")%>
                                 </button>
                             </div>
@@ -300,7 +300,7 @@
                     <div class="card-footer">                            
                         <div class="row">
                             <div class="col mx-auto">
-                                <button onclick="javascript:schedule_class_attach_file()" class="btn btn-info">
+                                <button onclick="schedule_class_attach_file()" class="btn btn-info">
                                     <%= Labels.get("scheduled.class.sidebar.attache_file")%>
                                 </button>
                             </div>

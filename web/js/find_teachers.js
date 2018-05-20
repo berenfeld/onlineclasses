@@ -273,6 +273,9 @@ function schedule_class_confirm()
 {
     $("#schedule_class_warning_a").addClass("d-none");
     $("#schedule_class_warning_a_not_logged_in").addClass("d-none");
+    $("#schedule_class_warning_div").addClass("d-none");
+    $("#schedule_class_info_div").addClass("d-none");
+    
     if (!login_isLoggedIn())
     {
         $("#schedule_class_warning").html(online_classes.clabels[ "scheduled.class.modal.not_logged_in"]);

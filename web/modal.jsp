@@ -134,7 +134,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info mx-1" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
-                <button type="button" class="btn btn-success mx-1" onclick="javascript:invite_other_student_send()"><%= Labels.get("buttons.ok")%></button>
+                <button type="button" class="btn btn-success mx-1" onclick="invite_other_student_send()"><%= Labels.get("buttons.ok")%></button>
             </div>
 
         </div>
@@ -189,7 +189,6 @@
                 <label id="text_input_modal_text1" class="col-form-label" for="text_input_modal_input">
                     <%= Labels.get("text_input.modal.text1")%>
                 </label>   
-
                 <input id ="text_input_modal_input" class="form-control" type="text" >
                 </input>
             </div>
@@ -203,7 +202,7 @@
                     <%= Labels.get("buttons.cancel")%>
                 </button>
 
-                <button type="button" class="btn btn-success mx-1" onclick="javascript:text_input_modal_ok()">
+                <button type="button" class="btn btn-success mx-1" onclick="text_input_modal_ok()">
                     <%= Labels.get("buttons.ok")%>
                 </button>            
             </div>
