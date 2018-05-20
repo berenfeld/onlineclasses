@@ -15,7 +15,7 @@
 }
 
 #scheduled_class_main_board_starting_in {
-    
+
     color:#B0C4DE;    
     text-align: center;
     vertical-align: middle;     
@@ -24,4 +24,19 @@
 #scheduled_class_main_board tr
 {
     height:25%;
+}
+
+#scheduled_class_attach_file_button_wrapper
+{
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+#scheduled_class_attach_file_button_wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }

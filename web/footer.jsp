@@ -37,9 +37,3 @@
 <script src="js/google.js"></script>
 <script src="js/login.js"></script>
 <script src="js/<%= pageName_footer %>.js"></script>
-
-<%
-    
-%>
-
-<a href="javascript:google_signOut()">GOOGLE SIGNOUT (DEBUG)</a>

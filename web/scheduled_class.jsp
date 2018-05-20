@@ -10,19 +10,18 @@
 
 <%
     int classId = Integer.parseInt(request.getParameter("id"));
-    OClass scheduledClass = DB.getOClass(classId);
-    
-    // TODO handle not found / canceled
+    OClass oClass = DB.getOClass(classId);
 
-    Teacher teacher = scheduledClass.teacher;
-    Student student = scheduledClass.student;
+    // TODO handle not found / canceled
+    Teacher teacher = oClass.teacher;
+    Student student = oClass.student;
 
     boolean isStudent = student.equals(ServletBase.getUser(request));
     boolean isTeacher = teacher.equals(ServletBase.getUser(request));
-    List<ClassComment> classComments = DB.getScheuduledClassComments(scheduledClass);
-    float classPrice = (((float) scheduledClass.duration_minutes * scheduledClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
+    List<ClassComment> classComments = DB.getScheuduledClassComments(oClass);
+    float classPrice = (((float) oClass.duration_minutes * oClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
     String classPriceFormatted = Utils.formatPrice(classPrice);
-    List<AttachedFile> scheduledClassAttachedFiles = DB.getScheuduledClassAttachedFiles(scheduledClass);
+    List<AttachedFile> classAttachedFiles = DB.getClassAttachedFiles(oClass);
 %>
 
 <!DOCTYPE html>
@@ -38,16 +37,16 @@
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
                 <input type="hidden" name="cmd" value="_xclick">
                 <input type="hidden" name="business" value="<%= teacher.paypal_email%>">
-                <input type="hidden" name="amount" value="<%= classPriceFormatted %>">
+                <input type="hidden" name="amount" value="<%= classPriceFormatted%>">
                 <input type="hidden" name="currency_code" value="<%= Config.get("website.paypal.currency_code")%>">
                 <INPUT TYPE="hidden" name="charset" value="utf-8">
-                <INPUT TYPE="hidden" NAME="return" value="<%= Utils.buildWebsiteURL("scheduled_class", "id=" + scheduledClass.id)%>">
+                <INPUT TYPE="hidden" NAME="return" value="<%= Utils.buildWebsiteURL("scheduled_class", "id=" + oClass.id)%>">
                 <input type="hidden" name="<email>" value="<%= student.email%>">
                 <input type="hidden" name="<first_name>" value="<%= student.first_name%>">
                 <input type="hidden" name="<last_name>" value="<%= student.last_name%> ">
                 <input type="hidden" name="quantity" value="1">
                 <input type="hidden" name="item_name" value="<%= Config.get("website.paypal.item_name")%>">
-                <input type="hidden" name="item_number" value="<%= scheduledClass.id%>">
+                <input type="hidden" name="item_number" value="<%= oClass.id%>">
                 <input type="hidden" name="notify_url" value="<%= Utils.buildWebsiteURL("servlets/paypal_ipn")%>">
 
                 <div class="modal-dialog modal-md">
@@ -75,7 +74,7 @@
                                         <input type="text" class="form-control" 
                                                id="schedule_class_payment_modal_price"
                                                name="schedule_class_payment_modal_price"
-                                               value="<%= classPriceFormatted %>" disabled/>
+                                               value="<%= classPriceFormatted%>" disabled/>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                                 <%= CLabels.get("website.currency")%>
@@ -87,11 +86,11 @@
                                 <p class="col-12 my-1">
                                     <small>
                                         <%= Labels.get("scheduled.class.payment_modal.calculation_start")%>                                        
-                                        <%= scheduledClass.duration_minutes / 60.0%>
+                                        <%= oClass.duration_minutes / 60.0%>
                                         <%= CLabels.get("language.hours")%>
                                         &times;
                                         <%= Labels.get("scheduled.class.payment_modal.calculation_end")%>                                        
-                                        <%= Utils.formatPrice(scheduledClass.price_per_hour)%>
+                                        <%= Utils.formatPrice(oClass.price_per_hour)%>
                                         <%= CLabels.get("website.currency")%>
                                     </small>
                                 </p>
@@ -129,15 +128,35 @@
                             <h6>
                                 <%= Labels.get("scheduled.class.attach_file_modal.text1")%>
                             </h6>
-                            <div class="custom-file">
-
-                                <input type="hidden" name="scheduled_class_id" value="<%= scheduledClass.id%>">
-                                <input type="file" class="custom-file-input" id="scheduled_class_attach_file_custom_file_input">
-                                <label class="custom-file-label" for="scheduled_class_attach_file_custom_file_input">
-                                    <%= Labels.get("scheduled.class.attach_file_modal.choose_file")%>
-                                </label>
+                            <input type="hidden" name="scheduled_class_id" value="<%= oClass.id%>">
+                            <div class="form-group row">                                 
+                                <div id="scheduled_class_attach_file_button_wrapper" class="col-6">                                
+                                    <input type="file" name="scheduled_class_attach_file_input"
+                                           id="scheduled_class_attach_file_input"                                           
+                                           onchange="scheduled_class_update_chosen_file()">  
+                                    <button class="btn btn-info">
+                                        <%= Labels.get("scheduled.class.attach_file_modal.choose_file")%>
+                                    </button>
+                                </div>
+                                <div class="col-6">     
+                                    <input type="text" for="scheduled_class_attach_file_input"
+                                           id="scheduled_class_attach_file_chosen_file_name"
+                                           class="form-control" disabled>
+                                    </input>
+                                </div>
                             </div>
+                            <div class="form-group row">     
+                                <label for="scheduled_class_attach_file_comment"
+                                       class="col-form-label col-6">
+                                    add comment to the file
+                                </label>
+                                <div class="col-6">                                
+                                    <input type="text" class="form-control"
+                                           name="scheduled_class_attach_file_comment"
+                                           id="scheduled_class_attach_file_comment">  
+                                </div>
 
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <input type="submit" class="btn btn-success mx-1" value="<%= Labels.get("buttons.ok")%>" name="upload" id="upload" />
@@ -163,35 +182,35 @@
 
                         <h6>
                             <%= Labels.get("scheduled.class.sidebar.subject")%>&nbsp;
-                            <%= scheduledClass.subject%>&nbsp;
+                            <%= oClass.subject%>&nbsp;
                         </h6>
                         <h6>
                             <%= Labels.get("scheduled.class.sidebar.status")%>&nbsp;
-                            <%= Utils.toList(Labels.get("scheduled_class.status.text")).get(scheduledClass.status - 1) %>&nbsp;
+                            <%= Utils.toList(Labels.get("scheduled_class.status.text")).get(oClass.status - 1)%>&nbsp;
                         </h6>
                         <h6>
                             <%= Labels.get("scheduled.class.sidebar.teacher")%>&nbsp;
-                            <%= scheduledClass.teacher.display_name%>&nbsp;
+                            <%= oClass.teacher.display_name%>&nbsp;
                         </h6>
                         <h6>
                             <%= Labels.get("scheduled.class.sidebar.student")%>&nbsp;
-                            <%= scheduledClass.student.display_name%>&nbsp;
+                            <%= oClass.student.display_name%>&nbsp;
                         </h6>
                         <h6>
                             <%= Labels.get("scheduled.class.sidebar.start_date")%>&nbsp;
-                            <%= Utils.formatDateTime(scheduledClass.start_date)%>&nbsp;
+                            <%= Utils.formatDateTime(oClass.start_date)%>&nbsp;
                         </h6>
                         <h6>
                             <%= Labels.get("scheduled.class.sidebar.duration_text")%>&nbsp;
-                            <%= scheduledClass.duration_minutes%>&nbsp;
+                            <%= oClass.duration_minutes%>&nbsp;
                             <%= CLabels.get("language.minutes")%>
                         </h6>
                         <h6>
                             <%= Labels.get("scheduled.class.sidebar.price_text")%>&nbsp;
-                            <%=  classPriceFormatted %>&nbsp;
+                            <%=  classPriceFormatted%>&nbsp;
                             <%= CLabels.get("website.currency")%>
                             <%
-                                if (scheduledClass.payment == null) {
+                                if (oClass.payment == null) {
                             %>
                             <a class="text-warning" href="javascript:scheduled_class_pay()">
                                 <%= Labels.get("scheduled.class.sidebar.payment.not_paid_yet")%>                                
@@ -231,8 +250,13 @@
                         <%= Labels.get("scheduled.class.sidebar.comments.title")%>
                     </div>
                     <div class="card-body bg-secondary text-white">
+
+
                         <p>
                             <%
+                                if (classComments.isEmpty()) {
+                                    out.write(Labels.get("scheduled.class.sidebar.comments.no_comments"));
+                                }
                                 for (ClassComment comment : classComments) {
                             %>
 
@@ -274,23 +298,26 @@
                     <div class="card-body bg-secondary text-white">
                         <p>
                             <%
-                                for (AttachedFile scheduledClassAttachedFile : scheduledClassAttachedFiles) {
+                                if (classAttachedFiles.isEmpty()) {
+                                    out.write(Labels.get("scheduled.class.sidebar.attache_file.no_attached_files"));
+                                }
+                                for (AttachedFile oClassAttachedFile : classAttachedFiles) {
                             %>
 
                             <span class="font-weight-bold">
                                 <%
-                                    if (scheduledClassAttachedFile.student != null) {
-                                        out.write(scheduledClassAttachedFile.student.display_name);
+                                    if (oClassAttachedFile.student != null) {
+                                        out.write(oClassAttachedFile.student.display_name);
                                     } else {
-                                        out.write(scheduledClassAttachedFile.teacher.display_name);
+                                        out.write(oClassAttachedFile.teacher.display_name);
                                     }
                                 %>
 
                                 &nbsp;,&nbsp;
-                                <%= Utils.formatDateTime(scheduledClassAttachedFile.added)%>                                
+                                <%= Utils.formatDateTime(oClassAttachedFile.added)%>                                
                                 &nbsp;:&nbsp;
                             </span>
-                            <%= scheduledClassAttachedFile.name%>                            
+                            <%= oClassAttachedFile.name%>                            
                             <br/>
                             <%
                                 }
@@ -316,7 +343,7 @@
                         <tr>                            
                         <h2 class="text-center" id="scheduled_class_main_board_title">
                             <%= Labels.get("scheduled.class.title")%>
-                            <%= scheduledClass.subject%>
+                            <%= oClass.subject%>
                         </h2>
                         </tr>
                         <tr>
@@ -333,7 +360,7 @@
 </div>        
 <%@include file="footer.jsp" %>    
 <script>
-    scheduled_class.scheduled_class = <%= Utils.gson().toJson(scheduledClass)%>;
+    scheduled_class.scheduled_class = <%= Utils.gson().toJson(oClass)%>;
     scheduled_class.teacher = <%= Utils.gson().toJson(teacher)%>;
     scheduled_class.student = <%= Utils.gson().toJson(student)%>;
     scheduled_class_init();

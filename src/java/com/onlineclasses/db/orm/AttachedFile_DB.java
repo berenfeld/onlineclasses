@@ -25,17 +25,17 @@ public class AttachedFile_DB extends Base_DB<AttachedFile> {
         super(connectionSource, AttachedFile.class);
         QueryBuilder<AttachedFile, Integer> queryBuilder = _dao.queryBuilder();
         
-        queryBuilder.where().eq(AttachedFile.SCHEDULED_CLASS_FIELD, _getScheuduledClassAttachedFilesScheduledClassArg);
+        queryBuilder.where().eq(AttachedFile.SCHEDULED_CLASS_FIELD, _getClassAttachedFilesScheduledClassArg);
         queryBuilder.orderBy(AttachedFile.ADDED_FIELD, true);
-        _getScheuduledClassAttachedFiles = queryBuilder.prepare();        
+        _getClassAttachedFiles = queryBuilder.prepare();        
     }
     
-    private final PreparedQuery<AttachedFile> _getScheuduledClassAttachedFiles;
-    private final SelectArg _getScheuduledClassAttachedFilesScheduledClassArg = new SelectArg();
+    private final PreparedQuery<AttachedFile> _getClassAttachedFiles;
+    private final SelectArg _getClassAttachedFilesScheduledClassArg = new SelectArg();
     
-    public synchronized List<AttachedFile> getScheuduledClassAttachedFiles(OClass scheduledClass) throws SQLException
+    public synchronized List<AttachedFile> getClassAttachedFiles(OClass scheduledClass) throws SQLException
     {
-        _getScheuduledClassAttachedFilesScheduledClassArg.setValue(scheduledClass);
-        return _dao.query(_getScheuduledClassAttachedFiles);
+        _getClassAttachedFilesScheduledClassArg.setValue(scheduledClass);
+        return _dao.query(_getClassAttachedFiles);
     }
 }

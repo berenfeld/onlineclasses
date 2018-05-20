@@ -45,6 +45,14 @@ function schedule_class_attach_file()
     $("#scheduled_class_attach_file_modal").modal("show");
 }
 
+function scheduled_class_update_chosen_file()
+{
+    filename = $("#scheduled_class_attach_file_input").val();
+    filename = filename.replace(/.*[\/\\]/, '');
+    $("#scheduled_class_attach_file_chosen_file_name").val(filename);
+    scheduled_class.filename = filename;
+}
+
 function scheduled_class_cancel_class_response(response)
 {
     if (response.rc !== 0) {
@@ -80,6 +88,7 @@ function schedule_class_cancel_click()
             online_classes.clabels[ "scheduled.class.cancel_class.text"],
             scheduled_class_cancel_class_ok);
 }
+
 function scheduled_class_init()
 {
     var today = new Date();

@@ -347,8 +347,8 @@ public class DB {
         return scheduledClassComments;
     }
     
-     public static List<AttachedFile> getScheuduledClassAttachedFiles(OClass scheduledClass) throws SQLException {
-        List<AttachedFile> scheduledClassAttachedFiles = _attachedFile_DB.getScheuduledClassAttachedFiles(scheduledClass);
+     public static List<AttachedFile> getClassAttachedFiles(OClass scheduledClass) throws SQLException {
+        List<AttachedFile> scheduledClassAttachedFiles = _attachedFile_DB.getClassAttachedFiles(scheduledClass);
         for (AttachedFile scheduledClassAttachedFile : scheduledClassAttachedFiles) {
             if (scheduledClassAttachedFile.student != null) {
                 scheduledClassAttachedFile.student = getStudent(scheduledClassAttachedFile.student.id);
