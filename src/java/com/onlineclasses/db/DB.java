@@ -323,6 +323,10 @@ public class DB {
         return ORM_ENTITIES.get(t.getClass()).add(t);
     }
 
+    public static <T> int delete(T t) throws SQLException {
+        return ORM_ENTITIES.get(t.getClass()).delete(t);
+    }
+    
     public static <T> List<T> getAll(Class cls) throws SQLException {
         return ORM_ENTITIES.get(cls).getAll();
     }

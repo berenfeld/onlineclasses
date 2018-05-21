@@ -241,6 +241,10 @@ public class Utils {
         return String.format("%.2f", price);
     }
 
+     public static String formatFloat2Digits(float number) {
+        return String.format("%.2f", number);
+    }
+     
     public static String getRealPath(ServletContext context, String fileName, String... dirs) {
         String realPath = context.getRealPath("");
         for (String dir : dirs) {
@@ -267,5 +271,18 @@ public class Utils {
             url += param;
         }
         return url;
+    }
+    
+    public static String formatFileSize(int size)
+    {
+        float mb = size / (1024.0f * 1024.0f);
+        if (mb>1) {
+            return formatFloat2Digits(mb) + "M";
+        }
+        float kb = size / (1024.0f);
+        if (kb>1) {
+            return formatFloat2Digits(kb) + "K";
+        }
+        return size + " bytes";
     }
 }

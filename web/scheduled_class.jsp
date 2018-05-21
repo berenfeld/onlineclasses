@@ -310,6 +310,9 @@
                                     out.write(Labels.get("scheduled.class.sidebar.attache_file.no_attached_files"));
                                 }
                                 for (AttachedFile oClassAttachedFile : classAttachedFiles) {
+                                    if (oClassAttachedFile.size != oClassAttachedFile.uploaded) {
+                                        continue;
+                                    }
                             %>
                             <%
                                 String filePath
@@ -317,12 +320,17 @@
                                         + Config.get("website.file.upload.classes_prefix")
                                         + oClass.id + "/" + oClassAttachedFile.name;
                             %>
-                            <a href="<%= filePath%>" class="text-info" target="_blank">                                                               
+                            <a href="<%= filePath%>" class="text-white" target="_blank">
+                                <b>
                                 <%= oClassAttachedFile.name%>
+                                </b>
                             </a>
-
+                            <span class="small">
+                                <%= Labels.get("scheduled.class.attach_file.file_size")%>
+                                <%= Utils.formatFileSize(oClassAttachedFile.size)%>
+                            </span>
                             <br/>
-                            <span class="font-weight-bold small">
+                            <span class="small">
                                 <%= Labels.get("scheduled.class.attach_file.uploaded_by")%>
                                 <%
                                     if (oClassAttachedFile.student != null) {
@@ -337,7 +345,7 @@
                             <%
                                 if (Utils.isNotEmpty(oClassAttachedFile.comment)) {
                             %>
-                            <span class="font-weight-bold small">
+                            <span class="small">
                                 <%= Labels.get("scheduled.class.attach_file.with_comment")%>        
                                 <%= oClassAttachedFile.comment%>
                             </span>

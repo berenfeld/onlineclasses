@@ -152,7 +152,7 @@ public abstract class ServletBase extends HttpServlet {
             handleLoginInRequest(request);
 
             String requestString = getRequestString(request);
-            Utils.info("request : " + requestString);
+            Utils.info("request : " + request.getRequestURI() + " data : " + requestString);
 
             BasicResponse responseObject = handleRequest(requestString, request, response);
             String responseStr = Utils.gson().toJson(responseObject);

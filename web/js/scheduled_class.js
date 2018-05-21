@@ -60,9 +60,16 @@ function scheduled_class_check_file_status_response(response)
         setTimeout(scheduled_class_check_file_status, 1000);
         return;
     }
-    $("#scheduled_class_attach_file_info_text").html("received " + response.uploaded + " bytes out of " + response.file_size);
+    $("#scheduled_class_attach_file_info_text").html(
+            online_classes.clabels["scheduled.class.attach_file.uploaded"] +
+            " " +
+            response.uploaded +
+            " " +
+            online_classes.clabels["scheduled.class.attach_file.bytes_out_of"] +
+            " " +
+            response.file_size);
     if (response.uploaded === response.file_size) {
-        $("#scheduled_class_attach_file_info_text").html("file upload done. refreshing class");
+        $("#scheduled_class_attach_file_info_text").html( online_classes.clabels["scheduled.class.attach_file.file_upload_done"] );
         $("#scheduled_class_attach_file_submit_button").attr("disabled", false);
         reloadAfter(2);
         return;
@@ -75,7 +82,7 @@ function scheduled_class_check_file_status()
     var request = {};
     request.scheduled_class_id = scheduled_class.scheduled_class.id;
     request.file_name = scheduled_class.file_name;
-        
+
     $.ajax("servlets/query_file_upload_status",
             {
                 type: "POST",
@@ -87,7 +94,7 @@ function scheduled_class_check_file_status()
 function scheduled_class_submit_file()
 {
     $("#scheduled_class_attach_file_info_div").removeClass("d-none");
-    $("#scheduled_class_attach_file_info_text").html("uploading file to server");
+    $("#scheduled_class_attach_file_info_text").html(online_classes.clabels["scheduled.class.attach_file.uploading_file"]);
     $("#scheduled_class_attach_file_submit_button").attr("disabled", true);
     scheduled_class_check_file_status();
     return true;
@@ -99,7 +106,7 @@ function scheduled_class_cancel_class_response(response)
         text_input_modal_show_info("failed to cancel class");
         return;
     }
-    text_input_modal_show_info( online_classes.clabels["scheduled.class.cancel_class.class_canceled"]);
+    text_input_modal_show_info(online_classes.clabels["scheduled.class.cancel_class.class_canceled"]);
     redirectAfter("/", 2);
 }
 

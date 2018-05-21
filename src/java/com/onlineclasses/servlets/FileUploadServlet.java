@@ -47,6 +47,7 @@ public class FileUploadServlet extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
+        AttachedFile attachedFile = null;
         try {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
@@ -69,7 +70,7 @@ public class FileUploadServlet extends HttpServlet {
                 return;
             }
 
-            AttachedFile attachedFile = new AttachedFile();
+            attachedFile = new AttachedFile();
             attachedFile.added = new Date();
             attachedFile.scheduled_class = oclass;
             attachedFile.name = fileName;
@@ -140,7 +141,6 @@ public class FileUploadServlet extends HttpServlet {
         } catch (Exception ex) {
             Utils.exception(ex);
         }
-        return;
     }
 
     @Override
