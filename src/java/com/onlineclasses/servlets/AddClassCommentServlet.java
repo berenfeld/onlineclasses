@@ -79,7 +79,7 @@ public class AddClassCommentServlet extends ServletBase {
     
      private void sendEmail(User commentator, OClass scheduledClass, Calendar classStart, String comment) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
-                + Config.get("website.language") + File.separator + "scheduled_class_added_comment.html";
+                + Config.get("website.language") + File.separator + "class_added_comment.html";
         Utils.info("sending email " + email_name);
 
         String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);

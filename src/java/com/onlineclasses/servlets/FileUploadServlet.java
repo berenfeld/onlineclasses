@@ -76,6 +76,8 @@ public class FileUploadServlet extends HttpServlet {
             attachedFile.size = (int) fileSize;
             attachedFile.uploaded = 0;
             attachedFile.removed = false;
+            attachedFile.comment = comment;
+            
             if (user.equals(oclass.student)) {
                 attachedFile.student = (Student) user;
             } else if (user.equals(oclass.teacher)) {
@@ -94,7 +96,7 @@ public class FileUploadServlet extends HttpServlet {
                     Config.get("website.file.upload.root"),
                     Config.get("website.file.upload.classes_prefix") + scheduledClassId);
             Utils.info("class root dir name " + classRootDirName);
-            
+
             File classRootDir = new File(classRootDirName);
             if (!classRootDir.exists()) {
                 Utils.info("creating scheduled class root folder " + classRootDirName);
@@ -105,25 +107,35 @@ public class FileUploadServlet extends HttpServlet {
                     Config.get("website.file.upload.root"),
                     Config.get("website.file.upload.classes_prefix") + scheduledClassId);
 
-            Utils.info("output file name " + outputFileName);
-
             InputStream fi = filePart.getInputStream();
             File outputFile = new File(outputFileName);
-            // TODO handle file exist
+            if (outputFile.exists()) {
+                Utils.warning("output file name " + outputFileName + " already uploaded");
+                return;
+            }
+
             outputFile.createNewFile();
             FileOutputStream fo = new FileOutputStream(outputFileName);
             int chunkSize = Config.getInt("website.file.upload.chunk_size");
+            int updateDbThreshold = Config.getInt("website.file.upload.update_db_threshold");
 
             int read;
             int written = 0;
+            int lastWrittenUpdated = 0;
             final byte[] bytes = new byte[chunkSize];
 
             while ((read = fi.read(bytes)) != -1) {
                 fo.write(bytes, 0, read);
                 written += read;
-                attachedFile.uploaded = written;
-                DB.updateAttachedFileUploadedBytes(attachedFile);
+                if (written > lastWrittenUpdated + updateDbThreshold) {
+                    attachedFile.uploaded = written;
+                    DB.updateAttachedFileUploadedBytes(attachedFile);
+                    lastWrittenUpdated = written;
+                }
             }
+            attachedFile.uploaded = written;
+            DB.updateAttachedFileUploadedBytes(attachedFile);
+
             Utils.info("upload file done file " + fileName + " size " + fileSize);
         } catch (Exception ex) {
             Utils.exception(ex);

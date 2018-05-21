@@ -17,7 +17,8 @@ public class AttachedFile extends BasicEntity {
     @DatabaseField(canBeNull = false, foreign = true, columnName = SCHEDULED_CLASS_FIELD)
     public OClass scheduled_class;
 
-    @DatabaseField(canBeNull = false)
+    public static final String NAME_FIELD = "file_name";
+    @DatabaseField(canBeNull = false, columnName = NAME_FIELD)
     public String name;
 
     @DatabaseField
@@ -39,4 +40,7 @@ public class AttachedFile extends BasicEntity {
     public static final String UPLOADED_FIELD = "uploaded";
     @DatabaseField(columnName = UPLOADED_FIELD)
     public int uploaded;
+    
+    @DatabaseField
+    public String comment;
 }

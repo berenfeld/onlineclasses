@@ -50,7 +50,47 @@ function scheduled_class_update_chosen_file()
     filename = $("#scheduled_class_attach_file_input").val();
     filename = filename.replace(/.*[\/\\]/, '');
     $("#scheduled_class_attach_file_chosen_file_name").html(filename);
-    scheduled_class.filename = filename;
+    scheduled_class.file_name = filename;
+}
+
+function scheduled_class_check_file_status_response(response)
+{
+    if (response.rc !== 0) {
+        // TODO handle timeout
+        setTimeout(scheduled_class_check_file_status, 1000);
+        return;
+    }
+    $("#scheduled_class_attach_file_info_text").html("received " + response.uploaded + " bytes out of " + response.file_size);
+    if (response.uploaded === response.file_size) {
+        $("#scheduled_class_attach_file_info_text").html("file upload done. refreshing class");
+        $("#scheduled_class_attach_file_submit_button").attr("disabled", false);
+        reloadAfter(2);
+        return;
+    }
+    setTimeout(scheduled_class_check_file_status, 1000);
+}
+
+function scheduled_class_check_file_status()
+{
+    var request = {};
+    request.scheduled_class_id = scheduled_class.scheduled_class.id;
+    request.file_name = scheduled_class.file_name;
+        
+    $.ajax("servlets/query_file_upload_status",
+            {
+                type: "POST",
+                data: JSON.stringify(request),
+                dataType: "JSON",
+                success: scheduled_class_check_file_status_response
+            });
+}
+function scheduled_class_submit_file()
+{
+    $("#scheduled_class_attach_file_info_div").removeClass("d-none");
+    $("#scheduled_class_attach_file_info_text").html("uploading file to server");
+    $("#scheduled_class_attach_file_submit_button").attr("disabled", true);
+    scheduled_class_check_file_status();
+    return true;
 }
 
 function scheduled_class_cancel_class_response(response)
@@ -59,7 +99,7 @@ function scheduled_class_cancel_class_response(response)
         text_input_modal_show_info("failed to cancel class");
         return;
     }
-    text_input_modal_show_info("class canceled. You are forwarded to the main page");
+    text_input_modal_show_info( online_classes.clabels["scheduled.class.cancel_class.class_canceled"]);
     redirectAfter("/", 2);
 }
 

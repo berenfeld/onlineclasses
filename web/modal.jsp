@@ -11,22 +11,21 @@
                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body">
+                <div class="g-signin2 float-left" data-theme="dark"></div>
                 <p>
                     <%= Labels.get("login.modal.text1")%>
-                </p>
-                <div class="g-signin2" data-theme="dark"></div>                
-                <br/>
-                <div class="alert alert-warning">
-                    <span class="oi" data-glyph="question-mark"></span>      
-                    <%= Labels.get("login.modal.text2")%>                    
-                    <a class="alert-link" href="start_learning">
-                        <%= Labels.get("login.modal.register.student")%>
-                    </a>                            
-                </div>
-                <div id="login_modal_info_div" class="alert alert-info d-none" role="alert">
-                    <span class="oi" data-glyph="info"></span>    
-                    <span id="login_modal_info_text"></span>
-                </div>
+                </p>                
+            </div>
+            <div class="alert alert-info">
+                <span class="oi" data-glyph="info"></span>      
+                <%= Labels.get("login.modal.text2")%>                    
+                <a class="alert-link" href="start_learning">
+                    <%= Labels.get("login.modal.register.student")%>
+                </a>                                            
+            </div>
+            <div id="login_modal_info_div" class="alert alert-info d-none" role="alert">
+                <span class="oi" data-glyph="info"></span>    
+                <span id="login_modal_info_text"></span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">

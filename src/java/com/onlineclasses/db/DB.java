@@ -327,10 +327,10 @@ public class DB {
         return ORM_ENTITIES.get(cls).getAll();
     }
 
-     public static <T> T get(int id, Class cls) throws SQLException {
+    public static <T> T get(int id, Class cls) throws SQLException {
         return (T) ORM_ENTITIES.get(cls).get(id);
     }
-     
+
     public static Institute getInstitute(int id) throws SQLException {
         return _institute_db.get(id);
     }
@@ -346,8 +346,8 @@ public class DB {
         }
         return scheduledClassComments;
     }
-    
-     public static List<AttachedFile> getClassAttachedFiles(OClass scheduledClass) throws SQLException {
+
+    public static List<AttachedFile> getClassAttachedFiles(OClass scheduledClass) throws SQLException {
         List<AttachedFile> scheduledClassAttachedFiles = _attachedFile_DB.getClassAttachedFiles(scheduledClass);
         for (AttachedFile scheduledClassAttachedFile : scheduledClassAttachedFiles) {
             if (scheduledClassAttachedFile.student != null) {
@@ -357,13 +357,17 @@ public class DB {
             }
         }
         return scheduledClassAttachedFiles;
-     }      
+    }
 
-     public static int updateClassStatus(OClass scheduledClass, int status) throws SQLException {
-         return _oclass_db.updateClassStatus(scheduledClass, status);
-     }
-     
-     public static int updateAttachedFileUploadedBytes(AttachedFile attachedFile) throws SQLException {
-         return _attachedFile_DB.updateAttachedFileUploadedBytes(attachedFile);
-     }
+    public static int updateClassStatus(OClass scheduledClass, int status) throws SQLException {
+        return _oclass_db.updateClassStatus(scheduledClass, status);
+    }
+
+    public static int updateAttachedFileUploadedBytes(AttachedFile attachedFile) throws SQLException {
+        return _attachedFile_DB.updateAttachedFileUploadedBytes(attachedFile);
+    }
+
+    public static synchronized AttachedFile getClassAttachedFile(OClass oClass, String fileName) throws SQLException {
+        return _attachedFile_DB.getClassAttachedFile(oClass, fileName);
+    }
 }

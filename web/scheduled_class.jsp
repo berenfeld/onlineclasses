@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page import="com.onlineclasses.entities.AttachedFile"%>
 <%@page import="com.onlineclasses.entities.ClassComment"%>
 <%@page import="com.onlineclasses.entities.Student"%>
@@ -113,12 +114,15 @@
             </form>
         </div>
 
-        <iframe id="scheduled_class_post_hidden_iframe" name="scheduled_class_post_hidden_iframe"></iframe>
+        <iframe id="scheduled_class_post_hidden_iframe" name="scheduled_class_post_hidden_iframe" class="d-none">
+
+        </iframe>
 
         <div id="scheduled_class_attach_file_modal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-md">
                 <form action="/servlets/file_upload" method="post" enctype="multipart/form-data"
-                      target="scheduled_class_post_hidden_iframe">
+                      target="scheduled_class_post_hidden_iframe"
+                      onsubmit="scheduled_class_submit_file()">
                     <div class="modal-content">
                         <div class="modal-header bg-secondary text-white">                                
                             <div class="modal-title"> 
@@ -158,12 +162,15 @@
                                            name="scheduled_class_attach_file_comment"
                                            id="scheduled_class_attach_file_comment">  
                                 </div>
-
                             </div>
                         </div>
+                        <div id="scheduled_class_attach_file_info_div" class="alert alert-info d-none" role="alert">
+                            <span class="oi" data-glyph="info"></span>    
+                            <span id="scheduled_class_attach_file_info_text"></span>
+                        </div>
                         <div class="modal-footer">
-                            <input type="submit" class="btn btn-success mx-1" value="<%= Labels.get("buttons.ok")%>" name="upload" id="upload" />
-
+                            <input type="submit" id="scheduled_class_attach_file_submit_button" 
+                                   class="btn btn-success mx-1" value="<%= Labels.get("buttons.ok")%>" name="upload" id="upload" />
                             <button type="button" class="btn btn-info mx-1" data-dismiss="modal">
                                 <%= Labels.get("buttons.cancel")%>
                             </button>
@@ -304,8 +311,19 @@
                                 }
                                 for (AttachedFile oClassAttachedFile : classAttachedFiles) {
                             %>
+                            <%
+                                String filePath
+                                        = Config.get("website.file.upload.root") + "/"
+                                        + Config.get("website.file.upload.classes_prefix")
+                                        + oClass.id + "/" + oClassAttachedFile.name;
+                            %>
+                            <a href="<%= filePath%>" class="text-info" target="_blank">                                                               
+                                <%= oClassAttachedFile.name%>
+                            </a>
 
-                            <span class="font-weight-bold">
+                            <br/>
+                            <span class="font-weight-bold small">
+                                <%= Labels.get("scheduled.class.attach_file.uploaded_by")%>
                                 <%
                                     if (oClassAttachedFile.student != null) {
                                         out.write(oClassAttachedFile.student.display_name);
@@ -313,12 +331,19 @@
                                         out.write(oClassAttachedFile.teacher.display_name);
                                     }
                                 %>
-
-                                &nbsp;,&nbsp;
+                                <%= Labels.get("scheduled.class.attach_file.uploaded_at_date")%>                                                                
                                 <%= Utils.formatDateTime(oClassAttachedFile.added)%>                                
-                                &nbsp;:&nbsp;
                             </span>
-                            <%= oClassAttachedFile.name%>                            
+                            <%
+                                if (Utils.isNotEmpty(oClassAttachedFile.comment)) {
+                            %>
+                            <span class="font-weight-bold small">
+                                <%= Labels.get("scheduled.class.attach_file.with_comment")%>        
+                                <%= oClassAttachedFile.comment%>
+                            </span>
+                            <%
+                                }
+                            %>
                             <br/>
                             <%
                                 }

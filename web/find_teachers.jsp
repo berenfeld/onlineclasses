@@ -39,306 +39,305 @@
     </head>
     <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
         <%@include file="body.jsp" %>   
-        <div class="container">
-            <div id="schedule_class_not_logged_in_modal" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-md">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" aria-label="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
 
-                            <div class="modal-title"> 
-                                <h5 class="text-warning">
-                                    <span  id="schedule_class_not_logged_in_title">
-                                        <%= Labels.get("website.schedule_class.not_logged_in.title")%>                        
-                                    </span>
-                                </h5>
-                            </div>
-                        </div>
-                        <div class="modal-body">
-                            <h4>
-                                <%= Labels.get("website.schedule_class.not_logged_in.text1")%>
-                            </h4>
-                            <h4>
-                                <a href='javascript:schedule_class_login()'>
-                                    <%= Labels.get("website.schedule_class.not_logged_in.login")%>
-                                </a>
-                                <%= Labels.get("website.schedule_class.not_logged_in.text2")%>
-                                <a href="start_learning">
-                                    <%= Labels.get("website.schedule_class.not_logged_in.start_learning")%>
-                                </a>
-                                <%= Labels.get("website.schedule_class.not_logged_in.text3")%>
-                            </h4>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
-                        </div>
+        <div id="schedule_class_not_logged_in_modal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" aria-label="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
 
+                        <div class="modal-title"> 
+                            <h5 class="text-warning">
+                                <span  id="schedule_class_not_logged_in_title">
+                                    <%= Labels.get("website.schedule_class.not_logged_in.title")%>                        
+                                </span>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <h4>
+                            <%= Labels.get("website.schedule_class.not_logged_in.text1")%>
+                        </h4>
+                        <h4>
+                            <a href='javascript:schedule_class_login()'>
+                                <%= Labels.get("website.schedule_class.not_logged_in.login")%>
+                            </a>
+                            <%= Labels.get("website.schedule_class.not_logged_in.text2")%>
+                            <a href="start_learning">
+                                <%= Labels.get("website.schedule_class.not_logged_in.start_learning")%>
+                            </a>
+                            <%= Labels.get("website.schedule_class.not_logged_in.text3")%>
+                        </h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
                     </div>
 
                 </div>
+
             </div>
         </div>
-        <div class="container">
-            <div id="schedule_class_modal" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header bg-secondary text-white">
-                            <div id="schedule_class_modal_title" class="modal-title">
-                                <%= Labels.get("scheduled.class.modal.title")%>
-                                <span id="schedule_class_modal_title_teacher_anchor"></span>
-                            </div>
-                            <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>
+
+        <div id="schedule_class_modal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-secondary text-white">
+                        <div id="schedule_class_modal_title" class="modal-title">
+                            <span class="oi" data-glyph="calendar"></span>
+                            <%= Labels.get("scheduled.class.modal.title")%>
+                            <span id="schedule_class_modal_title_teacher_anchor"></span>
                         </div>
-                        <div class="modal-body">
-                            <div class="row no-gutter">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
-                                    <form>
-                                        <div class="form-group row">
-                                            <div class="col-3 my-1">
-                                                <label for="start_schedule_class_day_input" class="col-form-label">
-                                                    <%= Labels.get("scheduled.class.modal.day")%>
-                                                </label>
-                                            </div>
-                                            <div class="col-9 my-1">
-                                                <input type="text" class="form-control" name="start_day_input" 
-                                                       id="start_schedule_class_day_input" 
-                                                       placeholder="<%= Labels.get("scheduled.class.modal.day_placeholder")%>">
-                                            </div>                                    
+                        <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row no-gutter">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                                <form>
+                                    <div class="form-group row">
+                                        <div class="col-3 my-1">
+                                            <label for="start_schedule_class_day_input" class="col-form-label">
+                                                <%= Labels.get("scheduled.class.modal.day")%>
+                                            </label>
+                                        </div>
+                                        <div class="col-9 my-1">
+                                            <input type="text" class="form-control" name="start_day_input" 
+                                                   id="start_schedule_class_day_input" 
+                                                   placeholder="<%= Labels.get("scheduled.class.modal.day_placeholder")%>">
+                                        </div>                                    
 
-                                            <div class="col-3 my-1">
-                                                <label for="schedule_class_start_minute"  class="col-form-label">
-                                                    <%= Labels.get("scheduled.class.modal.start_hour")%>
-                                                </label>
-                                            </div>
+                                        <div class="col-3 my-1">
+                                            <label for="schedule_class_start_minute"  class="col-form-label">
+                                                <%= Labels.get("scheduled.class.modal.start_hour")%>
+                                            </label>
+                                        </div>
 
-                                            <div class="input-group my-1 col-9">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-info dropdown-toggle" 
-                                                            id="schedule_class_start_minute_button"
-                                                            name="schedule_class_start_minute"
-                                                            data-toggle="dropdown">
-                                                        <span class="caret"></span>
-                                                        <span id="schedule_class_start_minute">
-                                                            <%= Labels.get("scheduled.class.modal.start_minute_choose")%>
-                                                        </span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <%
-                                                            int minute = 0;
-                                                            int minuteStep = CConfig.getInt("website.time.unit.minutes");
-                                                            while (minute < 60) {
-                                                        %>
-                                                        <li>
-                                                            <a class="dropdown-item" href="javascript:schedule_class_select_minute('<%= String.format("%02d", minute)%>')">
-                                                                <%= String.format("%02d", minute)%>
-                                                            </a>
-                                                        </li>
-                                                        <%
-                                                                minute += minuteStep;
-                                                            }
-                                                        %>
-                                                    </div>
-                                                </div>
-
-                                                <div class="dropdown mx-1">
-                                                    <button class="btn btn-info dropdown-toggle" 
-                                                            id="schedule_class_start_hour_button"
-                                                            name="schedule_class_start_hour_button" data-toggle="dropdown">
-                                                        <span class="caret"></span>
-                                                        <span id="schedule_class_start_hour">
-                                                            <%= Labels.get("scheduled.class.modal.start_hour_choose")%>
-                                                        </span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <%
-                                                            hour = startHour;
-                                                            while (hour < endHour) {
-                                                        %>
-                                                        <li>
-                                                            <a class="dropdown-item" href="javascript:schedule_class_select_hour('<%= String.format("%02d", hour)%>')">
-                                                                <%= String.format("%02d", hour)%> 
-                                                            </a>
-                                                        </li>
-                                                        <%
-                                                                ++hour;
-                                                            }
-                                                        %>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-3 my-1">
-                                                <label for="schedule_class_duration_input" class="col-form-label">
-                                                    <%= Labels.get("scheduled.class.modal.duration")%>
-                                                </label>
-                                            </div>    
-
-                                            <div class="col-9 my-1">
+                                        <div class="input-group my-1 col-9">
+                                            <div class="dropdown">
                                                 <button class="btn btn-info dropdown-toggle" 
-                                                        id="schedule_class_duration_input"
-                                                        name="schedule_class_duration_input" data-toggle="dropdown">
+                                                        id="schedule_class_start_minute_button"
+                                                        name="schedule_class_start_minute"
+                                                        data-toggle="dropdown">
                                                     <span class="caret"></span>
-                                                    <span id="schedule_class_duration">
-                                                        <%= Labels.get("scheduled.class.modal.duration.select")%>
+                                                    <span id="schedule_class_start_minute">
+                                                        <%= Labels.get("scheduled.class.modal.start_minute_choose")%>
                                                     </span>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <%
-                                                        int maximumLessonLength = CConfig.getInt("website.time.max_lesson_length_minutes");
-                                                        int lessonLength = minuteStep;
-                                                        while (lessonLength <= maximumLessonLength) {
-                                                            String lessonMinutes = String.format("%02d", lessonLength) + " " + CLabels.get("language.minutes");
+                                                        int minute = 0;
+                                                        int minuteStep = CConfig.getInt("website.time.unit.minutes");
+                                                        while (minute < 60) {
                                                     %>
                                                     <li>
-                                                        <a class="dropdown-item" href="javascript:schedule_class_select_duration('<%= lessonMinutes%>')">
-                                                            <%= lessonMinutes%> 
+                                                        <a class="dropdown-item" href="javascript:schedule_class_select_minute('<%= String.format("%02d", minute)%>')">
+                                                            <%= String.format("%02d", minute)%>
                                                         </a>
                                                     </li>
                                                     <%
-                                                            lessonLength += minuteStep;
+                                                            minute += minuteStep;
                                                         }
                                                     %>
                                                 </div>
-                                            </div>                                 
-
-                                            <div class="col-3 my-1">
-                                                <label for="start_schedule_class_subject_input">
-                                                    <%= Labels.get("scheduled.class.modal.subject")%>
-                                                </label>
                                             </div>
 
-                                            <div class="col-9 my-1">
-                                                <input type="text" class="form-control" name="start_schedule_class_subject_input" 
-                                                       id="start_schedule_class_subject_input" 
-                                                       placeholder="<%= Labels.get("scheduled.class.modal.subject_placeholder")%>">
-                                            </div>                                    
-
-                                            <div class="col-3 my-1">
-                                                <label for="start_schedule_class_student_comment_input">
-                                                    <%= Labels.get("scheduled.class.modal.student_comment")%>
-                                                </label>
-                                            </div>
-                                            <div class="col-9 my-1">
-                                                <textarea rows="5" class="form-control" name="start_schedule_class_student_comment_input" 
-                                                          id="start_schedule_class_student_comment_input" 
-                                                          placeholder="<%= Labels.get("scheduled.class.modal.student_comment_placeholder")%>"></textarea>
-                                            </div>                                    
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-7 schedule_class_calendar_div">
-
-                                    <div class="column-centered text-center">
-                                        <nav id="schedule_class_week_select" aria-label="Page navigation">
-                                            <ul class="pagination justify-content-center">
-                                                <li class="page-item">
-                                                    <a  class="page-link" href="javascript:schedule_class_previous_week()" aria-label="Previous">
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                    </a>
-                                                </li>
-                                                <li class="page-item">                                                    
-                                                    <a class="page-link left_to_right" href="#">
-                                                        <span id="schedule_class_current_week_start"></span>
-                                                        -
-                                                        <span id="schedule_class_current_week_end"></span></a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="javascript:schedule_class_next_week()" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                    <div class="row no-gutter">
-                                        <div class="mx-auto">
-                                            <table id="schedule_class_calendar_table" class="table table-responsive table-sm">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="schedule_class_calendar" style="width: 12%">
-                                                        </th>                                        
-                                                        <% for (day = 0; day < 7; day++) {
-
-                                                        %>                                        
-                                                        <th class="schedule_class_calendar"  style="width: 12%">
-                                                            <span><%= dayNamesShort.get(day)%></span>
-                                                            <br/>
-                                                            <span id="schedule_class_day_<%= (day + 1)%>"></span>
-                                                        </th>
-                                                        <% }%>
-                                                    <tr/>
-                                                </thead>
-                                                <tbody>
+                                            <div class="dropdown mx-1">
+                                                <button class="btn btn-info dropdown-toggle" 
+                                                        id="schedule_class_start_hour_button"
+                                                        name="schedule_class_start_hour_button" data-toggle="dropdown">
+                                                    <span class="caret"></span>
+                                                    <span id="schedule_class_start_hour">
+                                                        <%= Labels.get("scheduled.class.modal.start_hour_choose")%>
+                                                    </span>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right">
                                                     <%
                                                         hour = startHour;
-                                                        minute = 0;
-                                                        int rowCount = 0;
-                                                        String cellClass = "";
                                                         while (hour < endHour) {
-                                                    %>  
-                                                    <tr>
-                                                        <%
-                                                            if (rowCount == (rowsPerCell - 1)) {
-                                                                cellClass = "schedule_class_row_end";
-                                                            } else {
-                                                                cellClass = "schedule_class_row_middle";
-                                                            }
-                                                            if (rowCount == 0) {
-                                                                cellClass = "schedule_class_row_start";
-                                                        %>
-                                                        <td rowspan="<%= rowsPerCell%>" class="schedule_class_calendar">
-                                                            <%= Utils.formatTime(hour, 0)%>
-                                                        </td>
-                                                        <% } %>
-
-                                                        <% for (day = 0; day < 7; day++) {
-                                                        %>
-                                                        <td data-day="<%=day%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
-                                                            onclick="schedule_class_select_time(this)"
-                                                            class="schedule_class_calendar <%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">
-                                                        </td>                                            
-                                                        <% } %>                                                                                                
-                                                    </tr>
+                                                    %>
+                                                    <li>
+                                                        <a class="dropdown-item" href="javascript:schedule_class_select_hour('<%= String.format("%02d", hour)%>')">
+                                                            <%= String.format("%02d", hour)%> 
+                                                        </a>
+                                                    </li>
                                                     <%
-                                                            rowCount = (rowCount + 1) % rowsPerCell;
-                                                            minute += minutesPerUnit;
-                                                            if (minute == 60) {
-                                                                minute = 0;
-                                                                hour++;
-                                                            }
+                                                            ++hour;
                                                         }
                                                     %>
-                                                </tbody>
-                                            </table> 
+                                                </div>
+                                            </div>
                                         </div>
+
+                                        <div class="col-3 my-1">
+                                            <label for="schedule_class_duration_input" class="col-form-label">
+                                                <%= Labels.get("scheduled.class.modal.duration")%>
+                                            </label>
+                                        </div>    
+
+                                        <div class="col-9 my-1">
+                                            <button class="btn btn-info dropdown-toggle" 
+                                                    id="schedule_class_duration_input"
+                                                    name="schedule_class_duration_input" data-toggle="dropdown">
+                                                <span class="caret"></span>
+                                                <span id="schedule_class_duration">
+                                                    <%= Labels.get("scheduled.class.modal.duration.select")%>
+                                                </span>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <%
+                                                    int maximumLessonLength = CConfig.getInt("website.time.max_lesson_length_minutes");
+                                                    int lessonLength = minuteStep;
+                                                    while (lessonLength <= maximumLessonLength) {
+                                                        String lessonMinutes = String.format("%02d", lessonLength) + " " + CLabels.get("language.minutes");
+                                                %>
+                                                <li>
+                                                    <a class="dropdown-item" href="javascript:schedule_class_select_duration('<%= lessonMinutes%>')">
+                                                        <%= lessonMinutes%> 
+                                                    </a>
+                                                </li>
+                                                <%
+                                                        lessonLength += minuteStep;
+                                                    }
+                                                %>
+                                            </div>
+                                        </div>                                 
+
+                                        <div class="col-3 my-1">
+                                            <label for="start_schedule_class_subject_input">
+                                                <%= Labels.get("scheduled.class.modal.subject")%>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-9 my-1">
+                                            <input type="text" class="form-control" name="start_schedule_class_subject_input" 
+                                                   id="start_schedule_class_subject_input" 
+                                                   placeholder="<%= Labels.get("scheduled.class.modal.subject_placeholder")%>">
+                                        </div>                                    
+
+                                        <div class="col-3 my-1">
+                                            <label for="start_schedule_class_student_comment_input">
+                                                <%= Labels.get("scheduled.class.modal.student_comment")%>
+                                            </label>
+                                        </div>
+                                        <div class="col-9 my-1">
+                                            <textarea rows="5" class="form-control" name="start_schedule_class_student_comment_input" 
+                                                      id="start_schedule_class_student_comment_input" 
+                                                      placeholder="<%= Labels.get("scheduled.class.modal.student_comment_placeholder")%>"></textarea>
+                                        </div>                                    
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-7 schedule_class_calendar_div">
+
+                                <div class="column-centered text-center">
+                                    <nav id="schedule_class_week_select" aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item">
+                                                <a  class="page-link" href="javascript:schedule_class_previous_week()" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item">                                                    
+                                                <a class="page-link left_to_right" href="#">
+                                                    <span id="schedule_class_current_week_start"></span>
+                                                    -
+                                                    <span id="schedule_class_current_week_end"></span></a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="javascript:schedule_class_next_week()" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="row no-gutter">
+                                    <div class="mx-auto">
+                                        <table id="schedule_class_calendar_table" class="table table-responsive table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th class="schedule_class_calendar" style="width: 12%">
+                                                    </th>                                        
+                                                    <% for (day = 0; day < 7; day++) {
+
+                                                    %>                                        
+                                                    <th class="schedule_class_calendar"  style="width: 12%">
+                                                        <span><%= dayNamesShort.get(day)%></span>
+                                                        <br/>
+                                                        <span id="schedule_class_day_<%= (day + 1)%>"></span>
+                                                    </th>
+                                                    <% }%>
+                                                <tr/>
+                                            </thead>
+                                            <tbody>
+                                                <%
+                                                    hour = startHour;
+                                                    minute = 0;
+                                                    int rowCount = 0;
+                                                    String cellClass = "";
+                                                    while (hour < endHour) {
+                                                %>  
+                                                <tr>
+                                                    <%
+                                                        if (rowCount == (rowsPerCell - 1)) {
+                                                            cellClass = "schedule_class_row_end";
+                                                        } else {
+                                                            cellClass = "schedule_class_row_middle";
+                                                        }
+                                                        if (rowCount == 0) {
+                                                            cellClass = "schedule_class_row_start";
+                                                    %>
+                                                    <td rowspan="<%= rowsPerCell%>" class="schedule_class_calendar">
+                                                        <%= Utils.formatTime(hour, 0)%>
+                                                    </td>
+                                                    <% } %>
+
+                                                    <% for (day = 0; day < 7; day++) {
+                                                    %>
+                                                    <td data-day="<%=day%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
+                                                        onclick="schedule_class_select_time(this)"
+                                                        class="schedule_class_calendar <%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">
+                                                    </td>                                            
+                                                    <% } %>                                                                                                
+                                                </tr>
+                                                <%
+                                                        rowCount = (rowCount + 1) % rowsPerCell;
+                                                        minute += minutesPerUnit;
+                                                        if (minute == 60) {
+                                                            minute = 0;
+                                                            hour++;
+                                                        }
+                                                    }
+                                                %>
+                                            </tbody>
+                                        </table> 
                                     </div>
                                 </div>
                             </div>
-                            <div id="schedule_class_warning_div" class="alert alert-warning d-none fade show alert-dismissible h6">
-                                <span class="oi" data-glyph="warning"></span>    
-                                <span id="schedule_class_warning"></span>
-                                &nbsp;
-                                <a class="alert-link d-none" id="schedule_class_warning_a"></a>
-                                &nbsp;
-                                <a class="alert-link d-none" id="schedule_class_warning_a_not_logged_in"
-                                   href="javascript:schedule_class_login_clicked()"></a>
-                            </div>
-                            <div id="schedule_class_info_div" class="alert alert-info d-none fade show alert-dismissible h6">
-                                <span class="oi" data-glyph="info"></span>    
-                                <span id="schedule_class_info"></span>
-                            </div>
-                            <div class="modal-footer">                            
-                                <button type="button" class="btn btn-info" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
-                                <button type="button" class="btn btn-success mx-1" onclick="schedule_class_confirm()"><%= Labels.get("scheduled.class.modal.confirm_button")%></button>
-                            </div>
                         </div>
-
+                        <div id="schedule_class_warning_div" class="alert alert-warning d-none fade show alert-dismissible h6">
+                            <span class="oi" data-glyph="warning"></span>    
+                            <span id="schedule_class_warning"></span>
+                            &nbsp;
+                            <a class="alert-link d-none" id="schedule_class_warning_a"></a>
+                            &nbsp;
+                            <a class="alert-link d-none" id="schedule_class_warning_a_not_logged_in"
+                               href="javascript:schedule_class_login_clicked()"></a>
+                        </div>
+                        <div id="schedule_class_info_div" class="alert alert-info d-none fade show alert-dismissible h6">
+                            <span class="oi" data-glyph="info"></span>    
+                            <span id="schedule_class_info"></span>
+                        </div>
+                        <div class="modal-footer">                            
+                            <button type="button" class="btn btn-info" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
+                            <button type="button" class="btn btn-success mx-1" onclick="schedule_class_confirm()"><%= Labels.get("scheduled.class.modal.confirm_button")%></button>
+                        </div>
                     </div>
+
                 </div>
             </div>
-        </div>
+        </div>    
 
         <div class="container">
             <div class="row no-gutters my-1">
@@ -382,7 +381,7 @@
                                 </label>
                                 <select class="form-control" id="find_teachers_available_in_days">
                                     <option value="0" <% if (availableDay
-                                                    == 0) { %> selected <% }%>>
+                                                == 0) { %> selected <% }%>>
                                         <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                     </option>
                                     <%

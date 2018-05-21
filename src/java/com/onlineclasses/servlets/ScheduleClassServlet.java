@@ -133,7 +133,7 @@ public class ScheduleClassServlet extends ServletBase {
 
     private void sendEmail(Student student, Teacher teacher, OClass scheduledClass, Calendar classStart) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
-                + Config.get("website.language") + File.separator + "new_scheduled_class.html";
+                + Config.get("website.language") + File.separator + "new_class.html";
         Utils.info("sending email " + email_name);
 
         String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
