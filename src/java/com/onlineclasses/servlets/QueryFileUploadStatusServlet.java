@@ -27,7 +27,7 @@ public class QueryFileUploadStatusServlet extends ServletBase {
             throws Exception {
         QueryFileUploadRequest queryFileUploadRequest = Utils.gson().fromJson(requestString, QueryFileUploadRequest.class);
 
-        OClass oClass = DB.get(queryFileUploadRequest.scheduled_class_id, OClass.class);
+        OClass oClass = DB.get(queryFileUploadRequest.oclass_id, OClass.class);
         if (oClass == null) {
             return new BasicResponse(-1, "class not found");
         }

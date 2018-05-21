@@ -39,40 +39,45 @@ public class CancelClassServlet extends ServletBase {
 
         User user = getUser(request);
         if (user == null ) {
-            Utils.warning("guest can'f cancel scheduled class id " + cancelClassRequest.scheduled_class_id);
+            Utils.warning("guest can'f cancel scheduled class id " + cancelClassRequest.oclass_id);
             return new BasicResponse(-1, "guest can't cancel class");
         }
         
-        Utils.info(user + " cancel class " +  cancelClassRequest.scheduled_class_id + " comment " + cancelClassRequest.comment);
+        Utils.info(user + " cancel class " +  cancelClassRequest.oclass_id + " comment " + cancelClassRequest.comment);
 
-        OClass scheduledClass  = DB.getOClass(cancelClassRequest.scheduled_class_id);
-        if ( scheduledClass == null ) {
-            Utils.warning("can'd find scheduled class id " + cancelClassRequest.scheduled_class_id);
+        OClass oClass  = DB.getOClass(cancelClassRequest.oclass_id);
+        if ( oClass == null ) {
+            Utils.warning("can'd find scheduled class id " + cancelClassRequest.oclass_id);
             return new BasicResponse(-1, "scheduled class not found");
         }
        
+        if (oClass.status == OClass.STATUS_CANCELCED) {
+            Utils.warning("class" + cancelClassRequest.oclass_id + " already canceled");
+            return new BasicResponse(-1, "class already canceled");
+        }
+        
         Student student = null;
         Teacher teacher = null;
-        if ( user.equals(scheduledClass.student) ) {
+        if ( user.equals(oClass.student) ) {
             student = (Student)user;            
-        } else if ( user.equals(scheduledClass.teacher) ) {
+        } else if ( user.equals(oClass.teacher) ) {
             teacher = (Teacher)user;            
         } else {
-            Utils.warning(user + "can'd cancel on scheduled class id " + cancelClassRequest.scheduled_class_id + ", not student not teacher");
+            Utils.warning(user + "can'd cancel on scheduled class id " + cancelClassRequest.oclass_id + ", not student not teacher");
             return new BasicResponse(-1, "not student not teacher");
         }
               
-        ClassComment scheduledClassComment = new ClassComment();
-        scheduledClassComment.scheduled_class = scheduledClass;
-        scheduledClassComment.student = student;
-        scheduledClassComment.teacher = teacher;
-        scheduledClassComment.comment = "Class canceled. Reason : "+ cancelClassRequest.comment;
-        scheduledClassComment.added = new Date();
-        DB.add(scheduledClassComment);
+        ClassComment oClassComment = new ClassComment();
+        oClassComment.scheduled_class = oClass;
+        oClassComment.student = student;
+        oClassComment.teacher = teacher;
+        oClassComment.comment = "Class canceled. Reason : "+ cancelClassRequest.comment;
+        oClassComment.added = new Date();
+        DB.add(oClassComment);
         
-        DB.updateClassStatus(scheduledClass, OClass.STATUS_CANCELCED);
+        DB.updateClassStatus(oClass, OClass.STATUS_CANCELCED);
                 
-        sendEmail(user, scheduledClass, scheduledClassComment.comment );
+        sendEmail(user, oClass, oClassComment.comment );
         
         return new BasicResponse(0, "");
     }

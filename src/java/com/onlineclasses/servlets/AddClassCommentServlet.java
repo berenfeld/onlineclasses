@@ -37,47 +37,47 @@ public class AddClassCommentServlet extends ServletBase {
         AddClassCommentRequest addClassCommentRequest = Utils.gson().fromJson(requestString, AddClassCommentRequest.class);
 
         User user = getUser(request);
-        if (user == null ) {
-            Utils.warning("guest can'f add comment on scheduled class id " + addClassCommentRequest.scheduled_class_id);
+        if (user == null) {
+            Utils.warning("guest can'f add comment on scheduled class id " + addClassCommentRequest.oclass_id);
             return new BasicResponse(-1, "guest can't add comment");
         }
-        
-        Utils.info(user + " add comment " + addClassCommentRequest.comment + " on class id " + addClassCommentRequest.scheduled_class_id);
 
-        OClass scheduledClass  = DB.getOClass(addClassCommentRequest.scheduled_class_id);
-        if ( scheduledClass == null ) {
-            Utils.warning("can'f find scheduled class id " + addClassCommentRequest.scheduled_class_id);
+        Utils.info(user + " add comment " + addClassCommentRequest.comment + " on class id " + addClassCommentRequest.oclass_id);
+
+        OClass scheduledClass = DB.getOClass(addClassCommentRequest.oclass_id);
+        if (scheduledClass == null) {
+            Utils.warning("can'f find scheduled class id " + addClassCommentRequest.oclass_id);
             return new BasicResponse(-1, "scheduled class not found");
         }
-       
+
         ClassComment scheduledClassComment = new ClassComment();
         scheduledClassComment.comment = addClassCommentRequest.comment;
         scheduledClassComment.scheduled_class = scheduledClass;
-        
-        if ( user.equals(scheduledClass.student) ) {
-            scheduledClassComment.student = (Student)user;            
-        } else if ( user.equals(scheduledClass.teacher) ) {
-            scheduledClassComment.teacher = (Teacher)user;            
+
+        if (user.equals(scheduledClass.student)) {
+            scheduledClassComment.student = (Student) user;
+        } else if (user.equals(scheduledClass.teacher)) {
+            scheduledClassComment.teacher = (Teacher) user;
         } else {
-            Utils.warning(user + "can'f add comment on scheduled class id " + addClassCommentRequest.scheduled_class_id + ", not student not teacher");
+            Utils.warning(user + "can'f add comment on scheduled class id " + addClassCommentRequest.oclass_id + ", not student not teacher");
             return new BasicResponse(-1, "not student not teacher");
         }
-                       
+
         scheduledClassComment.added = new Date();
-        if ( 1 != DB.add(scheduledClassComment) ) {
+        if (1 != DB.add(scheduledClassComment)) {
             Utils.warning("failed to add scheduled class comment");
             return new BasicResponse(-1, "failed to add comment");
         }
-        
+
         Calendar classStart = Calendar.getInstance();
         classStart.setTime(scheduledClass.start_date);
-        
-        sendEmail(user, scheduledClass, classStart, scheduledClassComment.comment );
-        
+
+        sendEmail(user, scheduledClass, classStart, scheduledClassComment.comment);
+
         return new BasicResponse(0, "");
     }
-    
-     private void sendEmail(User commentator, OClass scheduledClass, Calendar classStart, String comment) throws Exception {
+
+    private void sendEmail(User commentator, OClass scheduledClass, Calendar classStart, String comment) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "class_added_comment.html";
         Utils.info("sending email " + email_name);

@@ -18,5 +18,5 @@ public class AddClassCommentRequest extends BasicRequest {
     }
     
     public String comment;       
-    public int scheduled_class_id;
+    public int oclass_id;
 }

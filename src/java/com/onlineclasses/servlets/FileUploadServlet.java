@@ -12,13 +12,20 @@ import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.OClass;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.Config;
+import com.onlineclasses.utils.EmailSender;
+import com.onlineclasses.utils.Labels;
+import com.onlineclasses.utils.TasksManager;
 import com.onlineclasses.utils.Utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -52,7 +59,7 @@ public class FileUploadServlet extends HttpServlet {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
 
-            int scheduledClassId = Utils.parseInt(request.getParameter("scheduled_class_id"));
+            int scheduledClassId = Utils.parseInt(request.getParameter("oclass_id"));
             String comment = request.getParameter("scheduled_class_attach_file_comment");
             Part filePart = request.getPart("scheduled_class_attach_file_input");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
@@ -78,7 +85,7 @@ public class FileUploadServlet extends HttpServlet {
             attachedFile.uploaded = 0;
             attachedFile.removed = false;
             attachedFile.comment = comment;
-            
+
             if (user.equals(oclass.student)) {
                 attachedFile.student = (Student) user;
             } else if (user.equals(oclass.teacher)) {
@@ -137,10 +144,35 @@ public class FileUploadServlet extends HttpServlet {
             attachedFile.uploaded = written;
             DB.updateAttachedFileUploadedBytes(attachedFile);
 
+            sendEmail(user, oclass, attachedFile);
             Utils.info("upload file done file " + fileName + " size " + fileSize);
         } catch (Exception ex) {
             Utils.exception(ex);
         }
+    }
+
+    private void sendEmail(User uploader, OClass oClass, AttachedFile attachedFile) throws Exception {
+        String email_name = Config.get("mail.emails.path") + File.separator
+                + Config.get("website.language") + File.separator + "class_added_file.html";
+        Utils.info("sending email " + email_name);
+
+        Calendar classStart = Calendar.getInstance();
+        classStart.setTime(oClass.start_date);
+
+        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
+
+        emailContent = emailContent.replaceAll("<% commentator %>", uploader.display_name);
+        emailContent = emailContent.replaceAll("<% fileName %>", attachedFile.name);
+        emailContent = emailContent.replaceAll("<% comment %>", attachedFile.comment);
+        emailContent = emailContent.replaceAll("<% classDay %>", Utils.dayNameLong(classStart.get(Calendar.DAY_OF_WEEK)) + " " + new SimpleDateFormat("dd/MM/YYYY").format(oClass.start_date));
+        emailContent = emailContent.replaceAll("<% classTime %>", new SimpleDateFormat("HH:mm").format(oClass.start_date));
+        emailContent = emailContent.replaceAll("<% scheduledClassLink %>", Config.get("website.url") + "/scheduled_class?id=" + oClass.id);
+        emailContent = emailContent.replaceAll("<% gotoClass %>", Labels.get("emails.new_scheduled_class.goto_class"));
+        emailContent = emailContent.replaceAll("<% classSubject %>", oClass.subject);
+
+        List<User> to = Arrays.asList(oClass.student, oClass.teacher);
+        EmailSender.addEmail(to, Labels.get("emails.scheduled_class_added_comment.title"), emailContent);
+        TasksManager.runNow(TasksManager.TASK_EMAIL);
     }
 
     @Override

@@ -132,7 +132,7 @@
                             <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>   
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="scheduled_class_id" value="<%= oClass.id%>">
+                            <input type="hidden" name="oclass_id" value="<%= oClass.id%>">
                             <div class="form-group row">                                 
                                 <div id="scheduled_class_attach_file_button_wrapper" class="col-4">                                
                                     <input type="file" name="scheduled_class_attach_file_input"

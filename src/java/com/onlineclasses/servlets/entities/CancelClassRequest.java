@@ -16,6 +16,6 @@ public class CancelClassRequest extends BasicRequest {
     {
         
     }     
-    public int scheduled_class_id;
+    public int oclass_id;
     public String comment;
 }

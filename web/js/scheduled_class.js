@@ -18,7 +18,7 @@ function scheduled_class_add_comment_ok(comment)
     }
     text_input_modal_show_info(online_classes.clabels[ "scheduled.class.comments.modal.adding_comment"]);
     var request = {};
-    request.scheduled_class_id = scheduled_class.scheduled_class.id;
+    request.oclass_id = scheduled_class.scheduled_class.id;
     request.comment = comment;
     $.ajax("servlets/add_class_comment",
             {
@@ -80,7 +80,7 @@ function scheduled_class_check_file_status_response(response)
 function scheduled_class_check_file_status()
 {
     var request = {};
-    request.scheduled_class_id = scheduled_class.scheduled_class.id;
+    request.oclass_id = scheduled_class.scheduled_class.id;
     request.file_name = scheduled_class.file_name;
 
     $.ajax("servlets/query_file_upload_status",
@@ -93,6 +93,11 @@ function scheduled_class_check_file_status()
 }
 function scheduled_class_submit_file()
 {
+    if (scheduled_class.file_name === null) {
+        $("#scheduled_class_attach_file_info_div").removeClass("d-none");
+        $("#scheduled_class_attach_file_info_text").html(online_classes.clabels["scheduled.class.attach_file.please_choose_file"]);
+        return;
+    }
     $("#scheduled_class_attach_file_info_div").removeClass("d-none");
     $("#scheduled_class_attach_file_info_text").html(online_classes.clabels["scheduled.class.attach_file.uploading_file"]);
     $("#scheduled_class_attach_file_submit_button").attr("disabled", true);
@@ -103,7 +108,7 @@ function scheduled_class_submit_file()
 function scheduled_class_cancel_class_response(response)
 {
     if (response.rc !== 0) {
-        text_input_modal_show_info("failed to cancel class");
+        text_input_modal_show_info(online_classes.clabels["scheduled.class.cancel_class.failed_to_cancel_class"]);
         return;
     }
     text_input_modal_show_info(online_classes.clabels["scheduled.class.cancel_class.class_canceled"]);
@@ -116,9 +121,9 @@ function scheduled_class_cancel_class_ok(comment)
         text_input_modal_show_info(online_classes.clabels[ "scheduled.class.cancel_class.comment_empty" ]);
         return;
     }
-    text_input_modal_show_info("calceling class request sent");
+    text_input_modal_show_info(online_classes.clabels[ "scheduled.class.cancel_class.canceling_class" ]);
     var request = {};
-    request.scheduled_class_id = scheduled_class.scheduled_class.id;
+    request.oclass_id = scheduled_class.scheduled_class.id;
     request.comment = comment;
     $.ajax("servlets/cancel_class",
             {
@@ -138,6 +143,7 @@ function schedule_class_cancel_click()
 
 function scheduled_class_init()
 {
+    scheduled_class.file_name = null;
     var today = new Date();
     var start_date = new Date(Date.parse(scheduled_class.scheduled_class.start_date));
     var remainingMs = start_date.getTime() - today.getTime();
