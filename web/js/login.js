@@ -10,7 +10,7 @@ function login_showLoginDialog()
 function login_googleLoggedIn(googleUser)
 {
     if (login.reason === "login_modal") {                        
-        $("#login_modal_info_text").html(online_classes.clabels["login.progress.start"]);
+        $("#login_modal_info_text").html(oc.clabels["login.progress.start"]);
         $("#login_modal_info_div").removeClass("d-none");
         
         var request = {};
@@ -29,7 +29,7 @@ function login_loginRequestComplete(response)
 {
     if (response.rc === 0)
     {
-        $("#login_modal_info_text").html(online_classes.clabels["login.progress.success"]);
+        $("#login_modal_info_text").html(oc.clabels["login.progress.success"]);
         $("#login_modal_info_div").removeClass("d-none");
         reloadAfter(1);
     }    
@@ -64,8 +64,8 @@ function logout_logoutRequestComplete(response)
 
 function login_logoutFromNavBar()
 {
-    confirm_show(online_classes.clabels[ "website.logout.confirm.title" ],
-            online_classes.clabels[ "website.logout.confirm.message" ],
+    confirm_show(oc.clabels[ "website.logout.confirm.title" ],
+            oc.clabels[ "website.logout.confirm.message" ],
             login_logoutFromNavBarConfirmed);
 }
 
@@ -83,7 +83,7 @@ function login_logoutFromNavBarConfirmed()
 
 function login_init()
 {
-    login.user = online_classes.user;
+    login.user = oc.user;
 
     google_addUserLoggedinCallback(login_googleLoggedIn);
     google_addUserLoggedOutCallback(login_googleLoggedOut);

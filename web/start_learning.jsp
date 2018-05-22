@@ -363,9 +363,9 @@
     <%@include file="footer.jsp" %>    
 
     <script>
-        online_classes.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
-        online_classes.institutes = <%= Utils.gson().toJson(institutes)%>;
-        online_classes.subjects = <%= Utils.gson().toJson(subjects)%>;
+        oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
+        oc.institutes = <%= Utils.gson().toJson(institutes)%>;
+        oc.subjects = <%= Utils.gson().toJson(subjects)%>;
     </script>
 
 </body>

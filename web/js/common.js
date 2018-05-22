@@ -84,9 +84,9 @@ function parseRemainingMs(remainingMs) {
     minutes = minutes - (hours * 60);
     hours = hours - (days * 24);
 
-    return days + " " + online_classes.clabels[ "language.days" ] + ", " +
-            hours + " " + online_classes.clabels[ "language.hours" ] + ", " +
-            minutes + " " + online_classes.clabels[ "language.minutes" ];
+    return days + " " + oc.clabels[ "language.days" ] + ", " +
+            hours + " " + oc.clabels[ "language.hours" ] + ", " +
+            minutes + " " + oc.clabels[ "language.minutes" ];
 }
 
 function emailIsValid(email) {
@@ -121,12 +121,12 @@ function invite_other_student()
 function invite_other_student_response(response)
 {
     if (response.rc === 0) {
-        alert_show(online_classes.clabels["invite_friend.sent.modal.title"],
-                online_classes.clabels["invite_friend.sent.modal.text1"] +
+        alert_show(oc.clabels["invite_friend.sent.modal.title"],
+                oc.clabels["invite_friend.sent.modal.text1"] +
                 " " +
                 common.invite_student.name +
                 " " +
-                online_classes.clabels["invite_friend.sent.modal.text2"] +
+                oc.clabels["invite_friend.sent.modal.text2"] +
                 " " +
                 common.invite_student.email
                 );
@@ -152,13 +152,13 @@ function invite_other_student_send()
     invite_other_student_modal_hide();
 
     if (!emailIsValid(request.student_email)) {
-        $("#invite_other_student_warning_text").html(online_classes.clabels[ "invite_friend.sent.modal.invalid_email" ]);
+        $("#invite_other_student_warning_text").html(oc.clabels[ "invite_friend.sent.modal.invalid_email" ]);
         $("#invite_other_student_warning").removeClass("d-none");
         return;
     }
     if (!stringNotEmpty(request.student_name))
     {
-        $("#invite_other_student_warning_text").html(online_classes.clabels[ "invite_friend.sent.modal.invalid_name" ]);
+        $("#invite_other_student_warning_text").html(oc.clabels[ "invite_friend.sent.modal.invalid_name" ]);
         $("#invite_other_student_warning").removeClass("d-none");
         return;
     }
@@ -180,11 +180,24 @@ function appendToSearchString(search_string, token)
     }
     return search_string;
 }
+
+function start_teaching()
+{
+    alert_show( oc.clabels["navbar.start_teaching.title"], 
+        oc.clabels["navbar.start_teaching.text"] + createEmailAnchor(oc.clabels["website.admin.email"]));
+}
+
+function createEmailAnchor(email)
+{
+    return "<a href='mailto:" + email + "'>" + email + "</a>";
+}
+
 function common_init()
 {
     $(".modal").draggable({
         handle: "div.modal-header"
     });
 }
+
 
 common_init();

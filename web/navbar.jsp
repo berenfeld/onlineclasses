@@ -54,7 +54,7 @@
                     
                 </li>
                 <li class="nav-item"><a class="nav-link" href="find_teachers"><%= Labels.get("navbar.find.teachers")%></a></li>
-
+                <li class="nav-item"><a class="nav-link" href="javascript:start_teaching()"><%= Labels.get("navbar.start.teaching")%></a></li>
             </ul>
             <ul class="navbar-nav mr-auto">  
                 <% if (user == null) {%>                 

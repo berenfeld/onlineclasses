@@ -21,11 +21,11 @@
 <script src="https://apis.google.com/js/platform.js?onload=google_loaded" async defer></script>
 
 <script>
-    online_classes = {};
-    online_classes.user = <%= userGson %>;
-    online_classes.clabels = <%= Utils.gson().toJson(CLabels.getAll()) %>;    
-    online_classes.cconfig = <%= Utils.gson().toJson(CConfig.getAll()) %>;
-    online_classes.parameters = <%= parametersJson %>;
+    var oc = {};
+    oc.user = <%= userGson %>;
+    oc.clabels = <%= Utils.gson().toJson(CLabels.getAll()) %>;    
+    oc.cconfig = <%= Utils.gson().toJson(CConfig.getAll()) %>;
+    oc.parameters = <%= parametersJson %>;
 </script>
 
 <script src="js/lib/md5.js"></script>
