@@ -19,6 +19,7 @@ import com.onlineclasses.db.orm.OClass_DB;
 import com.onlineclasses.db.orm.Student_DB;
 import com.onlineclasses.db.orm.Subject_DB;
 import com.onlineclasses.db.orm.Teacher_DB;
+import com.onlineclasses.db.orm.Topic_DB;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.Email;
 import com.onlineclasses.entities.GoogleUser;
@@ -31,6 +32,7 @@ import com.onlineclasses.entities.ClassComment;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
+import com.onlineclasses.entities.Topic;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.Utils;
@@ -133,6 +135,7 @@ public class DB {
     private static AttachedFile_DB _attachedFile_DB;
     private static Payment_DB _payment_DB;
     private static Subject_DB _subject_DB;
+    private static Topic_DB _topic_DB;
 
     private static final Map<Class, Base_DB> ORM_ENTITIES = new HashMap<>();
 
@@ -151,6 +154,7 @@ public class DB {
         _attachedFile_DB = new AttachedFile_DB(_connectionSource);
         _payment_DB = new Payment_DB(_connectionSource);
         _subject_DB = new Subject_DB(_connectionSource);
+        _topic_DB = new Topic_DB(_connectionSource);
 
         ORM_ENTITIES.put(Student.class, _student_db);
         ORM_ENTITIES.put(Teacher.class, _teacher_db);
@@ -164,6 +168,7 @@ public class DB {
         ORM_ENTITIES.put(AttachedFile.class, _attachedFile_DB);
         ORM_ENTITIES.put(Payment.class, _payment_DB);
         ORM_ENTITIES.put(Subject.class, _subject_DB);
+        ORM_ENTITIES.put(Topic.class, _topic_DB);
     }
 
     public static Connection getConnection() throws SQLException {

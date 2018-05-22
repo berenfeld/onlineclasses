@@ -94,9 +94,8 @@
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
                 <div class="modal-title"> 
-                    <h6>
-                        <%= Labels.get("invite_other_student.modal.title")%>                            
-                    </h6>
+                    <span class="oi mx-1" data-glyph="envelope-closed"></span>                
+                    <%= Labels.get("invite_other_student.modal.title")%>                            
                 </div>
                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
@@ -123,13 +122,11 @@
                                    placeholder="<%= Labels.get("invite_other_student.form.email")%>">
                         </div>
                     </div>
-                </form>
-
-                <div class="alert alert-warning d-none" role="alert" id="invite_other_student_warning">                    
-                    <span class="oi" data-glyph="warning"></span>
-                    <span id="invite_other_student_warning_text"></span>
-                    <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
-                </div>
+                </form>                
+            </div>
+            <div class="alert alert-warning d-none" role="alert" id="invite_other_student_warning">                    
+                <span class="oi" data-glyph="warning"></span>
+                <span id="invite_other_student_warning_text"></span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info mx-1" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>

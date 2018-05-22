@@ -35,6 +35,9 @@
 <html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
     <head>
         <%@include file="header.jsp" %>
+        <title>
+            <%= Labels.get("find_teachers.title")%>
+        </title>
         <link rel="stylesheet" href="css/find_teachers.css">
     </head>
     <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">

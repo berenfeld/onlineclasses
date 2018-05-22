@@ -115,6 +115,7 @@ function isNumberKey(event)
 
 function invite_other_student()
 {
+    $("#invite_other_student_warning").addClass("d-none");
     $("#invite_other_student_modal").modal("show");
 }
 function invite_other_student_response(response)

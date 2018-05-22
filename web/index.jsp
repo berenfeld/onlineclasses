@@ -3,6 +3,9 @@
 <html lang="<%= Config.get("website.html_language") %>" dir="<%= Config.get("webiste.direction") %>">
     <head>
         <%@include file="header.jsp" %>
+        <title>
+            <%= Labels.get("mainpage.title")%>
+        </title>
     </head>
     <body lang="<%= Config.get("website.html_language") %>" dir="<%= Config.get("webiste.direction") %>">
         <%@include file="body.jsp" %>    
