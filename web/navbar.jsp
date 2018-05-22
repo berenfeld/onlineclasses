@@ -37,7 +37,7 @@
                         <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="abous_us">
                             <%= Labels.get("navbar.about.us.who.we.are")%>
                         </a>
                         <a class="dropdown-item" href="javascript:invite_other_student()"><%= Labels.get("navbar.about.us.invite_student")%></a>
@@ -110,4 +110,3 @@
         </div>
     </nav>
 </div>
-

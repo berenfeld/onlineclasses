@@ -38,20 +38,20 @@
         <%@include file="body.jsp" %>    
 
         <div class="container">
-
-            <div class="card my-1">
-                <div class="card-header text-secondary">
-                    <h5>
-                        <%= Labels.get("start_learning.title1")%>    
-                    </h5>
-                    <p>
-                        <%= Labels.get("start_learning.text1")%>       
-                        <br/>
-                        <%= Labels.get("start_learning.text2")%>       
-                    </p>
-                </div>
-            </div>
+            <div class="row no-gutters my-1">
             <form>
+                <div class="card my-1">
+                    <div class="card-header text-secondary">
+                        <h5>
+                            <%= Labels.get("start_learning.title1")%>    
+                        </h5>
+                        <p>
+                            <%= Labels.get("start_learning.text1")%>       
+                            <br/>
+                            <%= Labels.get("start_learning.text2")%>       
+                        </p>
+                    </div>
+                </div>
                 <div class="card my-1">
                     <div class="card-header bg-secondary text-white">
 
@@ -355,15 +355,19 @@
                     </div>
                 </div>
             </form>
-            <%@include file="footer.jsp" %>    
-
-            <script>
-                online_classes.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
-                online_classes.institutes = <%= Utils.gson().toJson(institutes)%>;
-                online_classes.subjects = <%= Utils.gson().toJson(subjects)%>;
-            </script>
+            </div>
         </div>
 
-    </body>
+    </div>
+
+    <%@include file="footer.jsp" %>    
+
+    <script>
+        online_classes.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
+        online_classes.institutes = <%= Utils.gson().toJson(institutes)%>;
+        online_classes.subjects = <%= Utils.gson().toJson(subjects)%>;
+    </script>
+
+</body>
 
 </html>

@@ -342,9 +342,9 @@
             </div>
         </div>    
 
-        <div class="container">
+        <div class="container">   
             <div class="row no-gutters my-1">
-                <div class="card text-white bg-secondary col-xl-3 col-lg-3">
+                 <div class="card text-white bg-secondary col-xl-3 col-lg-3">
                     <div class="card-body">
                         <h6 class="card-title">                        
                             <%= Labels.get("find_teachers.sidebar.title")%>                                
@@ -383,7 +383,7 @@
                                     <%= Labels.get("find_teachers.sidebar.available_in_days")%>           
                                 </label>
                                 <select class="form-control" id="find_teachers_available_in_days">
-                                    <option value="0" <% if (availableDay
+                                        <option value="0" <% if (availableDay
                                                 == 0) { %> selected <% }%>>
                                         <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                     </option>
@@ -510,8 +510,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <%@include file="footer.jsp" %>    
+            <%@include file="footer.jsp" %>    
     </body>
 
 </html>
