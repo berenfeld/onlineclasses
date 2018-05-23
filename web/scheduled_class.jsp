@@ -182,7 +182,7 @@
     </div>
 
     <div class="container">   
-        <div class="row no-gutter">
+        <div class="row no-gutters">
             <div class="col-xl-4 col-lg-4">                        
                 <div class="card my-2">
                     <div class="card-header h5">

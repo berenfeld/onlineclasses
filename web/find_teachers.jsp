@@ -24,13 +24,13 @@
     int rowsPerCell = minutesPerRow / minutesPerUnit;
 
     Utils.debug("user " + BaseServlet.getUser(request) + " find teachers");
-    
+
     Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
-    
+
     List<Teacher> teachers = DB.findTeachers(minPrice, maxPrice, displayName);
     for (Teacher teacher : teachers) {
         teacher.available_time = DB.getTeacherAvailableTime(teacher);
-        teacher.teaching_topics = DB.getTeacherTeachingTopics(teacher);                
+        teacher.teaching_topics = DB.getTeacherTeachingTopics(teacher);
         for (TeachingTopic teachingTopic : teacher.teaching_topics) {
             teachingTopic.topic = allTopics.get(teachingTopic.topic.id);
         }
@@ -104,7 +104,7 @@
                         <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>
                     </div>
                     <div class="modal-body">
-                        <div class="row no-gutter">
+                        <div class="row no-gutters">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
                                 <form>
                                     <div class="form-group row">
@@ -264,7 +264,7 @@
                                         </ul>
                                     </nav>
                                 </div>
-                                <div class="row no-gutter">
+                                <div class="row no-gutters">
                                     <div class="mx-auto">
                                         <table id="schedule_class_calendar_table" class="table table-responsive table-sm">
                                             <thead>
@@ -392,8 +392,8 @@
                                     <%= Labels.get("find_teachers.sidebar.available_in_days")%>           
                                 </label>
                                 <select class="form-control" id="find_teachers_available_in_days">
-                                        <option value="0" <% if (availableDay
-                                                == 0) { %> selected <% }%>>
+                                    <option value="0" <% if (availableDay
+                                                    == 0) { %> selected <% }%>>
                                         <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                     </option>
                                     <%
@@ -437,32 +437,21 @@
                             <%= Labels.get("find_teachers.list.title")%>
                         </h6>
 
-                        <table class="table table-striped table-responsive table-borderless table-hover table-sm">
-                            <thead>
-                            <th style="width: 25%">
-                                <%= Labels.get("find_teachers.list.header.teacher_name")%>
-                            </th>
-                            <th style="width: 50%">
-                                <%= Labels.get("find_teachers.list.header.teacher_details")%>
-                            </th>
-                            <th style="width: 25%">
-                                <%= Labels.get("find_teachers.list.header.price_and_actions")%>
-                            </th>
-                            </thead>
-                            <tbody>
-                                <%
-                                    for (Teacher teacher : teachers) {
-                                %>
-                                <tr>
-                                    <td>
-                                        <figure class="figure mx-1 my-1">
-                                            <img src="<%= teacher.image_url%>" class="img-responsive figure-img rounded"/>
-                                            <figcaption class="figure-caption text-center">
+                        <%
+                            for (Teacher teacher : teachers) {
+                        %>
+                        <div class="card my-2">
+                            <div class="card-body">
+                                <div class="row no-gutters">      
+                                    <div class="col-3">
+                                        <figure class="figure h5">
+                                            <figcaption class="figure-caption text-center my-1">
                                                 <%= teacher.display_name%>
                                             </figcaption>
+                                            <img src="<%= teacher.image_url%>" class="border border-success img-responsive figure-img rounded mx-1 my-1"/>
                                         </figure>
-                                    </td>
-                                    <td>
+                                    </div>
+                                    <div class="col-6">
                                         <cite>
                                             <%= teacher.moto%>
                                         </cite>
@@ -496,7 +485,7 @@
                                                             %>  
                                                         </p>   
                                                     </div>
-                                                        <div class="col">
+                                                    <div class="col">
                                                         <h5>
                                                             <%= Labels.get("find_teachers.list.body.teaching_topics")%>                                                    
                                                         </h5>
@@ -505,7 +494,7 @@
                                                                 for (TeachingTopic teachingTopic : teacher.teaching_topics) {
                                                             %>
 
-                                                            <%= teachingTopic.topic.name %>                                                            
+                                                            <%= teachingTopic.topic.name%>                                                            
                                                             <br/>
                                                             <%
                                                                 }
@@ -515,9 +504,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-3">
 
-                                    </td>
-                                    <td>
                                         <h6 class="text-secondary">
                                             <%= Labels.get("find_teachers.list.body.price_per_hour")%>
                                             &nbsp;:&nbsp;
@@ -529,14 +518,14 @@
                                                 onclick="schedule_class_button_clicked()" class="btn btn-success">
                                             <%= Labels.get("find_teachers.list.body.schedule_class_button")%>
                                         </button>
-                                    </td>
-                                </tr>
-                                <%
-                                    }
-                                %>
-                            </tbody>
-                        </table>
+                                    </div>
+                                </div>
 
+                            </div>
+                        </div>
+                        <%
+                            }
+                        %>
                     </div>
                 </div>
             </div>

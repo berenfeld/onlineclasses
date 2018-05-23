@@ -105,7 +105,7 @@
                             </label>
 
                             <div class="col-6 col-lg-3 my-1">
-                                <div class="row no-gutter">
+                                <div class="row no-gutters">
                                     <div class="col">
                                         <input type="radio" checked class="form-check form-check-inline" 
                                                value="<%= Config.get("website.gender.male")%>" 
@@ -127,7 +127,7 @@
 
                             <div class="col-12 col-lg-6 col-xl-6 my-1">
 
-                                <div class="row no-gutter">
+                                <div class="row no-gutters">
                                     <label class="col-form-label col" for="start_learning_phone_number_input">
                                         <%= Labels.get("start_learning.form.login.phone_number")%>
                                     </label>
