@@ -72,7 +72,7 @@ public class EmailSender extends BaseTask {
             Utils.exception(ex);
             return;
         }
-        if (1 != DB.deleteEmail(emailToSend)) {
+        if (1 != DB.delete(emailToSend)) {
             Utils.warning("failed to delete email id " + emailToSend.id + " to " + emailToSend.to);
         }
     }
@@ -83,7 +83,7 @@ public class EmailSender extends BaseTask {
         email.subject = subject;
         email.message = message;
 
-        if (1 != DB.addEmail(email)) {
+        if (1 != DB.add(email)) {
             Utils.warning("failed to add email id " + email.id + " to " + email.to );
         }
 

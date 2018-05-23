@@ -246,24 +246,8 @@ public class DB {
         return _teacher_db.get(id);
     }
 
-    public static int addStudent(Student student) throws SQLException {
-        return _student_db.add(student);
-    }
-
-    static void addTeacher(Teacher teacher) throws SQLException {
-        _teacher_db.add(teacher);
-    }
-
     public static List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName) {
         return _teacher_db.findTeachers(minPrice, maxPrice, displayName);
-    }
-
-    public static void addAvailableTime(AvailableTime availableTime) throws SQLException {
-        _availableTime_db.add(availableTime);
-    }
-
-    public static void addInstituteType(InstituteType instituteType) throws SQLException {
-        _instituteType_db.add(instituteType);
     }
 
     public static List<AvailableTime> getTeacherAvailableTime(Teacher teacher) throws SQLException {
@@ -282,10 +266,6 @@ public class DB {
         return _institute_db.getInstitutes(instituteType);
     }
 
-    public static int addScheduledClass(OClass scheduledClass) throws SQLException {
-        return _oclass_db.add(scheduledClass);
-    }
-
     public static List<OClass> getTeacherScheduledClasses(Teacher teacher) throws SQLException {
         return _oclass_db.getTeacherNotCanceledScheduledClasses(teacher);
     }
@@ -297,14 +277,6 @@ public class DB {
         return scheduledClass;
     }
 
-    public static int deleteEmail(Email email) throws SQLException {
-        return _email_db.delete(email);
-    }
-
-    public static int addEmail(Email email) throws SQLException {
-        return _email_db.add(email);
-    }
-
     public static int updateUserEmailEnabled(Student student) throws SQLException {
         return _student_db.updateEmailEnabled(student);
     }
@@ -313,16 +285,8 @@ public class DB {
         return _googleUser_db.getGoogleUserByEmail(email);
     }
 
-    public static int addGoogleUser(GoogleUser googleUser) throws SQLException {
-        return _googleUser_db.add(googleUser);
-    }
-
     public static List<OClass> getStudentUpcomingClasses(Student student) throws SQLException {
         return _oclass_db.getStudentUpcomingClasses(student);
-    }
-
-    public static int addScheduledClassComment(ClassComment scheduledClassComment) throws SQLException {
-        return _classComment_DB.add(scheduledClassComment);
     }
 
     public static <T> int add(T t) throws SQLException {

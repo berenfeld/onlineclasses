@@ -51,7 +51,7 @@ public class TestDB {
         student.gender = User.GENDER_MALE;
         student.emails_enabled = true;
         
-        DB.addStudent(student);
+        DB.add(student);
     }
 
     public static void addTeachers() throws Exception {
@@ -68,7 +68,7 @@ public class TestDB {
         teacher.phone_number = "7476526";
         teacher.registered = new Date();
         teacher.gender = User.GENDER_FEMALE;        
-        DB.addTeacher(teacher);
+        DB.add(teacher);
 
         AvailableTime availableTime = new AvailableTime();
         availableTime.teacher = teacher;
@@ -80,7 +80,7 @@ public class TestDB {
 
         for (int i = 1; i <= 5; i++) {
             availableTime.day = i;
-            DB.addAvailableTime(availableTime);
+            DB.add(availableTime);
         }
 
         Random random = new Random();
@@ -99,7 +99,7 @@ public class TestDB {
             teacher.phone_number = "7476526";
             teacher.registered = new Date();
             teacher.gender = User.GENDER_FEMALE;
-            DB.addTeacher(teacher);
+            DB.add(teacher);
 
             int minutesUnit = CConfig.getInt("website.time.unit.minutes");
             int startWorkingHour = CConfig.getInt("website.time.start_working_hour");
@@ -114,7 +114,7 @@ public class TestDB {
                 availableTime.start_minute = random.nextInt(unitsInHour) * minutesUnit;
                 availableTime.end_hour = availableTime.start_hour + random.nextInt(7) + 1;
                 availableTime.end_minute = random.nextInt(unitsInHour) * minutesUnit;
-                DB.addAvailableTime(availableTime);
+                DB.add(availableTime);
             }
         }
     }
@@ -126,7 +126,7 @@ public class TestDB {
         InstituteType instituteType = new InstituteType();
         for (String instituteTypeName : instituteTypeList) {
             instituteType.name = instituteTypeName;
-            DB.addInstituteType(instituteType);
+            DB.add(instituteType);
         }
     }
 

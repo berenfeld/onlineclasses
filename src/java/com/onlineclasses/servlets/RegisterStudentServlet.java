@@ -68,7 +68,7 @@ public class RegisterStudentServlet extends BaseServlet {
             registeringStudent.subject_name = registerStudentRequest.subject_name;
         }
 
-        if (DB.addStudent(registeringStudent) != 1) {
+        if (DB.add(registeringStudent) != 1) {
             Utils.warning("Could not add user " + registeringStudent.display_name);
             return new BasicResponse(-1, "user is already registered");
         }

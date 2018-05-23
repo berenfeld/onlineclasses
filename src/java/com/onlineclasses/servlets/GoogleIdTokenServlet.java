@@ -90,7 +90,7 @@ public class GoogleIdTokenServlet extends BaseServlet {
             GoogleUser fromDB = DB.getGoogleUserByEmail(googleUser.email);
             if ( fromDB == null) {
                 Utils.info("google login from new email " + googleUser.email);            
-                DB.addGoogleUser(googleUser);
+                DB.add(googleUser);
             }
             
         }
