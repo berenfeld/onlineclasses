@@ -430,13 +430,13 @@
 
                         <table class="table table-striped table-responsive table-borderless table-hover table-sm">
                             <thead>
-                            <th style="width: 20%">
+                            <th style="width: 25%">
                                 <%= Labels.get("find_teachers.list.header.teacher_name")%>
                             </th>
-                            <th style="width: 60%">
+                            <th style="width: 50%">
                                 <%= Labels.get("find_teachers.list.header.teacher_details")%>
                             </th>
-                            <th style="width: 20%">
+                            <th style="width: 25%">
                                 <%= Labels.get("find_teachers.list.header.price_and_actions")%>
                             </th>
                             </thead>
@@ -446,8 +446,8 @@
                                 %>
                                 <tr>
                                     <td>
-                                        <figure class="figure">
-                                            <img src="<%= teacher.image_url%>" class="img-fluid figure-img rounded"/>
+                                        <figure class="figure mx-1 my-1">
+                                            <img src="<%= teacher.image_url%>" class="img-responsive figure-img rounded"/>
                                             <figcaption class="figure-caption text-center">
                                                 <%= teacher.display_name%>
                                             </figcaption>

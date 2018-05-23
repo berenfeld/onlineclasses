@@ -58,6 +58,10 @@ public class ScheduleClassServlet extends ServletBase {
             return new BasicResponse(-1, "can't schedule class");
         }
 
+        if (student.email.equals(teacher.email)) {
+            Utils.warning("student " + student.display_name + " can't schedule with himself");            
+            return new BasicResponse(-1, "can't schedule class");
+        }
         Calendar now = Calendar.getInstance();
         Calendar classStart = Calendar.getInstance();
         classStart.setTime(scheduleClassRequest.start_date);

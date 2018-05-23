@@ -11,6 +11,7 @@ import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
+import com.onlineclasses.entities.Topic;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.CConfig;
 import com.onlineclasses.utils.Labels;
@@ -28,11 +29,12 @@ public class TestDB {
 
     public static void create() throws Exception {
         Utils.warning("using test database");
-        addStudents();
-        addTeachers();
+        addStudents();        
         addInstituteTypes();
         addInstitutes();
         addSubjects();
+        addTopics();
+        addTeachers();
     }
 
     public static void addStudents() throws Exception {
@@ -150,5 +152,24 @@ public class TestDB {
             subject.name = subjectName;
             DB.add(subject);
         }
+    }
+    
+    private static void addTopics() throws SQLException
+    {
+        List<Subject> subjects = DB.getAll(Subject.class);
+        int i=1;
+        for (Subject subject : subjects)
+        {
+            String topics = Labels.get("db.topics." + i);
+            List<String> topicNames = Utils.toList(topics);
+            for (String topicName : topicNames)
+            {
+                Topic topic = new Topic();
+                topic.name = topicName;
+                topic.subject = subject;
+                DB.add(topic);
+            }
+            i++;
+        }        
     }
 }

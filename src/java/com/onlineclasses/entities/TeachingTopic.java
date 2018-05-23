@@ -7,8 +7,11 @@ package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
 
-public class Subject extends BasicEntity {
+public class TeachingTopic extends BasicEntity {
         
-    @DatabaseField(canBeNull = false)
-    public String name;         
+    @DatabaseField(foreign = true)
+    public Topic topic;
+    
+    @DatabaseField(foreign = true)
+    public Teacher teacher;
 }

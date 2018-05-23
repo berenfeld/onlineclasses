@@ -91,7 +91,6 @@ public class DB {
     public static void init() {
         try {
             Context initialContext = new InitialContext();
-            Context context = (Context) initialContext.lookup("java:comp/env");
             String dbUser = Config.get("db.username");
             String dbPassword = Config.get("db.password");
             String dbName = Config.get("db.name");
@@ -115,12 +114,8 @@ public class DB {
     }
 
     public static void close() {
-        try {
-            _dataSource.close();
-            _connectionSource.close();
-        } catch (IOException ex) {
-            Utils.exception(ex);
-        }
+        _dataSource.close();
+        _connectionSource.close();
     }
 
     private static Student_DB _student_db;

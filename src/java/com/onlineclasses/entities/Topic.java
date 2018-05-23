@@ -8,10 +8,10 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 
 public class Topic extends BasicEntity {
-        
-    @DatabaseField
-    public String name;         
-    
-    @DatabaseField(foreign = true)
+
+    @DatabaseField(canBeNull = false)
+    public String name;
+
+    @DatabaseField(foreign = true, canBeNull = false)
     public Subject subject;
 }
