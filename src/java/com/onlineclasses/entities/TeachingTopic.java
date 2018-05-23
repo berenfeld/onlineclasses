@@ -8,10 +8,11 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 
 public class TeachingTopic extends BasicEntity {
-        
+            
     @DatabaseField(foreign = true)
     public Topic topic;
     
-    @DatabaseField(foreign = true)
+    public static final String TEACHER_ID_COLUMN = "teacher_id";
+    @DatabaseField(foreign = true, columnName = TEACHER_ID_COLUMN)
     public Teacher teacher;
 }

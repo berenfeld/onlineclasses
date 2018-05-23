@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = {"/servlets/teacher_calendar"})
-public class TeacherCalendarServlet extends ServletBase {
+public class TeacherCalendarServlet extends BaseServlet {
 
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {

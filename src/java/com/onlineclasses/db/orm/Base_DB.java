@@ -9,9 +9,13 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.onlineclasses.entities.BasicEntity;
 import com.onlineclasses.utils.Utils;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import static javafx.scene.input.KeyCode.T;
 
 public class Base_DB<T> {
 
@@ -43,4 +47,13 @@ public class Base_DB<T> {
         return _dao.delete(t);
     }    
     
+    public Map<Integer, T> getAllMap() throws SQLException {
+        List<T> all = getAll();
+        Map<Integer, T > allMap = new HashMap<>();
+        for (T t : all) {
+            allMap.put(((BasicEntity)t).id, t);
+        }
+        return allMap;
+    }
+
 }

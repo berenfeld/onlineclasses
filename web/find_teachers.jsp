@@ -1,3 +1,6 @@
+<%@page import="com.onlineclasses.entities.Topic"%>
+<%@page import="com.onlineclasses.entities.TeachingTopic"%>
+<%@page import="com.onlineclasses.servlets.BaseServlet"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="com.onlineclasses.entities.AvailableTime"%>
 <%@page import="java.util.List"%>
@@ -20,12 +23,18 @@
     int minutesPerUnit = CConfig.getInt("website.time.unit.minutes");
     int rowsPerCell = minutesPerRow / minutesPerUnit;
 
-    Utils.info("user " + ServletBase.getUser(request) + " find teachers");
-
+    Utils.debug("user " + BaseServlet.getUser(request) + " find teachers");
+    
+    Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
+    
     List<Teacher> teachers = DB.findTeachers(minPrice, maxPrice, displayName);
     for (Teacher teacher : teachers) {
         teacher.available_time = DB.getTeacherAvailableTime(teacher);
-        Utils.info("teacher " + teacher.display_name + " avail " + teacher.available_time.size());
+        teacher.teaching_topics = DB.getTeacherTeachingTopics(teacher);                
+        for (TeachingTopic teachingTopic : teacher.teaching_topics) {
+            teachingTopic.topic = allTopics.get(teachingTopic.topic.id);
+        }
+        Utils.debug("teacher " + teacher.display_name + " avail " + teacher.available_time.size());
     }
     List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
     List<String> dayNamesShort = Utils.toList(CLabels.get("website.days.short"));
@@ -344,7 +353,7 @@
 
         <div class="container">   
             <div class="row no-gutters my-1">
-                 <div class="card text-white bg-secondary col-xl-3 col-lg-3">
+                <div class="card text-white bg-secondary col-xl-3 col-lg-3">
                     <div class="card-body">
                         <h6 class="card-title">                        
                             <%= Labels.get("find_teachers.sidebar.title")%>                                
@@ -462,27 +471,48 @@
                                                role="button" aria-expanded="false" aria-controls="find_teacher_details_teacher_<%= teacher.id%>">
                                                 <%= Labels.get("find_teachers.list.body.show_more_details")%>
                                             </a>
-                                        </p>
+                                        </p>                                        
                                         <div class="card text-white bg-secondary collapse" id="find_teacher_details_teacher_<%= teacher.id%>">
                                             <div class="card-body">
-                                                <div class="card-title">
-                                                    <%= Labels.get("find_teachers.list.body.available_hours")%>
+                                                <div class="row no-gutters">                                                    
+                                                    <div class="col">
+                                                        <h5>
+                                                            <%= Labels.get("find_teachers.list.body.available_hours")%>                                                    
+                                                        </h5>
+                                                        <p>
+                                                            <%
+                                                                for (AvailableTime availableTime : teacher.available_time) {
+                                                            %>
+
+                                                            <%= dayNamesLong.get(availableTime.day - 1)%>
+                                                            <span class="left_to_right">                                        
+                                                                <%= String.format("%02d:%02d", availableTime.start_hour, availableTime.start_minute)%>                                    
+                                                                &nbsp;-&nbsp;
+                                                                <%= String.format("%02d:%02d", availableTime.end_hour, availableTime.end_minute)%>                                    
+                                                            </span>  
+                                                            <br/>
+                                                            <%
+                                                                }
+                                                            %>  
+                                                        </p>   
+                                                    </div>
+                                                        <div class="col">
+                                                        <h5>
+                                                            <%= Labels.get("find_teachers.list.body.teaching_topics")%>                                                    
+                                                        </h5>
+                                                        <p>
+                                                            <%
+                                                                for (TeachingTopic teachingTopic : teacher.teaching_topics) {
+                                                            %>
+
+                                                            <%= teachingTopic.topic.name %>                                                            
+                                                            <br/>
+                                                            <%
+                                                                }
+                                                            %>  
+                                                        </p>   
+                                                    </div>
                                                 </div>
-                                                <%
-                                                    for (AvailableTime availableTime : teacher.available_time) {
-                                                %>
-
-
-                                                <%= dayNamesLong.get(availableTime.day - 1)%>
-                                                <span class="left_to_right">                                        
-                                                    <%= String.format("%02d:%02d", availableTime.start_hour, availableTime.start_minute)%>                                    
-                                                    &nbsp;-&nbsp;
-                                                    <%= String.format("%02d:%02d", availableTime.end_hour, availableTime.end_minute)%>                                    
-                                                </span>
-                                                <br/>
-                                                <%
-                                                    }
-                                                %>  
                                             </div>
                                         </div>
 

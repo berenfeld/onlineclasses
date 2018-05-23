@@ -17,8 +17,8 @@
     Teacher teacher = oClass.teacher;
     Student student = oClass.student;
 
-    boolean isStudent = student.equals(ServletBase.getUser(request));
-    boolean isTeacher = teacher.equals(ServletBase.getUser(request));
+    boolean isStudent = student.equals(BaseServlet.getUser(request));
+    boolean isTeacher = teacher.equals(BaseServlet.getUser(request));
     List<ClassComment> classComments = DB.getScheuduledClassComments(oClass);
     float classPrice = (((float) oClass.duration_minutes * oClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
     String classPriceFormatted = Utils.formatPrice(classPrice);

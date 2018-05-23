@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = {"/servlets/invite_student"})
-public class InviteStudentServlet extends ServletBase {
+public class InviteStudentServlet extends BaseServlet {
 
     @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
@@ -26,7 +26,7 @@ public class InviteStudentServlet extends ServletBase {
         InviteStudentRequest inviteStudentRequest = Utils.gson().fromJson(requestString, InviteStudentRequest.class);
 
         Utils.info("invite student " + inviteStudentRequest.student_name + " email " + inviteStudentRequest.student_email + " from "
-                + ServletBase.getUser(request));
+                + BaseServlet.getUser(request));
 
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "invite_student.html";

@@ -1,12 +1,12 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@page import="com.onlineclasses.servlets.ServletBase"%>
+<%@page import="com.onlineclasses.servlets.BaseServlet"%>
 <%@page import="com.onlineclasses.entities.User"%>
 <%@page import="com.onlineclasses.utils.Labels"%>
 <%@page import="com.onlineclasses.utils.Config"%>
 <%
-    ServletBase.handleLoginInRequest(request);
-    ServletBase.handleLoginInResponse(request, response);
+    BaseServlet.handleLoginInRequest(request);
+    BaseServlet.handleLoginInResponse(request, response);
 %>
 
 <meta name="google-signin-scope" content="profile email">

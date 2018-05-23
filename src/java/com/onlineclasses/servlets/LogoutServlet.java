@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = {"/servlets/logout"})
-public class LogoutServlet extends ServletBase {
+public class LogoutServlet extends BaseServlet {
 
     @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        User user = ServletBase.getUser(request);
+        User user = BaseServlet.getUser(request);
         if (user != null) {
             Utils.info("user " + user.display_name + " logged out");
-            ServletBase.logoutUser(request);        
+            BaseServlet.logoutUser(request);        
         }
         
         return new BasicResponse(0, "");

@@ -50,7 +50,7 @@ public class Teacher_DB extends Base_DB<Teacher> {
             _teacherFindQueryMinPriceArg.setValue(minPrice);
             _teacherFindQueryMaxPriceArg.setValue(maxPrice);
             _teacherFindQueryNameArg.setValue("%" + displayName + "%");
-            Utils.info("find teacher with args min price " + minPrice + " max price " + maxPrice + " display name " + displayName);
+            Utils.debug("find teacher with args min price " + minPrice + " max price " + maxPrice + " display name " + displayName);
             return _dao.query(_teacherFindQuery);
         } catch (SQLException ex) {
             Utils.exception(ex);

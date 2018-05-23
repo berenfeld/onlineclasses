@@ -3,12 +3,12 @@
 <%@page import="java.util.Map"%>
 <%@page import="com.onlineclasses.utils.CConfig"%>
 <%@page import="com.onlineclasses.utils.CLabels"%>
-<%@page import="com.onlineclasses.servlets.ServletBase"%>
+<%@page import="com.onlineclasses.servlets.BaseServlet"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="com.onlineclasses.entities.User"%>
 
 <%
-    User user_footer = ServletBase.getUser(request);
+    User user_footer = BaseServlet.getUser(request);
     String userGson = Utils.gson().toJson(user_footer);
     String url_footer = request.getRequestURI();
     String pageName_footer = url_footer.substring(url_footer.lastIndexOf("/") + 1);

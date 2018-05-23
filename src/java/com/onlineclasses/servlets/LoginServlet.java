@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = {"/servlets/login"})
-public class LoginServlet extends ServletBase {
+public class LoginServlet extends BaseServlet {
 
     @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
@@ -39,7 +39,7 @@ public class LoginServlet extends ServletBase {
             }
 
             Utils.info("user " + user.display_name + " logged in with email " + user.email);
-            ServletBase.loginUser(request, user);
+            BaseServlet.loginUser(request, user);
         } else {
             Utils.warning("no google id in login request");
         }

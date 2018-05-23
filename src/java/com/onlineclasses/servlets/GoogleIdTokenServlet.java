@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = {"/servlets/google_id_token"})
-public class GoogleIdTokenServlet extends ServletBase {
+public class GoogleIdTokenServlet extends BaseServlet {
 
     private static final JacksonFactory JACKSON_FACTORY = new JacksonFactory();
 
@@ -61,7 +61,7 @@ public class GoogleIdTokenServlet extends ServletBase {
 
             user.last_name = (String) payload.get("family_name");
             user.first_name = (String) payload.get("given_name");
-
+            
             return user;
             // Use or store profile information
         } catch (Exception ex) {
@@ -77,7 +77,7 @@ public class GoogleIdTokenServlet extends ServletBase {
         GoogleIdTokenRequest googleIdTokenRequest = Utils.gson().fromJson(requestString, GoogleIdTokenRequest.class);
 
         String googleIdToken = googleIdTokenRequest.google_id_token;
-        Utils.info("google id token from " + ServletBase.getUser(request) + " token " + googleIdToken);
+        Utils.debug("google id token from " + BaseServlet.getUser(request) + " token " + googleIdToken);
 
         GoogleUser googleUser = userFromGoogleToken(googleIdToken);        
         if ( googleUser == null ) {

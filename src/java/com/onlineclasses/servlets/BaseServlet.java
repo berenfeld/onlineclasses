@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public abstract class ServletBase extends HttpServlet {
+public abstract class BaseServlet extends HttpServlet {
 
     private String getRequestString(HttpServletRequest request) throws IOException {
         String requestString = "";
@@ -98,7 +98,7 @@ public abstract class ServletBase extends HttpServlet {
             Utils.debug("no user in session " + session);
             Cookie cookie = findCookieFromUser(request);
             if (cookie == null) {
-                Utils.info("no cookie in session " + session);
+                Utils.debug("no cookie in session " + session);
                 logoutUser(request);
                 return null;
             }
@@ -141,7 +141,7 @@ public abstract class ServletBase extends HttpServlet {
             cookie.setMaxAge((int) TimeUnit.DAYS.toSeconds(Config.getInt("website.cookie.age.days")));
         }
         response.addCookie(cookie);
-        Utils.info("set cookie value " + cookie.getValue() + " age " + cookie.getMaxAge() + " on url " + request.getRequestURI());
+        Utils.debug("set cookie value " + cookie.getValue() + " age " + cookie.getMaxAge() + " on url " + request.getRequestURI());
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -152,7 +152,7 @@ public abstract class ServletBase extends HttpServlet {
             handleLoginInRequest(request);
 
             String requestString = getRequestString(request);
-            Utils.info("request : " + request.getRequestURI() + " data : " + requestString);
+            Utils.info("*** request : " + request.getRequestURI() + " data : " + requestString);
 
             BasicResponse responseObject = handleRequest(requestString, request, response);
             String responseStr = Utils.gson().toJson(responseObject);
@@ -160,6 +160,7 @@ public abstract class ServletBase extends HttpServlet {
             response.setContentType("application/json;charset=UTF-8");
             handleLoginInResponse(request, response);
             response.getWriter().write(responseStr);
+            Utils.info("*** response : " + request.getRequestURI() + " data : " + responseStr);
         } catch (Exception ex) {
             Utils.exception(ex);
             // TODO exception

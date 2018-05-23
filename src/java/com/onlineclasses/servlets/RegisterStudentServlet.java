@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = {"/servlets/register_student"})
-public class RegisterStudentServlet extends ServletBase {
+public class RegisterStudentServlet extends BaseServlet {
 
     @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
@@ -72,7 +72,7 @@ public class RegisterStudentServlet extends ServletBase {
             Utils.warning("Could not add user " + registeringStudent.display_name);
             return new BasicResponse(-1, "user is already registered");
         }
-        ServletBase.loginUser(request, registeringStudent);
+        BaseServlet.loginUser(request, registeringStudent);
         Utils.info("user " + registeringStudent.display_name + " email " + registeringStudent.email + " registered");
     
         return new BasicResponse(0, "");

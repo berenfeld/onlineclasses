@@ -22,6 +22,7 @@ import com.onlineclasses.utils.Labels;
 import com.onlineclasses.utils.TasksManager;
 import com.onlineclasses.utils.Utils;
 import java.io.File;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -32,13 +33,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = {"/servlets/schedule_class"})
-public class ScheduleClassServlet extends ServletBase {
+public class ScheduleClassServlet extends BaseServlet {
 
     @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
-        User user = ServletBase.getUser(request);
+        User user = BaseServlet.getUser(request);
         if (user == null) {
             Utils.warning("not logged in user can't schedule class");
             return new BasicResponse(-1, "can't schedule class");
@@ -154,7 +155,7 @@ public class ScheduleClassServlet extends ServletBase {
         TasksManager.runNow(TasksManager.TASK_EMAIL);
     }
 
-    private boolean checkClassInAvailableTime(ScheduleClassRequest scheduleClassRequest, Teacher teacher) {
+    private boolean checkClassInAvailableTime(ScheduleClassRequest scheduleClassRequest, Teacher teacher) throws SQLException {
 
         Calendar startDate = Calendar.getInstance();
         startDate.setTime(scheduleClassRequest.start_date);

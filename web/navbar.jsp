@@ -4,13 +4,13 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.onlineclasses.entities.OClass"%>
 <%@page import="java.util.List"%>
-<%@page import="com.onlineclasses.servlets.ServletBase"%>
+<%@page import="com.onlineclasses.servlets.BaseServlet"%>
 <%@page import="com.onlineclasses.utils.Labels"%>
 <%@page import="com.onlineclasses.entities.User"%>
 <%@page import="java.util.ResourceBundle"%>
 
 <%
-    User user = ServletBase.getUser(request);
+    User user = BaseServlet.getUser(request);
     List<OClass> studentUpcomingClasses = new ArrayList<>();
     String userName = Labels.get("navbar.guest.name");
     if (user != null) {

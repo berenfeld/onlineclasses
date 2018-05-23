@@ -29,7 +29,7 @@ public class EmailSender extends BaseTask {
             Utils.warning("not sending email. email disabled");
             return;
         }
-        List<Email> emails = DB.getAllEmails();
+        List<Email> emails = DB.getAll(Email.class);
         for (Email email : emails) {
             sendEmail(email);
         }

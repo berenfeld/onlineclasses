@@ -34,17 +34,12 @@ public class AvailableTime_DB extends Base_DB<AvailableTime> {
     }
 
 
-    private SelectArg _getTeacherAvailableTimeTeacherIdArg = new SelectArg();
-    private static PreparedQuery<AvailableTime> _getTeacherAvailableTimeQuery;
+    private final SelectArg _getTeacherAvailableTimeTeacherIdArg = new SelectArg();
+    private final PreparedQuery<AvailableTime> _getTeacherAvailableTimeQuery;
     
-    public synchronized List<AvailableTime> getTeacherAvailableTime(Teacher teacher) {        
-        try {
-            _getTeacherAvailableTimeTeacherIdArg.setValue(teacher);
-            return _dao.query(_getTeacherAvailableTimeQuery);
-        } catch (SQLException ex) {
-            Utils.exception(ex);
-            return new ArrayList<AvailableTime>();
-        }
+    public synchronized List<AvailableTime> getTeacherAvailableTime(Teacher teacher) throws SQLException {        
+        _getTeacherAvailableTimeTeacherIdArg.setValue(teacher);
+        return _dao.query(_getTeacherAvailableTimeQuery);
     }
  
 }

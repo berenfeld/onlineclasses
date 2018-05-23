@@ -19,6 +19,7 @@ import com.onlineclasses.db.orm.OClass_DB;
 import com.onlineclasses.db.orm.Student_DB;
 import com.onlineclasses.db.orm.Subject_DB;
 import com.onlineclasses.db.orm.Teacher_DB;
+import com.onlineclasses.db.orm.TeachingTopic_DB;
 import com.onlineclasses.db.orm.Topic_DB;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.Email;
@@ -32,6 +33,7 @@ import com.onlineclasses.entities.ClassComment;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
+import com.onlineclasses.entities.TeachingTopic;
 import com.onlineclasses.entities.Topic;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.Config;
@@ -45,6 +47,8 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import org.apache.tomcat.jdbc.pool.DataSource;
@@ -107,7 +111,6 @@ public class DB {
             if (Config.getBool("db.test")) {
                 TestDB.create();
             }
-
         } catch (Exception ex) {
             Utils.exception(ex);
         }
@@ -115,7 +118,11 @@ public class DB {
 
     public static void close() {
         _dataSource.close();
-        _connectionSource.close();
+        try {
+            _connectionSource.close();
+        } catch (IOException ex) {
+            Utils.exception(ex);
+        }
     }
 
     private static Student_DB _student_db;
@@ -131,6 +138,7 @@ public class DB {
     private static Payment_DB _payment_DB;
     private static Subject_DB _subject_DB;
     private static Topic_DB _topic_DB;
+    private static TeachingTopic_DB _teachingTopic_DB;
 
     private static final Map<Class, Base_DB> ORM_ENTITIES = new HashMap<>();
 
@@ -150,6 +158,7 @@ public class DB {
         _payment_DB = new Payment_DB(_connectionSource);
         _subject_DB = new Subject_DB(_connectionSource);
         _topic_DB = new Topic_DB(_connectionSource);
+        _teachingTopic_DB = new TeachingTopic_DB(_connectionSource);
 
         ORM_ENTITIES.put(Student.class, _student_db);
         ORM_ENTITIES.put(Teacher.class, _teacher_db);
@@ -164,6 +173,7 @@ public class DB {
         ORM_ENTITIES.put(Payment.class, _payment_DB);
         ORM_ENTITIES.put(Subject.class, _subject_DB);
         ORM_ENTITIES.put(Topic.class, _topic_DB);
+        ORM_ENTITIES.put(TeachingTopic.class, _teachingTopic_DB);
     }
 
     public static Connection getConnection() throws SQLException {
@@ -256,8 +266,12 @@ public class DB {
         _instituteType_db.add(instituteType);
     }
 
-    public static List<AvailableTime> getTeacherAvailableTime(Teacher teacher) {
+    public static List<AvailableTime> getTeacherAvailableTime(Teacher teacher) throws SQLException {
         return _availableTime_db.getTeacherAvailableTime(teacher);
+    }
+
+    public static List<TeachingTopic> getTeacherTeachingTopics(Teacher teacher) throws SQLException {
+        return _teachingTopic_DB.getTeacherTeachingTopics(teacher);
     }
 
     public static List<InstituteType> getAllInstituteTypes() throws SQLException {
@@ -266,10 +280,6 @@ public class DB {
 
     public static List<Institute> getInstitutes(InstituteType instituteType) throws SQLException {
         return _institute_db.getInstitutes(instituteType);
-    }
-
-    public static List<Teacher> getAllTeachers() throws SQLException {
-        return _teacher_db.getAll();
     }
 
     public static int addScheduledClass(OClass scheduledClass) throws SQLException {
@@ -285,10 +295,6 @@ public class DB {
         scheduledClass.teacher = getTeacher(scheduledClass.teacher.id);
         scheduledClass.student = getStudent(scheduledClass.student.id);
         return scheduledClass;
-    }
-
-    public static List<Email> getAllEmails() throws SQLException {
-        return _email_db.getAll();
     }
 
     public static int deleteEmail(Email email) throws SQLException {
@@ -326,9 +332,13 @@ public class DB {
     public static <T> int delete(T t) throws SQLException {
         return ORM_ENTITIES.get(t.getClass()).delete(t);
     }
-    
+
     public static <T> List<T> getAll(Class cls) throws SQLException {
         return ORM_ENTITIES.get(cls).getAll();
+    }
+
+    public static <T> Map<Integer, T> getAllMap(Class cls) throws SQLException {
+        return ORM_ENTITIES.get(cls).getAllMap();
     }
 
     public static <T> T get(int id, Class cls) throws SQLException {

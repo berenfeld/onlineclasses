@@ -32,24 +32,29 @@
                             <div class="col">
                                 <div class="h4 text-center">
                                     Our students get
-                                    <ul class="h5 text-left">
-                                        <li>
+                                    <ul class="h5 text-left list-unstyled">
+                                        <li>                                            
                                             the best teachers
+                                            <span class="oi" data-glyph="star"></span>      
                                         </li>
                                         <li>
                                             user friendly, advanced website
+                                            <span class="oi" data-glyph="star"></span>      
                                         </li>
                                         <li>
                                             all the material and classes available, 24/7
+                                            <span class="oi" data-glyph="star"></span>      
                                         </li>
                                         <li>
                                             our guarantee
+                                            <span class="oi" data-glyph="star"></span>      
                                         </li>
                                         <li>
                                             Want to join us and start learning ?
                                             <a href="start_learning">
                                                 click here to start
                                             </a>
+                                            <span class="oi" data-glyph="star"></span>      
                                         </li>
                                     </ul>
                                 </div>
@@ -60,15 +65,18 @@
                                         Our teachers
                                     </a>
                                     get
-                                    <ul class="h5 text-left">
+                                    <ul class="h5 text-left list-unstyled">
                                         <li>
                                             mentoring and guidance
+                                            <span class="oi" data-glyph="star"></span>      
                                         </li>
                                         <li>
                                             our guarantee
+                                            <span class="oi" data-glyph="star"></span>      
                                         </li>
                                         <li>
                                             free for new teachers ! USB electronic pen
+                                            <span class="oi" data-glyph="star"></span>      
                                         </li>
                                         <li>
                                             want to become a teacher ?
@@ -76,6 +84,7 @@
                                             <a href="mailto:admin@onlineclasses.co.il">
                                                 admin@onlineclasses.co.il
                                             </a>
+                                            <span class="oi" data-glyph="star"></span>      
                                     </ul>
                                 </div>
                             </div>

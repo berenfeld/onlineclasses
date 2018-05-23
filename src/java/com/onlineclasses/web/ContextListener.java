@@ -18,6 +18,10 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         Utils.info("context init");
+        
+        System.setProperty("com.j256.ormlite.logger.type", "LOCAL");
+        System.setProperty("com.j256.ormlite.logger.level", "ERROR");
+        
         Config.init();
         CConfig.init();
         DB.init();

@@ -11,12 +11,14 @@ import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
+import com.onlineclasses.entities.TeachingTopic;
 import com.onlineclasses.entities.Topic;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.CConfig;
 import com.onlineclasses.utils.Labels;
 import com.onlineclasses.utils.Utils;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -35,6 +37,7 @@ public class TestDB {
         addSubjects();
         addTopics();
         addTeachers();
+        addTeachingTopics();
     }
 
     public static void addStudents() throws Exception {
@@ -64,7 +67,7 @@ public class TestDB {
         teacher.phone_area = "054";
         teacher.phone_number = "7476526";
         teacher.registered = new Date();
-        teacher.gender = User.GENDER_FEMALE;
+        teacher.gender = User.GENDER_FEMALE;        
         DB.addTeacher(teacher);
 
         AvailableTime availableTime = new AvailableTime();
@@ -171,5 +174,22 @@ public class TestDB {
             }
             i++;
         }        
+    }
+    
+    public static void addTeachingTopics() throws Exception {
+        List<Teacher> teachers = DB.getAll(Teacher.class);
+        List<Topic> topics = DB.getAll(Topic.class);
+        Random r = new Random();
+        for (Teacher teacher : teachers) {
+            int numberOfTopics = r.nextInt(topics.size());
+            List<Topic> topicsCopy = new ArrayList<>(topics);
+            for (int i=0;i<numberOfTopics;i++) {
+                TeachingTopic teachingTopic = new TeachingTopic();
+                int index = r.nextInt(topicsCopy.size());
+                teachingTopic.topic = topicsCopy.remove(index);
+                teachingTopic.teacher = teacher;
+                DB.add(teachingTopic);
+            }
+        }
     }
 }

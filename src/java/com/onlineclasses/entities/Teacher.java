@@ -23,4 +23,7 @@ public class Teacher extends User {
     public String moto;
     
     public List<AvailableTime> available_time;
+    
+    public List<TeachingTopic> teaching_topics;
+    
 }
