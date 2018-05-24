@@ -32,7 +32,7 @@
     Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
 
     List<Teacher> teachers = DB.findTeachers(minPrice, maxPrice, displayName, topicName);
-    
+
     for (Teacher teacher : teachers) {
         teacher.available_time = DB.getTeacherAvailableTime(teacher);
         teacher.teaching_topics = DB.getTeacherTeachingTopics(teacher);
@@ -366,18 +366,18 @@
 
                         <form id="find_teachers_form">                        
                             <div class="form-group">
-                                <div class="my-1">
+                                <div class="my-2">
                                     <label for="find_teachers_topic_name_input" >
                                         <%= Labels.get("find_teachers.sidebar.topic.text")%>           
                                     </label>
                                 </div>
-                                <div class="my-1">
+                                <div class="my-2">
                                     <input type="text" class="form-control" id="find_teachers_topic_name_input" 
                                            name="find_teachers_topic_name_input"
                                            placeholder="<%= Labels.get("find_teachers.sidebar.topic.placeholder")%>" 
-                                           value="<%= topicName %>">
+                                           value="<%= topicName%>">
                                 </div>
-                                <div class="my-1">
+                                <div class="my-2">
                                     <label for="find_teachers_price_per_hour_slider">
                                         <%= Labels.get("find_teachers.sidebar.price_per_hour")%> :
 
@@ -394,27 +394,27 @@
                                         </span>
                                     </label> 
                                 </div>
-                                <div class="my-1">
-                                    <div id="find_teachers_price_per_hour_slider"></div>
+                                <div class="my-2">
+                                    <div class="mx-2" id="find_teachers_price_per_hour_slider"></div>
                                 </div>
-                                <div class="my-1">
+                                <div class="my-2">
                                     <label for="find_teachers_display_name_input" >
                                         <%= Labels.get("find_teachers.sidebar.name.text")%>           
                                     </label>
                                 </div>
-                                <div class="my-1">
+                                <div class="my-2">
                                     <input type="text" class="form-control" id="find_teachers_display_name_input" 
                                            name="find_teachers_display_name_input"
                                            placeholder="<%= Labels.get("find_teachers.sidebar.name.text")%>" 
                                            value="<%= displayName%>">
                                 </div>
-                                <div class="my-1">
-                                    <label for="find_teachers_available_in_days">
+                                <div class="my-2">
+                                    <label class="d-none" for="find_teachers_available_in_days">
                                         <%= Labels.get("find_teachers.sidebar.available_in_days")%>           
                                     </label>
                                 </div>
-                                <div class="my-1">
-                                    <select class="form-control" id="find_teachers_available_in_days">
+                                <div class="my-2">
+                                    <select class="form-control d-none" id="find_teachers_available_in_days">
                                             <option value="0" <% if (availableDay
                                                     == 0) { %> selected <% }%>>
                                             <%= Labels.get("find_teachers.sidebar.all_days")%>  
@@ -433,24 +433,28 @@
                                         %>
                                     </select>
                                 </div>
-                            </div>
 
-                            <div class="form-group form-row">                                
-                                <button type="button" class="btn btn-primary mx-1 col" 
-                                        id="find_teachers.sidebar.refresh_button"
-                                        onclick="find_teachers_refresh_results()" >                         
-                                    <span>
-                                        <%= Labels.get("find_teachers.sidebar.update_button.text")%>
-                                    </span>
-                                </button>    
+                                <div class="row no-gutters my-3">
+                                    <div class="col ml-1">
+                                        <button type="button" class="btn btn-primary btn-block" 
+                                                id="find_teachers.sidebar.refresh_button"
+                                                onclick="find_teachers_refresh_results()">
+                                            <span>
+                                                <%= Labels.get("find_teachers.sidebar.update_button.text")%>
+                                            </span>
+                                        </button>    
+                                    </div>
+                                    <div class="col mr-1">
 
-                                <button type="button" class="btn btn-info mx-1 col" 
-                                        id="find_teachers.sidebar.clear_button"
-                                        onclick="find_teachers_reset_results()">
-                                    <span >
-                                        <%= Labels.get("find_teachers.sidebar.clear_button.text")%>
-                                    </span>
-                                </button>                            
+                                        <button type="button" class="btn btn-info btn-block" 
+                                                id="find_teachers.sidebar.clear_button"
+                                                onclick="find_teachers_reset_results()">
+                                            <span >
+                                                <%= Labels.get("find_teachers.sidebar.clear_button.text")%>
+                                            </span>
+                                        </button>     
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -554,13 +558,14 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <%@include file="footer.jsp" %>    
-            <script>
-                find_teachers.all_subjects = <%= Utils.gson().toJson(allSubjects) %>;
-                find_teachers.all_topics = <%= Utils.gson().toJson(allTopics) %>;
-                find_teachers_init();
-            </script>
+        <%@include file="footer.jsp" %>    
+        <script>
+            find_teachers.all_subjects = <%= Utils.gson().toJson(allSubjects)%>;
+            find_teachers.all_topics = <%= Utils.gson().toJson(allTopics)%>;
+            find_teachers_init();
+        </script>
     </body>
 
 </html>
