@@ -40,7 +40,12 @@
                         <a class="dropdown-item" href="abous_us">
                             <%= Labels.get("navbar.about.us.who.we.are")%>
                         </a>
-                        <a class="dropdown-item" href="javascript:invite_other_student()"><%= Labels.get("navbar.about.us.invite_student")%></a>
+                        <a class="dropdown-item" href="javascript:invite_other_student()">
+                            <%= Labels.get("navbar.about.us.invite_student")%>
+                        </a>
+                        <a class="dropdown-item" href="contact">
+                            <%= Labels.get("navbar.contacs_us")%>
+                        </a>
                     </div>
                 </li>
                 <li class="d-none nav-item"><a class="nav-link" href="start_teaching"><%= Labels.get("navbar.start.teaching")%></a></li>

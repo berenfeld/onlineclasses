@@ -33,6 +33,10 @@
         <servlet-name>unsubscribe</servlet-name>
         <jsp-file>/unsubscribe.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>contact</servlet-name>
+        <jsp-file>/contact.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>start_teaching</servlet-name>
         <url-pattern>/start_teaching</url-pattern>
@@ -52,6 +56,10 @@
     <servlet-mapping>
         <servlet-name>unsubscribe</servlet-name>
         <url-pattern>/unsubscribe</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>contact</servlet-name>
+        <url-pattern>/contact</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
