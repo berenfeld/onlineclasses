@@ -9,7 +9,7 @@ import com.j256.ormlite.field.DatabaseField;
 import java.io.Serializable;
 
 
-public class BasicEntity implements Serializable {
+public class BasicEntity implements Serializable, Comparable<BasicEntity> {
         
     public static final String ID_COLUMN = "id";    
     @DatabaseField(generatedId = true, columnName = ID_COLUMN)
@@ -24,5 +24,11 @@ public class BasicEntity implements Serializable {
     @Override
     public int hashCode() {
         return id;
+    }
+    
+    @Override
+    public int compareTo(BasicEntity o)
+    {
+        return id - o.id;
     }
 }

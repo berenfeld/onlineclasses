@@ -173,7 +173,7 @@ function invite_other_student_send()
 
 function appendToSearchString(search_string, token)
 {
-    if (! search_string) {
+    if (!search_string) {
         search_string = token;
     } else {
         search_string = search_string + "&" + token;
@@ -183,13 +183,23 @@ function appendToSearchString(search_string, token)
 
 function start_teaching()
 {
-    alert_show( oc.clabels["navbar.start_teaching.title"], 
-        oc.clabels["navbar.start_teaching.text"] + createEmailAnchor(oc.clabels["website.admin.email"]));
+    alert_show(oc.clabels["navbar.start_teaching.title"],
+            oc.clabels["navbar.start_teaching.text"] + createEmailAnchor(oc.clabels["website.admin.email"]));
 }
 
 function createEmailAnchor(email)
 {
     return "<a href='mailto:" + email + "'>" + email + "</a>";
+}
+
+function remove_search_from_location()
+{
+    var uri = window.location.toString();
+    if (uri.indexOf("?") > 0) {
+        uri = uri.substring(0, uri.indexOf("?"));
+
+    }
+    return uri;
 }
 
 function common_init()
@@ -198,6 +208,5 @@ function common_init()
         handle: "div.modal-header"
     });
 }
-
 
 common_init();

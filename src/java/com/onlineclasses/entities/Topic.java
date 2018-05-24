@@ -9,7 +9,8 @@ import com.j256.ormlite.field.DatabaseField;
 
 public class Topic extends BasicEntity {
 
-    @DatabaseField(canBeNull = false)
+    public static final String NAME_COLUMN = "name";
+    @DatabaseField(canBeNull = false, columnName = NAME_COLUMN)
     public String name;
 
     @DatabaseField(foreign = true, canBeNull = false)

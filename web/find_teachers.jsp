@@ -1,3 +1,5 @@
+<%@page import="com.onlineclasses.entities.Subject"%>
+<%@page import="java.util.Collection"%>
 <%@page import="com.onlineclasses.entities.Topic"%>
 <%@page import="com.onlineclasses.entities.TeachingTopic"%>
 <%@page import="com.onlineclasses.servlets.BaseServlet"%>
@@ -15,6 +17,7 @@
     int minPrice = Utils.parseInt(request.getParameter("price_min"), CConfig.getInt("find_teachers.price.min"));
     int maxPrice = Utils.parseInt(request.getParameter("price_max"), CConfig.getInt("find_teachers.price.max"));
     String displayName = Utils.nonNullString(request.getParameter("display_name"));
+    String topicName = Utils.nonNullString(request.getParameter("topic_name"));
     int availableDay = Utils.parseInt(request.getParameter("available_day"), 0);
     final int startHour = CConfig.getInt("website.time.start_working_hour");
     final int endHour = CConfig.getInt("website.time.end_working_hour");
@@ -25,9 +28,11 @@
 
     Utils.debug("user " + BaseServlet.getUser(request) + " find teachers");
 
+    Map<Integer, Subject> allSubjects = DB.getAllMap(Subject.class);
     Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
 
-    List<Teacher> teachers = DB.findTeachers(minPrice, maxPrice, displayName);
+    List<Teacher> teachers = DB.findTeachers(minPrice, maxPrice, displayName, topicName);
+    
     for (Teacher teacher : teachers) {
         teacher.available_time = DB.getTeacherAvailableTime(teacher);
         teacher.teaching_topics = DB.getTeacherTeachingTopics(teacher);
@@ -359,56 +364,75 @@
                             <%= Labels.get("find_teachers.sidebar.title")%>                                
                         </h6>
 
-                        <form>                        
+                        <form id="find_teachers_form">                        
                             <div class="form-group">
-                                <label for="find_teachers_price_per_hour_slider">
-                                    <%= Labels.get("find_teachers.sidebar.price_per_hour")%> :
-                                </label>                        
-                                <span dir="ltr">
-                                    <span id="find_teachers_price_per_hour_value_min">
-                                        <%= minPrice%>                                
-                                    </span>
-                                    <%= CLabels.get("website.currency")%>                                
-                                    &nbsp;-&nbsp;
-                                    <span id="find_teachers_price_per_hour_value_max">                                
-                                        <%= maxPrice%>                                
-                                    </span>
-                                    <%= CLabels.get("website.currency")%>
-                                </span>
+                                <div class="my-1">
+                                    <label for="find_teachers_topic_name_input" >
+                                        <%= Labels.get("find_teachers.sidebar.topic.text")%>           
+                                    </label>
+                                </div>
+                                <div class="my-1">
+                                    <input type="text" class="form-control" id="find_teachers_topic_name_input" 
+                                           name="find_teachers_topic_name_input"
+                                           placeholder="<%= Labels.get("find_teachers.sidebar.topic.placeholder")%>" 
+                                           value="<%= topicName %>">
+                                </div>
+                                <div class="my-1">
+                                    <label for="find_teachers_price_per_hour_slider">
+                                        <%= Labels.get("find_teachers.sidebar.price_per_hour")%> :
 
-                                <div id="find_teachers_price_per_hour_slider"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="find_teachers_display_name_input" >
-                                    <%= Labels.get("find_teachers.sidebar.name.text")%>           
-                                </label>
-
-                                <input type="text" class="form-control" id="find_teachers_display_name_input" 
-                                       placeholder="<%= Labels.get("find_teachers.sidebar.name.text")%>" 
-                                       value="<%= displayName%>">
-                            </div>
-                            <div class="form-group">
-                                <label for="find_teachers_available_in_days">
-                                    <%= Labels.get("find_teachers.sidebar.available_in_days")%>           
-                                </label>
-                                <select class="form-control" id="find_teachers_available_in_days">
-                                    <option value="0" <% if (availableDay
+                                        <span dir="ltr">
+                                            <span id="find_teachers_price_per_hour_value_min">
+                                                <%= minPrice%>                                
+                                            </span>
+                                            <%= CLabels.get("website.currency")%>                                
+                                            &nbsp;-&nbsp;
+                                            <span id="find_teachers_price_per_hour_value_max">                                
+                                                <%= maxPrice%>                                
+                                            </span>
+                                            <%= CLabels.get("website.currency")%>
+                                        </span>
+                                    </label> 
+                                </div>
+                                <div class="my-1">
+                                    <div id="find_teachers_price_per_hour_slider"></div>
+                                </div>
+                                <div class="my-1">
+                                    <label for="find_teachers_display_name_input" >
+                                        <%= Labels.get("find_teachers.sidebar.name.text")%>           
+                                    </label>
+                                </div>
+                                <div class="my-1">
+                                    <input type="text" class="form-control" id="find_teachers_display_name_input" 
+                                           name="find_teachers_display_name_input"
+                                           placeholder="<%= Labels.get("find_teachers.sidebar.name.text")%>" 
+                                           value="<%= displayName%>">
+                                </div>
+                                <div class="my-1">
+                                    <label for="find_teachers_available_in_days">
+                                        <%= Labels.get("find_teachers.sidebar.available_in_days")%>           
+                                    </label>
+                                </div>
+                                <div class="my-1">
+                                    <select class="form-control" id="find_teachers_available_in_days">
+                                            <option value="0" <% if (availableDay
                                                     == 0) { %> selected <% }%>>
-                                        <%= Labels.get("find_teachers.sidebar.all_days")%>  
-                                    </option>
-                                    <%
-                                        for (int i = 0;
-                                                i < dayNamesLong.size();
-                                                i++) {
+                                            <%= Labels.get("find_teachers.sidebar.all_days")%>  
+                                        </option>
+                                        <%
+                                            for (int i = 0;
+                                                    i < dayNamesLong.size();
+                                                    i++) {
 
-                                    %>
-                                    <option value="<%= i + 1%>" <% if (availableDay == (i + 1)) { %> selected <% }%>>
-                                        <%=dayNamesLong.get(i)%>
-                                    </option>
-                                    <%
-                                        }
-                                    %>
-                                </select>
+                                        %>
+                                        <option value="<%= i + 1%>" <% if (availableDay == (i + 1)) { %> selected <% }%>>
+                                            <%=dayNamesLong.get(i)%>
+                                        </option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="form-group form-row">                                
@@ -421,7 +445,8 @@
                                 </button>    
 
                                 <button type="button" class="btn btn-info mx-1 col" 
-                                        id="find_teachers.sidebar.clear_button">
+                                        id="find_teachers.sidebar.clear_button"
+                                        onclick="find_teachers_reset_results()">
                                     <span >
                                         <%= Labels.get("find_teachers.sidebar.clear_button.text")%>
                                     </span>
@@ -529,7 +554,13 @@
                     </div>
                 </div>
             </div>
+
             <%@include file="footer.jsp" %>    
+            <script>
+                find_teachers.all_subjects = <%= Utils.gson().toJson(allSubjects) %>;
+                find_teachers.all_topics = <%= Utils.gson().toJson(allTopics) %>;
+                find_teachers_init();
+            </script>
     </body>
 
 </html>

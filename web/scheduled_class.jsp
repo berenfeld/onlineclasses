@@ -322,7 +322,7 @@
                             %>
                             <a href="<%= filePath%>" class="text-white" target="_blank">
                                 <b>
-                                <%= oClassAttachedFile.name%>
+                                    <%= oClassAttachedFile.name%>
                                 </b>
                             </a>
                             <span class="small">
@@ -391,14 +391,14 @@
             </div>
         </div>
     </div>
-</div>        
-<%@include file="footer.jsp" %>    
-<script>
+
+    <%@include file="footer.jsp" %>    
+    <script>
     scheduled_class.scheduled_class = <%= Utils.gson().toJson(oClass)%>;
     scheduled_class.teacher = <%= Utils.gson().toJson(teacher)%>;
     scheduled_class.student = <%= Utils.gson().toJson(student)%>;
     scheduled_class_init();
-</script>
+    </script>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-/* global online_classes */
+/* global oc */
 
 find_teachers = {};
 
@@ -19,7 +19,8 @@ function find_teachers_refresh_results()
 {
     find_teachers.available_day = parseInt10($("#find_teachers_available_in_days").val());
     find_teachers.display_name = $("#find_teachers_display_name_input").val();
-    
+    find_teachers.topic_name = $("#find_teachers_topic_name_input").val();
+
     var search_string = "";
     if (find_teachers.price_min !== find_teachers.default_min_value) {
         search_string = appendToSearchString(search_string, "price_min=" + find_teachers.price_min);
@@ -30,11 +31,14 @@ function find_teachers_refresh_results()
     if (stringNotEmpty(find_teachers.display_name)) {
         search_string = appendToSearchString(search_string, "display_name=" + encodeURIComponent(find_teachers.display_name));
     }
-    if (find_teachers.available_day !== 0 ) {
+    if (stringNotEmpty(find_teachers.topic_name)) {
+        search_string = appendToSearchString(search_string, "topic_name=" + encodeURIComponent(find_teachers.topic_name));
+    }
+    if (find_teachers.available_day !== 0) {
         search_string = appendToSearchString(search_string, "available_day=" + find_teachers.available_day);
     }
-    
-    location.search = search_string;    
+
+    location.search = search_string;
 }
 
 function schedule_class_button_clicked(source)
@@ -275,7 +279,7 @@ function schedule_class_confirm()
     $("#schedule_class_warning_a_not_logged_in").addClass("d-none");
     $("#schedule_class_warning_div").addClass("d-none");
     $("#schedule_class_info_div").addClass("d-none");
-    
+
     if (!login_isLoggedIn())
     {
         $("#schedule_class_warning").html(oc.clabels[ "scheduled.class.modal.not_logged_in"]);
@@ -340,7 +344,7 @@ function schedule_class_confirm()
     }
 
     var subject = $("#start_schedule_class_subject_input").val();
-    if (! subject)
+    if (!subject)
     {
         $("#schedule_class_warning").text(oc.clabels[ "scheduled.class.modal.please_provide_title" ]);
         $("#schedule_class_warning_div").removeClass("d-none");
@@ -384,6 +388,18 @@ function schedule_class_comments_focus()
     }
 }
 
+function find_teachers_reset_results()
+{
+    location = remove_search_from_location();
+}
+
+function schedule_class_login_clicked()
+{
+    $("#schedule_class_modal").modal("hide");
+    login_showLoginModal("login_modal");
+}
+
+
 function find_teachers_init()
 {
     find_teachers.calendar = {};
@@ -403,6 +419,7 @@ function find_teachers_init()
     find_teachers.price_max = parseInt10(oc.parameters[ "price_max" ], find_teachers.default_max_value);
     find_teachers.available_day = parseInt10(oc.parameters[ "available_day" ], 0);
     find_teachers.display_name = $("#find_teachers_display_name_input").val();
+    find_teachers.topic_name = $("#find_teachers_topic_name_input").val();
 
     $("#find_teachers_price_per_hour_slider").slider(
             {
@@ -427,13 +444,19 @@ function find_teachers_init()
         onSelect: schedule_class_select_date
     });
 
+    find_teachers.all_topics_names = [];
+
+    for (var topic_id in find_teachers.all_topics) {
+        var topic = find_teachers.all_topics[topic_id];
+        find_teachers.all_topics_names.push(topic.name);
+    }
+    $("#find_teachers_topic_name_input").autocomplete({
+        source: find_teachers.all_topics_names
+    });
+    $("#find_teachers_form input").keyup(
+            function (event) {
+                if (event.keyCode === 13) {
+                    find_teachers_refresh_results();
+                }
+            });
 }
-
-function schedule_class_login_clicked()
-{
-    $("#schedule_class_modal").modal("hide");
-    login_showLoginModal("login_modal");
-}
-
-find_teachers_init();
-

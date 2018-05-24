@@ -44,11 +44,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import org.apache.tomcat.jdbc.pool.DataSource;
@@ -246,8 +245,30 @@ public class DB {
         return _teacher_db.get(id);
     }
 
-    public static List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName) {
-        return _teacher_db.findTeachers(minPrice, maxPrice, displayName);
+    public static List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName, String topicName) throws SQLException {
+        List<Teacher> teachers = _teacher_db.findTeachers(minPrice, maxPrice, displayName);
+        if (Utils.isEmpty(topicName)) {
+            return teachers;
+        }
+        Map<Integer, Topic> topics = getAllMap(Topic.class);
+        List<Teacher> matchedTeachers = new ArrayList<>();
+        
+        for (Teacher teacher : teachers)
+        {
+            List<TeachingTopic> teachingTopics = _teachingTopic_DB.getTeacherTeachingTopics(teacher);
+            boolean foundTopic = false;
+            for (TeachingTopic teachingTopic : teachingTopics) {
+                Topic topic = topics.get(teachingTopic.topic.id);
+                if (topic.name.toLowerCase().contains(topicName.toLowerCase())) {
+                    foundTopic = true;
+                    break;
+                }
+            }
+            if (foundTopic) {
+                matchedTeachers.add(teacher);
+            }                       
+        }
+        return matchedTeachers;
     }
 
     public static List<AvailableTime> getTeacherAvailableTime(Teacher teacher) throws SQLException {

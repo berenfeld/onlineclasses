@@ -26,15 +26,15 @@ public class TeachingTopic_DB extends Base_DB<TeachingTopic> {
 
     public TeachingTopic_DB(ConnectionSource connectionSource) throws SQLException {
         super(connectionSource, TeachingTopic.class);
-              QueryBuilder<TeachingTopic, Integer> queryBuilder = _dao.queryBuilder();
+        QueryBuilder<TeachingTopic, Integer> queryBuilder = _dao.queryBuilder();
         Where<TeachingTopic, Integer> where = queryBuilder.where();
-        where.eq(TeachingTopic.TEACHER_ID_COLUMN, _getTeacherTeachingTopicsTeacherIdArg);        
+        where.eq(TeachingTopic.TEACHER_ID_COLUMN, _getTeacherTeachingTopicsTeacherIdArg);
         _getTeacherTeachingTopicsQuery = queryBuilder.prepare();
     }
 
     private final SelectArg _getTeacherTeachingTopicsTeacherIdArg = new SelectArg();
     private final PreparedQuery<TeachingTopic> _getTeacherTeachingTopicsQuery;
-    
+
     public synchronized List<TeachingTopic> getTeacherTeachingTopics(Teacher teacher) throws SQLException {
         _getTeacherTeachingTopicsTeacherIdArg.setValue(teacher);
         return _dao.query(_getTeacherTeachingTopicsQuery);
