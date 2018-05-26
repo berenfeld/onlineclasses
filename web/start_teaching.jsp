@@ -125,7 +125,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-lg-6 col-xl-6 my-1">
+                            <div class="col-12 col-lg-6 col-xl-6 my-0">
                                 <div class="row no-gutters">
                                     <label class="col-form-label col" for="start_learning_phone_number_input">
                                         <%= Labels.get("start_learning.form.login.phone_number")%>

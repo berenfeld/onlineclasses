@@ -472,7 +472,7 @@
                         <div class="card my-2">
                             <div class="card-body">
                                 <div class="row no-gutters">      
-                                    <div class="col-3">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-12 px-1">
                                         <figure class="figure h5">
                                             <figcaption class="figure-caption text-center my-1">
                                                 <%= teacher.display_name%>
@@ -480,7 +480,7 @@
                                             <img src="<%= teacher.image_url%>" class="border border-success img-responsive figure-img rounded mx-1 my-1"/>
                                         </figure>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-12 px-1">
                                         <cite>
                                             <%= teacher.moto%>
                                         </cite>
@@ -493,11 +493,11 @@
                                         <div class="card text-white bg-secondary collapse" id="find_teacher_details_teacher_<%= teacher.id%>">
                                             <div class="card-body">
                                                 <div class="row no-gutters">                                                    
-                                                    <div class="col">
-                                                        <h5>
+                                                    <div class="col-12 xol-xl-6 col-lg-6">
+                                                        <h6>
                                                             <%= Labels.get("find_teachers.list.body.available_hours")%>                                                    
-                                                        </h5>
-                                                        <p>
+                                                        </h6>
+                                                        <small>
                                                             <%
                                                                 for (AvailableTime availableTime : teacher.available_time) {
                                                             %>
@@ -512,13 +512,13 @@
                                                             <%
                                                                 }
                                                             %>  
-                                                        </p>   
+                                                        </small>   
                                                     </div>
-                                                    <div class="col">
-                                                        <h5>
+                                                    <div class="col-12 xol-xl-6 col-lg-6">
+                                                        <h6>
                                                             <%= Labels.get("find_teachers.list.body.teaching_topics")%>                                                    
-                                                        </h5>
-                                                        <p>
+                                                        </h6>
+                                                        <small>
                                                             <%
                                                                 for (TeachingTopic teachingTopic : teacher.teaching_topics) {
                                                             %>
@@ -528,13 +528,13 @@
                                                             <%
                                                                 }
                                                             %>  
-                                                        </p>   
+                                                        </small>   
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-12 px-1">
 
                                         <h6 class="text-secondary">
                                             <%= Labels.get("find_teachers.list.body.price_per_hour")%>

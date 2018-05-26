@@ -92,7 +92,7 @@
             </div>
             <div class="row no-gutters my-4">
                 <div class="col-12 col-xl-6 col-lg-6">
-                    <div class="card mx-1">
+                    <div class="card">
                         <div class="card-header bg-dark">
                             <div class="h4 text-center text-info">
                                 <%= Labels.get("mainpage.students.title")%>
@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-xl-6 col-lg-6">
-                    <div class="card mx-1">
+                    <div class="card">
                         <div class="card-header bg-dark">
                             <div class="h4 text-center text-info">                                
                                 <a href="find_teachers">
@@ -157,20 +157,19 @@
                                     <%= Labels.get("mainpage.teachers.lits4")%>
                                     <a href="start_teaching">
                                         <%= Labels.get("mainpage.teachers.start_teaching")%>
-                                    </a>
-                                    <span class="oi" data-glyph="star"></span>      
+                                    </a>                                    
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <%@include file="footer.jsp" %>    
-            <script>
-                    index.all_subjects = <%= Utils.gson().toJson(allSubjects)%>;
-                    index.all_topics = <%= Utils.gson().toJson(allTopics)%>;
-                    index_init();
-            </script>
+        </div>
+        <%@include file="footer.jsp" %>    
+        <script>
+                index.all_subjects = <%= Utils.gson().toJson(allSubjects)%>;
+                index.all_topics = <%= Utils.gson().toJson(allTopics)%>;
+                index_init();
+        </script>
     </body>
 
 </html>
