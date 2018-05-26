@@ -126,14 +126,13 @@
                             </div>
 
                             <div class="col-12 col-lg-6 col-xl-6 my-1">
-
                                 <div class="row no-gutters">
                                     <label class="col-form-label col" for="start_learning_phone_number_input">
                                         <%= Labels.get("start_learning.form.login.phone_number")%>
                                     </label>
 
-                                    <div class="input-group col">
-                                        <input type="text" class="form-control" id="start_learning_phone_number_input"
+                                    <div class="input-group form-control border-0 col">
+                                        <input type="text" class="form-control mr-3" id="start_learning_phone_number_input"
                                                onkeypress="return isNumberKey(event)"
                                                placeholder="<%= Labels.get("start_learning.form.login.phone_number")%>">
 
@@ -179,7 +178,7 @@
                     </div>
                 </div>
                 <div class="card my-1" id="start_learning_education_card">
-                    <div class="card-header text-white bg-primary">
+                    <div class="card-header text-white bg-secondary">
                         <h6>
                             <%= Labels.get("start_learning.form.learning_information.text1")%>   
                         </h6>

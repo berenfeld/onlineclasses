@@ -90,96 +90,87 @@
                     </div>
                 </div>
             </div>
-            <div class="row no-gutters my-3">
-                <div class="col">
-                    <div class="card mx-3" style="border:none">
-                        <p class="h1 text-center">
-                            welcome to onlineclasses.co.il
-                        </p>
-                        <div class="h2 text-info mx-1 text-left">
-                            We are a team of profesional teachers, for computer science and
-                            other technology fields
-                        </div>
-                        <div class="h2 text-info mx-1 text-left">
-                            We are a team of profesional teachers, for computer science and
-                            other technology fields. 
-                            <a href="about_us">
-                                Read more about us
-                            </a>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="h4 text-center">
-                                    Our students get
-                                    <ul class="h5 text-left list-unstyled">
-                                        <li>                                            
-                                            the best teachers
-                                            <span class="oi" data-glyph="star"></span>      
-                                        </li>
-                                        <li>
-                                            user friendly, advanced website
-                                            <span class="oi" data-glyph="star"></span>      
-                                        </li>
-                                        <li>
-                                            all the material and classes available, 24/7
-                                            <span class="oi" data-glyph="star"></span>      
-                                        </li>
-                                        <li>
-                                            our guarantee
-                                            <span class="oi" data-glyph="star"></span>      
-                                        </li>
-                                        <li>
-                                            Want to join us and start learning ?
-                                            <a href="start_learning">
-                                                click here to start
-                                            </a>
-                                            <span class="oi" data-glyph="star"></span>      
-                                        </li>
-                                    </ul>
-                                </div>
+            <div class="row no-gutters my-4">
+                <div class="col-12 col-xl-6 col-lg-6">
+                    <div class="card mx-1">
+                        <div class="card-header bg-dark">
+                            <div class="h4 text-center text-info">
+                                <%= Labels.get("mainpage.students.title")%>
                             </div>
-                            <div class="col">
-                                <div class="h3 text-center">                                
-                                    <a href="find_teachers">
-                                        Our teachers
-                                    </a>
-                                    get
-                                    <ul class="h5 text-left list-unstyled">
-                                        <li>
-                                            mentoring and guidance
-                                            <span class="oi" data-glyph="star"></span>      
-                                        </li>
-                                        <li>
-                                            our guarantee
-                                            <span class="oi" data-glyph="star"></span>      
-                                        </li>
-                                        <li>
-                                            free for new teachers ! USB electronic pen
-                                            <span class="oi" data-glyph="star"></span>      
-                                        </li>
-                                        <li>
-                                            want to become a teacher ?
-                                            contact us at
-                                            <a href="mailto:admin@onlineclasses.co.il">
-                                                admin@onlineclasses.co.il
-                                            </a>
-                                            <span class="oi" data-glyph="star"></span>      
-                                    </ul>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="h5 list-unstyled">
+                                <li>       
+                                    <span class="oi" data-glyph="star"></span>      
+                                    <%= Labels.get("mainpage.students.list1")%>
+                                </li>
+                                <li>
+                                    <span class="oi" data-glyph="star"></span> 
+                                    <%= Labels.get("mainpage.students.list2")%>
+                                </li>
+                                <li>
+                                    <span class="oi" data-glyph="star"></span> 
+                                    <%= Labels.get("mainpage.students.list3")%>
+                                </li>
+                                <li>
+                                    <span class="oi" data-glyph="star"></span> 
+                                    <%= Labels.get("mainpage.students.list4")%>
+                                </li>
+                                <li>
+                                    <span class="oi" data-glyph="star"></span> 
+                                    <%= Labels.get("mainpage.students.list5")%>
+                                    <a href="start_learning">
+                                        <%= Labels.get("mainpage.students.to_start_learning")%>
+                                    </a>    
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+                <div class="col-12 col-xl-6 col-lg-6">
+                    <div class="card mx-1">
+                        <div class="card-header bg-dark">
+                            <div class="h4 text-center text-info">                                
+                                <a href="find_teachers">
+                                    <%= Labels.get("mainpage.teachers.title.out_teachers")%>
+                                </a>
 
+                                <%= Labels.get("mainpage.teachers.title.get")%>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="h5 list-unstyled">
+                                <li>
+                                    <span class="oi" data-glyph="star"></span>      
+                                    <%= Labels.get("mainpage.teachers.list1")%>
+                                </li>
+                                <li>
+                                    <span class="oi" data-glyph="star"></span>      
+                                    <%= Labels.get("mainpage.teachers.list2")%>
+                                </li>
+                                <li>
+                                    <span class="oi" data-glyph="star"></span>      
+                                    <%= Labels.get("mainpage.teachers.list3")%>
+                                </li>
+                                <li>
+                                    <span class="oi" data-glyph="star"></span>      
+                                    <%= Labels.get("mainpage.teachers.lits4")%>
+                                    <a href="start_teaching">
+                                        <%= Labels.get("mainpage.teachers.start_teaching")%>
+                                    </a>
+                                    <span class="oi" data-glyph="star"></span>      
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <%@include file="footer.jsp" %>    
-        <script>
-            index.all_subjects = <%= Utils.gson().toJson(allSubjects)%>;
-            index.all_topics = <%= Utils.gson().toJson(allTopics)%>;
-            index_init();
-        </script>
 
+            <%@include file="footer.jsp" %>    
+            <script>
+                    index.all_subjects = <%= Utils.gson().toJson(allSubjects)%>;
+                    index.all_topics = <%= Utils.gson().toJson(allTopics)%>;
+                    index_init();
+            </script>
     </body>
 
 </html>
