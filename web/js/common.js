@@ -1,4 +1,4 @@
-/* global online_classes */
+/* global oc */
 
 var common = {};
 
@@ -94,6 +94,16 @@ function emailIsValid(email) {
     return re.test(String(email).toLowerCase());
 }
 
+function stringEmpty(str) {
+    if (!str) {
+        return true;
+    }
+    if ((str.replace(/\s/g, '').length) === 0) {
+        return true;
+    }
+    return false;
+}
+
 function stringNotEmpty(str) {
     if (!str) {
         return false;
@@ -118,6 +128,7 @@ function invite_other_student()
     $("#invite_other_student_warning").addClass("d-none");
     $("#invite_other_student_modal").modal("show");
 }
+
 function invite_other_student_response(response)
 {
     if (response.rc === 0) {

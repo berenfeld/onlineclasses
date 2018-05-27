@@ -18,6 +18,6 @@ public class ContactRequest extends BasicRequest {
     public String name;       
     public String email;       
     public String phone;       
-    public String reason;       
+    public String subject;       
     public String message;       
 }

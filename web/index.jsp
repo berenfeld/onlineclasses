@@ -18,12 +18,12 @@
         <%@include file="body.jsp" %>    
         <div class="container">
             <div class="row no-gutters my-3">
-                <div class="col-xl-6 col-kg6">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <div class="col-xl-6 col-lg-6">
+                    <div id="index_carousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>                            
+                            <li data-target="#index_carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#index_carousel" data-slide-to="1"></li>
+                            <li data-target="#index_carousel" data-slide-to="2"></li>                            
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
@@ -36,11 +36,11 @@
                                 <img class="d-block w-100 h-100" src="images/main3.jpg" alt="First slide">
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <a class="carousel-control-prev" href="#index_carousel" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                         </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <a class="carousel-control-next" href="#index_carousel" role="button" data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a>
@@ -64,7 +64,7 @@
                             </p>
                             <div class="form-group row">
                                 <div class="col-xl-3 col-lg-3">
-                                    <label class="h3 col-form-label-lg">
+                                    <label class="col-form-label col-form-label-lg">
                                         <%= Labels.get("mainpage.topic")%>
                                     </label>
                                 </div>
@@ -72,7 +72,7 @@
                                     <div>
                                         <input type="text" name="index_topic_name"
                                                id="index_topic_name" 
-                                               class="form-control form-control-lg"
+                                               class="form-control form-control-lg rounded"
                                                placeholder="<%= Labels.get("mainpage.topic2")%>">
                                         </input>                                                
                                     </div>
@@ -166,9 +166,9 @@
         </div>
         <%@include file="footer.jsp" %>    
         <script>
-                index.all_subjects = <%= Utils.gson().toJson(allSubjects)%>;
-                index.all_topics = <%= Utils.gson().toJson(allTopics)%>;
-                index_init();
+            index.all_subjects = <%= Utils.gson().toJson(allSubjects)%>;
+            index.all_topics = <%= Utils.gson().toJson(allTopics)%>;
+            index_init();
         </script>
     </body>
 
