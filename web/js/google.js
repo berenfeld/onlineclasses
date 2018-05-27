@@ -35,10 +35,6 @@ function google_setLoadedCallback(loadedCallback) {
     google.loadedCallback = loadedCallback;
 }
 
-function google_signinChanged(value)
-{
-
-}
 
 function google_addUserLoggedinCallback(userLoggedInCallback)
 {
@@ -63,9 +59,9 @@ function google_idTokenResponse(response)
     }
 }
 
-function google_userChanged(value)
+function google_userChanged()
 {
-    if (!google.auth2.isSignedIn.get()) {
+    if (! google.auth2.isSignedIn.get()) {
         google.user = null;
         for (var i = 0; i < google.userLoggedOutCallbacks.length; i++) {
             google.userLoggedOutCallbacks[i]();
@@ -94,7 +90,6 @@ function google_userChanged(value)
     user.email = profile.getEmail();
     user.google_id_token = googleUser.getAuthResponse().id_token;
 
-    console.log(user);
     google.user = user;
     for (var i = 0; i < google.userLoggedInCallbacks.length; i++) {
         google.userLoggedInCallbacks[i](google.user);
@@ -105,8 +100,7 @@ function google_loaded()
 {
     google.loaded = true;
     google.auth2 = gapi.auth2.getAuthInstance();
-    google.auth2.isSignedIn.listen(google_signinChanged);
-    google.auth2.currentUser.listen(google_userChanged);
+    google.auth2.currentUser.listen(google_userChanged);    
 }
 
 google_init();

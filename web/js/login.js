@@ -1,4 +1,4 @@
-/* global online_classes */
+/* global oc */
 
 var login = {};
 
@@ -22,7 +22,7 @@ function login_googleLoggedIn(googleUser)
                     dataType: "JSON",
                     success: login_loginRequestComplete
                 });
-    }
+    } 
 }
 
 function login_loginRequestComplete(response)
@@ -39,7 +39,7 @@ function login_loginRequestComplete(response)
 
 function login_googleLoggedOut()
 {
-    console.log("google user logged out");
+    
 }
 
 function login_isLoggedIn() {
