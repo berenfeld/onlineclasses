@@ -130,14 +130,15 @@
                                         <label class="col-form-label col" for="start_learning_phone_number_input">
                                             <%= Labels.get("start_learning.form.login.phone_number")%>
                                         </label>
-
-                                        <div class="col">
-                                            <div class="input-group">   
-                                                <input type="text" class="form-control col-8 mr-3" id="start_learning_phone_number_input"
-                                                       onkeypress="return isNumberKey(event)"
-                                                       placeholder="<%= Labels.get("start_learning.form.login.phone_number")%>">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-info dropdown-toggle " type="button" 
+                                        <div class="row no-gutters col">
+                                            <div class="input-group">  
+                                                <div class="col-8 pl-1">
+                                                    <input type="text" class="form-control" id="start_learning_phone_number_input"
+                                                           onkeypress="return isNumberKey(event)"
+                                                           placeholder="<%= Labels.get("start_learning.form.login.phone_number")%>">
+                                                </div>
+                                                <div class="dropdown col-4 px-0">
+                                                    <button class="btn btn-info dropdown-toggle btn-block" type="button" 
                                                             id="start_learning_area_code_button" data-toggle="dropdown" 
                                                             aria-haspopup="true" aria-expanded="false" name="start_learning_area_code_button">
                                                         <span id="start_learning_area_code_value">
