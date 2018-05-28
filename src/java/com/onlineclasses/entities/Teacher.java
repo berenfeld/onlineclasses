@@ -21,6 +21,9 @@ public class Teacher extends User {
     
     @DatabaseField
     public String moto;
+        
+    @DatabaseField
+    public String degree_type;
     
     public List<AvailableTime> available_time;
     

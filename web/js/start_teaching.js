@@ -19,7 +19,8 @@ function start_teaching_userLoggedOutCallback(googleUser)
 
 function start_teaching_select_degree_type(degree_type)
 {
-    $("#start_teaching_degree_type_button").html(degree_type);    
+    $("#start_teaching_degree_type_button").html(degree_type);
+    start_teaching.degree_type = degree_type;
 }
 
 function start_teaching_googleUserEmailExistsCallback(email_exists)
@@ -29,6 +30,11 @@ function start_teaching_googleUserEmailExistsCallback(email_exists)
         alert_show(oc.clabels[ "start_teaching.login.email_exists.title"],
                 oc.clabels[ "start_teaching.login.email_exists.text"]);
     }
+}
+function start_teaching_select_topic(topic_id)
+{
+    var checked = $("#start_teaching_topic_" + topic_id + "_checkbox").attr("checked");
+    $("#start_teaching_topic_" + topic_id + "_checkbox").attr("checked", !checked);
 }
 
 function start_teaching_register_complete(response)
@@ -68,7 +74,17 @@ function start_teaching_form_submit()
     request.institute_name = $("#start_teaching_institute_other_text").val();
     request.subject_id = start_teaching.subject_id;
     request.subject_name = $("#start_teaching_subject_0_text").val();
-    
+    request.degree_type = start_teaching.degree_type;
+    request.teaching_topics = [];
+
+    $("#start_teaching_topics_card input[type='checkbox']").each(
+            function (index, elem) {
+                if (elem.checked) {
+                    request.teaching_topics.push(parseInt10($("#" + elem.id).attr("data-topic-id")));
+                }
+            }
+    );
+
     if ($("#start_teaching_gender_input_male").attr("checked")) {
         request.gender = parseInt10($("#start_teaching_gender_input_male").val());
     }
@@ -76,7 +92,7 @@ function start_teaching_form_submit()
         request.gender = parseInt10($("#start_teaching_gender_input_female").val());
     }
 
-    $.ajax("servlets/register_student",
+    $.ajax("servlets/register_teacher",
             {
                 type: "POST",
                 data: JSON.stringify(request),
@@ -98,25 +114,25 @@ function start_teaching_select_area_code(phone_area)
 }
 
 function start_teaching_select_institute_type(institute_type, institute_id)
-{    
+{
     start_teaching.institute_type = institute_type;
-     
-    for (var i=0;i<=oc.institute_type.length;i++)
+
+    for (var i = 0; i <= oc.institute_type.length; i++)
     {
         $("#start_teaching_institute_" + i + "_label").addClass("d-none");
         $("#start_teaching_institute_" + i + "_div").addClass("d-none");
     }
-    
+
     start_teaching.institute_id = 0;
-    
-    if (institute_type === 0 ) {        
+
+    if (institute_type === 0) {
         $("#start_teaching_institute_type_button").html($("#start_teaching_institute_type_other").html());
         $("#start_teaching_institute_0_label").removeClass("d-none");
-        $("#start_teaching_institute_0_div").removeClass("d-none");                
-    } else {        
+        $("#start_teaching_institute_0_div").removeClass("d-none");
+    } else {
         $("#start_teaching_institute_type_button").html(oc.institute_type[institute_type - 1].name);
         $("#start_teaching_institute_" + institute_type + "_label").removeClass("d-none");
-        $("#start_teaching_institute_" + institute_type + "_div").removeClass("d-none");        
+        $("#start_teaching_institute_" + institute_type + "_div").removeClass("d-none");
         if (institute_id !== 0) {
             start_teaching.institute_id = institute_id;
             $("#start_teaching_institute_" + institute_type + "_select").html(oc.institutes[institute_type][institute_id]);
@@ -127,8 +143,8 @@ function start_teaching_select_institute_type(institute_type, institute_id)
 function start_teaching_select_subject(subject_id)
 {
     start_teaching.subject_id = subject_id;
-    
-    if (subject_id === 0 ) {
+
+    if (subject_id === 0) {
         start_teaching.subject_id = 0;
         $("#start_teaching_subject_0_div").removeClass("d-none");
         $("#start_teaching_subject_0_label").removeClass("d-none");
@@ -138,7 +154,7 @@ function start_teaching_select_subject(subject_id)
         $("#start_teaching_subject_button").html(oc.subjects[subject_id - 1].name);
         start_teaching.subject_id = subject_id;
     }
-    
+
 }
 
 function start_teaching_init()

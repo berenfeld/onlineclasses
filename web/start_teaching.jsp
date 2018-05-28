@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.entities.Topic"%>
 <%@page import="java.io.File"%>
 <%@page import="com.onlineclasses.entities.Subject"%>
 <%@page import="com.onlineclasses.entities.Institute"%>
@@ -26,7 +27,8 @@
     List<Subject> subjects = DB.getAll(Subject.class);
     String degreeTypesList = Labels.get("db.degree_type");
     List<String> degreeTypes = Utils.toList(degreeTypesList);
-    
+    Map<Integer, Subject> allSubjects = DB.getAllMap(Subject.class);
+    Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
 %>
 <!DOCTYPE html>
 <html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
@@ -41,7 +43,7 @@
 
         <div class="container">
             <div class="row no-gutters my-2">
-                <form>
+                <form onsubmit="return false">
                     <div class="card my-2">
                         <div class="card-header text-secondary">
                             <h5>
@@ -56,14 +58,12 @@
                     </div>
                     <div class="card my-2">
                         <div class="card-header bg-secondary text-white">
-
                             <div style="float:left">
                                 <div class="g-signin2" data-theme="dark"></div>
                             </div>
-                            <h6>
-                                <%= Labels.get("start_teaching.form.login.text1")%>     
-                            </h6>                    
+                            <%= Labels.get("start_teaching.form.login.text1")%>    
                         </div>
+
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="col-6 col-lg-3 my-2 col-form-label" for="start_teaching_email_input">
@@ -181,9 +181,7 @@
                     </div>
                     <div class="card my-2" id="start_teaching_education_card">
                         <div class="card-header text-white bg-secondary">
-                            <h6>
-                                <%= Labels.get("start_teaching.form.learning_information.text1")%>   
-                            </h6>
+                            <%= Labels.get("start_teaching.form.learning_information.text1")%>   
                         </div>
 
                         <div class="card-body">
@@ -201,8 +199,8 @@
                                         <%= Labels.get("start_teaching.form.learning.degree_type.select")%>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="start_teaching_degree_type_button">
-                                        <%                                        
-                                            for (String  degreeType : degreeTypes) {
+                                        <%
+                                            for (String degreeType : degreeTypes) {
                                         %>
 
                                         <a class="dropdown-item" href="javascript:start_teaching_select_degree_type('<%= degreeType%>')">
@@ -348,6 +346,56 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="card my-2" id="start_teaching_topics_card">
+                        <div class="card-header text-white bg-secondary">
+                            <%= Labels.get("start_teaching.form.teaching_topics.text1")%>   
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row no-gutters">
+                                <%
+                                    for (Subject subject : allSubjects.values()) {
+                                %>
+                                <div class="col-xl-4 col-lg-4 px-1">
+                                    <div class="card">
+                                        <div class="card-header text-white bg-info">
+                                            <%= subject.name%>
+                                        </div>
+                                        <div class="card-body h6">                                            
+                                            <ul class="list-group">
+
+                                                <%
+                                                    for (Topic topic : allTopics.values()) {
+                                                        if (topic.subject.equals(subject)) {
+                                                %>
+
+                                                <a class="list-group-item list-group-item-action"
+                                                   href="javascript:start_teaching_select_topic(<%= topic.id %>)">
+                                                    <input class="form-check-input my-1 mx-0"  
+                                                           id="start_teaching_topic_<%= topic.id%>_checkbox" 
+                                                           name="start_teaching_topic_<%= topic.id%>_checkbox" 
+                                                           type="checkbox" data-topic-id="<%=topic.id %>" value="">
+                                                    <label class="form-check-label" for="start_teaching_topic_<%= topic.id%>_checkbox">
+                                                        <%= topic.name%>
+                                                    </label>
+                                                </a>
+                                                <%
+                                                        }
+                                                    }
+                                                %>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%
+                                    }
+                                %>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="card my-2" id="start_teaching_accept_terms_card">
                         <div class="card-header text-white bg-secondary">
                             <h6>
@@ -364,6 +412,7 @@
                                 String htmlFileName = Config.get("html.path") + File.separator
                                         + Config.get("website.language") + File.separator + "terms_of_usage.html";
                                 String htmlContent = Utils.getStringFromInputStream(getServletContext(), htmlFileName);
+
                                 out.write(htmlContent);
                             %>
 
@@ -384,16 +433,15 @@
             </div>
         </div>
 
-    </div>
 
-    <%@include file="footer.jsp" %>    
+        <%@include file="footer.jsp" %>    
 
-    <script>
-        oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
-        oc.institutes = <%= Utils.gson().toJson(institutes)%>;
-        oc.subjects = <%= Utils.gson().toJson(subjects)%>;
-    </script>
+        <script>
+            oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
+            oc.institutes = <%= Utils.gson().toJson(institutes)%>;
+            oc.subjects = <%= Utils.gson().toJson(subjects)%>;
+        </script>
 
-</body>
+    </body>
 
 </html>
