@@ -60,7 +60,8 @@ public class RegisterTeacherServlet extends BaseServlet {
         registeringTeacher.day_of_birth = registerTeacherRequest.day_of_birth;
         registeringTeacher.registered = new Date();
         registeringTeacher.degree_type = registerTeacherRequest.degree_type;
-        registeringTeacher.paypal_email = Config.get("website.paypal.account");
+        registeringTeacher.paypal_email = registerTeacherRequest.paypal_email;
+        registeringTeacher.price_per_hour = registerTeacherRequest.price_per_hour;
 
         if (registerTeacherRequest.institute_id != 0) {
             registeringTeacher.institute = DB.get(registerTeacherRequest.institute_id, Institute.class);

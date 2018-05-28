@@ -32,4 +32,6 @@ public class RegisterTeacherRequest extends BasicRequest {
     public int subject_id;
     public String subject_name;
     public List<Integer> teaching_topics;
+    public String paypal_email;
+    public int price_per_hour;
 }

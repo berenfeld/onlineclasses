@@ -75,8 +75,10 @@ function start_teaching_form_submit()
     request.subject_id = start_teaching.subject_id;
     request.subject_name = $("#start_teaching_subject_0_text").val();
     request.degree_type = start_teaching.degree_type;
+    request.price_per_hour = parseInt10($("#start_teaching_price_per_hour_input").val());
+    request.paypal_email = $("#start_teaching_paypal_email_input").val();
     request.teaching_topics = [];
-
+    
     $("#start_teaching_topics_card input[type='checkbox']").each(
             function (index, elem) {
                 if (elem.checked) {
