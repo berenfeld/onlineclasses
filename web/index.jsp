@@ -18,7 +18,7 @@
         <%@include file="body.jsp" %>    
         <div class="container">
             <div class="row no-gutters my-3">
-                <div class="col-12 col-xl-6 col-lg-6">
+                <div class="col-12 col-xl-7 col-lg-7">
                     <div class="card border-0">
                         <div class="card-header h3">
                             <%= Labels.get("mainpage.heading")%>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-xl-6 col-lg-6">
+                <div class="col-12 col-xl-5 col-lg-5">
                     <div id="index_carousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             <li data-target="#index_carousel" data-slide-to="0" class="active"></li>
@@ -91,9 +91,9 @@
             </div>
             <div class="row no-gutters my-4">
                 <div class="col-12 col-xl-4 col-lg-4 px-1">
-                    <div class="card px-1 py-2">
-                        <div class="card-header bg-white">
-                            <div class="h5 text-center text-info">                                
+                    <div class="card">                        
+                        <div class="card-header bg-info text-white">
+                            <div class="h5 text-center">                                
                                 <span class="oi" data-glyph="audio-spectrum"></span>    
                                 <%= Labels.get("mainpage.feedbacks.title")%>
                             </div>
@@ -130,8 +130,8 @@
                                     
                 <div class="col-12 col-xl-4 col-lg-4 px-1">
                     <div class="card">
-                        <div class="card-header bg-white">
-                            <div class="h5 text-center text-info">
+                        <div class="card-header bg-info text-white">
+                            <div class="h5 text-center">
                                 <span class="oi" data-glyph="people"></span>    
                                 <%= Labels.get("mainpage.students.title")%>
                             </div>
@@ -167,10 +167,10 @@
                 </div>
                 <div class="col-12 col-xl-4 col-lg-4 px-1">
                     <div class="card">
-                        <div class="card-header bg-white">
-                            <div class="h5 text-center text-info">                                
+                        <div class="card-header bg-info text-white">
+                            <div class="h5 text-center">                                
                                 <span class="oi" data-glyph="pencil"></span>    
-                                <a href="find_teachers">                                    
+                                <a href="find_teachers" class="text-white">                                    
                                     <%= Labels.get("mainpage.teachers.title.out_teachers")%>
                                 </a>
 
