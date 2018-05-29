@@ -19,6 +19,48 @@
         <div class="container">
             <div class="row no-gutters my-3">
                 <div class="col-12 col-xl-6 col-lg-6">
+                    <div class="card border-0">
+                        <div class="card-header h3">
+                            <%= Labels.get("mainpage.heading")%>
+                        </div>
+                        <div class="card-body text-info">
+                            <p class="h5">
+                                <%= Labels.get("mainpage.heading2")%>
+                            </p>
+                            <p class="h5">
+                                <a href="<%= Config.get("website.url")%>">
+                                    <%= Labels.get("website.name")%>
+                                </a>
+                                <%= Labels.get("mainpage.heading3")%>
+                            </p>
+                            <div class="form-group row">
+                                <div class="col-xl-3 col-lg-3 col-md-3">
+                                    <label class="col-form-label col-form-label-lg">
+                                        <%= Labels.get("mainpage.topic")%>
+                                    </label>
+                                </div>
+                                <div class="col-xl-9 col-lg-9 col-md-9">
+                                    <div>
+                                        <input type="text" name="index_topic_name"
+                                               id="index_topic_name" 
+                                               class="form-control form-control-lg rounded"
+                                               placeholder="<%= Labels.get("mainpage.topic2")%>">
+                                        </input>                                                
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col">
+                                    <button type="button" onclick="index_find_teachers_submit()" class="float-left btn btn-lg btn-info">
+                                        <%= Labels.get("mainpage.start_button")%>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-6 col-lg-6">
                     <div id="index_carousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             <li data-target="#index_carousel" data-slide-to="0" class="active"></li>
@@ -44,49 +86,6 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a>
-                    </div>
-                </div>
-                <div class="col-12 col-xl-6 col-lg-6">
-                    <div class="card border-0">
-                        <div class="card-header h2">
-                            <%= Labels.get("mainpage.heading")%>
-                        </div>
-                        <div class="card-body text-info">
-                            <p class="h4">
-
-                                <%= Labels.get("mainpage.heading2")%>
-                            </p>
-                            <p class="h4">
-                                <a href="<%= Config.get("website.url")%>">
-                                    <%= Labels.get("website.name")%>
-                                </a>
-                                <%= Labels.get("mainpage.heading3")%>
-                            </p>
-                            <div class="form-group row">
-                                <div class="col-xl-3 col-lg-3">
-                                    <label class="col-form-label col-form-label-lg">
-                                        <%= Labels.get("mainpage.topic")%>
-                                    </label>
-                                </div>
-                                <div class="col-xl-9 col-lg-9">
-                                    <div>
-                                        <input type="text" name="index_topic_name"
-                                               id="index_topic_name" 
-                                               class="form-control form-control-lg rounded"
-                                               placeholder="<%= Labels.get("mainpage.topic2")%>">
-                                        </input>                                                
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col">
-                                    <button type="button" onclick="index_find_teachers_submit()" class="float-left btn btn-lg btn-info">
-                                        <%= Labels.get("mainpage.start_button")%>
-                                    </button>
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
                 </div>
             </div>
