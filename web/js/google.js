@@ -117,7 +117,7 @@ function google_load_finished()
     google.auth2.isSignedIn.listen(google_signInChanged);
     $("button.google-login-button").each(
             function (index, elem) {
-                gapi.signin2.render(elem.id, { theme: "dark", longtitle: true } );
+                gapi.signin2.render(elem.id, { theme: "dark", longtitle: false } );
                 $("#" + elem.id).attr("disabled", false);
             }
     );
