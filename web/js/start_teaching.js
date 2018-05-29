@@ -4,12 +4,14 @@ var start_teaching = {};
 
 function start_teaching_userLoggedInCallback(googleUser)
 {
+    google_clearUserLoggedinCallback();
     start_teaching.google_id_token = googleUser.google_id_token;
 
     $("#start_teaching_email_input").val(googleUser.email);
     $("#start_teaching_display_name_input").val(googleUser.name);
     $("#start_teaching_first_name_input").val(googleUser.first_name);
     $("#start_teaching_last_name_input").val(googleUser.last_name);
+    google_signOut();
 }
 
 function start_teaching_userLoggedOutCallback(googleUser)
@@ -159,14 +161,23 @@ function start_teaching_select_subject(subject_id)
 
 }
 
+
+function start_teaching_googleLogin()
+{
+    var googleUser = google_getLoggedInUser();
+    if (googleUser === null) {
+        google_setUserLoggedinCallback(start_teaching_userLoggedInCallback);
+        google_signIn();
+    } else {
+        start_teaching_userLoggedInCallback(googleUser);
+    }       
+}
+
 function start_teaching_init()
 {
     start_teaching.google_id_token = null;
     login_showLoginModal('start_teaching');
-    google_addUserLoggedinCallback(start_teaching_userLoggedInCallback);
-    google_addUserLoggedOutCallback(start_teaching_userLoggedOutCallback);
     google_addEmailExistsCallback(start_teaching_googleUserEmailExistsCallback);
-
 
     $("#start_teaching_day_of_birth_input").datepicker({
         dayNames: oc.clabels[ "website.days.long" ].split(","),

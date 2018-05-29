@@ -58,9 +58,8 @@
                     </div>
                     <div class="card my-1">
                         <div class="card-header bg-secondary text-white">
-                            <div style="float:left">
-                                <div class="g-signin2" data-theme="dark"></div>
-                            </div>
+                            <button class="google-login-button mx-0 px-0 float-left" onclick="start_teaching_googleLogin()" id="start_teaching_button_google" disabled>
+                            </button>
                             <%= Labels.get("start_teaching.form.login.text1")%>    
                         </div>
 

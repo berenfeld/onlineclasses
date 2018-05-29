@@ -9,20 +9,21 @@ function login_showLoginDialog()
 
 function login_googleLoggedIn(googleUser)
 {
-    if (login.reason === "login_modal") {                        
-        $("#login_modal_info_text").html(oc.clabels["login.progress.start"]);
-        $("#login_modal_info_div").removeClass("d-none");
-        
-        var request = {};
-        request.google_id_token = googleUser.google_id_token;
-        $.ajax("servlets/login",
-                {
-                    type: "POST",
-                    data: JSON.stringify(request),
-                    dataType: "JSON",
-                    success: login_loginRequestComplete
-                });
-    } 
+    google_clearUserLoggedinCallback();
+    
+    $("#login_modal_info_text").html(oc.clabels["login.progress.start"]);
+    $("#login_modal_info_div").removeClass("d-none");
+
+    var request = {};
+    request.google_id_token = googleUser.google_id_token;
+    $.ajax("servlets/login",
+            {
+                type: "POST",
+                data: JSON.stringify(request),
+                dataType: "JSON",
+                success: login_loginRequestComplete
+            });
+    
 }
 
 function login_loginRequestComplete(response)
@@ -32,14 +33,14 @@ function login_loginRequestComplete(response)
         $("#login_modal_info_text").html(oc.clabels["login.progress.success"]);
         $("#login_modal_info_div").removeClass("d-none");
         reloadAfter(1);
-    }    
+    }
     login.reason = null;
-    
+
 }
 
 function login_googleLoggedOut()
 {
-    
+
 }
 
 function login_isLoggedIn() {
@@ -81,12 +82,20 @@ function login_logoutFromNavBarConfirmed()
 
 }
 
+function login_googleLogin()
+{
+    var googleUser = google_getLoggedInUser();
+    if (googleUser === null) {
+        google_setUserLoggedinCallback(login_googleLoggedIn);
+        google_signIn();
+    } else {
+        login_googleLoggedIn(googleUser);
+    }
+}
+
 function login_init()
 {
     login.user = oc.user;
-
-    google_addUserLoggedinCallback(login_googleLoggedIn);
-    google_addUserLoggedOutCallback(login_googleLoggedOut);
 }
 
 login_init();

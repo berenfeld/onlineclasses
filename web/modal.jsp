@@ -11,7 +11,8 @@
                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body">
-                <div class="g-signin2 float-left" data-theme="dark"></div>
+                <button class="google-login-button mx-0 px-0 float-left" onclick="login_googleLogin()" id="login_button_google" disabled>
+                </button>
                 <p>
                     <%= Labels.get("login.modal.text1")%>
                 </p>                

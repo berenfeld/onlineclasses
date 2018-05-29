@@ -10,7 +10,8 @@ var google = {};
 
 function google_init()
 {
-    google.userLoggedInCallbacks = [];
+    google.user = null;
+    google.userLoggedInCallback = null;
     google.userLoggedOutCallbacks = [];
     google.emailExistsCallbacks = [];
 }
@@ -18,6 +19,11 @@ function google_init()
 function google_signOut() {
     google.auth2.signOut();
     google.auth2.disconnect();
+}
+
+function google_signIn()
+{
+    google.auth2.signIn();
 }
 
 function google_getLoggedInUser() {
@@ -36,14 +42,14 @@ function google_setLoadedCallback(loadedCallback) {
 }
 
 
-function google_addUserLoggedinCallback(userLoggedInCallback)
+function google_setUserLoggedinCallback(userLoggedInCallback)
 {
-    google.userLoggedInCallbacks.push(userLoggedInCallback);
+    google.userLoggedInCallback = userLoggedInCallback;
 }
 
-function google_addUserLoggedOutCallback(userLoggedOutCallback)
+function google_clearUserLoggedinCallback(userLoggedInCallback)
 {
-    google.userLoggedOutCallbacks.push(userLoggedOutCallback);
+    google.userLoggedInCallback = null;
 }
 
 function google_addEmailExistsCallback(emailExistsCallback)
@@ -59,17 +65,19 @@ function google_idTokenResponse(response)
     }
 }
 
-function google_userChanged()
+function google_signInChanged()
 {
-    if (! google.auth2.isSignedIn.get()) {
+    if (!google.auth2.isSignedIn.get()) {
         google.user = null;
-        for (var i = 0; i < google.userLoggedOutCallbacks.length; i++) {
-            google.userLoggedOutCallbacks[i]();
-        }
         return;
     }
 
     var googleUser = google.auth2.currentUser.get();
+    if ( googleUser === null) {
+        google.user = null;
+        return;
+    }
+    
     request = {};
     request.google_id_token = googleUser.getAuthResponse().id_token;
     $.ajax("servlets/google_id_token",
@@ -91,16 +99,29 @@ function google_userChanged()
     user.google_id_token = googleUser.getAuthResponse().id_token;
 
     google.user = user;
-    for (var i = 0; i < google.userLoggedInCallbacks.length; i++) {
-        google.userLoggedInCallbacks[i](google.user);
+    if (google.userLoggedInCallback !== null) {
+        google.userLoggedInCallback(google.user);
     }
 }
 
 function google_loaded()
 {
+    gapi.load('auth2', google_load_finished);
+}
+
+function google_load_finished()
+{
+    gapi.auth2.init();
     google.loaded = true;
     google.auth2 = gapi.auth2.getAuthInstance();
-    google.auth2.currentUser.listen(google_userChanged);    
+    google.auth2.isSignedIn.listen(google_signInChanged);
+    $("button.google-login-button").each(
+            function (index, elem) {
+                gapi.signin2.render(elem.id, { theme: "dark", longtitle: true } );
+                $("#" + elem.id).attr("disabled", false);
+            }
+    );
+    
 }
 
 google_init();

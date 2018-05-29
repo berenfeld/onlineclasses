@@ -1,15 +1,18 @@
-/* global online_classes */
+/* global oc */
 
 var start_learning = {};
 
 function start_learning_userLoggedInCallback(googleUser)
 {
+    google_clearUserLoggedinCallback();
     start_learning.google_id_token = googleUser.google_id_token;
 
     $("#start_learning_email_input").val(googleUser.email);
     $("#start_learning_display_name_input").val(googleUser.name);
     $("#start_learning_first_name_input").val(googleUser.first_name);
     $("#start_learning_last_name_input").val(googleUser.last_name);
+    
+    google_signOut();
 }
 
 function start_learning_userLoggedOutCallback(googleUser)
@@ -136,14 +139,23 @@ function start_learning_select_subject(subject_id)
     
 }
 
+function start_learning_googleLogin()
+{
+    var googleUser = google_getLoggedInUser();
+    if (googleUser === null) {
+        google_setUserLoggedinCallback(start_learning_userLoggedInCallback);
+        google_signIn();
+    } else {
+        start_learning_userLoggedInCallback(googleUser);
+    }       
+}
+
 function start_learning_init()
 {
     start_learning.google_id_token = null;
     login_showLoginModal('start_learning');
-    google_addUserLoggedinCallback(start_learning_userLoggedInCallback);
-    google_addUserLoggedOutCallback(start_learning_userLoggedOutCallback);
+    
     google_addEmailExistsCallback(start_learning_googleUserEmailExistsCallback);
-
 
     $("#start_learning_day_of_birth_input").datepicker({
         dayNames: oc.clabels[ "website.days.long" ].split(","),
