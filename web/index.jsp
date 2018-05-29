@@ -18,7 +18,7 @@
         <%@include file="body.jsp" %>    
         <div class="container">
             <div class="row no-gutters my-3">
-                <div class="col-xl-6 col-lg-6">
+                <div class="col-12 col-xl-6 col-lg-6">
                     <div id="index_carousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             <li data-target="#index_carousel" data-slide-to="0" class="active"></li>
@@ -46,7 +46,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-6">
+                <div class="col-12 col-xl-6 col-lg-6">
                     <div class="card border-0">
                         <div class="card-header h2">
                             <%= Labels.get("mainpage.heading")%>
@@ -91,15 +91,54 @@
                 </div>
             </div>
             <div class="row no-gutters my-4">
-                <div class="col-12 col-xl-6 col-lg-6">
+                <div class="col-12 col-xl-4 col-lg-4 px-1">
+                    <div class="card px-1 py-2">
+                        <div class="card-header bg-white">
+                            <div class="h5 text-center text-info">                                
+                                <span class="oi" data-glyph="audio-spectrum"></span>    
+                                <%= Labels.get("mainpage.feedbacks.title")%>
+                            </div>
+                        </div>
+                        <div class="card-body my-2">
+                            <div class="card bg-light">                            
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <%= Labels.get("mainpage.feedbacks.text1")%>
+                                    </p>
+                                </div>
+                                <div class="card-footer text-left">
+                                    <cite>
+                                        <%= Labels.get("mainpage.feedbacks.student1")%>
+                                    </cite>
+                                </div>
+                            </div>
+                                    
+                            <div class="card bg-light my-2">                            
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <%= Labels.get("mainpage.feedbacks.text2")%>
+                                    </p>
+                                </div>
+                                <div class="card-footer text-left">
+                                    <cite>
+                                        <%= Labels.get("mainpage.feedbacks.student2")%>
+                                    </cite>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                    
+                <div class="col-12 col-xl-4 col-lg-4 px-1">
                     <div class="card">
-                        <div class="card-header bg-dark">
-                            <div class="h4 text-center text-info">
+                        <div class="card-header bg-white">
+                            <div class="h5 text-center text-info">
+                                <span class="oi" data-glyph="people"></span>    
                                 <%= Labels.get("mainpage.students.title")%>
                             </div>
                         </div>
                         <div class="card-body">
-                            <ul class="h5 list-unstyled">
+                            <ul class="h6 list-unstyled">
                                 <li>       
                                     <span class="oi" data-glyph="star"></span>      
                                     <%= Labels.get("mainpage.students.list1")%>
@@ -127,11 +166,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-xl-6 col-lg-6">
+                <div class="col-12 col-xl-4 col-lg-4 px-1">
                     <div class="card">
-                        <div class="card-header bg-dark">
-                            <div class="h4 text-center text-info">                                
-                                <a href="find_teachers">
+                        <div class="card-header bg-white">
+                            <div class="h5 text-center text-info">                                
+                                <span class="oi" data-glyph="pencil"></span>    
+                                <a href="find_teachers">                                    
                                     <%= Labels.get("mainpage.teachers.title.out_teachers")%>
                                 </a>
 
@@ -139,7 +179,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <ul class="h5 list-unstyled">
+                            <ul class="h6 list-unstyled">
                                 <li>
                                     <span class="oi" data-glyph="star"></span>      
                                     <%= Labels.get("mainpage.teachers.list1")%>
@@ -162,6 +202,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
         <%@include file="footer.jsp" %>    
