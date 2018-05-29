@@ -9,15 +9,12 @@ import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.Institute;
-import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.TeachingTopic;
 import com.onlineclasses.entities.Topic;
 import com.onlineclasses.entities.User;
-import com.onlineclasses.servlets.entities.RegisterStudentRequest;
 import com.onlineclasses.servlets.entities.RegisterTeacherRequest;
-import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.Utils;
 import java.util.Date;
 import javax.servlet.annotation.WebServlet;
@@ -91,6 +88,7 @@ public class RegisterTeacherServlet extends BaseServlet {
         BaseServlet.loginUser(request, registeringTeacher);
         Utils.info("teacher " + registeringTeacher.display_name + " email " + registeringTeacher.email + " registered");
     
+        // TODO send email
         return new BasicResponse(0, "");
     }
 

@@ -22,7 +22,7 @@
 %>
 
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-expan-md navbar-dark bg-dark">   
+    <nav class="navbar navbar-expand-lg navbar-expand-md navbar-dark bg-dark">   
 
         <a class="navbar-brand" href="/"><%= Labels.get("navbar.website.name")%></a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_main">
