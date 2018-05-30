@@ -41,7 +41,6 @@ function google_setLoadedCallback(loadedCallback) {
     google.loadedCallback = loadedCallback;
 }
 
-
 function google_setUserLoggedinCallback(userLoggedInCallback)
 {
     google.userLoggedInCallback = userLoggedInCallback;
@@ -78,7 +77,7 @@ function google_signInChanged()
         return;
     }
     
-    request = {};
+    var request = {};
     request.google_id_token = googleUser.getAuthResponse().id_token;
     $.ajax("servlets/google_id_token",
             {

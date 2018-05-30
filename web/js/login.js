@@ -27,9 +27,7 @@ function login_googleLoggedIn(googleUser)
 }
 
 function login_facebookLoggedIn(facebookUser)
-{
-    facebook_clearUserLoggedinCallback();
-    
+{    
     $("#login_modal_info_text").html(oc.clabels["login.progress.start"]);
     $("#login_modal_info_div").removeClass("d-none");
 
@@ -116,7 +114,6 @@ function login_facebookLogin()
 {
     var facebookUser = facebook_getLoggedInUser();
     if (facebookUser === null) {
-        facebook_setUserLoggedinCallback(login_facebookLoggedIn);
         facebook_signIn();
     } else {
         login_facebookLoggedIn(facebookUser);

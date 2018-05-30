@@ -8,6 +8,68 @@
 
 var facebook = {};
 
+function facebook_signIn() 
+{
+    FB.login(facebook_loginResponse, { scope : "email,user_gender,name,first_name,last_name" } );
+}
+
+function facebook_loginResponse(response)
+{
+    if (response.authResponse) {
+        facebook.uid = response.authResponse.userID;
+        facebook.accessToken = response.authResponse.accessToken;
+        FB.api('/me', facebook_getPersonalInformation);
+    }
+}
+
+function facebook_accessTokenResponse(response)
+{
+    
+}
+
+function facebook_getPersonalInformation(response)
+{   
+    var facebookUser = {};
+    facebookUser.name = response.name;
+    facebookUser.first_name = response.first_name;
+    facebookUser.last_name = response.last_name;
+    facebookUser.gender = response.gender;
+    facebook.user = facebookUser;
+    
+    var request = {};
+    request.facebook_access_token = facebook.accessToken;
+    $.ajax("servlets/facebook_access_token",
+            {
+                type: "POST",
+                data: JSON.stringify(request),
+                dataType: "JSON",
+                success: facebook_accessTokenResponse
+            }
+    );
+    
+    console.log(facebook.user);
+}
+
+function facebook_gotLoginStatus(response)
+{    
+    console.log(response);
+    if (response.status === 'connected') {
+        // the user is logged in and has authenticated your
+        // app, and response.authResponse supplies
+        // the user's ID, a valid access token, a signed
+        // request, and the time the access token 
+        // and signed request each expire        
+        FB.api('/me?fields=email,gender,name,first_name,last_name', facebook_getPersonalInformation);
+        facebook.uid = response.authResponse.userID;
+        facebook.accessToken = response.authResponse.accessToken;
+    } else if (response.status === 'not_authorized') {
+        // the user must go through the login flow
+        // to authorize your app or renew authorization
+    } else {
+        // the use
+    }
+    
+}
 function facebook_load()
 {
     window.fbAsyncInit = function () {
@@ -15,10 +77,10 @@ function facebook_load()
             appId: '550017225356873',
             cookie: true,
             xfbml: true,
+            status: true,
             version: 'v3.0'
-        });
-
-        FB.getLoginStatus(facebook_loginStatusChanged);
+        });        
+        FB.getLoginStatus(facebook_gotLoginStatus);
         facebook.init_done = true;
     };
 
@@ -39,15 +101,15 @@ function facebook_loginStatusChanged(response)
     if (response.status === "unknown") {
         facebook.user = null;
         return;
-    }    
+    }
 }
 
 function facebook_getLoggedInUser()
 {
-    if (! facbook_isLoaded()) {
-        return false;
+    if (!facbook_isLoaded()) {
+        return null;
     }
-    FB.getLoginStatus(facebook_loginStatusChanged);
+    return facebook.user;
 }
 
 function facbook_isLoaded()
@@ -58,6 +120,8 @@ function facbook_isLoaded()
 function facebook_init()
 {
     facebook_load();
+    facebook.user = null;
+    facebook.userLoggedInCallback = null;
 }
 
 facebook_init();

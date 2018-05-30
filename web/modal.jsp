@@ -24,6 +24,7 @@
                      data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" 
                      data-use-continue-as="true">
                 </button>
+                <input type="image" src="images/facebook.jpg" class="d-none btn" onclick="login_facebookLogin()">                
             </div>
             <div class="alert alert-info">
                 <span class="oi" data-glyph="info"></span>      
