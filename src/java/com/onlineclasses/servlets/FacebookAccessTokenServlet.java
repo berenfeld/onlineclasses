@@ -5,7 +5,9 @@ package com.onlineclasses.servlets;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
+import com.onlineclasses.entities.FacebookUser;
 import com.onlineclasses.servlets.entities.FacebookAccessTokenRequest;
 import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.Utils;
@@ -65,7 +67,25 @@ public class FacebookAccessTokenServlet extends BaseServlet {
         String accessToken = facebookAccessTokenRequest.facebook_access_token;
         FacebookProfile profile = getFacebookProfile(accessToken);
         
-        Utils.info("facebook user " + profile);
+        if (profile == null) {
+            Utils.warning("failed to get facebook profile from access token");
+            return new BasicResponse(0,"");
+        }
+        
+        FacebookUser facebookUser = DB.getFacebookUserByFacebookID(profile.id);
+        if (facebookUser != null) {
+            return new BasicResponse(0,"");
+        }
+        
+        facebookUser = new FacebookUser();
+        facebookUser.display_name = profile.name;
+        facebookUser.first_name = profile.first_name;
+        facebookUser.last_name = profile.last_name;
+        facebookUser.email = profile.email;
+        facebookUser.facebook_id = profile.id;
+        facebookUser.image_url = "http://graph.facebook.com/" + profile.id + "/picture?type=square";       
+        DB.add(facebookUser);
+        Utils.info("welcome facebook user " + profile);
         
         return new BasicResponse(0,"");
     }
