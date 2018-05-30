@@ -46,6 +46,9 @@
                         <a class="dropdown-item" href="contact">
                             <%= Labels.get("navbar.contacs_us")%>
                         </a>
+                        <a class="dropdown-item" href="terms_of_usage">
+                            <%= Labels.get("navbar.about.us.terms_of_usage")%>
+                        </a>
                     </div>
                 </li>
 

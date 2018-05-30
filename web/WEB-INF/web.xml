@@ -37,6 +37,10 @@
         <servlet-name>contact</servlet-name>
         <jsp-file>/contact.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>terms_of_usage</servlet-name>
+        <jsp-file>/terms_of_usage.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>start_teaching</servlet-name>
         <url-pattern>/start_teaching</url-pattern>
@@ -60,6 +64,10 @@
     <servlet-mapping>
         <servlet-name>contact</servlet-name>
         <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>terms_of_usage</servlet-name>
+        <url-pattern>/terms_of_usage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -11,12 +11,19 @@
                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body">
-                <button class="rounded google-login-button mx-0 px-0 float-left" onclick="login_googleLogin()" id="login_button_google" disabled>
-                    <%= Labels.get("login.login_with_google") %>
+
+                <div>
+                    <p>
+                        <%= Labels.get("login.modal.text1")%>
+                    </p> 
+                </div>
+                <button class="rounded google-login-button mx-0 px-0" onclick="login_googleLogin()" id="login_button_google" disabled>
+                    <%= Labels.get("login.login_with_google")%>
                 </button>
-                <p>
-                    <%= Labels.get("login.modal.text1")%>
-                </p>                
+                <button class="d-none rounded fb-login-button mx-0 px-0" onclick="login_facebookLogin()"  data-width="120" data-max-rows="1" data-size="medium" 
+                     data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" 
+                     data-use-continue-as="true">
+                </button>
             </div>
             <div class="alert alert-info">
                 <span class="oi" data-glyph="info"></span>      

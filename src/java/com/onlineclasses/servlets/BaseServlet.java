@@ -50,6 +50,9 @@ public abstract class BaseServlet extends HttpServlet {
 
     private static Cookie findCookieFromUser(HttpServletRequest request) {
         String cookieName = Config.get("website.cookie.name");
+        if ( request.getCookies() == null) {
+            return null;
+        }
         for (Cookie cookie : request.getCookies()) {
             if (cookie.getName().equals(cookieName)) {
                 return cookie;

@@ -10,6 +10,7 @@
 -->
 
 <urlrewrite>
+
     <rule>
         <name>redirect all requests except localhost to the same host www.onlineclasses.co.il</name>
         <condition name="host" operator="notequal">www.onlineclasses.co.il</condition>
