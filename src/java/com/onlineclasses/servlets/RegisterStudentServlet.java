@@ -30,7 +30,7 @@ public class RegisterStudentServlet extends BaseServlet {
 
         String email;
         String image_url;
-        
+
         if (Utils.isNotEmpty(registerStudentRequest.google_id_token)) {
             GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(registerStudentRequest.google_id_token);
             if (googleUser == null) {
@@ -53,7 +53,7 @@ public class RegisterStudentServlet extends BaseServlet {
                 Utils.warning("failed to get user from facebook access token");
                 return new BasicResponse(-1, "user was not found");
             }
-            
+
             email = facebookUser.email;
             image_url = facebookUser.image_url;
         } else {
@@ -80,26 +80,22 @@ public class RegisterStudentServlet extends BaseServlet {
             registeringStudent.institute_name = registerStudentRequest.institute_name;
         }
 
-        if (registerStudentRequest.subject_id
-                != 0) {
+        if (registerStudentRequest.subject_id != 0) {
             registeringStudent.subject = DB.get(registerStudentRequest.subject_id, Subject.class);
         } else {
             registeringStudent.subject_name = registerStudentRequest.subject_name;
         }
 
-        if (DB.add(registeringStudent)
-                != 1) {
+        if (DB.add(registeringStudent) != 1) {
             Utils.warning("Could not add user " + registeringStudent.display_name);
             return new BasicResponse(-1, "user is already registered");
         }
 
         BaseServlet.loginUser(request, registeringStudent);
 
-        Utils.info(
-                "user " + registeringStudent.display_name + " email " + registeringStudent.email + " registered");
+        Utils.info( "user " + registeringStudent.display_name + " email " + registeringStudent.email + " registered");
 
-        return new BasicResponse(
-                0, "");
+        return new BasicResponse( 0, "");
     }
 
 }

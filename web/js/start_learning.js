@@ -5,7 +5,8 @@ var start_learning = {};
 function start_learning_userLoggedInCallback(user)
 {
     google_clearUserLoggedinCallback();
-    
+    facebook_setUserLoggedinCallback();
+
     start_learning.google_id_token = user.google_id_token;
     start_learning.facebook_access_token = user.facebook_access_token;
 
@@ -13,7 +14,7 @@ function start_learning_userLoggedInCallback(user)
     $("#start_learning_display_name_input").val(user.name);
     $("#start_learning_first_name_input").val(user.first_name);
     $("#start_learning_last_name_input").val(user.last_name);
-        
+
     google_signOut();
     facebook_signOut();
 }
@@ -46,7 +47,7 @@ function start_learning_form_submit()
         return;
     }
 
-    if ( (start_learning.google_id_token === null) && ( start_learning.facebook_access_token === null) ) {
+    if ((start_learning.google_id_token === null) && (start_learning.facebook_access_token === null)) {
         alert_show(oc.clabels[ "start_learning.form.submit.terms_of_usage.please_login"]);
         return;
     }
@@ -65,7 +66,7 @@ function start_learning_form_submit()
     request.institute_name = $("#start_learning_institute_other_text").val();
     request.subject_id = start_learning.subject_id;
     request.subject_name = $("#start_learning_subject_0_text").val();
-    
+
     if ($("#start_learning_gender_input_male").attr("checked")) {
         request.gender = parseInt10($("#start_learning_gender_input_male").val());
     }
@@ -95,25 +96,25 @@ function start_learning_select_area_code(phone_area)
 }
 
 function start_learning_select_institute_type(institute_type, institute_id)
-{    
+{
     start_learning.institute_type = institute_type;
-     
-    for (var i=0;i<=oc.institute_type.length;i++)
+
+    for (var i = 0; i <= oc.institute_type.length; i++)
     {
         $("#start_learning_institute_" + i + "_label").addClass("d-none");
         $("#start_learning_institute_" + i + "_div").addClass("d-none");
     }
-    
+
     start_learning.institute_id = 0;
-    
-    if (institute_type === 0 ) {        
+
+    if (institute_type === 0) {
         $("#start_learning_institute_type_button").html($("#start_learning_institute_type_other").html());
         $("#start_learning_institute_0_label").removeClass("d-none");
-        $("#start_learning_institute_0_div").removeClass("d-none");                
-    } else {        
+        $("#start_learning_institute_0_div").removeClass("d-none");
+    } else {
         $("#start_learning_institute_type_button").html(oc.institute_type[institute_type - 1].name);
         $("#start_learning_institute_" + institute_type + "_label").removeClass("d-none");
-        $("#start_learning_institute_" + institute_type + "_div").removeClass("d-none");        
+        $("#start_learning_institute_" + institute_type + "_div").removeClass("d-none");
         if (institute_id !== 0) {
             start_learning.institute_id = institute_id;
             $("#start_learning_institute_" + institute_type + "_select").html(oc.institutes[institute_type][institute_id]);
@@ -124,8 +125,8 @@ function start_learning_select_institute_type(institute_type, institute_id)
 function start_learning_select_subject(subject_id)
 {
     start_learning.subject_id = subject_id;
-    
-    if (subject_id === 0 ) {
+
+    if (subject_id === 0) {
         start_learning.subject_id = 0;
         $("#start_learning_subject_0_div").removeClass("d-none");
         $("#start_learning_subject_0_label").removeClass("d-none");
@@ -135,7 +136,7 @@ function start_learning_select_subject(subject_id)
         $("#start_learning_subject_button").html(oc.subjects[subject_id - 1].name);
         start_learning.subject_id = subject_id;
     }
-    
+
 }
 
 function start_learning_googleLogin()
@@ -146,7 +147,7 @@ function start_learning_googleLogin()
         google_signIn();
     } else {
         start_learning_userLoggedInCallback(googleUser);
-    }       
+    }
 }
 
 function start_learning_facebookLogin()
@@ -157,14 +158,15 @@ function start_learning_facebookLogin()
         facebook_signIn();
     } else {
         start_learning_userLoggedInCallback(facebookUser);
-    }       
+        alert_show(oc.clabels["start_teaching.login_successful"]);
+    }
 }
 
 function start_learning_init()
 {
     start_learning.google_id_token = null;
     start_learning.facebook_access_token = null;
-   
+
     google_addEmailExistsCallback(start_learning_googleUserEmailExistsCallback);
 
     $("#start_learning_day_of_birth_input").datepicker({

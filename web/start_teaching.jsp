@@ -58,9 +58,17 @@
                     </div>
                     <div class="card my-1">
                         <div class="card-header bg-secondary text-white">
-                            <button class="google-login-button mx-0 px-0 float-left" onclick="start_teaching_googleLogin()" id="start_teaching_button_google" disabled>
-                            </button>
-                            <%= Labels.get("start_teaching.form.login.text1")%>    
+                            <div class="row no-gutters">
+                                <div class="col-6">
+                                    <%= Labels.get("start_teaching.form.login.text1")%>    
+                                </div>
+                                <div class="col-3">
+                                    <input type="image" src="images/google_login_button.png" class="w-100" onclick="start_teaching_googleLogin()">              
+                                </div>
+                                <div class="col-3">                        
+                                    <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="start_teaching_facebookLogin()">                             
+                                </div>
+                            </div>
                         </div>
 
                         <div class="card-body">

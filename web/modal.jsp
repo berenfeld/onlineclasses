@@ -1,7 +1,7 @@
 <%@page import="com.onlineclasses.utils.Labels"%>
 
 <div id="login_modal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-md " role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
                 <div class="modal-title">
@@ -16,10 +16,10 @@
                     </p> 
                 <div class="row no-gutters">
                     <div class="col-6">                        
-                        <input type="image" src="images/google_button.png" class="w-100" onclick="login_googleLogin()">              
+                        <input type="image" src="images/google_login_button.png" class="w-100" onclick="login_googleLogin()">              
                     </div>
                     <div class="col-6">                        
-                        <input type="image" src="images/facebook_button.png" class="w-100" onclick="login_facebookLogin()">                             
+                        <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="login_facebookLogin()">                             
                     </div>
                 </div>
             </div>

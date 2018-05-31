@@ -2,21 +2,21 @@
 
 var start_teaching = {};
 
-function start_teaching_userLoggedInCallback(googleUser)
+function start_teaching_userLoggedInCallback(user)
 {
     google_clearUserLoggedinCallback();
-    start_teaching.google_id_token = googleUser.google_id_token;
+    facebook_clearUserLoggedinCallback();
+    
+    start_teaching.google_id_token = user.google_id_token;
+    start_teaching.facebook_access_token = user.facebook_access_token;
 
-    $("#start_teaching_email_input").val(googleUser.email);
-    $("#start_teaching_display_name_input").val(googleUser.name);
-    $("#start_teaching_first_name_input").val(googleUser.first_name);
-    $("#start_teaching_last_name_input").val(googleUser.last_name);
+    $("#start_teaching_email_input").val(user.email);
+    $("#start_teaching_display_name_input").val(user.name);
+    $("#start_teaching_first_name_input").val(user.first_name);
+    $("#start_teaching_last_name_input").val(user.last_name);
+        
     google_signOut();
-}
-
-function start_teaching_userLoggedOutCallback(googleUser)
-{
-
+    facebook_signOut();
 }
 
 function start_teaching_select_degree_type(degree_type)
@@ -58,13 +58,14 @@ function start_teaching_form_submit()
         return;
     }
 
-    if (start_teaching.google_id_token === null) {
+    if ( (start_teaching.google_id_token === null) && ( start_teaching.facebook_access_token === null) ) {
         alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_login"]);
         return;
     }
 
     var request = {};
     request.google_id_token = start_teaching.google_id_token;
+    request.facebook_access_token = start_teaching.facebook_access_token;
     request.email = $("#start_teaching_email_input").val();
     request.first_name = $("#start_teaching_first_name_input").val();
     request.last_name = $("#start_teaching_last_name_input").val();
@@ -161,7 +162,6 @@ function start_teaching_select_subject(subject_id)
 
 }
 
-
 function start_teaching_googleLogin()
 {
     var googleUser = google_getLoggedInUser();
@@ -173,9 +173,23 @@ function start_teaching_googleLogin()
     }       
 }
 
+function start_teaching_facebookLogin()
+{
+    var facebookUser = facebook_getLoggedInUser();
+    if (facebookUser === null) {
+        facebook_setUserLoggedinCallback(start_teaching_userLoggedInCallback);
+        facebook_signIn();
+    } else {
+        start_teaching_userLoggedInCallback(facebookUser);
+        alert_modal( oc.clabels["start_teaching.login_successful"]);
+    }       
+}
+
 function start_teaching_init()
 {
     start_teaching.google_id_token = null;
+    start_teaching.facebook_access_token = null;
+   
     google_addEmailExistsCallback(start_teaching_googleUserEmailExistsCallback);
 
     $("#start_teaching_day_of_birth_input").datepicker({

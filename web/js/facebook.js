@@ -40,6 +40,16 @@ function facebook_accessTokenResponse(response)
     
 }
 
+function facebook_setUserLoggedinCallback(userLoggedInCallback)
+{
+    facebook.userLoggedInCallback = userLoggedInCallback;
+}
+
+function facebook_clearUserLoggedinCallback(userLoggedInCallback)
+{
+    facebook.userLoggedInCallback = null;
+}
+
 function facebook_getPersonalInformation(response)
 {   
     var facebookUser = {};
@@ -49,7 +59,7 @@ function facebook_getPersonalInformation(response)
     facebookUser.gender = response.gender;
     facebookUser.email = response.email;
     facebookUser.facebook_access_token = facebook.accessToken;
-    facebookUser.google_id_token = null;
+    facebookUser.facebook_id_token = null;
     facebook.user = facebookUser;
     
     if (! login_isLoggedIn())
@@ -68,7 +78,9 @@ function facebook_getPersonalInformation(response)
         }
     }
     
-    console.log(facebook.user);
+    if (facebook.userLoggedInCallback !== null) {
+        facebook.userLoggedInCallback (facebookUser);
+    }
 }
 
 function facebook_gotLoginStatus(response)
