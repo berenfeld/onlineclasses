@@ -11,20 +11,17 @@
                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body">
-
-                <div>
                     <p>
                         <%= Labels.get("login.modal.text1")%>
                     </p> 
+                <div class="row no-gutters">
+                    <div class="col-6">                        
+                        <input type="image" src="images/google_button.png" class="w-100" onclick="login_googleLogin()">              
+                    </div>
+                    <div class="col-6">                        
+                        <input type="image" src="images/facebook_button.png" class="w-100" onclick="login_facebookLogin()">                             
+                    </div>
                 </div>
-                <button class="rounded google-login-button mx-0 px-0" onclick="login_googleLogin()" id="login_button_google" disabled>
-                    <%= Labels.get("login.login_with_google")%>
-                </button>
-                <button class="d-none rounded fb-login-button mx-0 px-0" onclick="login_facebookLogin()"  data-width="120" data-max-rows="1" data-size="medium" 
-                     data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" 
-                     data-use-continue-as="true">
-                </button>
-                <input type="image" src="images/facebook.jpg" class="d-none btn" onclick="login_facebookLogin()">                
             </div>
             <div class="alert alert-info">
                 <span class="oi" data-glyph="info"></span>      

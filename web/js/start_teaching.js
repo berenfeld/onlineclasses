@@ -176,7 +176,6 @@ function start_teaching_googleLogin()
 function start_teaching_init()
 {
     start_teaching.google_id_token = null;
-    login_showLoginModal('start_teaching');
     google_addEmailExistsCallback(start_teaching_googleUserEmailExistsCallback);
 
     $("#start_teaching_day_of_birth_input").datepicker({

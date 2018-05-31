@@ -7,6 +7,7 @@ package com.onlineclasses.servlets;
  */
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
+import com.onlineclasses.entities.FacebookUser;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.LoginRequest;
 import com.onlineclasses.entities.User;
@@ -18,28 +19,53 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/servlets/login"})
 public class LoginServlet extends BaseServlet {
 
+    private BasicResponse loginWithGoogle(LoginRequest loginRequest, HttpServletRequest request) throws Exception {
+        GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(loginRequest.google_id_token);
+        if (googleUser == null) {
+            Utils.warning("failed to get user from google id token");
+            return new BasicResponse(-1, "user was not found");
+        }
+
+        User user = DB.getUserByEmail(googleUser.email);
+        if (user == null) {
+            Utils.warning("Can't find google logged in user with email " + googleUser.email);
+            // TODO : fast register
+            return new BasicResponse(-1, "user was not found");
+        }
+
+        Utils.info("user " + user.display_name + " logged in with email " + user.email);
+        BaseServlet.loginUser(request, user);
+        return new BasicResponse(0, "");
+    }
+
+    private BasicResponse loginWithFacebook(LoginRequest loginRequest, HttpServletRequest request) throws Exception {
+        FacebookUser facebookUser = FacebookAccessTokenServlet.getFacebookUser(loginRequest.facebook_access_token);
+        if (facebookUser == null) {
+            Utils.warning("failed to get user from facebook access token");
+            return new BasicResponse(-1, "user was not found");
+        }
+
+        User user = DB.getUserByEmail(facebookUser.email);
+        if (user == null) {
+            Utils.warning("Can't find google logged in user with email " + facebookUser.email);
+            // TODO : fast register
+            return new BasicResponse(-1, "user was not found");
+        }
+
+        Utils.info("user " + user.display_name + " logged in with email " + user.email);
+        BaseServlet.loginUser(request, user);
+        return new BasicResponse(0, "");
+    }
+
     @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         LoginRequest loginRequest = Utils.gson().fromJson(requestString, LoginRequest.class);
 
         if (Utils.isNotEmpty(loginRequest.google_id_token)) {
-
-            GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(loginRequest.google_id_token);
-            if (googleUser == null) {
-                Utils.warning("failed to get user from google id token");
-                return new BasicResponse(-1, "user was not found");
-            }
-
-            User user = DB.getUserByEmail(googleUser.email);
-            if (user == null) {
-                Utils.warning("Can't find google logged in user with email " + googleUser.email);
-                // TODO : fast register
-                return new BasicResponse(-1, "user was not found");
-            }
-
-            Utils.info("user " + user.display_name + " logged in with email " + user.email);
-            BaseServlet.loginUser(request, user);
+            return loginWithGoogle(loginRequest, request);
+        } else if (Utils.isNotEmpty(loginRequest.facebook_access_token)) {
+            return loginWithFacebook(loginRequest, request);
         } else {
             Utils.warning("no google id in login request");
         }

@@ -153,8 +153,7 @@ function start_learning_googleLogin()
 function start_learning_init()
 {
     start_learning.google_id_token = null;
-    login_showLoginModal('start_learning');
-    
+   
     google_addEmailExistsCallback(start_learning_googleUserEmailExistsCallback);
 
     $("#start_learning_day_of_birth_input").datepicker({

@@ -10,7 +10,7 @@ function login_showLoginDialog()
 function login_googleLoggedIn(googleUser)
 {
     google_clearUserLoggedinCallback();
-    
+
     $("#login_modal_info_text").html(oc.clabels["login.progress.start"]);
     $("#login_modal_info_div").removeClass("d-none");
 
@@ -23,16 +23,16 @@ function login_googleLoggedIn(googleUser)
                 dataType: "JSON",
                 success: login_loginRequestComplete
             });
-    
+
 }
 
 function login_facebookLoggedIn(facebookUser)
-{    
+{
     $("#login_modal_info_text").html(oc.clabels["login.progress.start"]);
     $("#login_modal_info_div").removeClass("d-none");
 
     var request = {};
-    request.facebook_id_token = facebookUser.facebook_id_token;
+    request.facebook_access_token = facebookUser.facebook_access_token;
     $.ajax("servlets/login",
             {
                 type: "POST",
@@ -40,19 +40,18 @@ function login_facebookLoggedIn(facebookUser)
                 dataType: "JSON",
                 success: login_loginRequestComplete
             });
-    
+
 }
 
 function login_loginRequestComplete(response)
 {
-    if (response.rc === 0)
-    {
+    if (response.rc === 0) {
         $("#login_modal_info_text").html(oc.clabels["login.progress.success"]);
         $("#login_modal_info_div").removeClass("d-none");
         reloadAfter(1);
+    } else {
+        $("#login_modal_info_text").html(oc.clabels["login.progress.failed"]);
     }
-    login.reason = null;
-
 }
 
 function login_googleLoggedOut()
@@ -64,13 +63,9 @@ function login_isLoggedIn() {
     return login.user !== null;
 }
 
-function login_showLoginModal(reason)
+function login_showLoginModal()
 {
-    login.reason = reason;
-    if (reason === "login_modal")
-    {
-        $("#login_modal").modal('show');
-    }
+    $("#login_modal").modal('show');
 }
 
 function logout_logoutRequestComplete(response)

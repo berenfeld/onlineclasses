@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* global FB */
+/* global FB, oc */
 
 var facebook = {};
 
@@ -13,9 +13,20 @@ function facebook_signIn()
     FB.login(facebook_loginResponse, { scope : "email,user_gender,name,first_name,last_name" } );
 }
 
+function facebook_logoutResponse()
+{
+    
+}
+
+function facebook_signOut() 
+{
+    FB.logout(facebook_logoutResponse, facebook.auth);
+}
+
 function facebook_loginResponse(response)
 {
     if (response.authResponse) {
+        facebook.auth = response.authResponse;
         facebook.uid = response.authResponse.userID;
         facebook.accessToken = response.authResponse.accessToken;
         FB.api('/me', facebook_getPersonalInformation);
@@ -34,18 +45,25 @@ function facebook_getPersonalInformation(response)
     facebookUser.first_name = response.first_name;
     facebookUser.last_name = response.last_name;
     facebookUser.gender = response.gender;
+    facebookUser.email = response.email;
+    facebookUser.facebook_access_token = facebook.accessToken;
     facebook.user = facebookUser;
     
-    var request = {};
-    request.facebook_access_token = facebook.accessToken;
-    $.ajax("servlets/facebook_access_token",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: facebook_accessTokenResponse
-            }
-    );
+    if (! login_isLoggedIn())
+    {
+        if ( oc.cconfig[ "facebook.send_token_to_server" ] === "true" ) {
+            var request = {};
+            request.facebook_access_token = facebook.accessToken;
+            $.ajax("servlets/facebook_access_token",
+                    {
+                        type: "POST",
+                        data: JSON.stringify(request),
+                        dataType: "JSON",
+                        success: facebook_accessTokenResponse
+                    }
+            );
+        }
+    }
     
     console.log(facebook.user);
 }
@@ -60,13 +78,16 @@ function facebook_gotLoginStatus(response)
         // request, and the time the access token 
         // and signed request each expire        
         FB.api('/me?fields=email,gender,name,first_name,last_name', facebook_getPersonalInformation);
+        facebook.auth = response.authResponse;
         facebook.uid = response.authResponse.userID;
         facebook.accessToken = response.authResponse.accessToken;
     } else if (response.status === 'not_authorized') {
+        facebook.user = null;
         // the user must go through the login flow
         // to authorize your app or renew authorization
     } else {
-        // the use
+        facebook.user = null;
+        // the user is not logged in
     }
     
 }

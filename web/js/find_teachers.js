@@ -192,7 +192,6 @@ function schedule_class_received_teacher_calendar(response)
 function schedule_class_login()
 {
     $("#schedule_class_not_logged_in_modal").modal("hide");
-    login_showLoginModal("login_modal");
 }
 
 function schedule_class_update_calendar()
@@ -396,7 +395,6 @@ function find_teachers_reset_results()
 function schedule_class_login_clicked()
 {
     $("#schedule_class_modal").modal("hide");
-    login_showLoginModal("login_modal");
 }
 
 

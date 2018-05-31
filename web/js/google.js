@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* global gapi */
+/* global gapi, oc */
 
 var google = {};
 
@@ -77,16 +77,20 @@ function google_signInChanged()
         return;
     }
     
-    var request = {};
-    request.google_id_token = googleUser.getAuthResponse().id_token;
-    $.ajax("servlets/google_id_token",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: google_idTokenResponse
-            }
-    );
+    if (! login_isLoggedIn()) {
+        if ( oc.cconfig[ "google.send_token_to_server" ] === "true" ) {
+            var request = {};
+            request.google_id_token = googleUser.getAuthResponse().id_token;
+            $.ajax("servlets/google_id_token",
+                    {
+                        type: "POST",
+                        data: JSON.stringify(request),
+                        dataType: "JSON",
+                        success: google_idTokenResponse
+                    }
+            );
+        }
+    }
 
     var profile = googleUser.getBasicProfile();
     var user = {};

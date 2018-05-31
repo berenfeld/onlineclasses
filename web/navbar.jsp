@@ -71,7 +71,7 @@
             <ul class="navbar-nav mr-auto">  
                 <% if (user == null) {%>                 
                 <li class="nav-item">                
-                    <a class="nav-link text-info" href="javascript:login_showLoginModal('login_modal')">
+                    <a class="nav-link text-info" href="javascript:login_showLoginModal()">
                         <%= Labels.get("navbar.login")%>
                     </a>                 
                 </li>
