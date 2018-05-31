@@ -2,22 +2,20 @@
 
 var start_learning = {};
 
-function start_learning_userLoggedInCallback(googleUser)
+function start_learning_userLoggedInCallback(user)
 {
     google_clearUserLoggedinCallback();
-    start_learning.google_id_token = googleUser.google_id_token;
-
-    $("#start_learning_email_input").val(googleUser.email);
-    $("#start_learning_display_name_input").val(googleUser.name);
-    $("#start_learning_first_name_input").val(googleUser.first_name);
-    $("#start_learning_last_name_input").val(googleUser.last_name);
     
+    start_learning.google_id_token = user.google_id_token;
+    start_learning.facebook_access_token = user.facebook_access_token;
+
+    $("#start_learning_email_input").val(user.email);
+    $("#start_learning_display_name_input").val(user.name);
+    $("#start_learning_first_name_input").val(user.first_name);
+    $("#start_learning_last_name_input").val(user.last_name);
+        
     google_signOut();
-}
-
-function start_learning_userLoggedOutCallback(googleUser)
-{
-
+    facebook_signOut();
 }
 
 function start_learning_googleUserEmailExistsCallback(email_exists)
@@ -48,13 +46,14 @@ function start_learning_form_submit()
         return;
     }
 
-    if (start_learning.google_id_token === null) {
+    if ( (start_learning.google_id_token === null) && ( start_learning.facebook_access_token === null) ) {
         alert_show(oc.clabels[ "start_learning.form.submit.terms_of_usage.please_login"]);
         return;
     }
 
     var request = {};
     request.google_id_token = start_learning.google_id_token;
+    request.facebook_access_token = start_learning.facebook_access_token;
     request.email = $("#start_learning_email_input").val();
     request.first_name = $("#start_learning_first_name_input").val();
     request.last_name = $("#start_learning_last_name_input").val();
@@ -150,9 +149,21 @@ function start_learning_googleLogin()
     }       
 }
 
+function start_learning_facebookLogin()
+{
+    var facebookUser = facebook_getLoggedInUser();
+    if (facebookUser === null) {
+        facebook_setUserLoggedinCallback(start_learning_userLoggedInCallback);
+        facebook_signIn();
+    } else {
+        start_learning_userLoggedInCallback(facebookUser);
+    }       
+}
+
 function start_learning_init()
 {
     start_learning.google_id_token = null;
+    start_learning.facebook_access_token = null;
    
     google_addEmailExistsCallback(start_learning_googleUserEmailExistsCallback);
 

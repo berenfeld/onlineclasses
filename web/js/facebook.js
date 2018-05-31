@@ -20,7 +20,9 @@ function facebook_logoutResponse()
 
 function facebook_signOut() 
 {
-    FB.logout(facebook_logoutResponse, facebook.auth);
+    if (facebook.auth !== null) {
+        FB.logout(facebook_logoutResponse, facebook.auth);
+    }
 }
 
 function facebook_loginResponse(response)
@@ -47,6 +49,7 @@ function facebook_getPersonalInformation(response)
     facebookUser.gender = response.gender;
     facebookUser.email = response.email;
     facebookUser.facebook_access_token = facebook.accessToken;
+    facebookUser.google_id_token = null;
     facebook.user = facebookUser;
     
     if (! login_isLoggedIn())
@@ -97,7 +100,7 @@ function facebook_load()
         FB.init({
             appId: '550017225356873',
             cookie: true,
-            xfbml: true,
+            xfbml: false,
             status: true,
             version: 'v3.0'
         });        

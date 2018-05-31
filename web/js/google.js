@@ -100,6 +100,7 @@ function google_signInChanged()
     user.image_url = profile.getImageUrl();
     user.email = profile.getEmail();
     user.google_id_token = googleUser.getAuthResponse().id_token;
+    user.facebook_access_token = null;
 
     google.user = user;
     if (google.userLoggedInCallback !== null) {

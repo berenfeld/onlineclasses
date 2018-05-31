@@ -39,7 +39,7 @@
 
         <div class="container">
             <div class="row no-gutters my-1">
-                <form>
+                <form onsubmit="return false">
                     <div class="card my-1">
                         <div class="card-header text-secondary">
                             <h5>
@@ -53,13 +53,20 @@
                         </div>
                     </div>
                     <div class="card my-1">
-                        <div class="card-header bg-secondary text-white">
-                            <button class="google-login-button mx-0 px-0 float-left" onclick="start_learning_googleLogin()" id="start_learning_login_button_google" disabled>                
-                                <%= Labels.get("login.login_with_google")%>
-                            </button>
-                            <h6>
-                                <%= Labels.get("start_learning.form.login.text1")%>     
-                            </h6>                    
+                        <div class="card-header bg-secondary text-white">                                                        
+                            <div class="row no-gutters">
+                                <div class="col-6">
+                                    <h6>
+                                        <%= Labels.get("start_learning.form.login.text1")%>     
+                                    </h6>                  
+                                </div>
+                                <div class="col-3">
+                                    <input type="image" src="images/google_button.png" class="w-100" onclick="start_learning_googleLogin()">              
+                                </div>
+                                <div class="col-3">                        
+                                    <input type="image" src="images/facebook_button.png" class="w-100" onclick="start_learning_facebookLogin()">                             
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
