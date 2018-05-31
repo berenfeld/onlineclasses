@@ -41,6 +41,10 @@
         <servlet-name>terms_of_usage</servlet-name>
         <jsp-file>/terms_of_usage.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>privacy_policy</servlet-name>
+        <jsp-file>/privacy_policy.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>start_teaching</servlet-name>
         <url-pattern>/start_teaching</url-pattern>
@@ -68,6 +72,10 @@
     <servlet-mapping>
         <servlet-name>terms_of_usage</servlet-name>
         <url-pattern>/terms_of_usage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>privacy_policy</servlet-name>
+        <url-pattern>/privacy_policy</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

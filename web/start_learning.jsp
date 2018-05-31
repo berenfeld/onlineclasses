@@ -186,7 +186,7 @@
                         </div>
                     </div>
                     <div class="card my-1" id="start_learning_education_card">
-                        <div class="card-header text-white bg-primary">
+                        <div class="card-header text-white bg-secondary">
                             <h6>
                                 <%= Labels.get("start_learning.form.learning_information.text1")%>   
                             </h6>

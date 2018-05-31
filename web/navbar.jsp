@@ -49,6 +49,9 @@
                         <a class="dropdown-item" href="terms_of_usage">
                             <%= Labels.get("navbar.about.us.terms_of_usage")%>
                         </a>
+                        <a class="dropdown-item" href="privacy_policy">
+                            <%= Labels.get("navbar.about.us.privacy_policy")%>
+                        </a>
                     </div>
                 </li>
 
