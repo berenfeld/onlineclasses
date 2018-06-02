@@ -47,7 +47,7 @@ public class LoginServlet extends BaseServlet {
 
         User user = DB.getUserByEmail(facebookUser.email);
         if (user == null) {
-            Utils.warning("Can't find google logged in user with email " + facebookUser.email);
+            Utils.warning("Can't find facebook logged in user with email " + facebookUser.email);
             // TODO : fast register
             return new BasicResponse(-1, "user was not found");
         }

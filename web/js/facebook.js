@@ -10,7 +10,7 @@ var facebook = {};
 
 function facebook_signIn() 
 {
-    FB.login(facebook_loginResponse, { scope : "email,user_gender,name,first_name,last_name" } );
+    FB.login(facebook_loginResponse, { scope : "email,user_gender,first_name,last_name" } );
 }
 
 function facebook_logoutResponse()
@@ -114,7 +114,7 @@ function facebook_load()
             cookie: true,
             xfbml: false,
             status: true,
-            version: 'v3.0'
+            version: 'v2.12'
         });        
         FB.getLoginStatus(facebook_gotLoginStatus);
         facebook.init_done = true;

@@ -110,18 +110,20 @@ public abstract class BaseServlet extends HttpServlet {
             WCookie websiteCookie = Utils.gson().fromJson(cookieStr, WCookie.class);
             user = DB.getUser(websiteCookie.user_id);
             if (user == null) {
-                Utils.info("no user id from cookie in session " + session);
+                Utils.debug("no user id from cookie in session " + session);
                 logoutUser(request);
                 return null;
             }
 
             if (!verifyHash(user, websiteCookie.hash)) {
-                Utils.info("incorrect hash in cookie in session " + session);
+                Utils.debug("incorrect hash in cookie in session " + session);
                 logoutUser(request);
                 return null;
             }
+            Utils.debug("found user in cookie in session " + session);
             return loginUser(request, user);
         } else {
+            Utils.debug("found user in session " + session);
             return loginUser(request, user);
         }
     }
@@ -144,7 +146,7 @@ public abstract class BaseServlet extends HttpServlet {
             cookie.setMaxAge((int) TimeUnit.DAYS.toSeconds(Config.getInt("website.cookie.age.days")));
         }
         response.addCookie(cookie);
-        Utils.debug("set cookie value " + cookie.getValue() + " age " + cookie.getMaxAge() + " on url " + request.getRequestURI());
+        Utils.info("set cookie value " + cookie.getValue() + " age " + cookie.getMaxAge() + " on url " + request.getRequestURI());
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

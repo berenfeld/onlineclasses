@@ -11,9 +11,13 @@
                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body">
-                    <p>
-                        <%= Labels.get("login.modal.text1")%>
-                    </p> 
+                <p>
+                    <%= Labels.get("login.modal.text1")%>
+                    <br/>
+                    <small>
+                        <%= Labels.get("login.modal.text1_small")%>
+                    </small>
+                </p>
                 <div class="row no-gutters">
                     <div class="col-6">                        
                         <input type="image" src="images/google_login_button.png" class="w-100" onclick="login_googleLogin()">              
@@ -22,13 +26,18 @@
                         <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="login_facebookLogin()">                             
                     </div>
                 </div>
-            </div>
-            <div class="alert alert-info">
-                <span class="oi" data-glyph="info"></span>      
-                <%= Labels.get("login.modal.text2")%>                    
-                <a class="alert-link" href="start_learning">
-                    <%= Labels.get("login.modal.register.student")%>
-                </a>                                            
+                <div class="row no-gutters">
+                    <p>
+                        <br/>
+                        <span class="oi" data-glyph="info"></span>     
+                        <span class="text-info">
+                            <%= Labels.get("login.modal.text2")%>                    
+                            <a class="alert-link" href="start_learning">
+                                <%= Labels.get("login.modal.register.student")%>
+                            </a> 
+                        </span>
+                    </p>
+                </div>
             </div>
             <div id="login_modal_info_div" class="alert alert-info d-none" role="alert">
                 <span class="oi" data-glyph="info"></span>    

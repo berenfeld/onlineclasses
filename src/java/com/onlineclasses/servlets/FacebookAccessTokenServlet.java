@@ -41,7 +41,7 @@ public class FacebookAccessTokenServlet extends BaseServlet {
 
             String facebookGraphURL = Config.get("facebook.graph_api_url");
             String url = facebookGraphURL + "/me?access_token=" + accessToken + "&fields=" + Config.get("facebook.fields");
-            Utils.debug("getting from facebook url " + url);
+            Utils.info("getting from facebook url " + url);
             URL u = new URL(url);
             URLConnection c = u.openConnection();
 
