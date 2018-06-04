@@ -67,6 +67,10 @@ public class TestDB {
         teacher.phone_area = "054";
         teacher.phone_number = "7476526";
         teacher.registered = new Date();
+        teacher.show_email = true;
+        teacher.show_phone = false;
+        teacher.show_skype = false;
+        teacher.skype_name = "ran.berenfeld";
         teacher.gender = User.GENDER_FEMALE;        
         DB.add(teacher);
 

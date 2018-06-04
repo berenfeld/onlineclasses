@@ -416,8 +416,8 @@
                                 </div>
                                 <div class="my-2">
                                     <select class="form-control d-none" id="find_teachers_available_in_days">
-                                            <option value="0" <% if (availableDay
-                                                        == 0) { %> selected <% }%>>
+                                        <option value="0" <% if (availableDay
+                                                    == 0) { %> selected <% }%>>
                                             <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                         </option>
                                         <%
@@ -540,11 +540,45 @@
                                         <%
                                             if (teacher.show_phone) {
                                         %>
-                                        <h6 class="text-secondary">
+                                        <div class="h6 text-secondary">
                                             <span class="oi" data-glyph="phone"></span>
-                                            <%= Labels.get("find_teachers.list.body.phone")%>                                            
-                                            <%= teacher.phone_area %>-<%= teacher.phone_number %>
-                                        </h6>   
+                                            <span class="d-none">    
+                                                <%= Labels.get("find_teachers.list.body.phone")%>
+                                            </span>
+                                            <a href="tel://<%= teacher.phone_area%>-<%= teacher.phone_number%>">
+                                                <%= teacher.phone_area%>-<%= teacher.phone_number%>
+                                            </a>
+
+                                        </div>   
+                                        <%
+                                            }
+                                        %>
+
+                                        <%
+                                            if (teacher.show_email) {
+                                        %>
+                                        <div class="h6 text-secondary">
+                                            <span class="oi" data-glyph="envelope-closed"></span>
+                                            <span class="d-none">    
+                                                <%= Labels.get("find_teachers.list.body.email")%>                                            
+                                            </span>
+                                            <a href="mailto:<%= teacher.email%>">
+                                                <%= teacher.email%>
+                                            </a>
+                                        </div>   
+                                        <%
+                                            }
+                                        %>
+
+                                        <%
+                                            if (teacher.show_skype) {
+                                        %>
+                                        <div class="h6 text-secondary">
+                                            <%= Labels.get("find_teachers.list.body.skype")%>                                            
+                                            <a href="skype:<%= teacher.skype_name%>">
+                                                <%= teacher.skype_name%>
+                                            </a>
+                                        </div>   
                                         <%
                                             }
                                         %>
