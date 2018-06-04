@@ -416,7 +416,7 @@
                                 </div>
                                 <div class="my-2">
                                     <select class="form-control d-none" id="find_teachers_available_in_days">
-                                        <option value="0" <% if (availableDay
+                                            <option value="0" <% if (availableDay
                                                         == 0) { %> selected <% }%>>
                                             <%= Labels.get("find_teachers.sidebar.all_days")%>  
                                         </option>
@@ -537,6 +537,17 @@
                                     </div>
                                     <div class="col-xl-3 col-lg-3 col-md-3 col-12 px-1">
 
+                                        <%
+                                            if (teacher.show_phone) {
+                                        %>
+                                        <h6 class="text-secondary">
+                                            <span class="oi" data-glyph="phone"></span>
+                                            <%= Labels.get("find_teachers.list.body.phone")%>                                            
+                                            <%= teacher.phone_area %>-<%= teacher.phone_number %>
+                                        </h6>   
+                                        <%
+                                            }
+                                        %>
                                         <h6 class="text-secondary">
                                             <%= Labels.get("find_teachers.list.body.price_per_hour")%>
                                             &nbsp;:&nbsp;

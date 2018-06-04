@@ -55,7 +55,7 @@
                     <div class="card my-1">
                         <div class="card-header bg-secondary text-white">                                                        
                             <div class="row no-gutters">
-                                <div class="col-6">
+                                <div class="col-9">
                                     <h6>
                                         <%= Labels.get("start_learning.form.login.text1")%>     
                                     </h6>                  
@@ -63,7 +63,7 @@
                                 <div class="col-3">
                                     <input type="image" src="images/google_login_button.png" class="w-100" onclick="start_learning_googleLogin()">              
                                 </div>
-                                <div class="col-3">                        
+                                <div class="col-3 d-none">                        
                                     <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="start_learning_facebookLogin()">                             
                                 </div>
                             </div>

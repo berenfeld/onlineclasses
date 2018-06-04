@@ -59,13 +59,13 @@
                     <div class="card my-1">
                         <div class="card-header bg-secondary text-white">
                             <div class="row no-gutters">
-                                <div class="col-6">
+                                <div class="col-9">
                                     <%= Labels.get("start_teaching.form.login.text1")%>    
                                 </div>
                                 <div class="col-3">
                                     <input type="image" src="images/google_login_button.png" class="w-100" onclick="start_teaching_googleLogin()">              
                                 </div>
-                                <div class="col-3">                        
+                                <div class="col-3 d-none">                        
                                     <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="start_teaching_facebookLogin()">                             
                                 </div>
                             </div>
@@ -181,7 +181,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="col-6 col-lg-3 my-1">
                                     <label class="col-form-label" for="start_teaching_day_of_birth_input">
                                         <%= Labels.get("start_teaching.form.login.day_of_birth")%>
@@ -193,173 +192,259 @@
                                            name="start_teaching_day_of_birth_input"
                                            placeholder="<%= Labels.get("start_teaching.form.login.day_of_birth")%>">
                                 </div>
+
+                                <div class="col-6 col-lg-3 my-1">
+                                    <label class="col-form-label" for="start_teaching_skype_name_input">
+                                        <%= Labels.get("start_teaching.form.login.skype_name")%>
+                                    </label>
+                                </div>
+
+                                <div class="col-6 col-lg-3 my-1">
+                                    <input type="text" class="form-control" id="start_teaching_skype_name_input"
+                                           name="start_teaching_skype_name_input"
+                                           placeholder="<%= Labels.get("start_teaching.form.login.skype_name")%>">
+                                </div>
+
                             </div>
                         </div>
                     </div>
+
+                    <div class="card my-1" id="start_teaching_moto_card">
+                        <div class="card-header text-white bg-secondary">
+                            <%= Labels.get("start_teaching.form.publish.text1")%>   
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col-6 col-lg-3 my-1">
+                                    <label class="col-form-label" for="start_teaching_moto_input">
+                                        <%= Labels.get("start_teaching.form.publish.moto_text")%>
+                                    </label>                                    
+                                </div>
+
+                                <div class="col-6 col-lg-9 my-1">
+                                    <textarea rows="4" class="form-control" id="start_teaching_moto_input" 
+                                              name="start_teaching_moto_input"
+                                              placeholder="<%= Labels.get("start_teaching.form.publish.moto_placeholder")%>"></textarea>
+                                </div>
+
+                                <div class="col-12 my-1">
+                                    <input class="form-check-input mx-0"  
+                                           id="start_teaching_show_phone" 
+                                           name="start_teaching_show_phone"
+                                           type="checkbox" value="">
+                                    <label class="form-check-label" for="start_teaching_show_phone">
+                                        <%= Labels.get("start_teaching.form.publish.show_phone")%>
+                                    </label>
+                                </div>
+
+                                <div class="col-12 my-1">
+                                    <input class="form-check-input mx-0"  
+                                           id="start_teaching_show_email" 
+                                           name="start_teaching_show_email"
+                                           type="checkbox" value="">
+                                    <label class="form-check-label" for="start_teaching_show_email">
+                                        <%= Labels.get("start_teaching.form.publish.show_email")%>
+                                    </label>
+                                </div>
+
+                                <div class="col-12 my-1">
+                                    <input class="form-check-input mx-0"  
+                                           id="start_teaching_show_skype" 
+                                           name="start_teaching_show_skype"
+                                           type="checkbox" value="">
+                                    <label class="form-check-label" for="start_teaching_show_skype">
+                                        <%= Labels.get("start_teaching.form.publish.show_skype")%>
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
                     <div class="card my-1" id="start_teaching_education_card">
+
                         <div class="card-header text-white bg-secondary">
                             <%= Labels.get("start_teaching.form.learning_information.text1")%>   
                         </div>
 
                         <div class="card-body">
+
                             <div class="form-group row">
-
-                                <label class="col-6 col-lg-3 my-1 col-form-label" for="start_teaching_degree_type_button">
-                                    <%= Labels.get("start_teaching.form.learning.degree_type.title")%>
-                                </label>
-
-                                <div class="col-6 col-lg-3 my-1">
-                                    <button class="btn btn-info dropdown-toggle" type="button" 
-                                            data-toggle="dropdown" id="start_teaching_degree_type_button"
-                                            name="start_teaching_degree_type_button">
-                                        <span class="caret"></span>                                        
-                                        <%= Labels.get("start_teaching.form.learning.degree_type.select")%>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="start_teaching_degree_type_button">
-                                        <%
-                                            for (String degreeType : degreeTypes) {
-                                        %>
-
-                                        <a class="dropdown-item" href="javascript:start_teaching_select_degree_type('<%= degreeType%>')">
-                                            <%= degreeType%>
-                                        </a>
-
-                                        <%
-                                            }
-                                        %>
-                                    </div>
-                                </div>
+                                <a class="list-group-item list-group-item-action" 
+                                   aria-expanded="false"
+                                   aria-controls="start_learning_degree_information_div"                                   
+                                   href="#start_learning_degree_information_div">
+                                    <input class="form-check-input my-1 mx-0"  
+                                           id="start_teaching_topic_show_degree" 
+                                           name="start_teaching_topic_show_degree"
+                                           type="checkbox" value="">
+                                    <label class="form-check-label" for="start_teaching_topic_show_degree">
+                                        <%= Labels.get("start_teaching.form.learning_information.show_degree")%>
+                                    </label>
+                                </a>
                             </div>
-                            <div class="form-group row">
+                            <div class="collapse" id="start_learning_degree_information_div">
+                                <div class="form-group row" aria-expanded="false" >
 
-                                <label class="col-6 col-lg-3 my-1 col-form-label" for="start_teaching_institute_type">
-                                    <%= Labels.get("start_teaching.form.learning.education.title")%>
-                                </label>
+                                    <label class="col-6 col-lg-3 my-1 col-form-label" for="start_teaching_degree_type_button">
+                                        <%= Labels.get("start_teaching.form.learning.degree_type.title")%>
+                                    </label>
 
-                                <div class="col-6 col-lg-3 my-1">
-                                    <button class="btn btn-info dropdown-toggle" type="button" 
-                                            data-toggle="dropdown" id="start_teaching_institute_type_button">
-                                        <span class="caret"></span>
-                                        <%= Labels.get("start_teaching.form.learning.institue_type.select")%>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="start_teaching_institute_type_button">
-                                        <%
-                                            for (InstituteType instituteType : instituteTypes) {
-                                        %>
+                                    <div class="col-6 col-lg-3 my-1">
+                                        <button class="btn btn-info dropdown-toggle" type="button" 
+                                                data-toggle="dropdown" id="start_teaching_degree_type_button"
+                                                name="start_teaching_degree_type_button">
+                                            <span class="caret"></span>                                        
+                                            <%= Labels.get("start_teaching.form.learning.degree_type.select")%>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="start_teaching_degree_type_button">
+                                            <%
+                                                for (String degreeType : degreeTypes) {
+                                            %>
 
-                                        <a class="dropdown-item" href="javascript:start_teaching_select_institute_type(<%= instituteType.id%>)">
-                                            <%= instituteType.name%>
-                                        </a>
+                                            <a class="dropdown-item" href="javascript:start_teaching_select_degree_type('<%= degreeType%>')">
+                                                <%= degreeType%>
+                                            </a>
 
-                                        <%
-                                            }
-                                        %>
-
-                                        <a class="dropdown-item" id="start_teaching_institute_type_other" href="javascript:start_teaching_select_institute_type(0)">
-                                            <%= Labels.get("start_teaching.form.learning.institue_type.other")%>
-                                        </a>
+                                            <%
+                                                }
+                                            %>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="form-group row">
 
-                                <%
-                                    for (int instituteType : institutes.keySet()) {
-                                        Map<Integer, String> institutesMap = institutes.get(instituteType);
+                                    <label class="col-6 col-lg-3 my-1 col-form-label" for="start_teaching_institute_type">
+                                        <%= Labels.get("start_teaching.form.learning.education.title")%>
+                                    </label>
 
-                                %>
+                                    <div class="col-6 col-lg-3 my-1">
+                                        <button class="btn btn-info dropdown-toggle" type="button" 
+                                                data-toggle="dropdown" id="start_teaching_institute_type_button">
+                                            <span class="caret"></span>
+                                            <%= Labels.get("start_teaching.form.learning.institue_type.select")%>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="start_teaching_institute_type_button">
+                                            <%
+                                                for (InstituteType instituteType : instituteTypes) {
+                                            %>
 
-                                <label id="start_teaching_institute_<%= instituteType%>_label" class="col-6 col-lg-3 my-1 col-form-label d-none" 
-                                       for="start_teaching_institute_<%= instituteType%>_select">
-                                    <%= Labels.get("start_teaching.form.learning.institue_" + instituteType + "_select")%>
-                                </label>
+                                            <a class="dropdown-item" href="javascript:start_teaching_select_institute_type(<%= instituteType.id%>)">
+                                                <%= instituteType.name%>
+                                            </a>
 
-                                <div class="col-6 col-lg-3 my-1 d-none" id="start_teaching_institute_<%= instituteType%>_div">
-                                    <button class="btn btn-info dropdown-toggle" type="button" 
-                                            data-toggle="dropdown" id="start_teaching_institute_<%= instituteType%>_select">
-                                        <span class="caret"></span>
+                                            <%
+                                                }
+                                            %>
+
+                                            <a class="dropdown-item" id="start_teaching_institute_type_other" href="javascript:start_teaching_select_institute_type(0)">
+                                                <%= Labels.get("start_teaching.form.learning.institue_type.other")%>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <%
+                                        for (int instituteType : institutes.keySet()) {
+                                            Map<Integer, String> institutesMap = institutes.get(instituteType);
+
+                                    %>
+
+                                    <label id="start_teaching_institute_<%= instituteType%>_label" class="col-6 col-lg-3 my-1 col-form-label d-none" 
+                                           for="start_teaching_institute_<%= instituteType%>_select">
                                         <%= Labels.get("start_teaching.form.learning.institue_" + instituteType + "_select")%>
+                                    </label>
 
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="start_teaching_institute_<%= instituteType%>_button">
-                                        <%
+                                    <div class="col-6 col-lg-3 my-1 d-none" id="start_teaching_institute_<%= instituteType%>_div">
+                                        <button class="btn btn-info dropdown-toggle" type="button" 
+                                                data-toggle="dropdown" id="start_teaching_institute_<%= instituteType%>_select">
+                                            <span class="caret"></span>
+                                            <%= Labels.get("start_teaching.form.learning.institue_" + instituteType + "_select")%>
 
-                                            for (int instituteId : institutesMap.keySet()) {
-                                                String instituteName = institutesMap.get(instituteId);
-                                        %>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="start_teaching_institute_<%= instituteType%>_button">
+                                            <%
 
-                                        <a class="dropdown-item" 
-                                           href="javascript:start_teaching_select_institute_type(<%= instituteType%>, <%= instituteId%>)">
-                                            <%= instituteName%>
-                                        </a>
+                                                for (int instituteId : institutesMap.keySet()) {
+                                                    String instituteName = institutesMap.get(instituteId);
+                                            %>
 
-                                        <%
-                                            }
-                                        %>
+                                            <a class="dropdown-item" 
+                                               href="javascript:start_teaching_select_institute_type(<%= instituteType%>, <%= instituteId%>)">
+                                                <%= instituteName%>
+                                            </a>
 
-                                        <a class="dropdown-item" id="start_teaching_institute_type_other" 
-                                           href="javascript:start_teaching_select_institute_type(0)">
-                                            <%= Labels.get("start_teaching.form.learning.institue_type.other")%>
-                                        </a>
+                                            <%
+                                                }
+                                            %>
+
+                                            <a class="dropdown-item" id="start_teaching_institute_type_other" 
+                                               href="javascript:start_teaching_select_institute_type(0)">
+                                                <%= Labels.get("start_teaching.form.learning.institue_type.other")%>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <%
-                                    }
-                                %>
-                                <label id="start_teaching_institute_0_label"
-                                       class="col-6 col-lg-3 my-1 col-form-label d-none" 
-                                       for="start_teaching_institute_0_text">
-                                    <%= Labels.get("start_teaching.form.learning.institue.other.choose")%>
-                                </label>
+                                    <%
+                                        }
+                                    %>
+                                    <label id="start_teaching_institute_0_label"
+                                           class="col-6 col-lg-3 my-1 col-form-label d-none" 
+                                           for="start_teaching_institute_0_text">
+                                        <%= Labels.get("start_teaching.form.learning.institue.other.choose")%>
+                                    </label>
 
-                                <div id="start_teaching_institute_0_div" class="col-6 col-lg-3 my-1 d-none">
-                                    <input type="text" class="form-control" id="start_teaching_institute_0_text" 
-                                           name="start_teaching_institute_0_text"
-                                           placeholder="<%= Labels.get("start_teaching.form.learning.institue.other.choose")%>">
-                                </div>
-
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-6 col-lg-3 my-1 col-form-label" for="start_teaching_subject">
-                                    <%= Labels.get("start_teaching.form.learning.subject.title")%>
-                                </label>
-
-                                <div class="col-6 col-lg-3 my-1">
-                                    <button class="btn btn-info dropdown-toggle" type="button" 
-                                            data-toggle="dropdown" id="start_teaching_subject_button">
-                                        <span class="caret"></span>
-                                        <%= Labels.get("start_teaching.form.learning.subject.select")%>
-
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="start_teaching_subject_button">
-                                        <%
-                                            for (Subject subject : subjects) {
-                                        %>
-
-                                        <a class="dropdown-item" href="javascript:start_teaching_select_subject(<%= subject.id%>)">
-                                            <%= subject.name%>
-                                        </a>
-
-                                        <%
-                                            }
-                                        %>
-
-                                        <a class="dropdown-item" id="start_teaching_subject_other" href="javascript:start_teaching_select_subject(0)">
-                                            <%= Labels.get("start_teaching.form.learning.subject.other")%>
-                                        </a>
+                                    <div id="start_teaching_institute_0_div" class="col-6 col-lg-3 my-1 d-none">
+                                        <input type="text" class="form-control" id="start_teaching_institute_0_text" 
+                                               name="start_teaching_institute_0_text"
+                                               placeholder="<%= Labels.get("start_teaching.form.learning.institue.other.choose")%>">
                                     </div>
-                                </div>   
 
-                                <label id="start_teaching_subject_0_label" class="col-6 col-lg-3 my-1 col-form-label d-none" 
-                                       for="start_teaching_subject_0_text">
-                                    <%= Labels.get("start_teaching.form.learning.subject.other.choose")%>
-                                </label>
-
-                                <div id="start_teaching_subject_0_div" class="col-6 col-lg-3 my-1 d-none">
-                                    <input type="text" class="form-control" id="start_teaching_subject_0_text" 
-                                           name="start_teaching_institute_0_text"
-                                           placeholder="<%= Labels.get("start_teaching.form.learning.subject.other.choose")%>">
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-6 col-lg-3 my-1 col-form-label" for="start_teaching_subject">
+                                        <%= Labels.get("start_teaching.form.learning.subject.title")%>
+                                    </label>
 
+                                    <div class="col-6 col-lg-3 my-1">
+                                        <button class="btn btn-info dropdown-toggle" type="button" 
+                                                data-toggle="dropdown" id="start_teaching_subject_button">
+                                            <span class="caret"></span>
+                                            <%= Labels.get("start_teaching.form.learning.subject.select")%>
+
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="start_teaching_subject_button">
+                                            <%
+                                                for (Subject subject : subjects) {
+                                            %>
+
+                                            <a class="dropdown-item" href="javascript:start_teaching_select_subject(<%= subject.id%>)">
+                                                <%= subject.name%>
+                                            </a>
+
+                                            <%
+                                                }
+                                            %>
+
+                                            <a class="dropdown-item" id="start_teaching_subject_other" href="javascript:start_teaching_select_subject(0)">
+                                                <%= Labels.get("start_teaching.form.learning.subject.other")%>
+                                            </a>
+                                        </div>
+                                    </div>   
+
+                                    <label id="start_teaching_subject_0_label" class="col-6 col-lg-3 my-1 col-form-label d-none" 
+                                           for="start_teaching_subject_0_text">
+                                        <%= Labels.get("start_teaching.form.learning.subject.other.choose")%>
+                                    </label>
+
+                                    <div id="start_teaching_subject_0_div" class="col-6 col-lg-3 my-1 d-none">
+                                        <input type="text" class="form-control" id="start_teaching_subject_0_text" 
+                                               name="start_teaching_institute_0_text"
+                                               placeholder="<%= Labels.get("start_teaching.form.learning.subject.other.choose")%>">
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -413,6 +498,7 @@
                         </div>
                     </div>
 
+
                     <div class="card my-1" id="start_teaching_payment_card">
                         <div class="card-header text-white bg-secondary">
                             <%= Labels.get("start_teaching.form.payment.text1")%>   
@@ -455,6 +541,7 @@
                         </div>
 
                     </div>
+
 
                     <div class="card my-1" id="start_teaching_accept_terms_card">
                         <div class="card-header text-white bg-secondary">

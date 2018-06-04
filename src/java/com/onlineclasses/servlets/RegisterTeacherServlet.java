@@ -55,8 +55,11 @@ public class RegisterTeacherServlet extends BaseServlet {
         registeringTeacher.phone_area = registerTeacherRequest.phone_area;
         registeringTeacher.phone_number = registerTeacherRequest.phone_number;
         registeringTeacher.day_of_birth = registerTeacherRequest.day_of_birth;
+        registeringTeacher.skype_name = registerTeacherRequest.skype_name;
+        registeringTeacher.moto = registerTeacherRequest.moto;
         registeringTeacher.registered = new Date();
         registeringTeacher.degree_type = registerTeacherRequest.degree_type;
+        registeringTeacher.show_degree = registerTeacherRequest.show_degree;
         registeringTeacher.paypal_email = registerTeacherRequest.paypal_email;
         registeringTeacher.price_per_hour = registerTeacherRequest.price_per_hour;
 

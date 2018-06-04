@@ -21,7 +21,7 @@ function facebook_logoutResponse()
 function facebook_signOut() 
 {
     if (facebook.auth !== null) {
-        FB.logout(facebook_logoutResponse, facebook.auth);
+        FB.logout(facebook_logoutResponse);
     }
 }
 
@@ -156,6 +156,7 @@ function facbook_isLoaded()
 function facebook_init()
 {
     facebook_load();
+    facebook.auth = null;
     facebook.user = null;
     facebook.userLoggedInCallback = null;
 }

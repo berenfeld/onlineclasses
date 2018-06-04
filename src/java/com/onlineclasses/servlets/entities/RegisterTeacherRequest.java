@@ -14,10 +14,10 @@ import java.util.List;
  * @author me
  */
 public class RegisterTeacherRequest extends BasicRequest {
-    public RegisterTeacherRequest()
-    {
+
+    public RegisterTeacherRequest() {
     }
-    public String google_id_token;    
+    public String google_id_token;
     public String email;
     public String first_name;
     public String last_name;
@@ -25,7 +25,13 @@ public class RegisterTeacherRequest extends BasicRequest {
     public String phone_number;
     public String phone_area;
     public int gender;
-    public Date day_of_birth;  
+    public Date day_of_birth;
+    public String skype_name;
+    public String moto;
+    public boolean show_phone;
+    public boolean show_email;
+    public boolean show_skype;
+    public boolean show_degree;
     public String degree_type;
     public int institute_id;
     public String institute_name;
@@ -34,4 +40,5 @@ public class RegisterTeacherRequest extends BasicRequest {
     public List<Integer> teaching_topics;
     public String paypal_email;
     public int price_per_hour;
+
 }

@@ -16,18 +16,6 @@
                     <br/>
                     <small>
                         <%= Labels.get("login.modal.text1_small")%>
-                    </small>
-                </p>
-                <div class="row no-gutters">
-                    <div class="col-6">                        
-                        <input type="image" src="images/google_login_button.png" class="w-100" onclick="login_googleLogin()">              
-                    </div>
-                    <div class="col-6">                        
-                        <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="login_facebookLogin()">                             
-                    </div>
-                </div>
-                <div class="row no-gutters">
-                    <p>
                         <br/>
                         <span class="oi" data-glyph="info"></span>     
                         <span class="text-info">
@@ -36,7 +24,16 @@
                                 <%= Labels.get("login.modal.register.student")%>
                             </a> 
                         </span>
-                    </p>
+                    </small>
+                    
+                </p>
+                <div class="row no-gutters">
+                    <div class="col-6">                        
+                        <input type="image" src="images/google_login_button.png" class="w-100" onclick="login_googleLogin()">              
+                    </div>
+                    <div class="col-6">                        
+                        <input type="image" src="images/facebook_login_button.png" class="w-100 d-none" onclick="login_facebookLogin()">                             
+                    </div>
                 </div>
             </div>
             <div id="login_modal_info_div" class="alert alert-info d-none" role="alert">

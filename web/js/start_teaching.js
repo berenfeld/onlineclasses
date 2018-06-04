@@ -4,9 +4,11 @@ var start_teaching = {};
 
 function start_teaching_userLoggedInCallback(user)
 {
+    alert_show(oc.clabels["start_teaching.login_successful"]);
+
     google_clearUserLoggedinCallback();
     facebook_clearUserLoggedinCallback();
-    
+
     start_teaching.google_id_token = user.google_id_token;
     start_teaching.facebook_access_token = user.facebook_access_token;
 
@@ -14,7 +16,7 @@ function start_teaching_userLoggedInCallback(user)
     $("#start_teaching_display_name_input").val(user.name);
     $("#start_teaching_first_name_input").val(user.first_name);
     $("#start_teaching_last_name_input").val(user.last_name);
-        
+
     google_signOut();
     facebook_signOut();
 }
@@ -58,7 +60,7 @@ function start_teaching_form_submit()
         return;
     }
 
-    if ( (start_teaching.google_id_token === null) && ( start_teaching.facebook_access_token === null) ) {
+    if ((start_teaching.google_id_token === null) && (start_teaching.facebook_access_token === null)) {
         alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_login"]);
         return;
     }
@@ -73,15 +75,21 @@ function start_teaching_form_submit()
     request.phone_number = $("#start_teaching_phone_number_input").val();
     request.phone_area = start_teaching.phone_area;
     request.day_of_birth = start_teaching.day_of_birth;
+    request.skype_name = $("#start_teaching_skype_name_input").val();
+    request.moto = $("#start_teaching_moto_input").val();
+    request.show_phone = $("#start_teaching_show_phone").attr("checked");
+    request.show_email = $("#start_teaching_show_email").attr("checked");
+    request.show_skype = $("#start_teaching_show_skype").attr("checked");
     request.institute_id = start_teaching.institute_id;
     request.institute_name = $("#start_teaching_institute_other_text").val();
     request.subject_id = start_teaching.subject_id;
     request.subject_name = $("#start_teaching_subject_0_text").val();
+    request.show_degree = $("#start_teaching_topic_show_degree").attr("checked");
     request.degree_type = start_teaching.degree_type;
     request.price_per_hour = parseInt10($("#start_teaching_price_per_hour_input").val());
     request.paypal_email = $("#start_teaching_paypal_email_input").val();
     request.teaching_topics = [];
-    
+
     $("#start_teaching_topics_card input[type='checkbox']").each(
             function (index, elem) {
                 if (elem.checked) {
@@ -170,7 +178,7 @@ function start_teaching_googleLogin()
         google_signIn();
     } else {
         start_teaching_userLoggedInCallback(googleUser);
-    }       
+    }
 }
 
 function start_teaching_facebookLogin()
@@ -181,15 +189,14 @@ function start_teaching_facebookLogin()
         facebook_signIn();
     } else {
         start_teaching_userLoggedInCallback(facebookUser);
-        alert_modal( oc.clabels["start_teaching.login_successful"]);
-    }       
+    }
 }
 
 function start_teaching_init()
 {
     start_teaching.google_id_token = null;
     start_teaching.facebook_access_token = null;
-   
+
     google_addEmailExistsCallback(start_teaching_googleUserEmailExistsCallback);
 
     $("#start_teaching_day_of_birth_input").datepicker({
@@ -207,6 +214,10 @@ function start_teaching_init()
         alert_show(oc.clabels[ "start_teaching.login.already_logged_in.title"],
                 oc.clabels[ "start_teaching.login.already_logged_in.text"]);
     }
+
+    $('#start_teaching_topic_show_degree').on('click', function (e) {
+         $('#start_learning_degree_information_div').collapse("toggle");
+    });
 }
 
 start_teaching_init();
