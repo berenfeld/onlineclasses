@@ -4,29 +4,16 @@
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
-                <div class="modal-title">
+                <div class="h5 modal-title">
                     <span class="oi mx-1" data-glyph="account-login"></span>                                       
                     <%= Labels.get("login.modal.title")%>                        
                 </div>
                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body">
-                <p>
-                    <%= Labels.get("login.modal.text1")%>
-                    <br/>
-                    <small>
-                        <%= Labels.get("login.modal.text1_small")%>
-                        <br/>
-                        <span class="oi" data-glyph="info"></span>     
-                        <span class="text-info">
-                            <%= Labels.get("login.modal.text2")%>                    
-                            <a class="alert-link" href="start_learning">
-                                <%= Labels.get("login.modal.register.student")%>
-                            </a> 
-                        </span>
-                    </small>
-                    
-                </p>
+                <h5>
+                    <%= Labels.get("login.modal.text1")%>                    
+                </h5>
                 <div class="row no-gutters">
                     <div class="col-6">                        
                         <input type="image" src="images/google_login_button.png" class="w-100" onclick="login_googleLogin()">              
@@ -35,6 +22,18 @@
                         <input type="image" src="images/facebook_login_button.png" class="w-100 d-none" onclick="login_facebookLogin()">                             
                     </div>
                 </div>
+                <h5>
+                <small>
+                    <%= Labels.get("login.modal.text1_small")%>
+                    <span class="oi" data-glyph="info"></span>     
+                    <span class="text-info">
+                        <%= Labels.get("login.modal.text2")%>                    
+                        <a class="alert-link" href="start_learning">
+                            <%= Labels.get("login.modal.register.student")%>
+                        </a> 
+                    </span>
+                </small>
+                </h5>
             </div>
             <div id="login_modal_info_div" class="alert alert-info d-none" role="alert">
                 <span class="oi" data-glyph="info"></span>    

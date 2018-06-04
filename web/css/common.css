@@ -20,7 +20,8 @@
 span.oi {
     margin-bottom: auto;
     margin-top: auto;
-    font-size: smaller;
+    font-size: small;
+    vertical-align: middle;
 }
 
 div.modal-header {
