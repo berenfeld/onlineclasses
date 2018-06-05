@@ -114,9 +114,7 @@
             </form>
         </div>
 
-        <iframe id="scheduled_class_post_hidden_iframe" name="scheduled_class_post_hidden_iframe" class="d-none">
-
-        </iframe>
+        <iframe id="scheduled_class_post_hidden_iframe" name="scheduled_class_post_hidden_iframe" class="d-none"></iframe>
 
         <div id="scheduled_class_attach_file_modal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-md">

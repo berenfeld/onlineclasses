@@ -1,0 +1,47 @@
+th.start_teaching_calendar, td.start_teaching_calendar  {
+    text-align:center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+td.calendar_today {
+    background-color:#DCDCDC
+}
+
+td.calendar_available {
+    background-color:#17a2b8
+}
+
+td.calendar_selected {
+    background-color:#6BEB00
+}
+
+td.calendar_busy {
+    background-color:#FF7F50
+}
+
+#start_teaching_calendar_table
+{
+    table-layout: fixed;
+}
+
+#start_teaching_calendar_table td, #start_teaching_calendar_table th
+{
+    border: solid gray 1px;
+}
+
+#start_teaching_calendar_table td.start_teaching_row_start
+{
+    border-bottom: none
+}
+
+#start_teaching_calendar_table td.start_teaching_row_middle
+{
+    border-top: none;
+    border-bottom: none
+}
+
+#start_teaching_calendar_table td.start_teaching_row_end
+{
+    border-top: none
+}

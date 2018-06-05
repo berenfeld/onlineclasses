@@ -257,10 +257,18 @@
                                                 </a>
                                             </li>
                                             <li class="page-item">                                                    
-                                                <a class="page-link left_to_right" href="#">
-                                                    <span id="schedule_class_current_week_start"></span>
+                                                <a class="page-link" href="#">
+                                                    <span id="schedule_class_current_week_start_day">
+                                                        <%= dayNamesLong.get(0) %>
+                                                    </span>
+                                                    &nbsp;
+                                                    <span class="left_to_right" id="schedule_class_current_week_start"></span>
                                                     -
-                                                    <span id="schedule_class_current_week_end"></span></a>
+                                                    <span id="schedule_class_current_week_end_day">
+                                                        <%= dayNamesLong.get(6) %>
+                                                    </span>
+                                                    &nbsp;
+                                                    <span class="left_to_right" id="schedule_class_current_week_end"></span></a>
                                             </li>
                                             <li class="page-item">
                                                 <a class="page-link" href="javascript:schedule_class_next_week()" aria-label="Next">

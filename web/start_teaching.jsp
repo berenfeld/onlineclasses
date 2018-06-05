@@ -29,6 +29,15 @@
     List<String> degreeTypes = Utils.toList(degreeTypesList);
     Map<Integer, Subject> allSubjects = DB.getAllMap(Subject.class);
     Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
+    List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
+    List<String> dayNamesShort = Utils.toList(CLabels.get("website.days.short"));
+    final int startHour = CConfig.getInt("website.time.start_working_hour");
+    final int endHour = CConfig.getInt("website.time.end_working_hour");
+    int hour, day, minute;
+    int minutesPerRow = CConfig.getInt("website.time.calendar_minutes_per_row");
+    int minutesPerUnit = CConfig.getInt("website.time.unit.minutes");
+    int rowsPerCell = minutesPerRow / minutesPerUnit;
+
 %>
 <!DOCTYPE html>
 <html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
@@ -37,6 +46,7 @@
         <title>
             <%= Labels.get("start_teaching.title")%>
         </title>
+        <link rel="stylesheet" href="css/start_teaching.css">
     </head>
     <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
         <%@include file="body.jsp" %>    
@@ -542,6 +552,76 @@
 
                     </div>
 
+                    <div class="card my-1" id="start_teaching_available_hours_card">
+                        <div class="card-header text-white bg-secondary">
+                            <%= Labels.get("start_teaching.form.available_hours.text1")%>   
+                        </div>
+                        <div class="card-body">
+                            <div class="row no-gutters">
+                                <div class="mx-auto">
+                                    <table id="start_teaching_calendar_table" class="table table-responsive table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th class="start_teaching_calendar" style="width: 12%">
+                                                </th>                                        
+                                                <% for (day = 0; day < 7; day++) {
+
+                                                %>                                        
+                                                <th class="start_teaching_calendar"  style="width: 12%">
+                                                    <span><%= dayNamesShort.get(day)%></span>
+                                                    <br/>
+                                                    <span id="start_teaching_day_<%= (day + 1)%>"></span>
+                                                </th>
+                                                <% }%>
+                                            <tr/>
+                                        </thead>
+                                        <tbody>
+                                            <%
+                                                hour = startHour;
+                                                minute = 0;
+                                                int rowCount = 0;
+                                                String cellClass = "";
+                                                while (hour < endHour) {
+                                            %>  
+                                            <tr>
+                                                <%
+                                                    if (rowCount == (rowsPerCell - 1)) {
+                                                        cellClass = "start_teaching_row_end";
+                                                    } else {
+                                                        cellClass = "start_teaching_row_middle";
+                                                    }
+                                                    if (rowCount == 0) {
+                                                        cellClass = "start_teaching_row_start";
+                                                %>
+                                                <td rowspan="<%= rowsPerCell%>" class="start_teaching_calendar">
+                                                    <%= Utils.formatTime(hour, 0)%>
+                                                </td>
+                                                <% } %>
+
+                                                <% for (day = 0; day < 7; day++) {
+                                                %>
+                                                <td data-day="<%=day%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
+                                                    onclick="start_teaching_select_time(this)"
+                                                    class="start_teaching_calendar <%= cellClass%>" id="start_teaching_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">
+                                                </td>                                            
+                                                <% } %>                                                                                                
+                                            </tr>
+                                            <%
+                                                    rowCount = (rowCount + 1) % rowsPerCell;
+                                                    minute += minutesPerUnit;
+                                                    if (minute == 60) {
+                                                        minute = 0;
+                                                        hour++;
+                                                    }
+                                                }
+                                            %>
+                                        </tbody>
+                                    </table> 
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
 
                     <div class="card my-1" id="start_teaching_accept_terms_card">
                         <div class="card-header text-white bg-secondary">

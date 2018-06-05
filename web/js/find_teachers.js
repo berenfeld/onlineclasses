@@ -120,10 +120,12 @@ function schedule_class_goto_date(date)
         find_teachers.calendar.week_days[i] = new Date(find_teachers.calendar.first_date.getTime());
         addDays(find_teachers.calendar.week_days[i], i);
     }
-    addDays(find_teachers.calendar.last_date, 7);
+    addDays(find_teachers.calendar.last_date, 6);
 
-    $("#schedule_class_current_week_start").html(parseDateLong(find_teachers.calendar.first_date));
-    $("#schedule_class_current_week_end").html(parseDateLong(find_teachers.calendar.last_date));
+    var first_day = find_teachers.calendar.first_date;
+    var last_day = find_teachers.calendar.last_date;
+    $("#schedule_class_current_week_start").html(parseDateLong(first_day));
+    $("#schedule_class_current_week_end").html(parseDateLong(last_day));
 
     for (var i = 0; i < find_teachers.available_times.length; i++)
     {
@@ -443,6 +445,7 @@ function find_teachers_init()
     });
 
     find_teachers.all_topics_names = [];
+    find_teachers.days_long = oc.clabels["website.days.long" ].split(",");
 
     for (var topic_id in find_teachers.all_topics) {
         var topic = find_teachers.all_topics[topic_id];
