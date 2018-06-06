@@ -2,6 +2,7 @@ th.schedule_class_calendar, td.schedule_class_calendar  {
     text-align:center;
     vertical-align: middle;
     cursor: pointer;
+    height:12px;
 }
 
 td.calendar_today {
@@ -23,7 +24,10 @@ td.calendar_busy {
 #schedule_class_calendar_table
 {
     table-layout: fixed;
+    border: solid gray 2px;
+    overflow-x: hidden;
 }
+
 #schedule_class_calendar_table td, #schedule_class_calendar_table th
 {
     border: solid gray 1px;
@@ -43,4 +47,9 @@ td.calendar_busy {
 #schedule_class_calendar_table td.schedule_class_row_end
 {
     border-top: none
+}
+
+#schedule_class_calendar_table td.schedule_class_calendar_time:hover
+{
+    border: solid gray 2px;
 }

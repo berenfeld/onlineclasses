@@ -2,7 +2,7 @@ th.start_teaching_calendar, td.start_teaching_calendar  {
     text-align:center;
     vertical-align: middle;
     cursor: pointer;
-    height:14px;
+    height:12px;
 }
 
 td.calendar_today {
@@ -24,10 +24,6 @@ td.calendar_busy {
 #start_teaching_calendar_table
 {
     table-layout: fixed;
-}
-
-#start_teaching_calendar_table
-{
     border: solid gray 2px;
     overflow-x: hidden;
 }
@@ -53,7 +49,7 @@ td.calendar_busy {
     border-top: none
 }
 
-#start_teaching_calendar_table td:hover
+#start_teaching_calendar_table td.start_teaching_calendar_time:hover
 {
     border: solid gray 2px;
 }

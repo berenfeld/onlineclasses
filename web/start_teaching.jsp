@@ -561,7 +561,10 @@
                                 <div class="col-12 col-lg-6">
                                     <p class="h6">
                                         <%= Labels.get("start_teaching.form.available_hours.choose_hours")%>   
-                                    </p>                                    
+                                    </p>  
+                                    <p class="h6">
+                                        <%= Labels.get("start_teaching.form.available_hours.choose_hours2")%>   
+                                    </p>  
                                     <div class="card my-1">
                                         <div class="h6 card-header">
                                             <%= Labels.get("start_teaching.form.available_hours.hours_chosen")%>   
@@ -624,7 +627,7 @@
                                                     %>
                                                     <td data-day="<%= day + 1%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
                                                         onclick="start_teaching_select_time(this)"
-                                                        class="start_teaching_calendar <%= cellClass%>" id="start_teaching_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">                                                       
+                                                        class="start_teaching_calendar_time start_teaching_calendar <%= cellClass%>" id="start_teaching_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">                                                       
                                                     </td>                                            
                                                     <% } %>                                                                                                
                                                 </tr>
