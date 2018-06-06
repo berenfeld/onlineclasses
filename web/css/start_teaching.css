@@ -26,6 +26,12 @@ td.calendar_busy {
     table-layout: fixed;
 }
 
+#start_teaching_calendar_table
+{
+    border: solid gray 2px;
+    overflow-x: hidden;
+}
+
 #start_teaching_calendar_table td, #start_teaching_calendar_table th
 {
     border: solid gray 1px;
@@ -45,4 +51,9 @@ td.calendar_busy {
 #start_teaching_calendar_table td.start_teaching_row_end
 {
     border-top: none
+}
+
+#start_teaching_calendar_table td:hover
+{
+    border: solid gray 2px;
 }

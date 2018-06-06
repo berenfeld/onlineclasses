@@ -86,7 +86,7 @@ public class RegisterTeacherServlet extends BaseServlet {
             teachingTopic.teacher = registeringTeacher;
             teachingTopic.topic = DB.get(topicId, Topic.class);
             if (DB.add(teachingTopic) != 1) {
-                Utils.warning("Could not add teaching topic " + teachingTopic.topic.name + " to teacher " + registeringTeacher );
+                Utils.warning("Could not add teaching topic " + teachingTopic + " to teacher " + registeringTeacher );
             }
         }
 

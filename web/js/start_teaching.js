@@ -90,7 +90,7 @@ function start_teaching_form_submit()
     request.paypal_email = $("#start_teaching_paypal_email_input").val();
     request.teaching_topics = [];
     request.available_times = start_teaching.calendar.available_times;
-    
+
     $("#start_teaching_topics_card input[type='checkbox']").each(
             function (index, elem) {
                 if (elem.checked) {
@@ -195,14 +195,21 @@ function start_teaching_facebookLogin()
 
 function start_teaching_select_single_time(day, hour, minute)
 {
-    var hourElement = $("#start_teaching_day_" + day + "_hour_" + hour + "_minute_" + minute);
-    hourElement.addClass("calendar_selected");
-    start_teaching.calendar.last_element_selected = hourElement;
     start_teaching.calendar.last_select = {
         hour: hour,
         day: day,
         minute: minute
     };
+    var hourElement = $("#start_teaching_day_" + day + "_hour_" + hour + "_minute_" + minute);
+    if (hourElement.hasClass("calendar_selected")) {
+        hourElement.removeClass("calendar_selected");
+        start_teaching.calendar.last_select.add = false;
+    } else {
+        hourElement.addClass("calendar_selected");
+        start_teaching.calendar.last_select.add = true;
+    }
+    start_teaching.calendar.last_element_selected = hourElement;
+    
     start_teaching_update_calendar();
 }
 
@@ -234,9 +241,16 @@ function start_teaching_select_time()
     var start_minute = start_teaching.calendar.last_select.minute;
     var increasing = (start_hour < hour) || ((start_hour === hour) && (start_minute < minute));
 
-    while ((start_hour !== hour) || (start_minute !== minute)) {
+    do {
         var hourElement = $("#start_teaching_day_" + day + "_hour_" + start_hour + "_minute_" + start_minute);
-        hourElement.addClass("calendar_selected");
+        if (start_teaching.calendar.last_select.add) {
+            hourElement.addClass("calendar_selected");
+        } else {
+            hourElement.removeClass("calendar_selected");
+        }
+        if ( (start_hour === hour) && (start_minute === minute)) {
+            break;
+        }
         if (increasing) {
             start_minute += start_teaching.calendar.minutes_unit;
             if (start_minute === 60) {
@@ -249,8 +263,8 @@ function start_teaching_select_time()
                 start_hour--;
             }
             start_minute -= start_teaching.calendar.minutes_unit;
-        }
-    }
+        }        
+    } while (true);
     start_teaching_update_calendar();
     return false;
 }
