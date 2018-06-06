@@ -38,6 +38,12 @@ function padZeroes(number, toLength)
     return result;
 }
 
+function formatTime(hours, minutes)
+{
+    return padZeroes(hours,2) + ":" + padZeroes(minutes,2);
+}
+
+
 function addDay(date)
 {
     addDays(date, 1);

@@ -259,13 +259,13 @@
                                             <li class="page-item">                                                    
                                                 <a class="page-link" href="#">
                                                     <span id="schedule_class_current_week_start_day">
-                                                        <%= dayNamesLong.get(0) %>
+                                                        <%= dayNamesLong.get(0)%>
                                                     </span>
                                                     &nbsp;
                                                     <span class="left_to_right" id="schedule_class_current_week_start"></span>
                                                     -
                                                     <span id="schedule_class_current_week_end_day">
-                                                        <%= dayNamesLong.get(6) %>
+                                                        <%= dayNamesLong.get(6)%>
                                                     </span>
                                                     &nbsp;
                                                     <span class="left_to_right" id="schedule_class_current_week_end"></span></a>
@@ -323,7 +323,7 @@
                                                     %>
                                                     <td data-day="<%=day%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
                                                         onclick="schedule_class_select_time(this)"
-                                                        class="schedule_class_calendar <%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">
+                                                        class="schedule_class_calendar <%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">                                                        
                                                     </td>                                            
                                                     <% } %>                                                                                                
                                                 </tr>

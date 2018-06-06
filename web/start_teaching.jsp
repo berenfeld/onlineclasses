@@ -558,65 +558,88 @@
                         </div>
                         <div class="card-body">
                             <div class="row no-gutters">
-                                <div class="mx-auto">
-                                    <table id="start_teaching_calendar_table" class="table table-responsive table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th class="start_teaching_calendar" style="width: 12%">
-                                                </th>                                        
-                                                <% for (day = 0; day < 7; day++) {
+                                <div class="col-12 col-lg-6">
+                                    <p class="h6">
+                                        <%= Labels.get("start_teaching.form.available_hours.choose_hours")%>   
+                                    </p>                                    
+                                    <div class="card my-1">
+                                        <div class="h6 card-header">
+                                            <%= Labels.get("start_teaching.form.available_hours.hours_chosen")%>   
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="h6" id="start_teaching_selected_hours">
 
-                                                %>                                        
-                                                <th class="start_teaching_calendar"  style="width: 12%">
-                                                    <span><%= dayNamesShort.get(day)%></span>
-                                                    <br/>
-                                                    <span id="start_teaching_day_<%= (day + 1)%>"></span>
-                                                </th>
-                                                <% }%>
-                                            <tr/>
-                                        </thead>
-                                        <tbody>
-                                            <%
-                                                hour = startHour;
-                                                minute = 0;
-                                                int rowCount = 0;
-                                                String cellClass = "";
-                                                while (hour < endHour) {
-                                            %>  
-                                            <tr>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary" onclick="start_teaching_clear_calendar()">
+                                            <%= Labels.get("start_teaching.form.available_hours.clear_button")%>   
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 row no-gutters">
+                                    <div class="mx-auto">
+                                        <table id="start_teaching_calendar_table" class="table table-responsive table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th class="start_teaching_calendar" style="width: 12%">
+                                                    </th>                                        
+                                                    <% for (day = 0; day < 7; day++) {
+
+                                                    %>                                        
+                                                    <th class="start_teaching_calendar"  style="width: 12%">
+                                                        <span><%= dayNamesLong.get(day)%></span>
+                                                        <br/>
+                                                        <span id="start_teaching_day_<%= (day + 1)%>"></span>
+                                                    </th>
+                                                    <% }%>
+                                                <tr/>
+                                            </thead>
+                                            <tbody>
                                                 <%
-                                                    if (rowCount == (rowsPerCell - 1)) {
-                                                        cellClass = "start_teaching_row_end";
-                                                    } else {
-                                                        cellClass = "start_teaching_row_middle";
-                                                    }
-                                                    if (rowCount == 0) {
-                                                        cellClass = "start_teaching_row_start";
-                                                %>
-                                                <td rowspan="<%= rowsPerCell%>" class="start_teaching_calendar">
-                                                    <%= Utils.formatTime(hour, 0)%>
-                                                </td>
-                                                <% } %>
+                                                    hour = startHour;
+                                                    minute = 0;
+                                                    int rowCount = 0;
+                                                    String cellClass = "";
+                                                    while (hour < endHour) {
+                                                %>  
+                                                <tr>
+                                                    <%
+                                                        if (rowCount == (rowsPerCell - 1)) {
+                                                            cellClass = "start_teaching_row_end";
+                                                        } else {
+                                                            cellClass = "start_teaching_row_middle";
+                                                        }
+                                                        if (rowCount == 0) {
+                                                            cellClass = "start_teaching_row_start";
+                                                    %>
+                                                    <td rowspan="<%= rowsPerCell%>" class="start_teaching_calendar">
+                                                        <%= Utils.formatTime(hour, 0)%>                                                        
+                                                    </td>
+                                                    <% } %>
 
-                                                <% for (day = 0; day < 7; day++) {
-                                                %>
-                                                <td data-day="<%=day%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
-                                                    onclick="start_teaching_select_time(this)"
-                                                    class="start_teaching_calendar <%= cellClass%>" id="start_teaching_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">
-                                                </td>                                            
-                                                <% } %>                                                                                                
-                                            </tr>
-                                            <%
-                                                    rowCount = (rowCount + 1) % rowsPerCell;
-                                                    minute += minutesPerUnit;
-                                                    if (minute == 60) {
-                                                        minute = 0;
-                                                        hour++;
+                                                    <% for (day = 0; day < 7; day++) {
+                                                    %>
+                                                    <td data-day="<%= day + 1%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
+                                                        onclick="start_teaching_select_time(this)"
+                                                        class="start_teaching_calendar <%= cellClass%>" id="start_teaching_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">                                                       
+                                                    </td>                                            
+                                                    <% } %>                                                                                                
+                                                </tr>
+                                                <%
+                                                        rowCount = (rowCount + 1) % rowsPerCell;
+                                                        minute += minutesPerUnit;
+                                                        if (minute == 60) {
+                                                            minute = 0;
+                                                            hour++;
+                                                        }
                                                     }
-                                                }
-                                            %>
-                                        </tbody>
-                                    </table> 
+                                                %>
+                                            </tbody>
+                                        </table> 
+                                    </div>
                                 </div>
                             </div>
                         </div>

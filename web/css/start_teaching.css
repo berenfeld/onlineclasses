@@ -2,6 +2,7 @@ th.start_teaching_calendar, td.start_teaching_calendar  {
     text-align:center;
     vertical-align: middle;
     cursor: pointer;
+    height:14px;
 }
 
 td.calendar_today {

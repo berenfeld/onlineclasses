@@ -192,15 +192,129 @@ function start_teaching_facebookLogin()
     }
 }
 
+function start_teaching_select_single_time(day, hour, minute)
+{
+    var hourElement = $("#start_teaching_day_" + day + "_hour_" + hour + "_minute_" + minute);
+    hourElement.addClass("calendar_selected");
+    start_teaching.calendar.last_element_selected = hourElement;
+    start_teaching.calendar.last_select = {
+        hour: hour,
+        day: day,
+        minute: minute
+    };
+    start_teaching_update_calendar();
+}
+
+function start_teaching_select_time()
+{
+    event.preventDefault();
+    event.stopPropagation();
+    
+    var elem = $("#" + event.target.id);
+    var day = parseInt10(elem.attr("data-day"));
+    var hour = parseInt10(elem.attr("data-hour"));
+    var minute = parseInt10(elem.attr("data-minute"));
+
+    if (!event.shiftKey) {
+        start_teaching_select_single_time(day, hour, minute);
+        return false;
+    }
+    if (start_teaching.calendar.last_select === null) {
+        start_teaching_select_single_time(day, hour, minute);
+        return false;
+    }
+
+    if (day !== start_teaching.calendar.last_select.day) {
+        start_teaching_select_single_time(day, hour, minute);
+        return false;
+    }
+
+    var start_hour = start_teaching.calendar.last_select.hour;
+    var start_minute = start_teaching.calendar.last_select.minute;
+    var increasing = (start_hour < hour) || ((start_hour === hour) && (start_minute < minute));
+    
+    while ((start_hour !== hour) || (start_minute !== minute)) {
+        var hourElement = $("#start_teaching_day_" + day + "_hour_" + start_hour + "_minute_" + start_minute);
+        hourElement.addClass("calendar_selected");
+        if (increasing) {
+            start_minute += start_teaching.calendar.minutes_unit;
+            if (start_minute === 60) {
+                start_minute = 0;
+                start_hour++;
+            }
+        } else {
+            if (start_minute === 0) {
+                start_minute = 60;
+                start_hour--;
+            }            
+            start_minute -= start_teaching.calendar.minutes_unit;            
+        }
+    }
+    start_teaching_update_calendar();    
+    return false;
+}
+
+function start_teaching_update_calendar()
+{
+    var start_working_hour = parseInt10(oc.cconfig[ "website.time.start_working_hour"]);
+    var end_working_hour = parseInt10(oc.cconfig[ "website.time.end_working_hour"]);
+    var start_available_time = false;
+    var available_day, start_hour, start_minute, end_hour, end_minute;
+    var available_text = "";
+
+    for (var day = 1; day <= 7; day++) {
+        var hour = start_working_hour;
+        var minute = 0;
+        while (hour < end_working_hour) {
+            var element = $("#start_teaching_day_" + day + "_hour_" + hour + "_minute_" + minute);
+            if (!start_available_time) {
+                if (element.hasClass("calendar_selected"))
+                {
+                    start_available_time = true;
+                    available_day = day;
+                    start_hour = hour;
+                    start_minute = minute;
+                }
+            } else {
+                if (!element.hasClass("calendar_selected"))
+                {
+                    start_available_time = false;
+                    end_hour = hour;
+                    end_minute = minute;
+
+                    available_text += start_teaching.calendar.day_names_long[available_day - 1] + " : " +
+                            formatTime(end_hour, end_minute) + " - " + formatTime(start_hour, start_minute) + "<br/>"
+                }
+            }
+            minute += start_teaching.calendar.minutes_unit;
+            if (minute === 60) {
+                minute = 0;
+                hour++;
+            }
+        }
+    }
+    $("#start_teaching_selected_hours").html(available_text);
+}
+
+function start_teaching_clear_calendar()
+{
+    $("#start_teaching_calendar_table td").removeClass("calendar_selected");
+    start_teaching_update_calendar();
+}
+
 function start_teaching_init()
 {
     start_teaching.google_id_token = null;
     start_teaching.facebook_access_token = null;
+    start_teaching.calendar = {};
+    start_teaching.calendar.minutes_unit = parseInt10(oc.cconfig[ "website.time.unit.minutes"]);
+    start_teaching.calendar.day_names_long = oc.clabels[ "website.days.long" ].split(",");
+    start_teaching.calendar.last_select = null;
 
     google_addEmailExistsCallback(start_teaching_googleUserEmailExistsCallback);
 
     $("#start_teaching_day_of_birth_input").datepicker({
-        dayNames: oc.clabels[ "website.days.long" ].split(","),
+        dayNames: start_teaching.calendar.day_names_long,
         dayNamesMin: oc.clabels[ "website.days.short" ].split(","),
         monthNames: oc.clabels[ "website.months.long" ].split(","),
         monthNamesShort: oc.clabels[ "website.months.short" ].split(","),
@@ -216,8 +330,12 @@ function start_teaching_init()
     }
 
     $('#start_teaching_topic_show_degree').on('click', function (e) {
-         $('#start_learning_degree_information_div').collapse("toggle");
+        $('#start_learning_degree_information_div').collapse("toggle");
     });
+    $("#start_teaching_calendar_table td").disableSelection();
+
 }
+
+
 
 start_teaching_init();
