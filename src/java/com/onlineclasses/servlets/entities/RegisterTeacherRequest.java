@@ -5,6 +5,7 @@
  */
 package com.onlineclasses.servlets.entities;
 
+import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.BasicRequest;
 import java.util.Date;
 import java.util.List;
@@ -40,5 +41,6 @@ public class RegisterTeacherRequest extends BasicRequest {
     public List<Integer> teaching_topics;
     public String paypal_email;
     public int price_per_hour;
+    public List<AvailableTime> available_times;
 
 }

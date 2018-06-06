@@ -6,6 +6,7 @@ package com.onlineclasses.servlets;
  * and open the template in the editor.
  */
 import com.onlineclasses.db.DB;
+import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.BasicResponse;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.Institute;
@@ -79,18 +80,25 @@ public class RegisterTeacherServlet extends BaseServlet {
             Utils.warning("Could not add user " + registeringTeacher.display_name);
             return new BasicResponse(-1, "user is already registered");
         }
-        
-        for (int topicId : registerTeacherRequest.teaching_topics)
-        {
+
+        for (int topicId : registerTeacherRequest.teaching_topics) {
             TeachingTopic teachingTopic = new TeachingTopic();
             teachingTopic.teacher = registeringTeacher;
             teachingTopic.topic = DB.get(topicId, Topic.class);
-            DB.add(teachingTopic);
+            if (DB.add(teachingTopic) != 1) {
+                Utils.warning("Could not add teaching topic " + teachingTopic.topic.name + " to teacher " + registeringTeacher );
+            }
         }
-        
+
+        for (AvailableTime avilableTime : registerTeacherRequest.available_times) {
+            avilableTime.teacher = registeringTeacher;
+            if (DB.add(avilableTime) != 1) {
+                Utils.warning("Could not add available time " + avilableTime + " to teacher " + registeringTeacher );
+            }
+        }
         BaseServlet.loginUser(request, registeringTeacher);
         Utils.info("teacher " + registeringTeacher.display_name + " email " + registeringTeacher.email + " registered");
-    
+
         // TODO send email
         return new BasicResponse(0, "");
     }

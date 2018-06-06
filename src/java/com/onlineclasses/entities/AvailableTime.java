@@ -6,6 +6,7 @@
 package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.onlineclasses.utils.Utils;
 
 public class AvailableTime extends BasicEntity  {
 
@@ -28,4 +29,13 @@ public class AvailableTime extends BasicEntity  {
     
     @DatabaseField(canBeNull = false)
     public int end_minute;
+    
+    @Override
+    public String toString() {
+        String result = "from " + Utils.formatTime(start_hour, start_minute ) + " to " + Utils.formatTime(end_hour, end_minute);
+        if (teacher != null ) {
+            result += " of teacher " + teacher;                    
+        }
+        return result;
+    }
 }

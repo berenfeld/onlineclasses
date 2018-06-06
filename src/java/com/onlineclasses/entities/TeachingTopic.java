@@ -15,4 +15,16 @@ public class TeachingTopic extends BasicEntity {
     public static final String TEACHER_ID_COLUMN = "teacher_id";
     @DatabaseField(foreign = true, columnName = TEACHER_ID_COLUMN)
     public Teacher teacher;
+    
+        @Override
+    public String toString() {
+        String result = "unknown topic";
+        if (topic != null) {
+            result = " topic " + topic;
+        }
+        if (teacher != null ) {
+            result += " of teacher " + teacher;                    
+        }
+        return result;
+    }
 }
