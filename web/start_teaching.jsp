@@ -668,8 +668,9 @@
 
                                 out.write(htmlContent);
                             %>
-
-                            <div class="checkbox my-1" id="start_teaching_accept_terms_checkbox_div">
+                        </div>
+                        <div class="card-footer">
+                            <div class="checkbox my-1 h5" id="start_teaching_accept_terms_checkbox_div">
                                 <input class="form-check-input my-1 mx-0" id="start_teaching_accept_terms_checkbox" name="start_teaching_accept_terms_checkbox" 
                                        type="checkbox" value="">
 
@@ -678,7 +679,7 @@
                                 </label>
                             </div>
 
-                            <button class="btn btn-success" onclick="start_teaching_form_submit()">
+                            <button class="btn btn-success my-1" onclick="start_teaching_form_submit()">
                                 <%= Labels.get("start_teaching.form.submit.button.text")%>   
                             </button>
                         </div>

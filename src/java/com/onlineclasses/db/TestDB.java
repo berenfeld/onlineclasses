@@ -15,6 +15,7 @@ import com.onlineclasses.entities.TeachingTopic;
 import com.onlineclasses.entities.Topic;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.CConfig;
+import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.Labels;
 import com.onlineclasses.utils.Utils;
 import java.sql.SQLException;
@@ -30,14 +31,14 @@ import java.util.Random;
 public class TestDB {
 
     public static void create() throws Exception {
-        Utils.warning("using test database");
+        Utils.warning("creating test database");
         addStudents();        
         addInstituteTypes();
         addInstitutes();
         addSubjects();
-        addTopics();
-        addTeachers();
+        addTopics();        
         addTeachingTopics();
+        addTeachers();
     }
 
     public static void addStudents() throws Exception {
@@ -55,6 +56,9 @@ public class TestDB {
     }
 
     public static void addTeachers() throws Exception {
+        if (! Config.getBool("db.test.teachers")) {
+            return;
+        }
         Teacher teacher = new Teacher();
         teacher.display_name = "רן ברנפלד מורה";
         teacher.first_name = "רן";
