@@ -99,8 +99,7 @@ function google_signInChanged()
     user.last_name = profile.getFamilyName();
     user.image_url = profile.getImageUrl();
     user.email = profile.getEmail();
-    user.google_id_token = googleUser.getAuthResponse().id_token;
-    user.facebook_access_token = null;
+    user.google_id_token = googleUser.getAuthResponse().id_token;    
 
     google.user = user;
     if (google.userLoggedInCallback !== null) {

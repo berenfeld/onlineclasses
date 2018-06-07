@@ -63,9 +63,6 @@
                                 <div class="col-3">
                                     <input type="image" src="images/google_login_button.png" class="w-100" onclick="start_learning_googleLogin()">              
                                 </div>
-                                <div class="col-3 d-none">                        
-                                    <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="start_learning_facebookLogin()">                             
-                                </div>
                             </div>
                         </div>
                         <div class="card-body">

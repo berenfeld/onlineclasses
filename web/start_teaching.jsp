@@ -75,9 +75,6 @@
                                 <div class="col-3">
                                     <input type="image" src="images/google_login_button.png" class="w-100" onclick="start_teaching_googleLogin()">              
                                 </div>
-                                <div class="col-3 d-none">                        
-                                    <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="start_teaching_facebookLogin()">                             
-                                </div>
                             </div>
                         </div>
 

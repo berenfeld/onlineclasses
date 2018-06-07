@@ -7,7 +7,6 @@ package com.onlineclasses.servlets;
  */
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
-import com.onlineclasses.entities.FacebookUser;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.Student;
@@ -47,15 +46,6 @@ public class RegisterStudentServlet extends BaseServlet {
 
             email = googleUser.email;
             image_url = googleUser.image_url;
-        } else if (Utils.isNotEmpty(registerStudentRequest.facebook_access_token)) {
-            FacebookUser facebookUser = FacebookAccessTokenServlet.getFacebookUser(registerStudentRequest.facebook_access_token);
-            if (facebookUser == null) {
-                Utils.warning("failed to get user from facebook access token");
-                return new BasicResponse(-1, "user was not found");
-            }
-
-            email = facebookUser.email;
-            image_url = facebookUser.image_url;
         } else {
             Utils.warning("no google id in login request");
             return new BasicResponse(-1, "no google id");
