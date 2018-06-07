@@ -53,7 +53,7 @@
 
         <div class="container">
             <div class="row no-gutters my-1">
-                <form onsubmit="return false">
+                <form id="start_teaching_form" onsubmit="return false">
                     <div class="card my-1">
                         <div class="card-header text-secondary">
                             <h5>
@@ -62,17 +62,26 @@
                             <p>
                                 <%= Labels.get("start_teaching.text1")%>       
                                 <br/>
-                                <%= Labels.get("start_teaching.text2")%>       
+                                <%= Labels.get("start_teaching.text2")%>      
+                                <br/>
+                                <%= Labels.get("start_teaching.required_field_1")%>  
+                                <small class="start_teaching_required">
+                                    (*)
+                                </small>
+                                <%= Labels.get("start_teaching.required_field_2")%>  
                             </p>
                         </div>
                     </div>
                     <div class="card my-1">
                         <div class="card-header bg-secondary text-white">
-                            <div class="row no-gutters">
-                                <div class="col-9">
-                                    <%= Labels.get("start_teaching.form.login.text1")%>    
+                            <div class="row no-gutters"  id="start_teaching_google_login">
+                                <div class="col-6 col-md-9">
+                                    <%= Labels.get("start_teaching.form.login.text1")%> 
+                                    <small class="start_teaching_required">
+                                        (*)
+                                    </small>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-6 col-md-3">
                                     <input type="image" src="images/google_login_button.png" class="w-100" onclick="start_teaching_googleLogin()">              
                                 </div>
                             </div>
@@ -80,10 +89,13 @@
 
                         <div class="card-body">
                             <div class="form-group row">
-                                <div class="col-6 col-lg-3 my-1">
+                                <div class="col-6 col-lg-3 my-1">                                    
                                     <label class="col-form-label" for="start_teaching_email_input">
-                                        <%= Labels.get("start_teaching.form.login.email")%>
-                                    </label>
+                                        <%= Labels.get("start_teaching.form.login.email")%>                                        
+                                    </label>                     
+                                    <small class="start_teaching_required">
+                                        (*)
+                                    </small>
                                 </div>
 
                                 <div class="col-6 col-lg-3 my-1">
@@ -98,7 +110,7 @@
                                 </div>
                                 <div class="col-6 col-lg-3 my-1">
                                     <input type="text" class="form-control" id="start_teaching_display_name_input" 
-                                           placeholder="<%= Labels.get("start_teaching.form.login.display_name")%>">
+                                           placeholder="<%= Labels.get("start_teaching.form.login.display_name")%>" disabled>
                                 </div>
 
                                 <div class="col-6 col-lg-3 my-1">
@@ -109,7 +121,7 @@
 
                                 <div class="col-6 col-lg-3 my-1">
                                     <input type="text" class="form-control" id="start_teaching_first_name_input"
-                                           placeholder="<%= Labels.get("start_teaching.form.login.first_name")%>">
+                                           placeholder="<%= Labels.get("start_teaching.form.login.first_name")%>" disabled>
                                 </div>
 
                                 <div class="col-6 col-lg-3 my-1">
@@ -120,13 +132,16 @@
 
                                 <div class="col-6 col-lg-3 my-1">
                                     <input type="text" class="form-control" id="start_teaching_last_name_input" 
-                                           placeholder="<%= Labels.get("start_teaching.form.login.last_name")%>">
+                                           placeholder="<%= Labels.get("start_teaching.form.login.last_name")%>" disabled>
                                 </div>
 
                                 <div class="col-6 col-lg-3 my-1">
                                     <label class="col-form-label" for="start_teaching_gender_input">
                                         <%= Labels.get("start_teaching.form.login.gender")%>   
                                     </label>
+                                    <small class="start_teaching_required">
+                                        (*)
+                                    </small>
                                 </div>
 
                                 <div class="col-6 col-lg-3 my-1">
@@ -148,11 +163,14 @@
                                 </div>
 
                                 <div class="col-12 col-lg-6 my-0">
-                                    <div class="row no-gutters">   
+                                    <div class="row no-gutters" id="start_teaching_phone_number">   
                                         <div class="col my-1">
                                             <label class="col-form-label" for="start_teaching_phone_number_input">
                                                 <%= Labels.get("start_teaching.form.login.phone_number")%>
                                             </label>
+                                            <small class="start_teaching_required">
+                                                (*)
+                                            </small>
                                         </div>
 
                                         <div class="input-group form-control border-0 col">
@@ -188,10 +206,13 @@
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-lg-3 my-1">
+                                <div class="col-6 col-lg-3 my-1" id="start_teaching_day_of_birth">
                                     <label class="col-form-label" for="start_teaching_day_of_birth_input">
                                         <%= Labels.get("start_teaching.form.login.day_of_birth")%>
                                     </label>
+                                    <small class="start_teaching_required">
+                                        (*)
+                                    </small>
                                 </div>
 
                                 <div class="col-6 col-lg-3 my-1">
@@ -199,6 +220,7 @@
                                            name="start_teaching_day_of_birth_input"
                                            placeholder="<%= Labels.get("start_teaching.form.login.day_of_birth")%>">
                                 </div>
+
 
                                 <div class="col-6 col-lg-3 my-1">
                                     <label class="col-form-label" for="start_teaching_skype_name_input">
@@ -223,10 +245,13 @@
 
                         <div class="card-body">
                             <div class="form-group row">
-                                <div class="col-6 col-lg-3 my-1">
+                                <div class="col-6 col-lg-3 my-1" id="start_teaching_moto">
                                     <label class="col-form-label" for="start_teaching_moto_input">
                                         <%= Labels.get("start_teaching.form.publish.moto_text")%>
-                                    </label>                                    
+                                    </label>  
+                                    <small class="start_teaching_required">
+                                        (*)
+                                    </small>
                                 </div>
 
                                 <div class="col-6 col-lg-9 my-1">
@@ -512,10 +537,13 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <div class="col-6 col-lg-3 my-1">
+                                <div class="col-6 col-lg-3 my-1" id="start_teaching_paypal_email">
                                     <label class="col-form-label" for="start_teaching_paypal_email_input">
                                         <%= Labels.get("start_teaching.form.payment.paypal_email")%>
-                                    </label>                                    
+                                    </label>   
+                                    <small class="start_teaching_required">
+                                        (*)
+                                    </small>
                                 </div>
 
                                 <div class="col-6 col-lg-3 my-1">
@@ -527,10 +555,13 @@
                                 <div class="col-6 col-lg-3 my-1">
                                     <label class="col-form-label" for="start_teaching_price_per_hour_input">
                                         <%= Labels.get("start_teaching.form.payment.price_per_hour")%>
-                                    </label>                                    
+                                    </label> 
+                                    <small class="start_teaching_required">
+                                        (*)
+                                    </small>
                                 </div>
 
-                                <div class="col-6 col-lg-3 my-1">
+                                <div class="col-6 col-lg-3 my-1" id="start_teaching_price_per_hour">
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="start_teaching_price_per_hour_input" 
                                                name="start_teaching_price_per_hour_input"
@@ -650,8 +681,7 @@
                         <div class="card-header text-white bg-secondary">
                             <h6>
                                 <%= Labels.get("start_teaching.form.submit.title")%>   
-                            </h6>
-
+                            </h6>                            
                         </div>
                         <div class="card-body">
                             <h6>
@@ -667,18 +697,28 @@
                             %>
                         </div>
                         <div class="card-footer">
-                            <div class="checkbox my-1 h5" id="start_teaching_accept_terms_checkbox_div">
+
+                            <div class="checkbox my-2 h6" id="start_teaching_accept_terms_checkbox_div">
                                 <input class="form-check-input my-1 mx-0" id="start_teaching_accept_terms_checkbox" name="start_teaching_accept_terms_checkbox" 
                                        type="checkbox" value="">
 
                                 <label class="form-check-label" for="start_teaching_accept_terms_checkbox">
                                     <%= Labels.get("start_teaching.form.submit.terms_of_usage.read_and_accept")%>  
                                 </label>
+                                <small class="start_teaching_required">
+                                    (*)
+                                </small>
                             </div>
 
-                            <button class="btn btn-success my-1" onclick="start_teaching_form_submit()">
+                            <button class="btn btn-success my-2" onclick="start_teaching_form_submit()">
                                 <%= Labels.get("start_teaching.form.submit.button.text")%>   
                             </button>
+
+
+                            <div id="start_teaching_warning_div" class="alert alert-warning d-none" role="alert">
+                                <span class="oi" data-glyph="warning"></span>    
+                                <span id="start_teaching_warning_text"></span>
+                            </div>
                         </div>
                     </div>
                 </form>

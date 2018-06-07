@@ -4,12 +4,16 @@ var common = {};
 
 function parseInt10(str, defaultValue)
 {
+    if (defaultValue === undefined) {
+        defaultValue = 0;
+    }
     n = parseInt(str);
     if (isNaN(n)) {
         return defaultValue;
     }
     return n;
 }
+
 
 function redirectAfter(url, seconds)
 {

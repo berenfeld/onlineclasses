@@ -53,3 +53,9 @@ td.calendar_busy {
 {
     border: solid gray 2px;
 }
+
+small.start_teaching_required
+{
+    color:red;
+    font-weight: bold
+}

@@ -6,7 +6,7 @@ function start_teaching_userLoggedInCallback(user)
 {
     alert_show(oc.clabels["start_teaching.login_successful"]);
 
-    google_clearUserLoggedinCallback();    
+    google_clearUserLoggedinCallback();
 
     start_teaching.google_id_token = user.google_id_token;
 
@@ -14,6 +14,10 @@ function start_teaching_userLoggedInCallback(user)
     $("#start_teaching_display_name_input").val(user.name);
     $("#start_teaching_first_name_input").val(user.first_name);
     $("#start_teaching_last_name_input").val(user.last_name);
+
+    $("#start_teaching_display_name_input").attr("disabled", false);
+    $("#start_teaching_first_name_input").attr("disabled", false);
+    $("#start_teaching_last_name_input").attr("disabled", false);
 
     google_signOut();
 }
@@ -50,18 +54,75 @@ function start_teaching_register_complete(response)
     redirectAfter("/", 5);
 }
 
-function start_teaching_form_submit()
+function start_teaching_submit_warning(text)
 {
-    if (!$("#start_teaching_accept_terms_checkbox").is(":checked")) {
-        alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_accept"]);
-        return;
-    }
+    $("#start_teaching_warning_text").html(text);
+    $("#start_teaching_warning_div").removeClass("d-none");
+}
 
+function start_teaching_scroll_to(element)
+{
+    $('html, body').scrollTop($("#" + element).offset().top);
+}
+
+function start_teaching_form_validation(request)
+{
+    $("#start_teaching_form *").removeClass("border border-warning");
+           
     if (start_teaching.google_id_token === null) {
         alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_login"]);
-        return;
+        $("#start_teaching_google_login").addClass("border border-warning");
+        start_teaching_scroll_to("start_teaching_google_login");
+        return false;
+    }
+    
+    if (!$("#start_teaching_accept_terms_checkbox").is(":checked")) {
+        alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_accept"]);
+        $("#start_teaching_accept_terms_checkbox_div").addClass("border border-warning");
+        start_teaching_scroll_to("start_teaching_accept_terms_checkbox_div");
+        return false;
     }
 
+    if (stringEmpty(request.phone_number) || stringEmpty(request.phone_area)) {
+        alert_show(oc.clabels[ "start_teaching.form.submit.fill_in_phone"]);
+        $("#start_teaching_phone_number").addClass("border border-warning");
+        start_teaching_scroll_to("start_teaching_phone_number");
+        return false;
+    }
+
+    if (request.day_of_birth === null) {
+        alert_show(oc.clabels[ "start_teaching.form.submit.fill_day_of_birth"]);
+        $("#start_teaching_day_of_birth").addClass("border border-warning");
+        start_teaching_scroll_to("start_teaching_day_of_birth");
+        return false;
+    }
+    
+    if (stringEmpty(request.moto)) {
+        alert_show(oc.clabels[ "start_teaching.form.submit.fill_moto"]);
+        $("#start_teaching_moto").addClass("border border-warning");
+        start_teaching_scroll_to("start_teaching_moto");
+        return false;
+    }
+        
+    if (stringEmpty(request.paypal_email)) {
+        alert_show(oc.clabels[ "start_teaching.form.submit.fill_paypal_email"]);
+        $("#start_teaching_paypal_email").addClass("border border-warning");
+        start_teaching_scroll_to("start_teaching_paypal_email");
+        return false;
+    }
+
+    if (request.price_per_hour === 0) {
+        alert_show(oc.clabels[ "start_teaching.form.submit.fill_price_per_hour"]);
+        $("#start_teaching_price_per_hour").addClass("border border-warning");
+        start_teaching_scroll_to("start_teaching_price_per_hour");
+        return false;
+    }
+
+    return true;
+}
+
+function start_teaching_form_submit()
+{
     var request = {};
     request.google_id_token = start_teaching.google_id_token;
     request.email = $("#start_teaching_email_input").val();
@@ -86,6 +147,10 @@ function start_teaching_form_submit()
     request.paypal_email = $("#start_teaching_paypal_email_input").val();
     request.teaching_topics = [];
     request.available_times = start_teaching.calendar.available_times;
+
+    if (!start_teaching_form_validation(request)) {
+        return;
+    }
 
     $("#start_teaching_topics_card input[type='checkbox']").each(
             function (index, elem) {
@@ -194,7 +259,7 @@ function start_teaching_select_single_time(day, hour, minute)
         start_teaching.calendar.last_select.add = true;
     }
     start_teaching.calendar.last_element_selected = hourElement;
-    
+
     start_teaching_update_calendar();
 }
 
@@ -233,7 +298,7 @@ function start_teaching_select_time()
         } else {
             hourElement.removeClass("calendar_selected");
         }
-        if ( (start_hour === hour) && (start_minute === minute)) {
+        if ((start_hour === hour) && (start_minute === minute)) {
             break;
         }
         if (increasing) {
@@ -248,7 +313,7 @@ function start_teaching_select_time()
                 start_hour--;
             }
             start_minute -= start_teaching.calendar.minutes_unit;
-        }        
+        }
     } while (true);
     start_teaching_update_calendar();
     return false;
@@ -315,14 +380,22 @@ function start_teaching_clear_calendar()
 function start_teaching_init()
 {
     start_teaching.google_id_token = null;
+    start_teaching.day_of_birth = null;
+    
     start_teaching.calendar = {};
     start_teaching.calendar.minutes_unit = parseInt10(oc.cconfig[ "website.time.unit.minutes"]);
     start_teaching.calendar.day_names_long = oc.clabels[ "website.days.long" ].split(",");
     start_teaching.calendar.last_select = null;
     start_teaching.calendar.available_times = [];
+    start_teaching.min_teacher_age = parseInt10(oc.cconfig[ "start_teaching.min_teacher_age"]);
+    start_teaching.max_teacher_age = parseInt10(oc.cconfig[ "start_teaching.max_teacher_age"]);    
 
     google_addEmailExistsCallback(start_teaching_googleUserEmailExistsCallback);
 
+    var current_year = new Date().getFullYear();
+    var default_year = new Date();
+    default_year.setFullYear(current_year - start_teaching.min_teacher_age);
+    
     $("#start_teaching_day_of_birth_input").datepicker({
         dayNames: start_teaching.calendar.day_names_long,
         dayNamesMin: oc.clabels[ "website.days.short" ].split(","),
@@ -330,6 +403,8 @@ function start_teaching_init()
         monthNamesShort: oc.clabels[ "website.months.short" ].split(","),
         isRTL: true,
         changeYear: true,
+        defaultDate : default_year,
+        yearRange: (current_year - start_teaching.max_teacher_age) + ":" + (current_year - start_teaching.min_teacher_age),
         onSelect: start_teaching_select_day_of_birth
     });
 
@@ -345,7 +420,5 @@ function start_teaching_init()
     $("#start_teaching_calendar_table td").disableSelection();
 
 }
-
-
 
 start_teaching_init();
