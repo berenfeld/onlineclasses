@@ -75,13 +75,17 @@
                     <div class="card my-1">
                         <div class="card-header bg-secondary text-white">
                             <div class="row no-gutters"  id="start_teaching_google_login">
-                                <div class="col-6 col-md-9">
+                                <div class="col-12 col-md-6 col-lg-9">
                                     <%= Labels.get("start_teaching.form.login.text1")%> 
                                     <small class="start_teaching_required">
                                         (*)
                                     </small>
+                                    <br/>
+                                    <small>
+                                    <%= Labels.get("start_teaching.form.login.text2")%> 
+                                    </small>
                                 </div>
-                                <div class="col-6 col-md-3">
+                                <div class="col-12 col-md-6 col-lg-3">
                                     <input type="image" src="images/google_login_button.png" class="w-100" onclick="start_teaching_googleLogin()">              
                                 </div>
                             </div>
@@ -164,7 +168,7 @@
 
                                 <div class="col-12 col-lg-6 my-0">
                                     <div class="row no-gutters" id="start_teaching_phone_number">   
-                                        <div class="col my-1">
+                                        <div class="col-12 col-md my-1">
                                             <label class="col-form-label" for="start_teaching_phone_number_input">
                                                 <%= Labels.get("start_teaching.form.login.phone_number")%>
                                             </label>
@@ -173,7 +177,7 @@
                                             </small>
                                         </div>
 
-                                        <div class="input-group form-control border-0 col">
+                                        <div class="input-group form-control border-0 col-12 col-md">
                                             <input type="text" class="form-control mr-3" id="start_teaching_phone_number_input"
                                                    onkeypress="return isNumberKey(event)"
                                                    placeholder="<%= Labels.get("start_teaching.form.login.phone_number")%>">
@@ -603,7 +607,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="my-2">
                                         <button class="btn btn-primary" onclick="start_teaching_clear_calendar()">
                                             <%= Labels.get("start_teaching.form.available_hours.clear_button")%>   
                                         </button>
