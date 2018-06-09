@@ -481,15 +481,15 @@
                         <div class="card my-2">
                             <div class="card-body">
                                 <div class="row no-gutters">      
-                                    <div class="col-xl-3 col-lg-3 col-md-3 col-12 px-1">
-                                        <figure class="figure h5">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 px-3">
+                                        <figure class="w-100 figure h5">
                                             <figcaption class="figure-caption text-center my-1">
                                                 <%= teacher.display_name%>
                                             </figcaption>
-                                            <img src="<%= teacher.image_url%>" class="border border-success img-responsive figure-img rounded mx-1 my-1"/>
+                                            <img src="<%= teacher.image_url%>" class="w-100 border border-success img-responsive figure-img rounded mx-1 my-1"/>
                                         </figure>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-12 px-1">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 px-1">
                                         <cite>
                                             <%= teacher.moto%>
                                         </cite>
@@ -543,7 +543,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-3 col-lg-3 col-md-3 col-12 px-1">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 px-1">
 
                                         <%
                                             if (teacher.show_phone) {

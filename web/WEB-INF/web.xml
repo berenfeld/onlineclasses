@@ -45,6 +45,14 @@
         <servlet-name>privacy_policy</servlet-name>
         <jsp-file>/privacy_policy.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>student_homepage</servlet-name>
+        <jsp-file>/student_homepage.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>teacher_homepage</servlet-name>
+        <jsp-file>/teacher_homepage.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>start_teaching</servlet-name>
         <url-pattern>/start_teaching</url-pattern>
@@ -76,6 +84,14 @@
     <servlet-mapping>
         <servlet-name>privacy_policy</servlet-name>
         <url-pattern>/privacy_policy</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>student_homepage</servlet-name>
+        <url-pattern>/student_homepage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>teacher_homepage</servlet-name>
+        <url-pattern>/teacher_homepage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

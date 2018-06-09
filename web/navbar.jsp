@@ -86,7 +86,22 @@
                         <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu">
+                        <%
+                            if (BaseServlet.isStudent(request)) {
+                        %>
 
+                        <a class="dropdown-item" href="student_homepage">
+                            <%= Labels.get("navbar.user.student_homepage")%>
+                        </a>
+                        <%
+                        } else {
+                        %>
+                        <a class="dropdown-item" href="teacher_homepage">
+                            <%= Labels.get("navbar.user.teacher_homepage")%>
+                        </a>
+                        <%
+                            }
+                        %>
                         <%
                             if (!studentUpcomingClasses.isEmpty()) {
                         %>
