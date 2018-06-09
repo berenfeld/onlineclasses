@@ -72,13 +72,13 @@ function google_signInChanged()
     }
 
     var googleUser = google.auth2.currentUser.get();
-    if ( googleUser === null) {
+    if (googleUser === null) {
         google.user = null;
         return;
     }
-    
-    if (! login_isLoggedIn()) {
-        if ( oc.cconfig[ "google.send_token_to_server" ] === "true" ) {
+
+    if (!login_isLoggedIn()) {
+        if (oc.cconfig[ "google.send_token_to_server" ] === "true") {
             var request = {};
             request.google_id_token = googleUser.getAuthResponse().id_token;
             $.ajax("servlets/google_id_token",
@@ -99,7 +99,7 @@ function google_signInChanged()
     user.last_name = profile.getFamilyName();
     user.image_url = profile.getImageUrl();
     user.email = profile.getEmail();
-    user.google_id_token = googleUser.getAuthResponse().id_token;    
+    user.google_id_token = googleUser.getAuthResponse().id_token;
 
     google.user = user;
     if (google.userLoggedInCallback !== null) {
@@ -120,11 +120,10 @@ function google_load_finished()
     google.auth2.isSignedIn.listen(google_signInChanged);
     $("button.google-login-button").each(
             function (index, elem) {
-                gapi.signin2.render(elem.id, { theme: "dark", longtitle: false } );
+                gapi.signin2.render(elem.id, {theme: "dark", longtitle: false});
                 $("#" + elem.id).attr("disabled", false);
             }
     );
-    
 }
 
 google_init();

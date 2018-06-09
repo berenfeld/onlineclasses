@@ -33,7 +33,10 @@ function login_loginRequestComplete(response)
         $("#login_modal_info_div").removeClass("d-none");
         reloadAfter(1);
     } else {
-        $("#login_modal_info_text").html(oc.clabels["login.progress.failed"]);
+        $("#login_modal_info_text").html(
+                oc.clabels["login.progress.failed"] + " : " +
+                response.message);
+        google_signOut();
     }
 }
 

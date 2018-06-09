@@ -42,6 +42,9 @@ public class TestDB {
     }
 
     public static void addStudents() throws Exception {
+        if (! Config.getBool("db.test.students")) {
+            return;
+        }
         Student student = new Student();
         student.display_name = "רן ברנפלד תלמיד";
         student.first_name = "רן";
