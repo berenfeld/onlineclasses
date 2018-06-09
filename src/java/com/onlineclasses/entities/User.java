@@ -61,4 +61,12 @@ public class User extends BasicEntity implements Serializable {
     public String toString() {
         return display_name;
     }
+    
+    public boolean isMale() {
+        return gender == GENDER_MALE;
+    }
+    public boolean isFemale() {
+        return gender == GENDER_FEMALE;
+    }
+    
 }

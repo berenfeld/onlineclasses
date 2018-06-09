@@ -1,6 +1,6 @@
 /* global online_classes */
 
-scheduled_class = {};
+var scheduled_class = {};
 
 function schedule_class_add_comment()
 {

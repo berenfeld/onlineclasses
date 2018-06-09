@@ -19,6 +19,7 @@ import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.Labels;
 import com.onlineclasses.utils.Utils;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,6 +68,8 @@ public class TestDB {
         teacher.first_name = "רן";
         teacher.last_name = "ברנפלד";
         teacher.email = "berenfeldran@gmail.com";
+        teacher.gender = User.GENDER_MALE;
+        teacher.day_of_birth = Utils.parseDateWithFullYear("23/05/1977");
         teacher.paypal_email = "berenfeldran@gmail.com";
         teacher.price_per_hour = 140;
         teacher.image_url = "https://lh4.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ACLGyWBUQArTT9nKI7bjZHlRM48qDYygCA/s96-c/photo.jpg";
@@ -75,10 +78,9 @@ public class TestDB {
         teacher.phone_number = "7476526";
         teacher.registered = new Date();
         teacher.show_email = true;
-        teacher.show_phone = false;
-        teacher.show_skype = false;
-        teacher.skype_name = "ran.berenfeld";
-        teacher.gender = User.GENDER_FEMALE;        
+        teacher.show_phone = true;
+        teacher.show_skype = true;
+        teacher.skype_name = "ran.berenfeld";              
         DB.add(teacher);
 
         AvailableTime availableTime = new AvailableTime();

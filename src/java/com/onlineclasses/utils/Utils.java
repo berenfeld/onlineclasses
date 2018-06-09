@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -128,6 +129,16 @@ public class Utils {
         return String.format("%02d:%02d", hour, minute);
     }
 
+    public static String formatDateWithFullYear(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(date);
+    }
+    
+    public static Date parseDateWithFullYear(String date) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.parse(date);
+    }
+    
     public static String formatDate(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM");
         return format.format(date);

@@ -89,7 +89,9 @@
                 </h6>                    
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">
+                    <%= Labels.get("buttons.ok")%>
+                </button>
             </div>
 
         </div>

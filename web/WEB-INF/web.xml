@@ -53,6 +53,14 @@
         <servlet-name>teacher_homepage</servlet-name>
         <jsp-file>/teacher_homepage.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>teacher_update</servlet-name>
+        <jsp-file>/teacher_update.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>student_update</servlet-name>
+        <jsp-file>/student_update.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>start_teaching</servlet-name>
         <url-pattern>/start_teaching</url-pattern>
@@ -92,6 +100,14 @@
     <servlet-mapping>
         <servlet-name>teacher_homepage</servlet-name>
         <url-pattern>/teacher_homepage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>teacher_update</servlet-name>
+        <url-pattern>/teacher_update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>student_update</servlet-name>
+        <url-pattern>/student_update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -12,10 +12,10 @@
 <%
     User user_footer = BaseServlet.getUser(request);
     String userGson = Utils.gson().toJson(user_footer);
-    String url_footer = request.getRequestURI();
-    String pageName = url_footer.substring(url_footer.lastIndexOf("/") + 1);
-    if (Utils.isEmpty(pageName)) {
-        pageName = "index";
+    String foo_url = request.getRequestURI();
+    String foo_pageName = foo_url.substring(foo_url.lastIndexOf("/") + 1);
+    if (Utils.isEmpty(foo_pageName)) {
+        foo_pageName = "index";
     }
     String parametersJson = Utils.gson().toJson(request.getParameterMap());
 %>
@@ -83,4 +83,4 @@
 <script src="js/text_input_modal.js"></script>
 <script src="js/google.js"></script>
 <script src="js/login.js"></script>
-<script src="js/<%= pageName%>.js"></script>
+<script src="js/<%= foo_pageName %>.js"></script>

@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.utils.Utils"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@page import="com.onlineclasses.servlets.BaseServlet"%>
@@ -5,6 +6,12 @@
 <%@page import="com.onlineclasses.utils.Labels"%>
 <%@page import="com.onlineclasses.utils.Config"%>
 <%
+    String hea_url = request.getRequestURI();
+    String hea_pageName = hea_url.substring(hea_url.lastIndexOf("/") + 1);
+    if (Utils.isEmpty(hea_pageName)) {
+        hea_pageName = "index";
+    }
+
     BaseServlet.handleLoginInRequest(request);
     BaseServlet.handleLoginInResponse(request, response);
 %>
@@ -21,4 +28,5 @@
 <% }%>
 <link rel="stylesheet" href="css/extras.css">
 <link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/<%= hea_pageName %>.css">
 <link href="css/open-iconic.css" rel="stylesheet">

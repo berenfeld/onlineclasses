@@ -23,6 +23,9 @@ function google_signOut() {
 
 function google_signIn()
 {
+    if (!google_isLoaded()) {
+        return;
+    }
     google.auth2.signIn();
 }
 
