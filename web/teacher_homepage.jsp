@@ -4,6 +4,11 @@
 <%@page import="com.onlineclasses.utils.Config"%>
 <%
     Teacher teacher = (Teacher) BaseServlet.getUser(request);
+    if (teacher == null) {
+        Utils.warning("teacher not found");
+        response.sendRedirect("/");
+        return;
+    }
 %>
 <!DOCTYPE html>
 <html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
@@ -42,8 +47,8 @@
         </div>
         <%@include file="footer.jsp" %>    
         <script>
-                teacher_homepage.teacher = <%= BaseServlet.getUser(request)%>;
-                teacher_homepage_init();
+            teacher_homepage.teacher = <%= BaseServlet.getUser(request)%>;
+            teacher_homepage_init();
         </script>
     </body>
 

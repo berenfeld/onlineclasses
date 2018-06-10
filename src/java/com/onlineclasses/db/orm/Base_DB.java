@@ -48,6 +48,10 @@ public class Base_DB<T> {
         return _dao.delete(t);
     }    
     
+    public int update(T t) throws SQLException {
+        return _dao.update(t);
+    }
+    
     public Map<Integer, T> getAllMap() throws SQLException {
         List<T> all = getAll();
         Map<Integer, T > allMap = new HashMap<>();

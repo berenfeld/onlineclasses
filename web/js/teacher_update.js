@@ -55,38 +55,10 @@ function teacher_update_form_validation(request)
 {
     $("#teacher_update_form *").removeClass("border border-warning");
 
-    if (!$("#teacher_update_accept_terms_checkbox").is(":checked")) {
-        alert_show(oc.clabels[ "teacher_update.form.submit.terms_of_usage.please_accept"]);
-        $("#teacher_update_accept_terms_checkbox_div").addClass("border border-warning");
-        teacher_update_scroll_to("teacher_update_accept_terms_checkbox_div");
-        return false;
-    }
-
-    if (stringEmpty(request.phone_number) || stringEmpty(request.phone_area)) {
-        alert_show(oc.clabels[ "teacher_update.form.submit.fill_in_phone"]);
-        $("#teacher_update_phone_number").addClass("border border-warning");
-        teacher_update_scroll_to("teacher_update_phone_number");
-        return false;
-    }
-
-    if (request.day_of_birth === null) {
-        alert_show(oc.clabels[ "teacher_update.form.submit.fill_day_of_birth"]);
-        $("#teacher_update_day_of_birth").addClass("border border-warning");
-        teacher_update_scroll_to("teacher_update_day_of_birth");
-        return false;
-    }
-
     if (stringEmpty(request.moto)) {
         alert_show(oc.clabels[ "teacher_update.form.submit.fill_moto"]);
         $("#teacher_update_moto").addClass("border border-warning");
         teacher_update_scroll_to("teacher_update_moto");
-        return false;
-    }
-
-    if (stringEmpty(request.paypal_email)) {
-        alert_show(oc.clabels[ "teacher_update.form.submit.fill_paypal_email"]);
-        $("#teacher_update_paypal_email").addClass("border border-warning");
-        teacher_update_scroll_to("teacher_update_paypal_email");
         return false;
     }
 
@@ -103,13 +75,9 @@ function teacher_update_form_validation(request)
 function teacher_update_form_submit()
 {
     var request = {};
-    request.email = $("#teacher_update_email_input").val();
     request.first_name = $("#teacher_update_first_name_input").val();
     request.last_name = $("#teacher_update_last_name_input").val();
     request.display_name = $("#teacher_update_display_name_input").val();
-    request.phone_number = $("#teacher_update_phone_number_input").val();
-    request.phone_area = teacher_update.phone_area;
-    request.day_of_birth = teacher_update.day_of_birth;
     request.skype_name = $("#teacher_update_skype_name_input").val();
     request.moto = $("#teacher_update_moto_input").val();
     request.show_phone = $("#teacher_update_show_phone").attr("checked");
@@ -122,7 +90,6 @@ function teacher_update_form_submit()
     request.show_degree = $("#teacher_update_topic_show_degree").attr("checked");
     request.degree_type = teacher_update.degree_type;
     request.price_per_hour = parseInt10($("#teacher_update_price_per_hour_input").val());
-    request.paypal_email = $("#teacher_update_paypal_email_input").val();
     request.teaching_topics = [];
     request.available_times = teacher_update.calendar.available_times;
 
@@ -138,14 +105,7 @@ function teacher_update_form_submit()
             }
     );
 
-    if ($("#teacher_update_gender_input_male").attr("checked")) {
-        request.gender = parseInt10($("#teacher_update_gender_input_male").val());
-    }
-    if ($("#teacher_update_gender_input_female").attr("checked")) {
-        request.gender = parseInt10($("#teacher_update_gender_input_female").val());
-    }
-
-    $.ajax("servlets/register_teacher",
+    $.ajax("servlets/update_teacher",
             {
                 type: "POST",
                 data: JSON.stringify(request),
@@ -412,4 +372,7 @@ function teacher_update_init()
         $('#start_learning_degree_information_div').collapse("show");        
     }
     teacher_update_init_calendar();
+    if (teacher_update.teacher.institute !== null ) {
+        teacher_update_select_institute_type( teacher_update.teacher.institute.institute_type.id );
+    }
 }

@@ -11,7 +11,7 @@
 <%
     String phoneAreas = CLabels.get("website.phone_areas");
     List<String> phoneAreasList = Utils.toList(phoneAreas);
-    List<InstituteType> instituteTypes = DB.getAllInstituteTypes();
+    List<InstituteType> instituteTypes = DB.getAll(InstituteType.class);
     Map<Integer, Map<Integer, String>> institutes = new HashMap<>();
     for (InstituteType instituteType : instituteTypes) {
 

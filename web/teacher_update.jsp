@@ -17,12 +17,15 @@
     if (teacher == null) {
         Utils.warning("teacher not found");
         response.sendRedirect("/");
+        return;
     }
     Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
+    int teacherInstituteType = 0;
     if (teacher.institute != null) {
         teacher.institute = DB.get(teacher.institute.id, Institute.class);
         if (teacher.institute.institute_type != null) {
             teacher.institute.institute_type = DB.get(teacher.institute.institute_type.id, InstituteType.class);
+            teacherInstituteType = teacher.institute.institute_type.id;
         }
     }
     if (teacher.subject != null) {
@@ -436,9 +439,14 @@
                                     <div class="col-6 col-lg-3 my-1 d-none" id="teacher_update_institute_<%= instituteType%>_div">
                                         <button class="btn btn-info dropdown-toggle" type="button" 
                                                 data-toggle="dropdown" id="teacher_update_institute_<%= instituteType%>_select">
+                                            <%
+                                                if (instituteType == teacherInstituteType) {
+                                            %>    
+                                            <%= teacher.institute.name%>
+                                            <% } else {%>
                                             <span class="caret"></span>
                                             <%= Labels.get("teacher_update.form.learning.institue_" + instituteType + "_select")%>
-
+                                            <% }%>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="teacher_update_institute_<%= instituteType%>_button">
                                             <%
@@ -475,6 +483,13 @@
                                     <div id="teacher_update_institute_0_div" class="col-6 col-lg-3 my-1 d-none">
                                         <input type="text" class="form-control" id="teacher_update_institute_0_text" 
                                                name="teacher_update_institute_0_text"
+                                               <%
+                                                   if (teacher.institute_name != null) {
+                                               %>
+                                               value="<%= teacher.institute_name%>"
+                                               <%
+                                                   }
+                                               %>
                                                placeholder="<%= Labels.get("teacher_update.form.learning.institue.other.choose")%>">
                                     </div>
 

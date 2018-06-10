@@ -252,9 +252,8 @@ public class DB {
         }
         Map<Integer, Topic> topics = getAllMap(Topic.class);
         List<Teacher> matchedTeachers = new ArrayList<>();
-        
-        for (Teacher teacher : teachers)
-        {
+
+        for (Teacher teacher : teachers) {
             List<TeachingTopic> teachingTopics = _teachingTopic_DB.getTeacherTeachingTopics(teacher);
             boolean foundTopic = false;
             for (TeachingTopic teachingTopic : teachingTopics) {
@@ -266,7 +265,7 @@ public class DB {
             }
             if (foundTopic) {
                 matchedTeachers.add(teacher);
-            }                       
+            }
         }
         return matchedTeachers;
     }
@@ -276,7 +275,7 @@ public class DB {
     }
 
     public static List<Topic> getTeacherTeachingTopics(Teacher teacher) throws SQLException {
-        
+
         List<TeachingTopic> teacherTeachingTopics = _teachingTopic_DB.getTeacherTeachingTopics(teacher);
         List<Topic> teachingTopics = new ArrayList<>();
         for (TeachingTopic teachingTopic : teacherTeachingTopics) {
@@ -318,6 +317,10 @@ public class DB {
 
     public static <T> int delete(T t) throws SQLException {
         return ORM_ENTITIES.get(t.getClass()).delete(t);
+    }
+
+    public static<T> int update(T t) throws SQLException {
+        return ORM_ENTITIES.get(t.getClass()).update(t);
     }
 
     public static <T> List<T> getAll(Class cls) throws SQLException {
