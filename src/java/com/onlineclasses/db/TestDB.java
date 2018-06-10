@@ -33,17 +33,17 @@ public class TestDB {
 
     public static void create() throws Exception {
         Utils.warning("creating test database");
-        addStudents();        
+        addStudents();
         addInstituteTypes();
         addInstitutes();
         addSubjects();
-        addTopics();        
+        addTopics();
         addTeachingTopics();
         addTeachers();
     }
 
     public static void addStudents() throws Exception {
-        if (! Config.getBool("db.test.students")) {
+        if (!Config.getBool("db.test.students")) {
             return;
         }
         Student student = new Student();
@@ -55,14 +55,20 @@ public class TestDB {
         student.registered = new Date();
         student.gender = User.GENDER_MALE;
         student.emails_enabled = true;
-        
+
         DB.add(student);
     }
 
     public static void addTeachers() throws Exception {
-        if (! Config.getBool("db.test.teachers")) {
+        if (!Config.getBool("db.test.teachers")) {
             return;
         }
+
+        List<Institute> allInstitues = DB.getAll(Institute.class);
+        List<Subject> allSubjects = DB.getAll(Subject.class);
+        String degreeTypesList = Labels.get("db.degree_type");
+        List<String> degreeTypes = Utils.toList(degreeTypesList);
+
         Teacher teacher = new Teacher();
         teacher.display_name = "רן ברנפלד מורה";
         teacher.first_name = "רן";
@@ -80,15 +86,20 @@ public class TestDB {
         teacher.show_email = true;
         teacher.show_phone = true;
         teacher.show_skype = true;
-        teacher.skype_name = "ran.berenfeld";              
+        teacher.skype_name = "ran.berenfeld";
+        teacher.show_degree = true;
+        teacher.institute = allInstitues.get(0);
+        teacher.subject = allSubjects.get(0);
+        teacher.degree_type = degreeTypes.get(0);
+
         DB.add(teacher);
-       
+
         List<Topic> allTopics = DB.getAll(Topic.class);
         for (Topic topic : allTopics) {
             TeachingTopic teachingTopic = new TeachingTopic();
             teachingTopic.teacher = teacher;
             teachingTopic.topic = topic;
-            DB.add(teachingTopic);            
+            DB.add(teachingTopic);
         }
         AvailableTime availableTime = new AvailableTime();
         availableTime.teacher = teacher;
@@ -104,7 +115,7 @@ public class TestDB {
         }
 
         Random random = new Random();
-        
+
         for (int i = 0; i < 5; i++) {
             teacher = new Teacher();
             teacher.display_name = "מורה בדיקה " + i;
@@ -138,9 +149,8 @@ public class TestDB {
             }
         }
     }
-    
-    private static void addInstituteTypes() throws SQLException
-    {
+
+    private static void addInstituteTypes() throws SQLException {
         String instituteTypes = Labels.get("db.institute_type");
         List<String> instituteTypeList = Utils.toList(instituteTypes);
         InstituteType instituteType = new InstituteType();
@@ -150,52 +160,46 @@ public class TestDB {
         }
     }
 
-    private static void addInstitutes() throws SQLException
-    {
+    private static void addInstitutes() throws SQLException {
         List<InstituteType> instituteTypes = DB.getAll(InstituteType.class);
-        for (InstituteType instituteType : instituteTypes)
-        {
+        for (InstituteType instituteType : instituteTypes) {
             List<String> instituteNames = Utils.toList(Labels.get("db.institutes." + instituteType.id));
-            for (String instituteName : instituteNames ) {
+            for (String instituteName : instituteNames) {
                 Institute institute = new Institute();
                 institute.institute_type = instituteType;
                 institute.name = instituteName;
                 DB.add(institute);
             }
-            
-        }       
+
+        }
     }
-    
-    private static void addSubjects() throws SQLException
-    {
+
+    private static void addSubjects() throws SQLException {
         String subjects = Labels.get("db.subjects");
         List<String> subjectList = Utils.toList(subjects);
-        for (String subjectName : subjectList) {            
+        for (String subjectName : subjectList) {
             Subject subject = new Subject();
             subject.name = subjectName;
             DB.add(subject);
         }
     }
-    
-    private static void addTopics() throws SQLException
-    {
+
+    private static void addTopics() throws SQLException {
         List<Subject> subjects = DB.getAll(Subject.class);
-        int i=1;
-        for (Subject subject : subjects)
-        {
+        int i = 1;
+        for (Subject subject : subjects) {
             String topics = Labels.get("db.topics." + i);
             List<String> topicNames = Utils.toList(topics);
-            for (String topicName : topicNames)
-            {
+            for (String topicName : topicNames) {
                 Topic topic = new Topic();
                 topic.name = topicName;
                 topic.subject = subject;
                 DB.add(topic);
             }
             i++;
-        }        
+        }
     }
-    
+
     public static void addTeachingTopics() throws Exception {
         List<Teacher> teachers = DB.getAll(Teacher.class);
         List<Topic> topics = DB.getAll(Topic.class);
@@ -203,7 +207,7 @@ public class TestDB {
         for (Teacher teacher : teachers) {
             int numberOfTopics = r.nextInt(topics.size());
             List<Topic> topicsCopy = new ArrayList<>(topics);
-            for (int i=0;i<numberOfTopics;i++) {
+            for (int i = 0; i < numberOfTopics; i++) {
                 TeachingTopic teachingTopic = new TeachingTopic();
                 int index = r.nextInt(topicsCopy.size());
                 teachingTopic.topic = topicsCopy.remove(index);

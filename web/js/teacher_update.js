@@ -405,9 +405,11 @@ function teacher_update_init()
     });
 
     $('#teacher_update_topic_show_degree').on('click', function (e) {
-        $('#start_learning_degree_information_div').collapse("toggle");
+        $('#start_learning_degree_information_div').collapse("toggle");        
     });
     $("#teacher_update_calendar_table td").disableSelection();
-
+    if ($('#teacher_update_topic_show_degree').attr("checked")) {        
+        $('#start_learning_degree_information_div').collapse("show");        
+    }
     teacher_update_init_calendar();
 }

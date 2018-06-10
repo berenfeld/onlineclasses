@@ -325,24 +325,21 @@
 
                             <div class="form-group row">
                                 <a class="list-group-item list-group-item-action" 
-                                   aria-expanded="false"
+                                   aria-expanded="<%= teacher.show_degree %>"
                                    aria-controls="start_learning_degree_information_div"                                   
                                    href="#start_learning_degree_information_div">
                                     <input class="form-check-input my-1 mx-0"  
                                            id="teacher_update_topic_show_degree" 
                                            name="teacher_update_topic_show_degree"
-                                           <% if (teacher.show_degree) {
-                                                   out.write("checked");
-                                               }%>
+                                           <% if (teacher.show_degree) out.write("checked"); %>
                                            type="checkbox">
                                     <label class="form-check-label" for="teacher_update_topic_show_degree">
                                         <%= Labels.get("teacher_update.form.learning_information.show_degree")%>
                                     </label>
                                 </a>
                             </div>
-                            <div class="collapse" id="start_learning_degree_information_div">
-                                <div class="form-group row" aria-expanded="false" >
-
+                            <div class="collapse" id="start_learning_degree_information_div" aria-expanded="<%= teacher.show_degree %>" >
+                                <div class="form-group row" >
                                     <label class="col-6 col-lg-3 my-1 col-form-label" for="teacher_update_degree_type_button">
                                         <%= Labels.get("teacher_update.form.learning.degree_type.title")%>
                                     </label>
