@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.entities.AvailableTime"%>
 <%@page import="com.onlineclasses.entities.TeachingTopic"%>
 <%@page import="com.onlineclasses.entities.Teacher"%>
 <%@page import="com.onlineclasses.entities.Topic"%>
@@ -15,6 +16,7 @@
     Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
     Teacher teacher = (Teacher) BaseServlet.getUser(request);
     List<Topic> teachingTopics = DB.getTeacherTeachingTopics(teacher);    
+    List<AvailableTime> availableTime = DB.getTeacherAvailableTime(teacher);
     String phoneAreas = CLabels.get("website.phone_areas");
     List<String> phoneAreasList = Utils.toList(phoneAreas);
     List<InstituteType> instituteTypes = DB.getAll(InstituteType.class);
@@ -575,6 +577,7 @@
                                 <div class="col-6 col-lg-3 my-1">
                                     <input type="email" class="form-control" id="teacher_update_paypal_email_input" 
                                            name="teacher_update_paypal_email_input"
+                                           value="<%= teacher.paypal_email %>" disabled
                                            placeholder="<%= Labels.get("teacher_update.form.paypal_email.placeholder")%>">
                                 </div>
 
@@ -592,6 +595,7 @@
                                         <input type="text" class="form-control" id="teacher_update_price_per_hour_input" 
                                                name="teacher_update_price_per_hour_input"
                                                onkeypress="return isNumberKey(event)"
+                                               value="<%= teacher.price_per_hour %>"
                                                placeholder="<%= Labels.get("teacher_update.form.payment.price_per_hour.placeholder")%>">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -756,6 +760,7 @@
 
         <script>
             teacher_update.teacher = <%= Utils.gson().toJson(teacher)%>
+            teacher_update.available_time = <%= Utils.gson().toJson(availableTime)%>
             oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
             oc.institutes = <%= Utils.gson().toJson(institutes)%>;
             oc.subjects = <%= Utils.gson().toJson(subjects)%>;

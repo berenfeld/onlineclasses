@@ -75,14 +75,14 @@ function teacher_update_form_validation(request)
         teacher_update_scroll_to("teacher_update_day_of_birth");
         return false;
     }
-    
+
     if (stringEmpty(request.moto)) {
         alert_show(oc.clabels[ "teacher_update.form.submit.fill_moto"]);
         $("#teacher_update_moto").addClass("border border-warning");
         teacher_update_scroll_to("teacher_update_moto");
         return false;
     }
-        
+
     if (stringEmpty(request.paypal_email)) {
         alert_show(oc.clabels[ "teacher_update.form.submit.fill_paypal_email"]);
         $("#teacher_update_paypal_email").addClass("border border-warning");
@@ -286,6 +286,38 @@ function teacher_update_select_time()
     return false;
 }
 
+function teacher_update_init_calendar()
+{
+    var available_text = "";
+
+    for (var i = 0; i < teacher_update.available_time.length; i++) {
+        var available_time = teacher_update.available_time[ i ];
+        var day = available_time.day;
+        var start_hour = available_time.start_hour;
+        var end_hour = available_time.end_hour;
+        var start_minute = available_time.start_minute;
+        var end_minute = available_time.end_minute;
+
+        available_text += teacher_update.calendar.day_names_long[day - 1] + " : " +
+                formatTime(end_hour, end_minute) + " - " + formatTime(start_hour, start_minute) + "<br/>";
+        do {
+            if ((start_hour === end_hour) && (start_minute === end_minute)) {
+                break;
+            }
+            var hourElement = $("#teacher_update_day_" + day + "_hour_" + start_hour + "_minute_" + start_minute);
+            hourElement.addClass("calendar_selected");
+
+            start_minute += teacher_update.calendar.minutes_unit;
+            if (start_minute === 60) {
+                start_minute = 0;
+                start_hour++;
+            }
+
+        } while (true);
+    }
+    $("#teacher_update_selected_hours").html(available_text);
+}
+
 function teacher_update_update_calendar()
 {
     var start_working_hour = parseInt10(oc.cconfig[ "website.time.start_working_hour"]);
@@ -347,19 +379,19 @@ function teacher_update_clear_calendar()
 function teacher_update_init()
 {
     teacher_update.day_of_birth = null;
-    
+
     teacher_update.calendar = {};
     teacher_update.calendar.minutes_unit = parseInt10(oc.cconfig[ "website.time.unit.minutes"]);
     teacher_update.calendar.day_names_long = oc.clabels[ "website.days.long" ].split(",");
     teacher_update.calendar.last_select = null;
     teacher_update.calendar.available_times = [];
     teacher_update.min_teacher_age = parseInt10(oc.cconfig[ "teacher_update.min_teacher_age"]);
-    teacher_update.max_teacher_age = parseInt10(oc.cconfig[ "teacher_update.max_teacher_age"]);    
+    teacher_update.max_teacher_age = parseInt10(oc.cconfig[ "teacher_update.max_teacher_age"]);
 
     var current_year = new Date().getFullYear();
     var default_year = new Date();
     default_year.setFullYear(current_year - teacher_update.min_teacher_age);
-    
+
     $("#teacher_update_day_of_birth_input").datepicker({
         dayNames: teacher_update.calendar.day_names_long,
         dayNamesMin: oc.clabels[ "website.days.short" ].split(","),
@@ -367,7 +399,7 @@ function teacher_update_init()
         monthNamesShort: oc.clabels[ "website.months.short" ].split(","),
         isRTL: true,
         changeYear: true,
-        defaultDate : teacher_update.teacher.day_of_birth,
+        defaultDate: teacher_update.teacher.day_of_birth,
         yearRange: (current_year - teacher_update.max_teacher_age) + ":" + (current_year - teacher_update.min_teacher_age),
         onSelect: teacher_update_select_day_of_birth
     });
@@ -377,4 +409,5 @@ function teacher_update_init()
     });
     $("#teacher_update_calendar_table td").disableSelection();
 
+    teacher_update_init_calendar();
 }
