@@ -12,6 +12,7 @@ import com.j256.ormlite.table.TableUtils;
 import com.onlineclasses.entities.BasicEntity;
 import com.onlineclasses.utils.Utils;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,8 @@ public class Base_DB<T> {
         List<T> all = getAll();
         Map<Integer, T > allMap = new HashMap<>();
         for (T t : all) {
-            allMap.put(((BasicEntity)t).id, t);
+            int id = ((BasicEntity)t).id;
+            allMap.put(id, t);
         }
         return allMap;
     }

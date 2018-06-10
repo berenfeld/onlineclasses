@@ -10,11 +10,8 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
-import com.onlineclasses.entities.Email;
-import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.TeachingTopic;
-import com.onlineclasses.entities.Topic;
 import java.sql.SQLException;
 import java.util.List;
 

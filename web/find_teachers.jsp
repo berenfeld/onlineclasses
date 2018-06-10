@@ -36,9 +36,6 @@
     for (Teacher teacher : teachers) {
         teacher.available_time = DB.getTeacherAvailableTime(teacher);
         teacher.teaching_topics = DB.getTeacherTeachingTopics(teacher);
-        for (TeachingTopic teachingTopic : teacher.teaching_topics) {
-            teachingTopic.topic = allTopics.get(teachingTopic.topic.id);
-        }
         Utils.debug("teacher " + teacher.display_name + " avail " + teacher.available_time.size());
     }
     List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
@@ -529,10 +526,10 @@
                                                         </h6>
                                                         <small>
                                                             <%
-                                                                for (TeachingTopic teachingTopic : teacher.teaching_topics) {
+                                                                for (Topic teachingTopic : teacher.teaching_topics) {
                                                             %>
 
-                                                            <%= teachingTopic.topic.name%>                                                            
+                                                            <%= teachingTopic.name %>                                                            
                                                             <br/>
                                                             <%
                                                                 }

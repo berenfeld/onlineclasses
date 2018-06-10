@@ -275,12 +275,14 @@ public class DB {
         return _availableTime_db.getTeacherAvailableTime(teacher);
     }
 
-    public static List<TeachingTopic> getTeacherTeachingTopics(Teacher teacher) throws SQLException {
-        return _teachingTopic_DB.getTeacherTeachingTopics(teacher);
-    }
-
-    public static List<InstituteType> getAllInstituteTypes() throws SQLException {
-        return _instituteType_db.getAll();
+    public static List<Topic> getTeacherTeachingTopics(Teacher teacher) throws SQLException {
+        
+        List<TeachingTopic> teacherTeachingTopics = _teachingTopic_DB.getTeacherTeachingTopics(teacher);
+        List<Topic> teachingTopics = new ArrayList<>();
+        for (TeachingTopic teachingTopic : teacherTeachingTopics) {
+            teachingTopics.add(get(teachingTopic.topic.id, Topic.class));
+        }
+        return teachingTopics;
     }
 
     public static List<Institute> getInstitutes(InstituteType instituteType) throws SQLException {

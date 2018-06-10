@@ -82,7 +82,14 @@ public class TestDB {
         teacher.show_skype = true;
         teacher.skype_name = "ran.berenfeld";              
         DB.add(teacher);
-
+       
+        List<Topic> allTopics = DB.getAll(Topic.class);
+        for (Topic topic : allTopics) {
+            TeachingTopic teachingTopic = new TeachingTopic();
+            teachingTopic.teacher = teacher;
+            teachingTopic.topic = topic;
+            DB.add(teachingTopic);            
+        }
         AvailableTime availableTime = new AvailableTime();
         availableTime.teacher = teacher;
         availableTime.day = 1;
@@ -145,7 +152,7 @@ public class TestDB {
 
     private static void addInstitutes() throws SQLException
     {
-        List<InstituteType> instituteTypes = DB.getAllInstituteTypes();
+        List<InstituteType> instituteTypes = DB.getAll(InstituteType.class);
         for (InstituteType instituteType : instituteTypes)
         {
             List<String> instituteNames = Utils.toList(Labels.get("db.institutes." + instituteType.id));

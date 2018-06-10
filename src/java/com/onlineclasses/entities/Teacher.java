@@ -39,6 +39,6 @@ public class Teacher extends User {
     
     public List<AvailableTime> available_time;
     
-    public List<TeachingTopic> teaching_topics;
+    public List<Topic> teaching_topics;
 
 }

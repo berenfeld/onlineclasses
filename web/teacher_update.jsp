@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.entities.TeachingTopic"%>
 <%@page import="com.onlineclasses.entities.Teacher"%>
 <%@page import="com.onlineclasses.entities.Topic"%>
 <%@page import="java.io.File"%>
@@ -11,10 +12,12 @@
 <%@page import="com.onlineclasses.utils.CLabels"%>
 
 <%
+    Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
     Teacher teacher = (Teacher) BaseServlet.getUser(request);
+    List<Topic> teachingTopics = DB.getTeacherTeachingTopics(teacher);    
     String phoneAreas = CLabels.get("website.phone_areas");
     List<String> phoneAreasList = Utils.toList(phoneAreas);
-    List<InstituteType> instituteTypes = DB.getAllInstituteTypes();
+    List<InstituteType> instituteTypes = DB.getAll(InstituteType.class);
     Map<Integer, Map<Integer, String>> institutes = new HashMap<>();
     for (InstituteType instituteType : instituteTypes) {
 
@@ -30,7 +33,7 @@
     String degreeTypesList = Labels.get("db.degree_type");
     List<String> degreeTypes = Utils.toList(degreeTypesList);
     Map<Integer, Subject> allSubjects = DB.getAllMap(Subject.class);
-    Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
+
     List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
     List<String> dayNamesShort = Utils.toList(CLabels.get("website.days.short"));
     final int startHour = CConfig.getInt("website.time.start_working_hour");
@@ -98,7 +101,7 @@
                                 <div class="col-6 col-lg-3 my-1">
                                     <input type="email" class="form-control" id="teacher_update_email_input" 
                                            placeholder="<%= Labels.get("teacher_update.form.login.email")%>" disabled
-                                           value="<%= teacher.email %>">
+                                           value="<%= teacher.email%>">
                                 </div>
 
                                 <div class="col-6 col-lg-3 my-1">
@@ -109,7 +112,7 @@
                                 <div class="col-6 col-lg-3 my-1">
                                     <input type="text" class="form-control" id="teacher_update_display_name_input" 
                                            placeholder="<%= Labels.get("teacher_update.form.login.display_name")%>" 
-                                           value="<%= teacher.display_name %>">
+                                           value="<%= teacher.display_name%>">
                                 </div>
 
                                 <div class="col-6 col-lg-3 my-1">
@@ -121,7 +124,7 @@
                                 <div class="col-6 col-lg-3 my-1">
                                     <input type="text" class="form-control" id="teacher_update_first_name_input"
                                            placeholder="<%= Labels.get("teacher_update.form.login.first_name")%>" 
-                                           value="<%= teacher.first_name %>"> 
+                                           value="<%= teacher.first_name%>"> 
                                 </div>
 
                                 <div class="col-6 col-lg-3 my-1">
@@ -133,7 +136,7 @@
                                 <div class="col-6 col-lg-3 my-1">
                                     <input type="text" class="form-control" id="teacher_update_last_name_input" 
                                            placeholder="<%= Labels.get("teacher_update.form.login.last_name")%>"
-                                           value="<%= teacher.last_name %>"> 
+                                           value="<%= teacher.last_name%>"> 
                                 </div>
 
                                 <div class="col-6 col-lg-3 my-1">
@@ -147,7 +150,7 @@
 
                                 <div class="col-6 col-lg-3 my-1">
                                     <div class="row form-check form-check-inline no-gutters">
-                                        <input type="radio" <%= checkedMale %> class="mx-2 form-check form-check-inline" 
+                                        <input type="radio" <%= checkedMale%> class="mx-2 form-check form-check-inline" 
                                                value="<%= Config.get("website.gender.male")%>" 
                                                id="teacher_update_gender_input_male" 
                                                name="teacher_update_gender_input">
@@ -155,7 +158,7 @@
                                             <%= Labels.get("teacher_update.form.login.gender.male")%>   
                                         </label>
 
-                                        <input type="radio" <%= checkedFemale %> class="mx-2 form-check form-check-inline" 
+                                        <input type="radio" <%= checkedFemale%> class="mx-2 form-check form-check-inline" 
                                                value="<%= Config.get("website.gender.female")%>" 
                                                id="teacher_update_gender_input_female" 
                                                name="teacher_update_gender_input">
@@ -179,7 +182,7 @@
                                         <div class="input-group form-control border-0 col-12 col-md">
                                             <input type="text" class="form-control mr-3" id="teacher_update_phone_number_input"
                                                    onkeypress="return isNumberKey(event)"
-                                                   value="<%= teacher.phone_number %>"
+                                                   value="<%= teacher.phone_number%>"
                                                    placeholder="<%= Labels.get("teacher_update.form.login.phone_number")%>">
                                             <div class="dropdown">
                                                 <button class="btn btn-info dropdown-toggle" type="button" 
@@ -187,7 +190,7 @@
                                                         aria-haspopup="true" aria-expanded="false" 
                                                         name="teacher_update_area_code_button">
                                                     <span id="teacher_update_area_code_value">                                                        
-                                                        <%= teacher.phone_area %>
+                                                        <%= teacher.phone_area%>
                                                     </span>
                                                     <span class="caret"></span>
                                                 </button>
@@ -222,7 +225,7 @@
                                 <div class="col-6 col-lg-3 my-1">
                                     <input type="text" class="form-control" id="teacher_update_day_of_birth_input"
                                            name="teacher_update_day_of_birth_input"
-                                           value="<%= Utils.formatDateWithFullYear(teacher.day_of_birth) %>"
+                                           value="<%= Utils.formatDateWithFullYear(teacher.day_of_birth)%>"
                                            placeholder="<%= Labels.get("teacher_update.form.login.day_of_birth")%>">
                                 </div>
 
@@ -236,7 +239,7 @@
                                 <div class="col-6 col-lg-3 my-1">
                                     <input type="text" class="form-control" id="teacher_update_skype_name_input"
                                            name="teacher_update_skype_name_input"
-                                           value="<%= teacher.skype_name %>"
+                                           value="<%= teacher.skype_name%>"
                                            placeholder="<%= Labels.get("teacher_update.form.login.skype_name")%>">
                                 </div>
 
@@ -263,14 +266,16 @@
                                 <div class="col-6 col-lg-9 my-1">
                                     <textarea rows="4" class="form-control" id="teacher_update_moto_input" 
                                               name="teacher_update_moto_input"
-                                              placeholder="<%= Labels.get("teacher_update.form.publish.moto_placeholder")%>"><%= teacher.moto %></textarea>
+                                              placeholder="<%= Labels.get("teacher_update.form.publish.moto_placeholder")%>"><%= teacher.moto%></textarea>
                                 </div>
 
                                 <div class="col-12 my-1">
                                     <input class="form-check-input mx-0"  
                                            id="teacher_update_show_phone" 
                                            name="teacher_update_show_phone"
-                                           <% if (teacher.show_phone) out.write("checked"); %>
+                                           <% if (teacher.show_phone) {
+                                                   out.write("checked");
+                                               }%>
                                            type="checkbox" >
                                     <label class="form-check-label" for="teacher_update_show_phone">
                                         <%= Labels.get("teacher_update.form.publish.show_phone")%>
@@ -281,7 +286,9 @@
                                     <input class="form-check-input mx-0"  
                                            id="teacher_update_show_email" 
                                            name="teacher_update_show_email"
-                                           <% if (teacher.show_email) out.write("checked"); %>
+                                           <% if (teacher.show_email) {
+                                                   out.write("checked");
+                                               }%>
                                            type="checkbox">
                                     <label class="form-check-label" for="teacher_update_show_email">
                                         <%= Labels.get("teacher_update.form.publish.show_email")%>
@@ -292,7 +299,9 @@
                                     <input class="form-check-input mx-0"  
                                            id="teacher_update_show_skype" 
                                            name="teacher_update_show_skype"
-                                           <% if (teacher.show_skype) out.write("checked"); %>
+                                           <% if (teacher.show_skype) {
+                                                   out.write("checked");
+                                               }%>
                                            type="checkbox">
                                     <label class="form-check-label" for="teacher_update_show_skype">
                                         <%= Labels.get("teacher_update.form.publish.show_skype")%>
@@ -320,7 +329,10 @@
                                     <input class="form-check-input my-1 mx-0"  
                                            id="teacher_update_topic_show_degree" 
                                            name="teacher_update_topic_show_degree"
-                                           type="checkbox" value="">
+                                           <% if (teacher.show_degree) {
+                                                   out.write("checked");
+                                               }%>
+                                           type="checkbox">
                                     <label class="form-check-label" for="teacher_update_topic_show_degree">
                                         <%= Labels.get("teacher_update.form.learning_information.show_degree")%>
                                     </label>
@@ -505,10 +517,10 @@
                                         <div class="card-header text-white bg-info">
                                             <%= subject.name%>
                                         </div>
-                                        <div class="card-body h6">                                            
+                                        <div class="card-body h6">                                                                                        
                                             <ul class="list-group">
 
-                                                <%
+                                                <%                                                    
                                                     for (Topic topic : allTopics.values()) {
                                                         if (topic.subject.equals(subject)) {
                                                 %>
@@ -518,7 +530,12 @@
                                                     <input class="form-check-input my-1 mx-0"  
                                                            id="teacher_update_topic_<%= topic.id%>_checkbox" 
                                                            name="teacher_update_topic_<%= topic.id%>_checkbox" 
-                                                           type="checkbox" data-topic-id="<%=topic.id%>" value="">
+                                                           <%
+                                                               if (teachingTopics.contains(topic)) {
+                                                                   out.write("checked");
+                                                               }
+                                                           %>
+                                                           type="checkbox" data-topic-id="<%=topic.id%>">
                                                     <label class="form-check-label" for="teacher_update_topic_<%= topic.id%>_checkbox">
                                                         <%= topic.name%>
                                                     </label>
@@ -738,7 +755,7 @@
         <%@include file="footer.jsp" %>    
 
         <script>
-            teacher_update.teacher = <%= Utils.gson().toJson(teacher) %>
+            teacher_update.teacher = <%= Utils.gson().toJson(teacher)%>
             oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
             oc.institutes = <%= Utils.gson().toJson(institutes)%>;
             oc.subjects = <%= Utils.gson().toJson(subjects)%>;
