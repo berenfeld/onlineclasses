@@ -8,7 +8,16 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 
 public class Subject extends BasicEntity {
-        
+
     @DatabaseField(canBeNull = false)
-    public String name;         
+    public String name;
+
+    @Override
+    public String toString() {
+        String result = "id " + id;
+        if (name != null) {
+            result += " " + name;
+        }
+        return result;
+    }
 }

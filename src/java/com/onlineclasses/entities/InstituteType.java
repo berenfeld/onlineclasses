@@ -11,4 +11,13 @@ public class InstituteType extends BasicEntity {
         
     @DatabaseField
     public String name;       
+    
+    @Override
+    public String toString() {
+        String result = "id " + id;
+        if (name != null) {
+            result += " " + name;            
+        }
+        return result;
+    }
 }
