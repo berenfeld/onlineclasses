@@ -104,7 +104,9 @@ function teacher_update_form_submit()
             }
     );
 
-console.log(request);
+    alert_show(oc.clabels[ "teacher_update.update.updating.title"],
+            oc.clabels[ "teacher_update.update.updating.message"]);
+
     $.ajax("servlets/update_teacher",
             {
                 type: "POST",
@@ -249,7 +251,7 @@ function teacher_update_select_time()
 function teacher_update_init_calendar()
 {
     teacher_update.calendar.available_times = teacher_update.available_time;
-    
+
     var available_text = "";
 
     for (var i = 0; i < teacher_update.available_time.length; i++) {
@@ -367,14 +369,14 @@ function teacher_update_init()
     });
 
     $('#teacher_update_topic_show_degree').on('click', function (e) {
-        $('#start_learning_degree_information_div').collapse("toggle");        
+        $('#start_learning_degree_information_div').collapse("toggle");
     });
     $("#teacher_update_calendar_table td").disableSelection();
-    if ($('#teacher_update_topic_show_degree').prop("checked")) {        
-        $('#start_learning_degree_information_div').collapse("show");        
+    if ($('#teacher_update_topic_show_degree').prop("checked")) {
+        $('#start_learning_degree_information_div').collapse("show");
     }
     teacher_update_init_calendar();
-    if (teacher_update.teacher.institute !== undefined ) {
-        teacher_update_select_institute_type( teacher_update.teacher.institute.institute_type.id );
+    if (teacher_update.teacher.institute !== undefined) {
+        teacher_update_select_institute_type(teacher_update.teacher.institute.institute_type.id);
     }
 }
