@@ -8,6 +8,7 @@ package com.onlineclasses.servlets;
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.BasicResponse;
+import com.onlineclasses.entities.City;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.Subject;
@@ -79,6 +80,10 @@ public class RegisterTeacherServlet extends BaseServlet {
             registeringTeacher.subject_name = registerTeacherRequest.subject_name;
         }
 
+        if (registerTeacherRequest.city_id != 0) {
+            registeringTeacher.city = DB.get(registerTeacherRequest.city_id, City.class);
+        }
+        
         if (DB.add(registeringTeacher) != 1) {
             Utils.warning("Could not add user " + registeringTeacher.display_name);
             return new BasicResponse(-1, "user is already registered");
@@ -99,6 +104,7 @@ public class RegisterTeacherServlet extends BaseServlet {
                 Utils.warning("Could not add available time " + avilableTime + " to teacher " + registeringTeacher );
             }
         }
+                
         BaseServlet.loginUser(request, registeringTeacher);
         Utils.info("teacher " + registeringTeacher.display_name + " email " + registeringTeacher.email + " registered");
 

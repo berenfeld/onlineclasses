@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.entities.City"%>
 <%@page import="com.onlineclasses.entities.Topic"%>
 <%@page import="java.io.File"%>
 <%@page import="com.onlineclasses.entities.Subject"%>
@@ -11,6 +12,7 @@
 
 <%
     String phoneAreas = CLabels.get("website.phone_areas");
+    List<City> cities = DB.getAll(City.class);
     List<String> phoneAreasList = Utils.toList(phoneAreas);
     List<InstituteType> instituteTypes = DB.getAll(InstituteType.class);
     Map<Integer, Map<Integer, String>> institutes = new HashMap<>();
@@ -81,7 +83,7 @@
                                     </small>
                                     <br/>
                                     <small>
-                                    <%= Labels.get("start_teaching.form.login.text2")%> 
+                                        <%= Labels.get("start_teaching.form.login.text2")%> 
                                     </small>
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-3">
@@ -224,7 +226,6 @@
                                            placeholder="<%= Labels.get("start_teaching.form.login.day_of_birth")%>">
                                 </div>
 
-
                                 <div class="col-6 col-lg-3 my-1">
                                     <label class="col-form-label" for="start_teaching_skype_name_input">
                                         <%= Labels.get("start_teaching.form.login.skype_name")%>
@@ -235,6 +236,39 @@
                                     <input type="text" class="form-control" id="start_teaching_skype_name_input"
                                            name="start_teaching_skype_name_input"
                                            placeholder="<%= Labels.get("start_teaching.form.login.skype_name")%>">
+                                </div>
+
+                                <div class="col-6 col-lg-3 my-1">
+                                    <label class="col-form-label" for="start_teaching_city_input">
+                                        <%= Labels.get("start_teaching.form.login.choose_city")%>
+                                    </label>
+                                </div>
+
+                                <div class="col-6 col-lg-3 my-1">
+                                    <div class="dropdown">
+                                        <button class="btn btn-block btn-info dropdown-toggle" type="button" 
+                                                id="start_teaching_city_input" data-toggle="dropdown" 
+                                                aria-haspopup="true" aria-expanded="false" name="start_teaching_city_input">
+                                            <span id="start_teaching_city_value">
+                                                <%= Labels.get("start_teaching.form.login.city")%>
+                                            </span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="start_teaching_city_button">                                            
+                                            <%
+                                                for (City city : cities ) {
+                                            %>
+
+                                            <a class="dropdown-item" href="javascript:start_teaching_select_city(<%= city.id %>)">
+                                                <%= city.name %>
+                                            </a>
+
+                                            <%
+                                                }
+                                            %>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -735,6 +769,7 @@
             oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
             oc.institutes = <%= Utils.gson().toJson(institutes)%>;
             oc.subjects = <%= Utils.gson().toJson(subjects)%>;
+            oc.cities = <%= Utils.gson().toJson(cities)%>;
         </script>
 
     </body>

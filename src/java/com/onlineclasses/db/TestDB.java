@@ -6,6 +6,7 @@
 package com.onlineclasses.db;
 
 import com.onlineclasses.entities.AvailableTime;
+import com.onlineclasses.entities.City;
 import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.Student;
@@ -37,6 +38,7 @@ public class TestDB {
         addInstituteTypes();
         addInstitutes();
         addSubjects();
+        addCities();
         addTopics();
         addTeachingTopics();
         addTeachers();
@@ -66,6 +68,7 @@ public class TestDB {
 
         List<Institute> allInstitues = DB.getAll(Institute.class);
         List<Subject> allSubjects = DB.getAll(Subject.class);
+        List<City> allCities = DB.getAll(City.class);
         String degreeTypesList = Labels.get("db.degree_type");
         List<String> degreeTypes = Utils.toList(degreeTypesList);
 
@@ -91,7 +94,13 @@ public class TestDB {
         teacher.institute = allInstitues.get(0);
         teacher.subject = allSubjects.get(0);
         teacher.degree_type = degreeTypes.get(0);
-
+        for (City city : allCities) {
+            if (city.name.equals("נס ציונה")) {
+                teacher.city = city;
+            }
+        }
+        
+        
         DB.add(teacher);
 
         List<Topic> allTopics = DB.getAll(Topic.class);
@@ -121,6 +130,7 @@ public class TestDB {
             teacher.display_name = "מורה בדיקה " + i;
             teacher.first_name = "מורה";
             teacher.last_name = "בדיקה";
+            teacher.gender = User.GENDER_MALE;
             teacher.email = "test" + i + "@gmail.com";
             teacher.paypal_email = "test" + i + "@gmail.com";
             teacher.show_email = true;
@@ -132,6 +142,7 @@ public class TestDB {
             teacher.moto = "Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. " + i;
             teacher.phone_area = "054";
             teacher.phone_number = "7476526";
+            teacher.day_of_birth = Utils.parseDateWithFullYear("23/05/1977");
             teacher.registered = new Date();
             teacher.gender = User.GENDER_FEMALE;
             DB.add(teacher);
@@ -185,6 +196,16 @@ public class TestDB {
             Subject subject = new Subject();
             subject.name = subjectName;
             DB.add(subject);
+        }
+    }
+
+    private static void addCities() throws SQLException {
+        String subjects = Labels.get("db.cities");
+        List<String> citiesList = Utils.toList(subjects);
+        for (String cityName : citiesList) {
+            City city = new City();
+            city.name = cityName;
+            DB.add(city);
         }
     }
 

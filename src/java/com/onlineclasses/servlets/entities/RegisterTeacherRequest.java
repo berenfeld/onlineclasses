@@ -42,5 +42,5 @@ public class RegisterTeacherRequest extends BasicRequest {
     public String paypal_email;
     public int price_per_hour;
     public List<AvailableTime> available_times;
-
+    public int city_id;
 }

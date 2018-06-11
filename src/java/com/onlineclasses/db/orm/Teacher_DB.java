@@ -14,7 +14,6 @@ import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.Utils;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,24 +37,19 @@ public class Teacher_DB extends Base_DB<Teacher> {
         _queryByEmail = queryBuilder.prepare();           
     }
 
-    private static final SelectArg _teacherFindQueryMinPriceArg = new SelectArg();
-    private static final SelectArg _teacherFindQueryMaxPriceArg = new SelectArg();
-    private static final SelectArg _teacherFindQueryNameArg = new SelectArg();
+    private static SelectArg _teacherFindQueryMinPriceArg = new SelectArg();
+    private static SelectArg _teacherFindQueryMaxPriceArg = new SelectArg();
+    private static SelectArg _teacherFindQueryNameArg = new SelectArg();
     private static PreparedQuery<Teacher> _teacherFindQuery;
     private final SelectArg _queryByEmailArg = new SelectArg();
     private final PreparedQuery<Teacher> _queryByEmail;
 
-    public synchronized List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName) {
-        try {
-            _teacherFindQueryMinPriceArg.setValue(minPrice);
-            _teacherFindQueryMaxPriceArg.setValue(maxPrice);
-            _teacherFindQueryNameArg.setValue("%" + displayName + "%");
-            Utils.debug("find teacher with args min price " + minPrice + " max price " + maxPrice + " display name " + displayName);
-            return _dao.query(_teacherFindQuery);
-        } catch (SQLException ex) {
-            Utils.exception(ex);
-            return new ArrayList<>();
-        }
+    public synchronized List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName) throws SQLException {        
+        _teacherFindQueryMinPriceArg.setValue(minPrice);
+        _teacherFindQueryMaxPriceArg.setValue(maxPrice);
+        _teacherFindQueryNameArg.setValue("%" + displayName + "%");
+        Utils.debug("find teacher with args min price " + minPrice + " max price " + maxPrice + " display name " + displayName);
+        return _dao.query(_teacherFindQuery);        
     }
 
     public synchronized Teacher getTeacherByEmail(String email) throws SQLException {

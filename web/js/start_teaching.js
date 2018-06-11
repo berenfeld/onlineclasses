@@ -147,7 +147,8 @@ function start_teaching_form_submit()
     request.paypal_email = $("#start_teaching_paypal_email_input").val();
     request.teaching_topics = [];
     request.available_times = start_teaching.calendar.available_times;
-
+    request.city_id = start_teaching.city_id;
+    
     if (!start_teaching_form_validation(request)) {
         return;
     }
@@ -230,6 +231,12 @@ function start_teaching_select_subject(subject_id)
         start_teaching.subject_id = subject_id;
     }
 
+}
+
+function start_teaching_select_city(city_id)
+{
+    start_teaching.city_id = city_id;  
+    $("#start_teaching_city_input").html(oc.cities[city_id - 1].name);
 }
 
 function start_teaching_googleLogin()
@@ -381,7 +388,8 @@ function start_teaching_init()
 {
     start_teaching.google_id_token = null;
     start_teaching.day_of_birth = null;
-    
+    start_teaching.city_id = 0;
+    start_teaching.subject_id = 0;
     start_teaching.calendar = {};
     start_teaching.calendar.minutes_unit = parseInt10(oc.cconfig[ "website.time.unit.minutes"]);
     start_teaching.calendar.day_names_long = oc.clabels[ "website.days.long" ].split(",");

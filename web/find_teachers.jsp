@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.entities.City"%>
 <%@page import="com.onlineclasses.entities.Subject"%>
 <%@page import="java.util.Collection"%>
 <%@page import="com.onlineclasses.entities.Topic"%>
@@ -36,7 +37,9 @@
     for (Teacher teacher : teachers) {
         teacher.available_time = DB.getTeacherAvailableTime(teacher);
         teacher.teaching_topics = DB.getTeacherTeachingTopics(teacher);
-        Utils.debug("teacher " + teacher.display_name + " avail " + teacher.available_time.size());
+        if (teacher.city != null) {
+            teacher.city = DB.get(teacher.city.id, City.class);
+        }        
     }
     List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
     List<String> dayNamesShort = Utils.toList(CLabels.get("website.days.short"));
@@ -479,14 +482,22 @@
                             <div class="card-body">
                                 <div class="row no-gutters">      
                                     <div class="media">
-                                        <div class="mx-0 my-0">
-                                            <img src="<%= teacher.image_url%>" class="w-100 border border-success img-responsive rounded mx-1 my-1"/>
-                                            <h5>
+                                        <div class="mx-0 my-0 text-center">
+                                            <img src="<%= teacher.image_url%>" class="w-100 mx-auto border border-info img-responsive rounded mx-1 my-1"/>
+                                            <h6>
                                                 <%= teacher.display_name%>
-                                            </h5>
+                                            </h6>
+
+                                            <h6 class="text-secondary">
+                                                <%= Labels.get("find_teachers.list.body.price_per_hour")%>
+                                                &nbsp;:&nbsp;
+                                                <%= teacher.price_per_hour%>
+                                                <%= CLabels.get("website.currency")%>
+                                            </h6>                                            
+
                                             <button id="schedule_class_button_<%= teacher.id%>" data-teacher-id="<%= teacher.id%>" 
                                                     data-teacher-display-name="<%= teacher.display_name%>" 
-                                                    onclick="schedule_class_button_clicked()" class="btn btn-sm btn-outline-success rounded btn-block">
+                                                    onclick="schedule_class_button_clicked()" class="btn btn-sm btn-outline-primary rounded btn-block">
                                                 <%= Labels.get("find_teachers.list.body.schedule_class_button")%>
                                             </button>
                                         </div>
@@ -497,9 +508,36 @@
                                                     <cite>
                                                         "<%= teacher.moto%>"
                                                     </cite>
-                                                </div>
+                                                </div>                                                
                                             </div>
                                             <div class="card-body">
+                                                <div id="find_teacher_personal_details">
+                                                    <%
+                                                        if (teacher.isMale()) {
+                                                    %>
+
+                                                    <%= Labels.get("find_teachers.age_prefix.male")%>
+                                                    <%= Utils.yearsFromDate(teacher.day_of_birth)%>
+                                                    <%= Labels.get("find_teachers.age_suffix.male")%>
+
+                                                    <% } else {%>
+
+                                                    <%= Labels.get("find_teachers.age_prefix.female")%>
+                                                    <%= Utils.yearsFromDate(teacher.day_of_birth)%>
+                                                    <%= Labels.get("find_teachers.age_suffix.female")%>
+
+                                                    <%
+                                                        }
+                                                    %>
+                                                    <%
+                                                        if (teacher.city != null) {
+                                                    %>
+                                                    &nbsp;,&nbsp;<%= teacher.city.name %>
+                                                    <%
+                                                        }
+                                                    %>
+
+                                                </div>
                                                 <p>
                                                     <a class="text-secondary" data-toggle="collapse" href="#find_teacher_details_teacher_<%= teacher.id%>" 
                                                        role="button" aria-expanded="false" aria-controls="find_teacher_details_teacher_<%= teacher.id%>">
@@ -555,7 +593,7 @@
                                                     <%
                                                         if (teacher.show_phone) {
                                                     %>
-                                                    <div class="col-6 h6 text-secondary">
+                                                    <div class="col-12 col-md-6 h6 text-secondary">
                                                         <span class="oi" data-glyph="phone"></span>
                                                         <span class="d-none">    
                                                             <%= Labels.get("find_teachers.list.body.phone")%>
@@ -572,7 +610,7 @@
                                                     <%
                                                         if (teacher.show_email) {
                                                     %>
-                                                    <div class="col-6 h6 text-secondary">
+                                                    <div class="col-12 col-md-6 h6 text-secondary">
                                                         <span class="oi" data-glyph="envelope-closed"></span>
                                                         <span class="d-none">    
                                                             <%= Labels.get("find_teachers.list.body.email")%>                                            
@@ -588,7 +626,7 @@
                                                     <%
                                                         if (teacher.show_skype) {
                                                     %>
-                                                    <div class="col-6 h6 text-secondary">
+                                                    <div class="col-12 col-md-6 h6 text-secondary">
                                                         <%= Labels.get("find_teachers.list.body.skype")%>                                            
                                                         <a href="skype:<%= teacher.skype_name%>">
                                                             <%= teacher.skype_name%>
@@ -597,15 +635,6 @@
                                                     <%
                                                         }
                                                     %>
-
-                                                    <div class="col-6">                                            
-                                                        <h6 class="text-secondary">
-                                                            <%= Labels.get("find_teachers.list.body.price_per_hour")%>
-                                                            &nbsp;:&nbsp;
-                                                            <%= teacher.price_per_hour%>
-                                                            <%= CLabels.get("website.currency")%>
-                                                        </h6>                                            
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

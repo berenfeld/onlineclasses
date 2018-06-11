@@ -14,6 +14,7 @@ import com.onlineclasses.db.orm.InstituteType_DB;
 import com.onlineclasses.db.orm.Institute_DB;
 import com.onlineclasses.db.orm.Payment_DB;
 import com.onlineclasses.db.orm.AttachedFile_DB;
+import com.onlineclasses.db.orm.City_DB;
 import com.onlineclasses.db.orm.ClassComment_DB;
 import com.onlineclasses.db.orm.OClass_DB;
 import com.onlineclasses.db.orm.Student_DB;
@@ -29,6 +30,7 @@ import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.Payment;
 import com.onlineclasses.entities.OClass;
 import com.onlineclasses.entities.AttachedFile;
+import com.onlineclasses.entities.City;
 import com.onlineclasses.entities.ClassComment;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
@@ -138,6 +140,7 @@ public class DB {
     private static Subject_DB _subject_DB;
     private static Topic_DB _topic_DB;
     private static TeachingTopic_DB _teachingTopic_DB;
+    private static City_DB _city_DB;
 
     private static final Map<Class, Base_DB> ORM_ENTITIES = new HashMap<>();
 
@@ -158,6 +161,7 @@ public class DB {
         _subject_DB = new Subject_DB(_connectionSource);
         _topic_DB = new Topic_DB(_connectionSource);
         _teachingTopic_DB = new TeachingTopic_DB(_connectionSource);
+        _city_DB = new City_DB(_connectionSource);
 
         ORM_ENTITIES.put(Student.class, _student_db);
         ORM_ENTITIES.put(Teacher.class, _teacher_db);
@@ -173,6 +177,7 @@ public class DB {
         ORM_ENTITIES.put(Subject.class, _subject_DB);
         ORM_ENTITIES.put(Topic.class, _topic_DB);
         ORM_ENTITIES.put(TeachingTopic.class, _teachingTopic_DB);
+        ORM_ENTITIES.put(City.class, _city_DB);
     }
 
     public static Connection getConnection() throws SQLException {

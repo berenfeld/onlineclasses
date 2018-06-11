@@ -35,7 +35,7 @@ public class Teacher extends User {
     public boolean show_degree;
     
     @DatabaseField
-    public String degree_type;
+    public String degree_type;    
     
     public List<AvailableTime> available_time;
     

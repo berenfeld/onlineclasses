@@ -56,7 +56,10 @@ public class User extends BasicEntity implements Serializable {
     
     @DatabaseField
     public String subject_name;
-   
+
+    @DatabaseField(foreign = true)
+    public City city;
+        
     @Override
     public String toString() {
         String result;

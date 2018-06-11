@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.entities.City"%>
 <%@page import="com.onlineclasses.entities.AvailableTime"%>
 <%@page import="com.onlineclasses.entities.TeachingTopic"%>
 <%@page import="com.onlineclasses.entities.Teacher"%>
@@ -19,6 +20,7 @@
         response.sendRedirect("/");
         return;
     }
+    List<City> cities = DB.getAll(City.class);
     Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
     int teacherInstituteType = 0;
     if (teacher.institute != null) {
@@ -30,6 +32,9 @@
     }
     if (teacher.subject != null) {
         teacher.subject = DB.get(teacher.subject.id, Subject.class);
+    }
+    if (teacher.city != null) {
+        teacher.city = DB.get(teacher.city.id, City.class);
     }
 
     List<Topic> teachingTopics = DB.getTeacherTeachingTopics(teacher);
@@ -271,6 +276,49 @@
                                            name="teacher_update_skype_name_input"
                                            value="<%= teacher.skype_name%>"
                                            placeholder="<%= Labels.get("teacher_update.form.login.skype_name")%>">
+                                </div>
+
+                                <div class="col-6 col-lg-3 my-1">
+                                    <label class="col-form-label" for="teacher_update_city_input">
+                                        <%= Labels.get("teacher_update.form.login.choose_city")%>
+                                    </label>
+                                </div>
+
+                                <div class="col-6 col-lg-3 my-1">
+                                    <div class="dropdown">
+                                        <button class="btn btn-block btn-info dropdown-toggle" type="button" 
+                                                id="teacher_update_city_input" data-toggle="dropdown"                                                 
+                                                aria-haspopup="true" aria-expanded="false" name="teacher_update_city_input">
+                                            <%
+                                                if (teacher.city != null) {
+                                            %>
+                                            <%= teacher.city.name %>
+                                            <%
+                                            } else {
+                                            %>
+                                            <span id="teacher_update_city_value">
+                                                <%= Labels.get("teacher_update.form.login.city")%>
+                                            </span>
+                                            <span class="caret"></span>                                            
+                                            <%
+                                                }
+                                            %>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="teacher_update_city_button">                                            
+                                            <%
+                                                for (City city : cities) {
+                                            %>
+
+                                            <a class="dropdown-item" href="javascript:teacher_update_select_city(<%= city.id%>)">
+                                                <%= city.name%>
+                                            </a>
+
+                                            <%
+                                                }
+                                            %>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -531,8 +579,7 @@
                                         <button class="btn btn-info dropdown-toggle" type="button" 
                                                 data-toggle="dropdown" id="teacher_update_subject_button">
                                             <%
-                                                if (teacher.subject
-                                                        != null) {
+                                                if (teacher.subject != null) {
                                             %>
                                             <%= teacher.subject.name%>
                                             <%

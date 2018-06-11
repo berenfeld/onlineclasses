@@ -129,6 +129,13 @@ public class Utils {
         return String.format("%02d:%02d", hour, minute);
     }
 
+    public static int yearsFromDate(Date date) {
+        Calendar dateCal = Calendar.getInstance();
+        dateCal.setTime(date);
+        Calendar now = Calendar.getInstance();
+        return now.get(Calendar.YEAR) - dateCal.get(Calendar.YEAR);                
+    }
+    
     public static String formatDateWithFullYear(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(date);
