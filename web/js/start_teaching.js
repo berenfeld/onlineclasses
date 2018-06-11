@@ -38,7 +38,7 @@ function start_teaching_googleUserEmailExistsCallback(email_exists)
 }
 function start_teaching_select_topic(topic_id)
 {
-    var checked = $("#start_teaching_topic_" + topic_id + "_checkbox").attr("checked");
+    var checked = $("#start_teaching_topic_" + topic_id + "_checkbox").prop("checked");
     $("#start_teaching_topic_" + topic_id + "_checkbox").attr("checked", !checked);
 }
 
@@ -134,14 +134,14 @@ function start_teaching_form_submit()
     request.day_of_birth = start_teaching.day_of_birth;
     request.skype_name = $("#start_teaching_skype_name_input").val();
     request.moto = $("#start_teaching_moto_input").val();
-    request.show_phone = $("#start_teaching_show_phone").attr("checked");
-    request.show_email = $("#start_teaching_show_email").attr("checked");
-    request.show_skype = $("#start_teaching_show_skype").attr("checked");
+    request.show_phone = $("#start_teaching_show_phone").prop("checked");
+    request.show_email = $("#start_teaching_show_email").prop("checked");
+    request.show_skype = $("#start_teaching_show_skype").prop("checked");
     request.institute_id = start_teaching.institute_id;
     request.institute_name = $("#start_teaching_institute_other_text").val();
     request.subject_id = start_teaching.subject_id;
     request.subject_name = $("#start_teaching_subject_0_text").val();
-    request.show_degree = $("#start_teaching_topic_show_degree").attr("checked");
+    request.show_degree = $("#start_teaching_topic_show_degree").prop("checked");
     request.degree_type = start_teaching.degree_type;
     request.price_per_hour = parseInt10($("#start_teaching_price_per_hour_input").val());
     request.paypal_email = $("#start_teaching_paypal_email_input").val();
@@ -160,10 +160,10 @@ function start_teaching_form_submit()
             }
     );
 
-    if ($("#start_teaching_gender_input_male").attr("checked")) {
+    if ($("#start_teaching_gender_input_male").prop("checked")) {
         request.gender = parseInt10($("#start_teaching_gender_input_male").val());
     }
-    if ($("#start_teaching_gender_input_female").attr("checked")) {
+    if ($("#start_teaching_gender_input_female").prop("checked")) {
         request.gender = parseInt10($("#start_teaching_gender_input_female").val());
     }
 

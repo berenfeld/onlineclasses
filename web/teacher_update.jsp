@@ -378,7 +378,19 @@
                                         <button class="btn btn-info dropdown-toggle" type="button" 
                                                 data-toggle="dropdown" id="teacher_update_degree_type_button"
                                                 name="teacher_update_degree_type_button">
+
+                                            <%
+                                                if (teacher.degree_type == null) {
+                                            %>
+
+                                            <span class="caret"></span>                                        
+                                            <%= Labels.get("teacher_update.form.learning.degree_type.select")%>
+
+                                            <% } else {%>
                                             <%= teacher.degree_type%>
+                                            <%
+                                                }
+                                            %>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="teacher_update_degree_type_button">
                                             <%
@@ -405,7 +417,8 @@
                                         <button class="btn btn-info dropdown-toggle" type="button" 
                                                 data-toggle="dropdown" id="teacher_update_institute_type_button">
                                             <%
-                                                if (teacher.institute == null) {
+                                                if (teacher.institute
+                                                        == null) {
                                             %>
                                             <span class="caret"></span>
                                             <%= Labels.get("teacher_update.form.learning.institue_type.select")%>
@@ -439,7 +452,8 @@
                                     </div>
 
                                     <%
-                                        for (int instituteType : institutes.keySet()) {
+                                        for (int instituteType
+                                                : institutes.keySet()) {
                                             Map<Integer, String> institutesMap = institutes.get(instituteType);
 
                                     %>
@@ -497,7 +511,8 @@
                                         <input type="text" class="form-control" id="teacher_update_institute_0_text" 
                                                name="teacher_update_institute_0_text"
                                                <%
-                                                   if (teacher.institute_name != null) {
+                                                   if (teacher.institute_name
+                                                           != null) {
                                                %>
                                                value="<%= teacher.institute_name%>"
                                                <%
@@ -516,7 +531,8 @@
                                         <button class="btn btn-info dropdown-toggle" type="button" 
                                                 data-toggle="dropdown" id="teacher_update_subject_button">
                                             <%
-                                                if (teacher.subject != null) {
+                                                if (teacher.subject
+                                                        != null) {
                                             %>
                                             <%= teacher.subject.name%>
                                             <%
@@ -555,7 +571,8 @@
                                         <input type="text" class="form-control" id="teacher_update_subject_0_text" 
                                                name="teacher_update_institute_0_text"
                                                <%
-                                                   if (teacher.subject_name != null) {
+                                                   if (teacher.subject_name
+                                                           != null) {
                                                %>
                                                value="<%= teacher.subject_name%>"
                                                <%
@@ -577,7 +594,8 @@
                         <div class="card-body">
                             <div class="row no-gutters">
                                 <%
-                                    for (Subject subject : allSubjects.values()) {
+                                    for (Subject subject
+                                            : allSubjects.values()) {
                                 %>
                                 <div class="col-xl-4 col-lg-4 px-1">
                                     <div class="card">
@@ -712,7 +730,8 @@
                                                 <tr>
                                                     <th class="teacher_update_calendar" style="width: 12%">
                                                     </th>                                        
-                                                    <% for (day = 0; day < 7; day++) {
+                                                    <% for (day = 0;
+                                                                day < 7; day++) {
 
                                                     %>                                        
                                                     <th class="teacher_update_calendar"  style="width: 12%">

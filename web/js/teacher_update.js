@@ -24,7 +24,7 @@ function teacher_update_select_degree_type(degree_type)
 
 function teacher_update_select_topic(topic_id)
 {
-    var checked = $("#teacher_update_topic_" + topic_id + "_checkbox").attr("checked");
+    var checked = $("#teacher_update_topic_" + topic_id + "_checkbox").prop("checked");
     $("#teacher_update_topic_" + topic_id + "_checkbox").attr("checked", !checked);
 }
 
@@ -79,14 +79,14 @@ function teacher_update_form_submit()
     request.display_name = $("#teacher_update_display_name_input").val();
     request.skype_name = $("#teacher_update_skype_name_input").val();
     request.moto = $("#teacher_update_moto_input").val();
-    request.show_phone = $("#teacher_update_show_phone").attr("checked");
-    request.show_email = $("#teacher_update_show_email").attr("checked");
-    request.show_skype = $("#teacher_update_show_skype").attr("checked");
+    request.show_phone = $("#teacher_update_show_phone").prop("checked");
+    request.show_email = $("#teacher_update_show_email").prop("checked");
+    request.show_skype = $("#teacher_update_show_skype").prop("checked");
     request.institute_id = teacher_update.institute_id;
     request.institute_name = $("#teacher_update_institute_other_text").val();
     request.subject_id = teacher_update.subject_id;
     request.subject_name = $("#teacher_update_subject_0_text").val();
-    request.show_degree = $("#teacher_update_topic_show_degree").attr("checked");
+    request.show_degree = $("#teacher_update_topic_show_degree").prop("checked");
     request.degree_type = teacher_update.degree_type;
     request.price_per_hour = parseInt10($("#teacher_update_price_per_hour_input").val());
     request.teaching_topics = [];
@@ -104,6 +104,7 @@ function teacher_update_form_submit()
             }
     );
 
+console.log(request);
     $.ajax("servlets/update_teacher",
             {
                 type: "POST",
@@ -369,11 +370,11 @@ function teacher_update_init()
         $('#start_learning_degree_information_div').collapse("toggle");        
     });
     $("#teacher_update_calendar_table td").disableSelection();
-    if ($('#teacher_update_topic_show_degree').attr("checked")) {        
+    if ($('#teacher_update_topic_show_degree').prop("checked")) {        
         $('#start_learning_degree_information_div').collapse("show");        
     }
     teacher_update_init_calendar();
-    if (teacher_update.teacher.institute !== null ) {
+    if (teacher_update.teacher.institute !== undefined ) {
         teacher_update_select_institute_type( teacher_update.teacher.institute.institute_type.id );
     }
 }

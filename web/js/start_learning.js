@@ -63,10 +63,10 @@ function start_learning_form_submit()
     request.subject_id = start_learning.subject_id;
     request.subject_name = $("#start_learning_subject_0_text").val();
 
-    if ($("#start_learning_gender_input_male").attr("checked")) {
+    if ($("#start_learning_gender_input_male").prop("checked")) {
         request.gender = parseInt10($("#start_learning_gender_input_male").val());
     }
-    if ($("#start_learning_gender_input_female").attr("checked")) {
+    if ($("#start_learning_gender_input_female").prop("checked")) {
         request.gender = parseInt10($("#start_learning_gender_input_female").val());
     }
 
