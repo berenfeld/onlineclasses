@@ -123,9 +123,13 @@ public class TestDB {
             teacher.last_name = "בדיקה";
             teacher.email = "test" + i + "@gmail.com";
             teacher.paypal_email = "test" + i + "@gmail.com";
+            teacher.show_email = true;
+            teacher.show_phone = true;
+            teacher.show_skype = true;
+            teacher.skype_name = "test" + i;
             teacher.price_per_hour = 50 + random.nextInt(100);
             teacher.image_url = "https://lh4.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ACLGyWBUQArTT9nKI7bjZHlRM48qDYygCA/s96-c/photo.jpg";
-            teacher.moto = "מוטו " + i;
+            teacher.moto = "Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. " + i;
             teacher.phone_area = "054";
             teacher.phone_number = "7476526";
             teacher.registered = new Date();

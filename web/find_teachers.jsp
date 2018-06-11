@@ -478,129 +478,139 @@
                         <div class="card my-2">
                             <div class="card-body">
                                 <div class="row no-gutters">      
-                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 px-3">
-                                        <figure class="w-100 figure h5">
-                                            <figcaption class="figure-caption text-center my-1">
+                                    <div class="media">
+                                        <div class="mx-0 my-0">
+                                            <img src="<%= teacher.image_url%>" class="w-100 border border-success img-responsive rounded mx-1 my-1"/>
+                                            <h5>
                                                 <%= teacher.display_name%>
-                                            </figcaption>
-                                            <img src="<%= teacher.image_url%>" class="w-100 border border-success img-responsive figure-img rounded mx-1 my-1"/>
-                                        </figure>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 px-1">
-                                        <cite>
-                                            <%= teacher.moto%>
-                                        </cite>
-                                        <p>
-                                            <a class="text-secondary" data-toggle="collapse" href="#find_teacher_details_teacher_<%= teacher.id%>" 
-                                               role="button" aria-expanded="false" aria-controls="find_teacher_details_teacher_<%= teacher.id%>">
-                                                <%= Labels.get("find_teachers.list.body.show_more_details")%>
-                                            </a>
-                                        </p>                                        
-                                        <div class="card text-white bg-secondary collapse" id="find_teacher_details_teacher_<%= teacher.id%>">
+                                            </h5>
+                                            <button id="schedule_class_button_<%= teacher.id%>" data-teacher-id="<%= teacher.id%>" 
+                                                    data-teacher-display-name="<%= teacher.display_name%>" 
+                                                    onclick="schedule_class_button_clicked()" class="btn btn-sm btn-outline-success rounded btn-block">
+                                                <%= Labels.get("find_teachers.list.body.schedule_class_button")%>
+                                            </button>
+                                        </div>
+
+                                        <div class="media-body mx-3">
+                                            <div class="card">                                            
+                                                <div class="card-header">
+                                                    <cite>
+                                                        "<%= teacher.moto%>"
+                                                    </cite>
+                                                </div>
+                                            </div>
                                             <div class="card-body">
-                                                <div class="row no-gutters">                                                    
-                                                    <div class="col-12 xol-xl-6 col-lg-6">
-                                                        <h6>
-                                                            <%= Labels.get("find_teachers.list.body.available_hours")%>                                                    
-                                                        </h6>
-                                                        <small>
-                                                            <%
-                                                                for (AvailableTime availableTime : teacher.available_time) {
-                                                            %>
+                                                <p>
+                                                    <a class="text-secondary" data-toggle="collapse" href="#find_teacher_details_teacher_<%= teacher.id%>" 
+                                                       role="button" aria-expanded="false" aria-controls="find_teacher_details_teacher_<%= teacher.id%>">
+                                                        <%= Labels.get("find_teachers.list.body.show_more_details")%>
+                                                    </a>
+                                                </p>                                        
+                                                <div class="card text-white bg-secondary collapse" id="find_teacher_details_teacher_<%= teacher.id%>" >
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters">                                                    
+                                                            <div class="col-12 xol-xl-6 col-lg-6">
+                                                                <h6>
+                                                                    <%= Labels.get("find_teachers.list.body.available_hours")%>                                                    
+                                                                </h6>
+                                                                <small>
+                                                                    <%
+                                                                        for (AvailableTime availableTime : teacher.available_time) {
+                                                                    %>
 
-                                                            <%= dayNamesLong.get(availableTime.day - 1)%>
-                                                            <span class="left_to_right">                                        
-                                                                <%= String.format("%02d:%02d", availableTime.start_hour, availableTime.start_minute)%>                                    
-                                                                &nbsp;-&nbsp;
-                                                                <%= String.format("%02d:%02d", availableTime.end_hour, availableTime.end_minute)%>                                    
-                                                            </span>  
-                                                            <br/>
-                                                            <%
-                                                                }
-                                                            %>  
-                                                        </small>   
+                                                                    <%= dayNamesLong.get(availableTime.day - 1)%>
+                                                                    <span class="left_to_right">                                        
+                                                                        <%= String.format("%02d:%02d", availableTime.start_hour, availableTime.start_minute)%>                                    
+                                                                        &nbsp;-&nbsp;
+                                                                        <%= String.format("%02d:%02d", availableTime.end_hour, availableTime.end_minute)%>                                    
+                                                                    </span>  
+                                                                    <br/>
+                                                                    <%
+                                                                        }
+                                                                    %>  
+                                                                </small>   
+                                                            </div>
+                                                            <div class="col-12 xol-xl-6 col-lg-6">
+                                                                <h6>
+                                                                    <%= Labels.get("find_teachers.list.body.teaching_topics")%>                                                    
+                                                                </h6>
+                                                                <small>
+                                                                    <%
+                                                                        for (Topic teachingTopic : teacher.teaching_topics) {
+                                                                    %>
+
+                                                                    <%= teachingTopic.name%>                                                            
+                                                                    <br/>
+                                                                    <%
+                                                                        }
+                                                                    %>  
+                                                                </small>   
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-12 xol-xl-6 col-lg-6">
-                                                        <h6>
-                                                            <%= Labels.get("find_teachers.list.body.teaching_topics")%>                                                    
-                                                        </h6>
-                                                        <small>
-                                                            <%
-                                                                for (Topic teachingTopic : teacher.teaching_topics) {
-                                                            %>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <div class="row no-gutters">                                               
+                                                    <%
+                                                        if (teacher.show_phone) {
+                                                    %>
+                                                    <div class="col-6 h6 text-secondary">
+                                                        <span class="oi" data-glyph="phone"></span>
+                                                        <span class="d-none">    
+                                                            <%= Labels.get("find_teachers.list.body.phone")%>
+                                                        </span>
+                                                        <a href="tel://<%= teacher.phone_area%>-<%= teacher.phone_number%>">
+                                                            <%= teacher.phone_area%>-<%= teacher.phone_number%>
+                                                        </a>
 
-                                                            <%= teachingTopic.name %>                                                            
-                                                            <br/>
-                                                            <%
-                                                                }
-                                                            %>  
-                                                        </small>   
+                                                    </div>   
+                                                    <%
+                                                        }
+                                                    %>
+
+                                                    <%
+                                                        if (teacher.show_email) {
+                                                    %>
+                                                    <div class="col-6 h6 text-secondary">
+                                                        <span class="oi" data-glyph="envelope-closed"></span>
+                                                        <span class="d-none">    
+                                                            <%= Labels.get("find_teachers.list.body.email")%>                                            
+                                                        </span>
+                                                        <a href="mailto:<%= teacher.email%>">
+                                                            <%= teacher.email%>
+                                                        </a>
+                                                    </div>   
+                                                    <%
+                                                        }
+                                                    %>
+
+                                                    <%
+                                                        if (teacher.show_skype) {
+                                                    %>
+                                                    <div class="col-6 h6 text-secondary">
+                                                        <%= Labels.get("find_teachers.list.body.skype")%>                                            
+                                                        <a href="skype:<%= teacher.skype_name%>">
+                                                            <%= teacher.skype_name%>
+                                                        </a>
+                                                    </div>   
+                                                    <%
+                                                        }
+                                                    %>
+
+                                                    <div class="col-6">                                            
+                                                        <h6 class="text-secondary">
+                                                            <%= Labels.get("find_teachers.list.body.price_per_hour")%>
+                                                            &nbsp;:&nbsp;
+                                                            <%= teacher.price_per_hour%>
+                                                            <%= CLabels.get("website.currency")%>
+                                                        </h6>                                            
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 px-1">
-
-                                        <%
-                                            if (teacher.show_phone) {
-                                        %>
-                                        <div class="h6 text-secondary">
-                                            <span class="oi" data-glyph="phone"></span>
-                                            <span class="d-none">    
-                                                <%= Labels.get("find_teachers.list.body.phone")%>
-                                            </span>
-                                            <a href="tel://<%= teacher.phone_area%>-<%= teacher.phone_number%>">
-                                                <%= teacher.phone_area%>-<%= teacher.phone_number%>
-                                            </a>
-
-                                        </div>   
-                                        <%
-                                            }
-                                        %>
-
-                                        <%
-                                            if (teacher.show_email) {
-                                        %>
-                                        <div class="h6 text-secondary">
-                                            <span class="oi" data-glyph="envelope-closed"></span>
-                                            <span class="d-none">    
-                                                <%= Labels.get("find_teachers.list.body.email")%>                                            
-                                            </span>
-                                            <a href="mailto:<%= teacher.email%>">
-                                                <%= teacher.email%>
-                                            </a>
-                                        </div>   
-                                        <%
-                                            }
-                                        %>
-
-                                        <%
-                                            if (teacher.show_skype) {
-                                        %>
-                                        <div class="h6 text-secondary">
-                                            <%= Labels.get("find_teachers.list.body.skype")%>                                            
-                                            <a href="skype:<%= teacher.skype_name%>">
-                                                <%= teacher.skype_name%>
-                                            </a>
-                                        </div>   
-                                        <%
-                                            }
-                                        %>
-                                        <h6 class="text-secondary">
-                                            <%= Labels.get("find_teachers.list.body.price_per_hour")%>
-                                            &nbsp;:&nbsp;
-                                            <%= teacher.price_per_hour%>
-                                            <%= CLabels.get("website.currency")%>
-                                        </h6>                                            
-                                        <button id="schedule_class_button_<%= teacher.id%>" data-teacher-id="<%= teacher.id%>" 
-                                                data-teacher-display-name="<%= teacher.display_name%>" 
-                                                onclick="schedule_class_button_clicked()" class="btn btn-success">
-                                            <%= Labels.get("find_teachers.list.body.schedule_class_button")%>
-                                        </button>
-                                    </div>
                                 </div>
-
                             </div>
                         </div>
                         <%
