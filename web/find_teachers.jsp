@@ -45,9 +45,11 @@
         }
         if (teacher.institute != null) {
             teacher.institute = DB.get(teacher.institute.id, Institute.class);
+            teacher.institute_name = teacher.institute.name;
         }
         if (teacher.subject != null) {
             teacher.subject = DB.get(teacher.subject.id, Subject.class);
+            teacher.subject_name = teacher.subject.name;
         }
     }
     List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
@@ -483,7 +485,7 @@
                         <div class="card-header">
                             <h5>
                                 <u>
-                                <%= Labels.get("find_teachers.list.title")%>
+                                    <%= Labels.get("find_teachers.list.title")%>
                                 </u>
                             </h5>
                             <%
@@ -521,18 +523,20 @@
                                                 <%= teacher.display_name%>
                                             </h6>
 
+                                            <h6>
+                                                <button id="schedule_class_button_<%= teacher.id%>" data-teacher-id="<%= teacher.id%>" 
+                                                        data-teacher-display-name="<%= teacher.display_name%>" 
+                                                        onclick="schedule_class_button_clicked()" class="btn btn-sm btn-outline-primary rounded btn-block">
+                                                    <%= Labels.get("find_teachers.list.body.schedule_class_button")%>
+                                                </button>
+                                            </h6>
+
                                             <h6 class="text-secondary">
                                                 <%= Labels.get("find_teachers.list.body.price_per_hour")%>
                                                 &nbsp;:&nbsp;
                                                 <%= teacher.price_per_hour%>
                                                 <%= CLabels.get("website.currency")%>
-                                            </h6>                                            
-
-                                            <button id="schedule_class_button_<%= teacher.id%>" data-teacher-id="<%= teacher.id%>" 
-                                                    data-teacher-display-name="<%= teacher.display_name%>" 
-                                                    onclick="schedule_class_button_clicked()" class="btn btn-sm btn-outline-primary rounded btn-block">
-                                                <%= Labels.get("find_teachers.list.body.schedule_class_button")%>
-                                            </button>
+                                            </h6>     
                                         </div>
 
                                         <div class="media-body mx-3">
@@ -577,8 +581,8 @@
                                                     <h6>
                                                         <%= Labels.get("find_teachers.has_degree")%>
                                                         <%= teacher.degree_type%>
-                                                        <%= Labels.get("find_teachers.degree_from")%><%= teacher.institute.name%>
-                                                        <%= Labels.get("find_teachers.degree_subject")%><%= teacher.subject.name%>
+                                                        <%= Labels.get("find_teachers.degree_from")%><%= teacher.institute_name%>
+                                                        <%= Labels.get("find_teachers.degree_subject")%><%= teacher.subject_name%>
                                                         <%
                                                             }
                                                         %>

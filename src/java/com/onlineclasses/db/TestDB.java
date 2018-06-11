@@ -73,7 +73,7 @@ public class TestDB {
         List<String> degreeTypes = Utils.toList(degreeTypesList);
 
         Teacher teacher = new Teacher();
-        teacher.display_name = "רן ברנפלד מורה";
+        teacher.display_name = "רן ברנפלד";
         teacher.first_name = "רן";
         teacher.last_name = "ברנפלד";
         teacher.email = "berenfeldran@gmail.com";
@@ -93,7 +93,7 @@ public class TestDB {
         teacher.show_degree = true;
         teacher.institute = allInstitues.get(0);
         teacher.subject = allSubjects.get(0);
-        teacher.degree_type = degreeTypes.get(0);
+        teacher.degree_type = degreeTypes.get(0);        
         for (City city : allCities) {
             if (city.name.equals("נס ציונה")) {
                 teacher.city = city;
