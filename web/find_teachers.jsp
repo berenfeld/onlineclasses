@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.entities.Institute"%>
 <%@page import="com.onlineclasses.entities.City"%>
 <%@page import="com.onlineclasses.entities.Subject"%>
 <%@page import="java.util.Collection"%>
@@ -15,8 +16,10 @@
 <%@page import="com.onlineclasses.utils.Labels"%>
 
 <%
-    int minPrice = Utils.parseInt(request.getParameter("price_min"), CConfig.getInt("find_teachers.price.min"));
-    int maxPrice = Utils.parseInt(request.getParameter("price_max"), CConfig.getInt("find_teachers.price.max"));
+    int defaultMinPrice = CConfig.getInt("find_teachers.price.min");
+    int minPrice = Utils.parseInt(request.getParameter("price_min"), defaultMinPrice);
+    int defaultMaxPrice = CConfig.getInt("find_teachers.price.max");
+    int maxPrice = Utils.parseInt(request.getParameter("price_max"), defaultMaxPrice);
     String displayName = Utils.nonNullString(request.getParameter("display_name"));
     String topicName = Utils.nonNullString(request.getParameter("topic_name"));
     int availableDay = Utils.parseInt(request.getParameter("available_day"), 0);
@@ -39,7 +42,13 @@
         teacher.teaching_topics = DB.getTeacherTeachingTopics(teacher);
         if (teacher.city != null) {
             teacher.city = DB.get(teacher.city.id, City.class);
-        }        
+        }
+        if (teacher.institute != null) {
+            teacher.institute = DB.get(teacher.institute.id, Institute.class);
+        }
+        if (teacher.subject != null) {
+            teacher.subject = DB.get(teacher.subject.id, Subject.class);
+        }
     }
     List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
     List<String> dayNamesShort = Utils.toList(CLabels.get("website.days.short"));
@@ -471,9 +480,33 @@
 
                 <div class="card text-dark bg-white col-xl-9 col-lg-9">
                     <div class="card-body">
-                        <h6 class="card-header">
-                            <%= Labels.get("find_teachers.list.title")%>
-                        </h6>
+                        <div class="card-header">
+                            <h5>
+                                <u>
+                                <%= Labels.get("find_teachers.list.title")%>
+                                </u>
+                            </h5>
+                            <%
+                                if ((minPrice != defaultMinPrice) || (maxPrice != defaultMaxPrice)) {
+                            %>
+                            <h5>
+                                <%= Labels.get("find_teachers.list.with_price_range")%>
+                                <span class="left_to_right">                                        
+                                    <%= minPrice%>
+                                    <%= CLabels.get("website.currency")%>
+                                </span>
+                                &nbsp;-&nbsp;
+                                <span class="left_to_right">                                        
+                                    <%= maxPrice%>
+                                    <%= CLabels.get("website.currency")%>
+                                </span>
+                            </h5>
+                            <%
+                                }
+                            %>
+                        </div>
+
+
 
                         <%
                             for (Teacher teacher : teachers) {
@@ -504,7 +537,7 @@
 
                                         <div class="media-body mx-3">
                                             <div class="card">                                            
-                                                <div class="card-header">
+                                                <div class="card-header h5">
                                                     <cite>
                                                         "<%= teacher.moto%>"
                                                     </cite>
@@ -512,31 +545,44 @@
                                             </div>
                                             <div class="card-body">
                                                 <div id="find_teacher_personal_details">
+                                                    <h6>
+                                                        <%
+                                                            if (teacher.isMale()) {
+                                                        %>
+
+                                                        <%= Labels.get("find_teachers.age_prefix.male")%>
+                                                        <%= Utils.yearsFromDate(teacher.day_of_birth)%>
+                                                        <%= Labels.get("find_teachers.age_suffix.male")%>
+
+                                                        <% } else {%>
+
+                                                        <%= Labels.get("find_teachers.age_prefix.female")%>
+                                                        <%= Utils.yearsFromDate(teacher.day_of_birth)%>
+                                                        <%= Labels.get("find_teachers.age_suffix.female")%>
+
+                                                        <%
+                                                            }
+                                                        %>
+                                                        <%
+                                                            if (teacher.city != null) {
+                                                        %>
+                                                        &nbsp;,&nbsp;<%= teacher.city.name%>
+                                                        <%
+                                                            }
+                                                        %>
+                                                    </h6>
                                                     <%
-                                                        if (teacher.isMale()) {
+                                                        if (teacher.show_degree) {
                                                     %>
-
-                                                    <%= Labels.get("find_teachers.age_prefix.male")%>
-                                                    <%= Utils.yearsFromDate(teacher.day_of_birth)%>
-                                                    <%= Labels.get("find_teachers.age_suffix.male")%>
-
-                                                    <% } else {%>
-
-                                                    <%= Labels.get("find_teachers.age_prefix.female")%>
-                                                    <%= Utils.yearsFromDate(teacher.day_of_birth)%>
-                                                    <%= Labels.get("find_teachers.age_suffix.female")%>
-
-                                                    <%
-                                                        }
-                                                    %>
-                                                    <%
-                                                        if (teacher.city != null) {
-                                                    %>
-                                                    &nbsp;,&nbsp;<%= teacher.city.name %>
-                                                    <%
-                                                        }
-                                                    %>
-
+                                                    <h6>
+                                                        <%= Labels.get("find_teachers.has_degree")%>
+                                                        <%= teacher.degree_type%>
+                                                        <%= Labels.get("find_teachers.degree_from")%><%= teacher.institute.name%>
+                                                        <%= Labels.get("find_teachers.degree_subject")%><%= teacher.subject.name%>
+                                                        <%
+                                                            }
+                                                        %>
+                                                    </h6>
                                                 </div>
                                                 <p>
                                                     <a class="text-secondary" data-toggle="collapse" href="#find_teacher_details_teacher_<%= teacher.id%>" 
