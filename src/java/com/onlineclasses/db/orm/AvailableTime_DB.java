@@ -5,6 +5,8 @@
  */
 package com.onlineclasses.db.orm;
 
+import com.j256.ormlite.stmt.DeleteBuilder;
+import com.j256.ormlite.stmt.PreparedDelete;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.SelectArg;
@@ -12,9 +14,7 @@ import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.Teacher;
-import com.onlineclasses.utils.Utils;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,15 +31,28 @@ public class AvailableTime_DB extends Base_DB<AvailableTime> {
         where.eq(AvailableTime.TEACHER_ID_COLUMN, _getTeacherAvailableTimeTeacherIdArg);        
         queryBuilder.orderBy(AvailableTime.DAY_COLUMN, true);
         _getTeacherAvailableTimeQuery = queryBuilder.prepare();
+        
+        DeleteBuilder<AvailableTime, Integer> deleteBuilder = _dao.deleteBuilder();
+        where = deleteBuilder.where();
+        where.eq(AvailableTime.TEACHER_ID_COLUMN, _getTeacherAvailableTimeTeacherIdArg);        
+        _deleteTeacherAvailableTimeQuery = deleteBuilder.prepare();
+        
     }
 
 
     private final SelectArg _getTeacherAvailableTimeTeacherIdArg = new SelectArg();
     private final PreparedQuery<AvailableTime> _getTeacherAvailableTimeQuery;
+    private final SelectArg _deleteTeacherAvailableTimeTeacherIdArg = new SelectArg();
+    private final PreparedDelete<AvailableTime> _deleteTeacherAvailableTimeQuery;
     
     public synchronized List<AvailableTime> getTeacherAvailableTime(Teacher teacher) throws SQLException {        
         _getTeacherAvailableTimeTeacherIdArg.setValue(teacher);
         return _dao.query(_getTeacherAvailableTimeQuery);
     }
  
+    public synchronized int deleteTeacherAvailableTime(Teacher teacher) throws SQLException {        
+        _deleteTeacherAvailableTimeTeacherIdArg.setValue(teacher);
+        return _dao.delete(_deleteTeacherAvailableTimeQuery);
+    }
+    
 }

@@ -274,6 +274,10 @@ public class DB {
         return _availableTime_db.getTeacherAvailableTime(teacher);
     }
 
+    public static int deleteTeacherAvailableTime(Teacher teacher) throws SQLException {
+        return _availableTime_db.deleteTeacherAvailableTime(teacher);
+    }
+
     public static List<Topic> getTeacherTeachingTopics(Teacher teacher) throws SQLException {
 
         List<TeachingTopic> teacherTeachingTopics = _teachingTopic_DB.getTeacherTeachingTopics(teacher);
@@ -282,6 +286,11 @@ public class DB {
             teachingTopics.add(get(teachingTopic.topic.id, Topic.class));
         }
         return teachingTopics;
+    }
+
+    public static int deleteTeacherTeachingTopics(Teacher teacher) throws SQLException {
+
+        return _teachingTopic_DB.deleteTeacherTeachingTopics(teacher);
     }
 
     public static List<Institute> getInstitutes(InstituteType instituteType) throws SQLException {
@@ -319,7 +328,7 @@ public class DB {
         return ORM_ENTITIES.get(t.getClass()).delete(t);
     }
 
-    public static<T> int update(T t) throws SQLException {
+    public static <T> int update(T t) throws SQLException {
         return ORM_ENTITIES.get(t.getClass()).update(t);
     }
 

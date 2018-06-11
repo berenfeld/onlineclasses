@@ -68,6 +68,10 @@ public class UpdateTeacherServlet extends BaseServlet {
             Utils.warning("Could not update teacher " + teacher.display_name);
             return new BasicResponse(-1, "user is already registered");
         }
+        
+        if ( 0 == DB.deleteTeacherTeachingTopics(teacher) ) {
+            Utils.warning("could not delete teaching topics of teacher " + teacher);
+        }
 
         for (int topicId : updateTeacherRequest.teaching_topics) {
             TeachingTopic teachingTopic = new TeachingTopic();
@@ -78,6 +82,10 @@ public class UpdateTeacherServlet extends BaseServlet {
             }
         }
 
+        if ( 0 == DB.deleteTeacherAvailableTime(teacher) ) {
+            Utils.warning("could not delete available time of teacher " + teacher);
+        }
+        
         for (AvailableTime avilableTime : updateTeacherRequest.available_times) {
             avilableTime.teacher = teacher;
             if (DB.add(avilableTime) != 1) {

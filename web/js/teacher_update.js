@@ -28,7 +28,7 @@ function teacher_update_select_topic(topic_id)
     $("#teacher_update_topic_" + topic_id + "_checkbox").attr("checked", !checked);
 }
 
-function teacher_update_register_complete(response)
+function teacher_update_request_complete(response)
 {
     if (response.rc !== 0) {
         alert_show(oc.clabels[ "teacher_update.register.failed.title"],
@@ -37,7 +37,6 @@ function teacher_update_register_complete(response)
     }
     alert_show(oc.clabels[ "teacher_update.register.success.title"],
             oc.clabels[ "teacher_update.register.success.message"]);
-    redirectAfter("/", 5);
 }
 
 function teacher_update_submit_warning(text)
@@ -110,7 +109,7 @@ function teacher_update_form_submit()
                 type: "POST",
                 data: JSON.stringify(request),
                 dataType: "JSON",
-                success: teacher_update_register_complete
+                success: teacher_update_request_complete
             }
     );
 }
@@ -248,6 +247,8 @@ function teacher_update_select_time()
 
 function teacher_update_init_calendar()
 {
+    teacher_update.calendar.available_times = teacher_update.available_time;
+    
     var available_text = "";
 
     for (var i = 0; i < teacher_update.available_time.length; i++) {

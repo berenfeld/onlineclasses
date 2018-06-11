@@ -404,7 +404,20 @@
                                     <div class="col-6 col-lg-3 my-1">
                                         <button class="btn btn-info dropdown-toggle" type="button" 
                                                 data-toggle="dropdown" id="teacher_update_institute_type_button">
+                                            <%
+                                                if (teacher.institute == null) {
+                                            %>
+                                            <span class="caret"></span>
+                                            <%= Labels.get("teacher_update.form.learning.institue_type.select")%>
+
+                                            <% } else {%>
+
                                             <%= teacher.institute.institute_type.name%>
+                                            <%
+                                                }
+                                            %>
+
+
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="teacher_update_institute_type_button">
                                             <%
@@ -502,11 +515,21 @@
                                     <div class="col-6 col-lg-3 my-1">
                                         <button class="btn btn-info dropdown-toggle" type="button" 
                                                 data-toggle="dropdown" id="teacher_update_subject_button">
+                                            <%
+                                                if (teacher.subject != null) {
+                                            %>
                                             <%= teacher.subject.name%>
+                                            <%
+                                            } else {
+                                            %>
+                                            <span class="caret"></span>
+                                            <%= Labels.get("teacher_update.form.learning.subject.select")%>
+                                            <%
+                                                }
+                                            %>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="teacher_update_subject_button">
-                                            <%
-                                                for (Subject subject : subjects) {
+                                            <%                                                for (Subject subject : subjects) {
                                             %>
 
                                             <a class="dropdown-item" href="javascript:teacher_update_select_subject(<%= subject.id%>)">
@@ -531,6 +554,13 @@
                                     <div id="teacher_update_subject_0_div" class="col-6 col-lg-3 my-1 d-none">
                                         <input type="text" class="form-control" id="teacher_update_subject_0_text" 
                                                name="teacher_update_institute_0_text"
+                                               <%
+                                                   if (teacher.subject_name != null) {
+                                               %>
+                                               value="<%= teacher.subject_name%>"
+                                               <%
+                                                   }
+                                               %>
                                                placeholder="<%= Labels.get("teacher_update.form.learning.subject.other.choose")%>">
                                     </div>
 
