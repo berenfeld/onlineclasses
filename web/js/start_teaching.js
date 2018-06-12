@@ -1,24 +1,18 @@
 /* global oc */
 
 var start_teaching = {};
-
 function start_teaching_userLoggedInCallback(user)
 {
     alert_show(oc.clabels["start_teaching.login_successful"]);
-
     google_clearUserLoggedinCallback();
-
     start_teaching.google_id_token = user.google_id_token;
-
     $("#start_teaching_email_input").val(user.email);
     $("#start_teaching_display_name_input").val(user.name);
     $("#start_teaching_first_name_input").val(user.first_name);
     $("#start_teaching_last_name_input").val(user.last_name);
-
     $("#start_teaching_display_name_input").attr("disabled", false);
     $("#start_teaching_first_name_input").attr("disabled", false);
     $("#start_teaching_last_name_input").attr("disabled", false);
-
     google_signOut();
 }
 
@@ -39,7 +33,7 @@ function start_teaching_googleUserEmailExistsCallback(email_exists)
 function start_teaching_select_topic(topic_id)
 {
     var checked = $("#start_teaching_topic_" + topic_id + "_checkbox").prop("checked");
-    $("#start_teaching_topic_" + topic_id + "_checkbox").attr("checked", !checked);
+    $("#start_teaching_topic_" + topic_id + "_checkbox").prop("checked", !checked);
 }
 
 function start_teaching_register_complete(response)
@@ -68,14 +62,13 @@ function start_teaching_scroll_to(element)
 function start_teaching_form_validation(request)
 {
     $("#start_teaching_form *").removeClass("border border-warning");
-           
     if (start_teaching.google_id_token === null) {
         alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_login"]);
         $("#start_teaching_google_login").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_google_login");
         return false;
     }
-    
+
     if (!$("#start_teaching_accept_terms_checkbox").is(":checked")) {
         alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_accept"]);
         $("#start_teaching_accept_terms_checkbox_div").addClass("border border-warning");
@@ -96,14 +89,14 @@ function start_teaching_form_validation(request)
         start_teaching_scroll_to("start_teaching_day_of_birth");
         return false;
     }
-    
+
     if (stringEmpty(request.moto)) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_moto"]);
         $("#start_teaching_moto").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_moto");
         return false;
     }
-        
+
     if (stringEmpty(request.paypal_email)) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_paypal_email"]);
         $("#start_teaching_paypal_email").addClass("border border-warning");
@@ -148,7 +141,6 @@ function start_teaching_form_submit()
     request.teaching_topics = [];
     request.available_times = start_teaching.calendar.available_times;
     request.city_id = start_teaching.city_id;
-    
     if (!start_teaching_form_validation(request)) {
         return;
     }
@@ -160,7 +152,6 @@ function start_teaching_form_submit()
                 }
             }
     );
-
     if ($("#start_teaching_gender_input_male").prop("checked")) {
         request.gender = parseInt10($("#start_teaching_gender_input_male").val());
     }
@@ -192,7 +183,6 @@ function start_teaching_select_area_code(phone_area)
 function start_teaching_select_institute_type(institute_type, institute_id)
 {
     start_teaching.institute_type = institute_type;
-
     for (var i = 0; i <= oc.institute_type.length; i++)
     {
         $("#start_teaching_institute_" + i + "_label").addClass("d-none");
@@ -200,7 +190,6 @@ function start_teaching_select_institute_type(institute_type, institute_id)
     }
 
     start_teaching.institute_id = 0;
-
     if (institute_type === 0) {
         $("#start_teaching_institute_type_button").html($("#start_teaching_institute_type_other").html());
         $("#start_teaching_institute_0_label").removeClass("d-none");
@@ -219,7 +208,6 @@ function start_teaching_select_institute_type(institute_type, institute_id)
 function start_teaching_select_subject(subject_id)
 {
     start_teaching.subject_id = subject_id;
-
     if (subject_id === 0) {
         start_teaching.subject_id = 0;
         $("#start_teaching_subject_0_div").removeClass("d-none");
@@ -235,7 +223,7 @@ function start_teaching_select_subject(subject_id)
 
 function start_teaching_select_city(city_id)
 {
-    start_teaching.city_id = city_id;  
+    start_teaching.city_id = city_id;
     $("#start_teaching_city_input").html(oc.cities[city_id - 1].name);
 }
 
@@ -266,7 +254,6 @@ function start_teaching_select_single_time(day, hour, minute)
         start_teaching.calendar.last_select.add = true;
     }
     start_teaching.calendar.last_element_selected = hourElement;
-
     start_teaching_update_calendar();
 }
 
@@ -274,12 +261,10 @@ function start_teaching_select_time()
 {
     event.preventDefault();
     event.stopPropagation();
-
     var elem = $("#" + event.target.id);
     var day = parseInt10(elem.attr("data-day"));
     var hour = parseInt10(elem.attr("data-hour"));
     var minute = parseInt10(elem.attr("data-minute"));
-
     if (!event.shiftKey) {
         start_teaching_select_single_time(day, hour, minute);
         return false;
@@ -297,7 +282,6 @@ function start_teaching_select_time()
     var start_hour = start_teaching.calendar.last_select.hour;
     var start_minute = start_teaching.calendar.last_select.minute;
     var increasing = (start_hour < hour) || ((start_hour === hour) && (start_minute < minute));
-
     do {
         var hourElement = $("#start_teaching_day_" + day + "_hour_" + start_hour + "_minute_" + start_minute);
         if (start_teaching.calendar.last_select.add) {
@@ -334,7 +318,6 @@ function start_teaching_update_calendar()
     var available_day, start_hour, start_minute, end_hour, end_minute;
     var available_text = "";
     start_teaching.calendar.available_times = [];
-
     for (var day = 1; day <= 7; day++) {
         var hour = start_working_hour;
         var minute = 0;
@@ -354,10 +337,8 @@ function start_teaching_update_calendar()
                     start_available_time = false;
                     end_hour = hour;
                     end_minute = minute;
-
                     available_text += start_teaching.calendar.day_names_long[available_day - 1] + " : " +
                             formatTime(end_hour, end_minute) + " - " + formatTime(start_hour, start_minute) + "<br/>";
-
                     start_teaching.calendar.available_times.push(
                             {
                                 day: available_day,
@@ -396,14 +377,11 @@ function start_teaching_init()
     start_teaching.calendar.last_select = null;
     start_teaching.calendar.available_times = [];
     start_teaching.min_teacher_age = parseInt10(oc.cconfig[ "start_teaching.min_teacher_age"]);
-    start_teaching.max_teacher_age = parseInt10(oc.cconfig[ "start_teaching.max_teacher_age"]);    
-
+    start_teaching.max_teacher_age = parseInt10(oc.cconfig[ "start_teaching.max_teacher_age"]);
     google_addEmailExistsCallback(start_teaching_googleUserEmailExistsCallback);
-
     var current_year = new Date().getFullYear();
     var default_year = new Date();
     default_year.setFullYear(current_year - start_teaching.min_teacher_age);
-    
     $("#start_teaching_day_of_birth_input").datepicker({
         dayNames: start_teaching.calendar.day_names_long,
         dayNamesMin: oc.clabels[ "website.days.short" ].split(","),
@@ -411,11 +389,10 @@ function start_teaching_init()
         monthNamesShort: oc.clabels[ "website.months.short" ].split(","),
         isRTL: true,
         changeYear: true,
-        defaultDate : default_year,
+        defaultDate: default_year,
         yearRange: (current_year - start_teaching.max_teacher_age) + ":" + (current_year - start_teaching.min_teacher_age),
         onSelect: start_teaching_select_day_of_birth
     });
-
     if (login_isLoggedIn())
     {
         alert_show(oc.clabels[ "start_teaching.login.already_logged_in.title"],
@@ -423,10 +400,18 @@ function start_teaching_init()
     }
 
     $('#start_teaching_topic_show_degree').on('click', function (e) {
-        $('#start_learning_degree_information_div').collapse("toggle");
+        event.preventDefault();
     });
+    $('#start_teaching_degree_information_div').on('hide.bs.collapse', function ()
+    {
+        $('#start_teaching_topic_show_degree').prop("checked", false);
+    });
+    $('#start_teaching_degree_information_div').on('show.bs.collapse', function ()
+    {
+        $('#start_teaching_topic_show_degree').prop("checked", true);
+    });
+    
     $("#start_teaching_calendar_table td").disableSelection();
-
 }
 
 start_teaching_init();

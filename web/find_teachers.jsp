@@ -523,7 +523,7 @@
                                                 <%= teacher.display_name%>
                                             </h6>
                                             <h6>
-                                                <div class="d-inline-block" style="position:relative"
+                                                <div class="d-inline-block" style="position:relative; cursor:default"
                                                      title="<%= Labels.get("find_teachers.list.body.rating_prefix")%>&nbsp;<%= teacher.rating %>&nbsp;<%= Labels.get("find_teachers.list.body.rating_suffix")%>">
                                                     <div class="bg-white"
                                                          style="position:absolute; height:100%; width:<%= (int)( 100 - ( teacher.rating * 20 ) ) %>%">

@@ -32,7 +32,6 @@
     Map<Integer, Subject> allSubjects = DB.getAllMap(Subject.class);
     Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
     List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
-    List<String> dayNamesShort = Utils.toList(CLabels.get("website.days.short"));
     final int startHour = CConfig.getInt("website.time.start_working_hour");
     final int endHour = CConfig.getInt("website.time.end_working_hour");
     int hour, day, minute;
@@ -343,8 +342,9 @@
                             <div class="form-group row">
                                 <a class="list-group-item list-group-item-action" 
                                    aria-expanded="false"
-                                   aria-controls="start_learning_degree_information_div"                                   
-                                   href="#start_learning_degree_information_div">
+                                   aria-controls="start_teaching_degree_information_div"                                   
+                                   data-toggle="collapse"
+                                   href="#start_teaching_degree_information_div">
                                     <input class="form-check-input my-1 mx-0"  
                                            id="start_teaching_topic_show_degree" 
                                            name="start_teaching_topic_show_degree"
@@ -354,7 +354,7 @@
                                     </label>
                                 </a>
                             </div>
-                            <div class="collapse" id="start_learning_degree_information_div">
+                            <div class="collapse" id="start_teaching_degree_information_div">
                                 <div class="form-group row" aria-expanded="false" >
 
                                     <label class="col-6 col-lg-3 my-1 col-form-label" for="start_teaching_degree_type_button">

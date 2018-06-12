@@ -25,7 +25,7 @@ function teacher_update_select_degree_type(degree_type)
 function teacher_update_select_topic(topic_id)
 {
     var checked = $("#teacher_update_topic_" + topic_id + "_checkbox").prop("checked");
-    $("#teacher_update_topic_" + topic_id + "_checkbox").attr("checked", !checked);
+    $("#teacher_update_topic_" + topic_id + "_checkbox").prop("checked", !checked);
 }
 
 function teacher_update_request_complete(response)
@@ -369,12 +369,22 @@ function teacher_update_init()
     });
 
     $('#teacher_update_topic_show_degree').on('click', function (e) {
-        $('#start_learning_degree_information_div').collapse("toggle");
+        event.preventDefault();
     });
-    $("#teacher_update_calendar_table td").disableSelection();
-    if ($('#teacher_update_topic_show_degree').prop("checked")) {
-        $('#start_learning_degree_information_div').collapse("show");
+    $('#teacher_update_degree_information_div').on('hide.bs.collapse', function ()
+    {
+        $('#teacher_update_topic_show_degree').prop("checked", false);
+    });
+    $('#teacher_update_degree_information_div').on('show.bs.collapse', function ()
+    {
+        $('#teacher_update_topic_show_degree').prop("checked", true);
+    });
+    if (teacher_update.teacher.show_degree) {
+        $('#teacher_update_topic_show_degree').prop("checked", true);
+        $('#teacher_update_degree_information_div').collapse("show");
     }
+    $("#teacher_update_calendar_table td").disableSelection();
+
     teacher_update_init_calendar();
     if (teacher_update.teacher.institute !== undefined) {
         teacher_update_select_institute_type(teacher_update.teacher.institute.institute_type.id);
