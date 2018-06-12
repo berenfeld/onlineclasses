@@ -9,6 +9,7 @@ import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.City;
 import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.InstituteType;
+import com.onlineclasses.entities.OClass;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
@@ -21,6 +22,7 @@ import com.onlineclasses.utils.Labels;
 import com.onlineclasses.utils.Utils;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -41,6 +43,7 @@ public class TestDB {
         addTopics();
         addTeachingTopics();
         addTeachers();
+        addScheduledClasses();
     }
 
     public static void addStudents() throws Exception {
@@ -141,7 +144,7 @@ public class TestDB {
             String dob = "23/05/" + String.valueOf(2000 - random.nextInt(60));
             teacher.day_of_birth = Utils.parseDateWithFullYear(dob);
             teacher.registered = new Date();
-            teacher.rating = ((float)random.nextInt(100))/20.0f;
+            teacher.rating = ((float) random.nextInt(100)) / 20.0f;
             teacher.city = Utils.getRandomElement(allCities);
             teacher.show_degree = true;
             teacher.subject = Utils.getRandomElement(allSubjects);
@@ -164,9 +167,9 @@ public class TestDB {
                 availableTime.end_minute = random.nextInt(unitsInHour) * minutesUnit;
                 DB.add(availableTime);
             }
-            
+
             int topics = random.nextInt(20);
-            for (int j=0;j<topics;j++) {
+            for (int j = 0; j < topics; j++) {
                 TeachingTopic teachingTopic = new TeachingTopic();
                 teachingTopic.teacher = teacher;
                 teachingTopic.topic = Utils.getRandomElement(allTopics);
@@ -183,6 +186,28 @@ public class TestDB {
             instituteType.name = instituteTypeName;
             DB.add(instituteType);
         }
+    }
+
+    public static void addScheduledClasses() throws Exception {
+        if (!Config.getBool("db.test.teachers")) {
+            return;
+        }
+        Random random = new Random();
+        OClass oClass = new OClass();
+        oClass.teacher = (Teacher) DB.getUserByEmail("berenfeldran@gmail.com");
+        oClass.student = (Student) DB.getUserByEmail("ichess@ichess.co.il");
+        Calendar startDate = Calendar.getInstance();
+        startDate.setTime(Utils.xHoursFromNow(48 + random.nextInt(120)));
+        startDate.set(Calendar.MINUTE, 0);
+        startDate.set(Calendar.SECOND, 0 );
+        startDate.set(Calendar.MILLISECOND, 0 );        
+        oClass.start_date = startDate.getTime();
+        oClass.registered = new Date();
+        oClass.status = OClass.STATUS_SCHEDULED;
+        oClass.price_per_hour = oClass.teacher.price_per_hour;
+        oClass.duration_minutes = 30 + ( 30 * random.nextInt(4));
+        oClass.subject = "שיעור נסיון";        
+        DB.add(oClass);                
     }
 
     private static void addInstitutes() throws SQLException {
