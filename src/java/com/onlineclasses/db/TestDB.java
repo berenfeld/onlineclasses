@@ -94,11 +94,7 @@ public class TestDB {
         teacher.subject = allSubjects.get(0);
         teacher.degree_type = allDegreeTypes.get(0);
         teacher.rating = 5;
-        for (City city : allCities) {
-            if (city.name.equals("נס ציונה")) {
-                teacher.city = city;
-            }
-        }
+        teacher.city = DB.getCityByName("נס ציונה");
 
         DB.add(teacher);
 
@@ -131,6 +127,7 @@ public class TestDB {
             teacher.last_name = "בדיקה";
             teacher.gender = User.GENDER_MALE;
             teacher.email = "test" + i + "@gmail.com";
+            teacher.gender = User.GENDER_MALE;
             teacher.paypal_email = "test" + i + "@gmail.com";
             teacher.show_email = true;
             teacher.show_phone = true;
@@ -141,10 +138,10 @@ public class TestDB {
             teacher.moto = "Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. " + i;
             teacher.phone_area = "054";
             teacher.phone_number = "7476526";
-            teacher.day_of_birth = Utils.parseDateWithFullYear("23/05/1977");
+            String dob = "23/05/" + String.valueOf(2000 - random.nextInt(60));
+            teacher.day_of_birth = Utils.parseDateWithFullYear(dob);
             teacher.registered = new Date();
-            teacher.gender = User.GENDER_FEMALE;
-            teacher.rating = random.nextInt() % 5;
+            teacher.rating = ((float)random.nextInt(100))/20.0f;
             teacher.city = Utils.getRandomElement(allCities);
             teacher.show_degree = true;
             teacher.subject = Utils.getRandomElement(allSubjects);
@@ -166,6 +163,14 @@ public class TestDB {
                 availableTime.end_hour = availableTime.start_hour + random.nextInt(7) + 1;
                 availableTime.end_minute = random.nextInt(unitsInHour) * minutesUnit;
                 DB.add(availableTime);
+            }
+            
+            int topics = random.nextInt(20);
+            for (int j=0;j<topics;j++) {
+                TeachingTopic teachingTopic = new TeachingTopic();
+                teachingTopic.teacher = teacher;
+                teachingTopic.topic = Utils.getRandomElement(allTopics);
+                DB.add(teachingTopic);
             }
         }
     }

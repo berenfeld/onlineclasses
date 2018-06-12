@@ -127,9 +127,20 @@ public class Utils {
     }
 
     public static<T> T getRandomElement(List<T> list) {
+        if ((list == null) || (list.isEmpty())) {
+            return null;
+        }
         Random random = new Random();
         return list.get(random.nextInt(list.size()));
     }
+    
+    public static<T> T getFirstElement(List<T> list) {
+        if ((list == null) || (list.isEmpty())) {
+            return null;
+        }
+        return list.get(0);
+    }
+    
     public static String formatTime(int hour, int minute) {
         return String.format("%02d:%02d", hour, minute);
     }

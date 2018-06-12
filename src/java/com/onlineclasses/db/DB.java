@@ -388,4 +388,8 @@ public class DB {
     public static synchronized AttachedFile getClassAttachedFile(OClass oClass, String fileName) throws SQLException {
         return _attachedFile_DB.getClassAttachedFile(oClass, fileName);
     }
+    
+    public static City getCityByName(String name)  throws SQLException {
+        return _city_DB.getCityByName(name);
+    }
 }

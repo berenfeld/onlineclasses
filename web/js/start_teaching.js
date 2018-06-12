@@ -30,6 +30,11 @@ function start_teaching_googleUserEmailExistsCallback(email_exists)
                 oc.clabels[ "start_teaching.login.email_exists.text"]);
     }
 }
+
+function start_teaching_select_checbox()
+{
+    event.preventDefault();
+}
 function start_teaching_select_topic(topic_id)
 {
     var checked = $("#start_teaching_topic_" + topic_id + "_checkbox").prop("checked");

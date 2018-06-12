@@ -526,7 +526,7 @@
                                                 <div class="d-inline-block" style="position:relative; cursor:default"
                                                      title="<%= Labels.get("find_teachers.list.body.rating_prefix")%>&nbsp;<%= teacher.rating %>&nbsp;<%= Labels.get("find_teachers.list.body.rating_suffix")%>">
                                                     <div class="bg-white"
-                                                         style="position:absolute; height:100%; width:<%= (int)( 100 - ( teacher.rating * 20 ) ) %>%">
+                                                         style="opacity: 0.8; position:absolute; height:100%; width:<%= (int)( 100 - ( teacher.rating * 20 ) ) %>%">
                                                     </div>
                                                     <div class="d-inline-block text-primary">
                                                         <span class="oi" data-glyph="star"></span>
