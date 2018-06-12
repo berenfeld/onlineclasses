@@ -522,7 +522,23 @@
                                             <h6>
                                                 <%= teacher.display_name%>
                                             </h6>
+                                            <h6>
+                                                <div class="d-inline-block" style="position:relative"
+                                                     title="<%= Labels.get("find_teachers.list.body.rating_prefix")%>&nbsp;<%= teacher.rating %>&nbsp;<%= Labels.get("find_teachers.list.body.rating_suffix")%>">
+                                                    <div class="bg-white"
+                                                         style="position:absolute; height:100%; width:<%= (int)( 100 - ( teacher.rating * 20 ) ) %>%">
+                                                    </div>
+                                                    <div class="d-inline-block text-primary">
+                                                        <span class="oi" data-glyph="star"></span>
+                                                        <span class="oi" data-glyph="star"></span>
+                                                        <span class="oi" data-glyph="star"></span>
+                                                        <span class="oi" data-glyph="star"></span>
+                                                        <span class="oi" data-glyph="star"></span>
+                                                    </div>
 
+                                                </div>
+
+                                            </h6>
                                             <h6>
                                                 <button id="schedule_class_button_<%= teacher.id%>" data-teacher-id="<%= teacher.id%>" 
                                                         data-teacher-display-name="<%= teacher.display_name%>" 
@@ -531,12 +547,7 @@
                                                 </button>
                                             </h6>
 
-                                            <h6 class="text-secondary">
-                                                <%= Labels.get("find_teachers.list.body.price_per_hour")%>
-                                                &nbsp;:&nbsp;
-                                                <%= teacher.price_per_hour%>
-                                                <%= CLabels.get("website.currency")%>
-                                            </h6>     
+
                                         </div>
 
                                         <div class="media-body mx-3">
@@ -685,6 +696,12 @@
                                                     <%
                                                         }
                                                     %>
+                                                    <div class="col-12 col-md-6 h6 text-info">
+                                                        <%= Labels.get("find_teachers.list.body.price_per_hour")%>
+                                                        &nbsp;:&nbsp;
+                                                        <%= teacher.price_per_hour%>
+                                                        <%= CLabels.get("website.currency")%>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

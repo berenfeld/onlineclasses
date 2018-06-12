@@ -20,7 +20,6 @@ import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.Labels;
 import com.onlineclasses.utils.Utils;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -70,7 +69,7 @@ public class TestDB {
         List<Subject> allSubjects = DB.getAll(Subject.class);
         List<City> allCities = DB.getAll(City.class);
         String degreeTypesList = Labels.get("db.degree_type");
-        List<String> degreeTypes = Utils.toList(degreeTypesList);
+        List<String> allDegreeTypes = Utils.toList(degreeTypesList);
 
         Teacher teacher = new Teacher();
         teacher.display_name = "רן ברנפלד";
@@ -93,14 +92,14 @@ public class TestDB {
         teacher.show_degree = true;
         teacher.institute = allInstitues.get(0);
         teacher.subject = allSubjects.get(0);
-        teacher.degree_type = degreeTypes.get(0);        
+        teacher.degree_type = allDegreeTypes.get(0);
+        teacher.rating = 5;
         for (City city : allCities) {
             if (city.name.equals("נס ציונה")) {
                 teacher.city = city;
             }
         }
-        
-        
+
         DB.add(teacher);
 
         List<Topic> allTopics = DB.getAll(Topic.class);
@@ -145,6 +144,12 @@ public class TestDB {
             teacher.day_of_birth = Utils.parseDateWithFullYear("23/05/1977");
             teacher.registered = new Date();
             teacher.gender = User.GENDER_FEMALE;
+            teacher.rating = random.nextInt() % 5;
+            teacher.city = Utils.getRandomElement(allCities);
+            teacher.show_degree = true;
+            teacher.subject = Utils.getRandomElement(allSubjects);
+            teacher.institute = Utils.getRandomElement(allInstitues);
+            teacher.degree_type = Utils.getRandomElement(allDegreeTypes);
             DB.add(teacher);
 
             int minutesUnit = CConfig.getInt("website.time.unit.minutes");

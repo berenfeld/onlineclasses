@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -125,6 +126,10 @@ public class Utils {
         return Arrays.asList(str.split(","));
     }
 
+    public static<T> T getRandomElement(List<T> list) {
+        Random random = new Random();
+        return list.get(random.nextInt(list.size()));
+    }
     public static String formatTime(int hour, int minute) {
         return String.format("%02d:%02d", hour, minute);
     }
