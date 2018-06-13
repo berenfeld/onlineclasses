@@ -250,6 +250,12 @@ public class Utils {
         return calendar.getTime();
     }
 
+    public static Date xYearsFromNow(int years) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, years);
+        return calendar.getTime();
+    }
+    
     public static String getStringFromInputStream(ServletContext context, String fileName) {
         InputStream is = context.getResourceAsStream(fileName);
         BufferedReader br;

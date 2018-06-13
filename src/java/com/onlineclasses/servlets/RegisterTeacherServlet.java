@@ -17,6 +17,8 @@ import com.onlineclasses.entities.TeachingTopic;
 import com.onlineclasses.entities.Topic;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.servlets.entities.RegisterTeacherRequest;
+import com.onlineclasses.utils.CConfig;
+import com.onlineclasses.utils.Labels;
 import com.onlineclasses.utils.Utils;
 import java.util.Date;
 import javax.servlet.annotation.WebServlet;
@@ -33,18 +35,25 @@ public class RegisterTeacherServlet extends BaseServlet {
 
         if (Utils.isEmpty(registerTeacherRequest.google_id_token)) {
             Utils.warning("no google id in login request");
-            return new BasicResponse(-1, "no google id");
+            return new BasicResponse(-1, Labels.get("start_teaching.response.not_logged_in"));
         }
+        
         GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(registerTeacherRequest.google_id_token);
         if (googleUser == null) {
             Utils.warning("failed to get user from google id token");
-            return new BasicResponse(-1, "user was not found");
+            return new BasicResponse(-1, Labels.get("start_teaching.response.not_logged_in"));
         }
 
         User user = DB.getUserByEmail(googleUser.email);
         if (user != null) {
-            Utils.warning("user " + user.display_name + " email " + user.email + " already registered");
-            return new BasicResponse(-1, "user is already registered");
+            Utils.warning("teacher " + user.display_name + " email " + user.email + " already registered");
+            return new BasicResponse(-1, Labels.get("start_teaching.response.email_exist"));
+        }
+        
+        if (registerTeacherRequest.day_of_birth.after(Utils.xYearsFromNow(- CConfig.getInt("start_teaching.min_teacher_age")))) {
+            Utils.warning("teacher " + registerTeacherRequest.display_name + " can't register with day of birth " + 
+                registerTeacherRequest.day_of_birth);
+            return new BasicResponse(-1, Labels.get("start_teaching.response.teacher_under_age"));
         }
 
         Teacher registeringTeacher = new Teacher();
@@ -86,7 +95,7 @@ public class RegisterTeacherServlet extends BaseServlet {
         
         if (DB.add(registeringTeacher) != 1) {
             Utils.warning("Could not add user " + registeringTeacher.display_name);
-            return new BasicResponse(-1, "user is already registered");
+            return new BasicResponse(-1, Labels.get("start_teaching.response.system_error"));
         }
 
         for (int topicId : registerTeacherRequest.teaching_topics) {
@@ -95,6 +104,7 @@ public class RegisterTeacherServlet extends BaseServlet {
             teachingTopic.topic = DB.get(topicId, Topic.class);
             if (DB.add(teachingTopic) != 1) {
                 Utils.warning("Could not add teaching topic " + teachingTopic + " to teacher " + registeringTeacher );
+                return new BasicResponse(-1, Labels.get("start_teaching.response.system_error"));
             }
         }
 
@@ -102,6 +112,7 @@ public class RegisterTeacherServlet extends BaseServlet {
             avilableTime.teacher = registeringTeacher;
             if (DB.add(avilableTime) != 1) {
                 Utils.warning("Could not add available time " + avilableTime + " to teacher " + registeringTeacher );
+                return new BasicResponse(-1, Labels.get("start_teaching.response.system_error"));
             }
         }
                 

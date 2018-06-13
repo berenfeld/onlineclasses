@@ -237,10 +237,13 @@
                                            placeholder="<%= Labels.get("start_teaching.form.login.skype_name")%>">
                                 </div>
 
-                                <div class="col-6 col-lg-3 my-1">
+                                <div class="col-6 col-lg-3 my-1" id="start_teaching_city">
                                     <label class="col-form-label" for="start_teaching_city_input">
-                                        <%= Labels.get("start_teaching.form.login.choose_city")%>
+                                        <%= Labels.get("start_teaching.form.login.choose_city")%>                                        
                                     </label>
+                                    <small class="start_teaching_required">
+                                        (*)
+                                    </small>
                                 </div>
 
                                 <div class="col-6 col-lg-3 my-1">
@@ -255,11 +258,11 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="start_teaching_city_button">                                            
                                             <%
-                                                for (City city : cities ) {
+                                                for (City city : cities) {
                                             %>
 
-                                            <a class="dropdown-item" href="javascript:start_teaching_select_city(<%= city.id %>)">
-                                                <%= city.name %>
+                                            <a class="dropdown-item" href="javascript:start_teaching_select_city(<%= city.id%>)">
+                                                <%= city.name%>
                                             </a>
 
                                             <%

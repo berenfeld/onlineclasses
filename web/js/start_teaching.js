@@ -1,9 +1,10 @@
 /* global oc */
 
 var start_teaching = {};
+
 function start_teaching_userLoggedInCallback(user)
 {
-    alert_show(oc.clabels["start_teaching.login_successful"]);
+    alert_show(oc.clabels["start_teaching.login_successful"] + " " + user.email);
     google_clearUserLoggedinCallback();
     start_teaching.google_id_token = user.google_id_token;
     $("#start_teaching_email_input").val(user.email);
@@ -88,6 +89,13 @@ function start_teaching_form_validation(request)
         return false;
     }
 
+    if (request.city_id === 0 ) {
+        alert_show(oc.clabels[ "start_teaching.form.submit.fill_city"]);
+        $("#start_teaching_city").addClass("border border-warning");
+        start_teaching_scroll_to("start_teaching_city");
+        return false;
+    }
+    
     if (request.day_of_birth === null) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_day_of_birth"]);
         $("#start_teaching_day_of_birth").addClass("border border-warning");
@@ -150,6 +158,9 @@ function start_teaching_form_submit()
         return;
     }
 
+    alert_show( oc.clabels[ "start_teaching.register.registering"],
+                oc.clabels[ "start_teaching.register.registering_message"]);
+            
     $("#start_teaching_topics_card input[type='checkbox']").each(
             function (index, elem) {
                 if (elem.checked) {
