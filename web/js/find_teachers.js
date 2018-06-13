@@ -15,6 +15,25 @@ function find_teachers_price_per_hour_changed(event, ui)
     }
 }
 
+function find_teachers_clear_display_name()
+{
+    $("#find_teachers_display_name_input").val("");
+    find_teachers_refresh_results();
+}
+
+function find_teachers_clear_prices()
+{
+    find_teachers.price_min = find_teachers.default_min_value;
+    find_teachers.price_max = find_teachers.default_max_value;
+    find_teachers_refresh_results();
+}
+
+function find_teachers_clear_topic_name()
+{
+    $("#find_teachers_topic_name_input").val("");
+    find_teachers_refresh_results();
+}
+
 function find_teachers_refresh_results()
 {
     find_teachers.available_day = parseInt10($("#find_teachers_available_in_days").val());

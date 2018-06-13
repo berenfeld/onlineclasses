@@ -10,18 +10,18 @@
 <%@page import="java.util.ResourceBundle"%>
 
 <%
-    User nav_user = BaseServlet.getUser(request);
-    List<OClass> studentUpcomingClasses = new ArrayList<>();
-    String nav_userName = Labels.get("navbar.guest.name");
-    String homepagePage = "teacher_homepage";
-    String updateDetailsPage = "teacher_update";
-    if (nav_user != null) {
-        nav_userName = nav_user.display_name;
+    User com_user = BaseServlet.getUser(request);
+    List<OClass> com_studentUpcomingClasses = new ArrayList<>();
+    String com_userName = Labels.get("navbar.guest.name");
+    String com_homepagePage = "teacher_homepage";
+    String com_updateDetailsPage = "teacher_update";
+    if (com_user != null) {
+        com_userName = com_user.display_name;
 
-        if (nav_user instanceof Student) {
-            studentUpcomingClasses = DB.getStudentUpcomingClasses((Student) nav_user);
-            homepagePage = "student_homepage";
-            updateDetailsPage = "student_update";
+        if (com_user instanceof Student) {
+            com_studentUpcomingClasses = DB.getStudentUpcomingClasses((Student) com_user);
+            com_homepagePage = "student_homepage";
+            com_updateDetailsPage = "student_update";
         }
     }
 %>
@@ -61,7 +61,7 @@
                 </li>
 
                 <%
-                    if (nav_user == null) {
+                    if (com_user == null) {
                 %>
                 <li class="nav-item">
                     <a class="nav-link" href="start_learning">
@@ -83,7 +83,7 @@
                 </li>
 
                 <%
-                    if (nav_user == null) {
+                    if (com_user == null) {
                 %>
                 <li class="nav-item">
                     <a class="nav-link" href="start_teaching">
@@ -96,7 +96,7 @@
                 <li class="nav-item"><a class="nav-link d-none" href="javascript:start_teaching()"><%= Labels.get("navbar.start.teaching")%></a></li>
             </ul>
             <ul class="navbar-nav mr-auto">  
-                <% if (nav_user == null) {%>                 
+                <% if (com_user == null) {%>                 
                 <li class="nav-item">                
                     <a class="nav-link text-info" href="javascript:login_showLoginModal()">
                         <%= Labels.get("navbar.login")%>
@@ -106,25 +106,25 @@
                 <% } else {%>
                 <li class="nav-item dropdown">
                     <a class="text-success nav-link dropdown-toggle" data-toggle="dropdown" href="#">
-                        <%= nav_userName%>
+                        <%= com_userName%>
                         <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="<%= homepagePage%>">
+                        <a class="dropdown-item" href="<%= com_homepagePage%>">
                             <%= Labels.get("navbar.user.homepage")%>
                         </a>
-                        <a class="dropdown-item" href="<%= updateDetailsPage %>">
+                        <a class="dropdown-item" href="<%= com_updateDetailsPage %>">
                             <%= Labels.get("navbar.user.update_details")%>
                         </a>
                         <%
-                            if (!studentUpcomingClasses.isEmpty()) {
+                            if (!com_studentUpcomingClasses.isEmpty()) {
                         %>
                         <a class="dropdown-item" href="#">
                             <%= Labels.get("navbar.user.upcoming_classes")%>
                         </a>
                         <div class="dropdown-divider"></div>
                         <%
-                            for (OClass studentUpcomingClass : studentUpcomingClasses) {
+                            for (OClass studentUpcomingClass : com_studentUpcomingClasses) {
                         %>
                         <a class="dropdown-item" href="scheduled_class?id=<%= studentUpcomingClass.id%>">
                             <%= studentUpcomingClass.subject%>
@@ -144,8 +144,8 @@
                     </div>
                 </li>
                 <li> 
-                    <a class="nav-link" href="<%= homepagePage%>">     
-                        <img src="<%= nav_user.image_url%>" class="img-responsive d-inline-block" height="30"/>
+                    <a class="nav-link" href="<%= com_homepagePage%>">     
+                        <img src="<%= com_user.image_url%>" class="img-responsive d-inline-block" height="30"/>
                     </a>                    
                 </li>
 

@@ -488,10 +488,31 @@
                                     <%= Labels.get("find_teachers.list.title")%>
                                 </u>
                             </h5>
+                                
+                                <%
+                                if ( Utils.isNotEmpty(topicName)) {
+                            %>
+                            <h6>
+                                <a href="javascript:find_teachers_clear_topic_name()" class="text-warning">
+                                    <span class="oi" data-glyph="x"></span>
+                                </a>
+                                <%= Labels.get("find_teachers.list.with_topic_name")%>
+                                &nbsp;:
+                                <%= topicName %>
+                                &nbsp;
+                                
+                            </h6>
+                            <%
+                                }
+                            %>
+                            
                             <%
                                 if ((minPrice != defaultMinPrice) || (maxPrice != defaultMaxPrice)) {
                             %>
-                            <h5>
+                            <h6>
+                                <a href="javascript:find_teachers_clear_prices()" class="text-warning">
+                                    <span class="oi" data-glyph="x"></span>
+                                </a>
                                 <%= Labels.get("find_teachers.list.with_price_range")%>
                                 <span class="left_to_right">                                        
                                     <%= minPrice%>
@@ -502,10 +523,28 @@
                                     <%= maxPrice%>
                                     <%= CLabels.get("website.currency")%>
                                 </span>
-                            </h5>
+                            </h6>
                             <%
                                 }
                             %>
+                            
+                            <%
+                                if ( Utils.isNotEmpty(displayName)) {
+                            %>
+                            <h6>
+                                <a href="javascript:find_teachers_clear_display_name()" class="text-warning">
+                                    <span class="oi" data-glyph="x"></span>
+                                </a>
+                                <%= Labels.get("find_teachers.list.with_display_name")%>
+                                &nbsp;:
+                                <%= displayName %>
+                                &nbsp;
+                                
+                            </h6>
+                            <%
+                                }
+                            %>
+                            
                         </div>
 
                         <%
