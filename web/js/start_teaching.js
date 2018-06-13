@@ -154,6 +154,8 @@ function start_teaching_form_submit()
     request.teaching_topics = [];
     request.available_times = start_teaching.calendar.available_times;
     request.city_id = start_teaching.city_id;
+    request.feedback = $("#start_teaching_feedback_input").val();
+    
     if (!start_teaching_form_validation(request)) {
         return;
     }

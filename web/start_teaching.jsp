@@ -723,7 +723,7 @@
                                 <%= Labels.get("start_teaching.form.submit.title")%>   
                             </h6>                            
                         </div>
-                        <div class="card-body">
+                        <div class="card-body">                            
                             <h6>
                                 <%= Labels.get("start_teaching.form.submit.accept_terms_of_usage")%>  
                             </h6>
@@ -735,9 +735,25 @@
 
                                 out.write(htmlContent);
                             %>
+
+                            
                         </div>
                         <div class="card-footer">
 
+                            <div class="row no-gutters">
+                                <div class="col-12 col-sm-6 col-lg-3 my-1" id="start_teaching_feedback">
+                                    <label class="col-form-label" for="start_teaching_feedback_input">
+                                        <%= Labels.get("start_teaching.form.publish.feedback_text")%>
+                                    </label>  
+                                </div>
+
+                                <div class="col-12 col-sm-6 col-lg-9 my-1">
+                                    <textarea rows="4" class="form-control" id="start_teaching_feedback_input" 
+                                              name="start_teaching_feedback_input"
+                                              placeholder="<%= Labels.get("start_teaching.form.publish.feedback_placeholder")%>"></textarea>
+                                </div>
+                            </div>
+                                
                             <div class="checkbox my-2 h6" id="start_teaching_accept_terms_checkbox_div">
                                 <input class="form-check-input my-1 mx-0" id="start_teaching_accept_terms_checkbox" name="start_teaching_accept_terms_checkbox" 
                                        type="checkbox" value="">

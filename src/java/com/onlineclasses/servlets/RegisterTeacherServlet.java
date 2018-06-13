@@ -37,7 +37,7 @@ public class RegisterTeacherServlet extends BaseServlet {
             Utils.warning("no google id in login request");
             return new BasicResponse(-1, Labels.get("start_teaching.response.not_logged_in"));
         }
-        
+
         GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(registerTeacherRequest.google_id_token);
         if (googleUser == null) {
             Utils.warning("failed to get user from google id token");
@@ -49,11 +49,22 @@ public class RegisterTeacherServlet extends BaseServlet {
             Utils.warning("teacher " + user.display_name + " email " + user.email + " already registered");
             return new BasicResponse(-1, Labels.get("start_teaching.response.email_exist"));
         }
-        
-        if (registerTeacherRequest.day_of_birth.after(Utils.xYearsFromNow(- CConfig.getInt("start_teaching.min_teacher_age")))) {
-            Utils.warning("teacher " + registerTeacherRequest.display_name + " can't register with day of birth " + 
-                registerTeacherRequest.day_of_birth);
+
+        if (!Utils.validEmail(registerTeacherRequest.paypal_email)) {
+            Utils.warning("teacher " + registerTeacherRequest.display_name + " invalid paypal email " + registerTeacherRequest.paypal_email);
+            return new BasicResponse(-1, Labels.get("start_teaching.response.invalid_paypal_email"));
+        }
+
+        if ((registerTeacherRequest.day_of_birth == null)
+                || (registerTeacherRequest.day_of_birth.after(Utils.xYearsFromNow(-CConfig.getInt("start_teaching.min_teacher_age"))))) {
+            Utils.warning("teacher " + registerTeacherRequest.display_name + " can't register with day of birth "
+                    + registerTeacherRequest.day_of_birth);
             return new BasicResponse(-1, Labels.get("start_teaching.response.teacher_under_age"));
+        }
+
+        if (!Utils.isEmpty(registerTeacherRequest.feedback)) {
+            Utils.info("feedback from " + registerTeacherRequest.display_name + " email " + registerTeacherRequest.email + ":"
+                    + registerTeacherRequest.feedback);
         }
 
         Teacher registeringTeacher = new Teacher();
@@ -92,7 +103,7 @@ public class RegisterTeacherServlet extends BaseServlet {
         if (registerTeacherRequest.city_id != 0) {
             registeringTeacher.city = DB.get(registerTeacherRequest.city_id, City.class);
         }
-        
+
         if (DB.add(registeringTeacher) != 1) {
             Utils.warning("Could not add user " + registeringTeacher.display_name);
             return new BasicResponse(-1, Labels.get("start_teaching.response.system_error"));
@@ -103,7 +114,7 @@ public class RegisterTeacherServlet extends BaseServlet {
             teachingTopic.teacher = registeringTeacher;
             teachingTopic.topic = DB.get(topicId, Topic.class);
             if (DB.add(teachingTopic) != 1) {
-                Utils.warning("Could not add teaching topic " + teachingTopic + " to teacher " + registeringTeacher );
+                Utils.warning("Could not add teaching topic " + teachingTopic + " to teacher " + registeringTeacher);
                 return new BasicResponse(-1, Labels.get("start_teaching.response.system_error"));
             }
         }
@@ -111,11 +122,11 @@ public class RegisterTeacherServlet extends BaseServlet {
         for (AvailableTime avilableTime : registerTeacherRequest.available_times) {
             avilableTime.teacher = registeringTeacher;
             if (DB.add(avilableTime) != 1) {
-                Utils.warning("Could not add available time " + avilableTime + " to teacher " + registeringTeacher );
+                Utils.warning("Could not add available time " + avilableTime + " to teacher " + registeringTeacher);
                 return new BasicResponse(-1, Labels.get("start_teaching.response.system_error"));
             }
         }
-                
+
         BaseServlet.loginUser(request, registeringTeacher);
         Utils.info("teacher " + registeringTeacher.display_name + " email " + registeringTeacher.email + " registered");
 

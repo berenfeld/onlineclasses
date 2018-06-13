@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.xml.bind.DatatypeConverter;
 
@@ -107,6 +109,13 @@ public class Utils {
         return str;
     }
 
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static boolean validEmail(String str) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(str);
+        return matcher.find();
+    }
+
     public static int parseInt(String str, int defaultValue) {
         if (Utils.isEmpty(str)) {
             return defaultValue;
@@ -126,21 +135,21 @@ public class Utils {
         return Arrays.asList(str.split(","));
     }
 
-    public static<T> T getRandomElement(List<T> list) {
+    public static <T> T getRandomElement(List<T> list) {
         if ((list == null) || (list.isEmpty())) {
             return null;
         }
         Random random = new Random();
         return list.get(random.nextInt(list.size()));
     }
-    
-    public static<T> T getFirstElement(List<T> list) {
+
+    public static <T> T getFirstElement(List<T> list) {
         if ((list == null) || (list.isEmpty())) {
             return null;
         }
         return list.get(0);
     }
-    
+
     public static String formatTime(int hour, int minute) {
         return String.format("%02d:%02d", hour, minute);
     }
@@ -149,19 +158,19 @@ public class Utils {
         Calendar dateCal = Calendar.getInstance();
         dateCal.setTime(date);
         Calendar now = Calendar.getInstance();
-        return now.get(Calendar.YEAR) - dateCal.get(Calendar.YEAR);                
+        return now.get(Calendar.YEAR) - dateCal.get(Calendar.YEAR);
     }
-    
+
     public static String formatDateWithFullYear(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(date);
     }
-    
+
     public static Date parseDateWithFullYear(String date) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.parse(date);
     }
-    
+
     public static String formatDate(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM");
         return format.format(date);
@@ -255,7 +264,7 @@ public class Utils {
         calendar.add(Calendar.YEAR, years);
         return calendar.getTime();
     }
-    
+
     public static String getStringFromInputStream(ServletContext context, String fileName) {
         InputStream is = context.getResourceAsStream(fileName);
         BufferedReader br;
@@ -281,10 +290,10 @@ public class Utils {
         return String.format("%.2f", price);
     }
 
-     public static String formatFloat2Digits(float number) {
+    public static String formatFloat2Digits(float number) {
         return String.format("%.2f", number);
     }
-     
+
     public static String getRealPath(ServletContext context, String fileName, String... dirs) {
         String realPath = context.getRealPath("");
         for (String dir : dirs) {
@@ -312,15 +321,14 @@ public class Utils {
         }
         return url;
     }
-    
-    public static String formatFileSize(int size)
-    {
+
+    public static String formatFileSize(int size) {
         float mb = size / (1024.0f * 1024.0f);
-        if (mb>1) {
+        if (mb > 1) {
             return formatFloat2Digits(mb) + "M";
         }
         float kb = size / (1024.0f);
-        if (kb>1) {
+        if (kb > 1) {
             return formatFloat2Digits(kb) + "K";
         }
         return size + " bytes";
