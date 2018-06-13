@@ -133,54 +133,55 @@ function isNumberKey(event)
     return true;
 }
 
-function invite_other_student()
+function invite_student()
 {
-    $("#invite_other_student_warning").addClass("d-none");
-    $("#invite_other_student_modal").modal("show");
+    $("#invite_student_warning").addClass("d-none");
+    $("#invite_student_modal").modal("show");
 }
 
-function invite_other_student_response(response)
+
+function invite_student_response(response)
 {
     if (response.rc === 0) {
-        alert_show(oc.clabels["invite_friend.sent.modal.title"],
-                oc.clabels["invite_friend.sent.modal.text1"] +
+        alert_show(oc.clabels["invite_student.sent.modal.title"],
+                oc.clabels["invite_student.sent.modal.text1"] +
                 " " +
                 common.invite_student.name +
                 " " +
-                oc.clabels["invite_friend.sent.modal.text2"] +
+                oc.clabels["invite_student.sent.modal.text2"] +
                 " " +
                 common.invite_student.email
                 );
     }
-    $("#invite_other_student_modal").modal("hide");
+    $("#invite_student_modal").modal("hide");
 }
 
-function invite_other_student_modal_hide()
+function invite_student_modal_hide()
 {
-    $("#invite_other_student_warning").addClass("d-none");
+    $("#invite_student_warning").addClass("d-none");
 }
 
-function invite_other_student_send()
+function invite_student_send()
 {
     common.invite_student = {};
-    common.invite_student.name = $("#invite_other_student_name").val();
-    common.invite_student.email = $("#invite_other_student_email").val();
+    common.invite_student.name = $("#invite_student_name").val();
+    common.invite_student.email = $("#invite_student_email").val();
 
     var request = {};
     request.student_name = common.invite_student.name;
     request.student_email = common.invite_student.email;
 
-    invite_other_student_modal_hide();
+    invite_student_modal_hide();
 
     if (!emailIsValid(request.student_email)) {
-        $("#invite_other_student_warning_text").html(oc.clabels[ "invite_friend.sent.modal.invalid_email" ]);
-        $("#invite_other_student_warning").removeClass("d-none");
+        $("#invite_student_warning_text").html(oc.clabels[ "invite_student.sent.modal.invalid_email" ]);
+        $("#invite_student_warning").removeClass("d-none");
         return;
     }
     if (!stringNotEmpty(request.student_name))
     {
-        $("#invite_other_student_warning_text").html(oc.clabels[ "invite_friend.sent.modal.invalid_name" ]);
-        $("#invite_other_student_warning").removeClass("d-none");
+        $("#invite_student_warning_text").html(oc.clabels[ "invite_student.sent.modal.invalid_name" ]);
+        $("#invite_student_warning").removeClass("d-none");
         return;
     }
     $.ajax("servlets/invite_student",
@@ -188,7 +189,66 @@ function invite_other_student_send()
                 type: "POST",
                 data: JSON.stringify(request),
                 dataType: "JSON",
-                success: invite_other_student_response
+                success: invite_student_response
+            });
+}
+
+function invite_teacher()
+{
+    $("#invite_teacher_warning").addClass("d-none");
+    $("#invite_teacher_modal").modal("show");
+}
+
+function invite_teacher_response(response)
+{
+    if (response.rc === 0) {
+        alert_show(oc.clabels["invite_teacher.sent.modal.title"],
+                oc.clabels["invite_teacher.sent.modal.text1"] +
+                " " +
+                common.invite_teacher.name +
+                " " +
+                oc.clabels["invite_teacher.sent.modal.text2"] +
+                " " +
+                common.invite_teacher.email
+                );
+    }
+    $("#invite_teacher_modal").modal("hide");
+}
+
+function invite_teacher_modal_hide()
+{
+    $("#invite_teacher_warning").addClass("d-none");
+}
+
+function invite_teacher_send()
+{
+    common.invite_teacher = {};
+    common.invite_teacher.name = $("#invite_teacher_name").val();
+    common.invite_teacher.email = $("#invite_teacher_email").val();
+
+    var request = {};
+    request.teacher_name = common.invite_teacher.name;
+    request.teacher_email = common.invite_teacher.email;
+
+    invite_teacher_modal_hide();
+
+    if (!emailIsValid(request.teacher_email)) {
+        $("#invite_teacher_warning_text").html(oc.clabels[ "invite_teacher.sent.modal.invalid_email" ]);
+        $("#invite_teacher_warning").removeClass("d-none");
+        return;
+    }
+    if (!stringNotEmpty(request.teacher_name))
+    {
+        $("#invite_teacher_warning_text").html(oc.clabels[ "invite_teacher.sent.modal.invalid_name" ]);
+        $("#invite_teacher_warning").removeClass("d-none");
+        return;
+    }
+    $.ajax("servlets/invite_teacher",
+            {
+                type: "POST",
+                data: JSON.stringify(request),
+                dataType: "JSON",
+                success: invite_teacher_response
             });
 }
 

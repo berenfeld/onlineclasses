@@ -24,6 +24,10 @@
             com_updateDetailsPage = "student_update";
         }
     }
+    String com_visibleToAdminClass = "d-none";
+    if (BaseServlet.isAdmin(request)) {
+        com_visibleToAdminClass = "";
+    }
 %>
 
 <div class="container">
@@ -45,8 +49,11 @@
                         <a class="dropdown-item" href="abous_us">
                             <%= Labels.get("navbar.about.us.who.we.are")%>
                         </a>
-                        <a class="dropdown-item" href="javascript:invite_other_student()">
+                        <a class="dropdown-item <%= com_visibleToAdminClass %>" href="javascript:invite_student()">
                             <%= Labels.get("navbar.about.us.invite_student")%>
+                        </a>
+                        <a class="dropdown-item <%= com_visibleToAdminClass %>" href="javascript:invite_teacher()">
+                            <%= Labels.get("navbar.about.us.invite_teacher")%>
                         </a>
                         <a class="dropdown-item" href="contact">
                             <%= Labels.get("navbar.contacs_us")%>
@@ -113,7 +120,7 @@
                         <a class="dropdown-item" href="<%= com_homepagePage%>">
                             <%= Labels.get("navbar.user.homepage")%>
                         </a>
-                        <a class="dropdown-item" href="<%= com_updateDetailsPage %>">
+                        <a class="dropdown-item" href="<%= com_updateDetailsPage%>">
                             <%= Labels.get("navbar.user.update_details")%>
                         </a>
                         <%
@@ -154,7 +161,7 @@
         </div>
     </nav>
 </div>
-                        
+
 <div id="login_modal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
@@ -175,16 +182,16 @@
                     </div>
                 </div>
                 <h5>
-                <small>
-                    <%= Labels.get("login.modal.text1_small")%>
-                    <span class="oi" data-glyph="info"></span>     
-                    <span class="text-info">
-                        <%= Labels.get("login.modal.text2")%>                    
-                        <a class="alert-link" href="start_learning">
-                            <%= Labels.get("login.modal.register.student")%>
-                        </a> 
-                    </span>
-                </small>
+                    <small>
+                        <%= Labels.get("login.modal.text1_small")%>
+                        <span class="oi" data-glyph="info"></span>     
+                        <span class="text-info">
+                            <%= Labels.get("login.modal.text2")%>                    
+                            <a class="alert-link" href="start_learning">
+                                <%= Labels.get("login.modal.register.student")%>
+                            </a> 
+                        </span>
+                    </small>
                 </h5>
             </div>
             <div id="login_modal_info_div" class="alert alert-info d-none" role="alert">
@@ -254,49 +261,99 @@
     </div>
 </div>
 
-<div id="invite_other_student_modal" class="modal fade" role="dialog">
+<div id="invite_student_modal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md">
 
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
                 <div class="modal-title"> 
                     <span class="oi mx-1" data-glyph="envelope-closed"></span>                
-                    <%= Labels.get("invite_other_student.modal.title")%>                            
+                    <%= Labels.get("invite_student.modal.title")%>                            
                 </div>
                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body  text-secondary">
                 <p>
-                    <%= Labels.get("invite_other_student.modal.text")%>      
+                    <%= Labels.get("invite_student.modal.text")%>      
                 </p>
                 <form>
                     <div class="form-group row">
-                        <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_other_student_name">
-                            <%= Labels.get("invite_other_student.form.name_label")%>
+                        <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_student_name">
+                            <%= Labels.get("invite_student.form.name_label")%>
                         </label>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-12">
-                            <input type="text" class="form-control" id="invite_other_student_name" 
-                                   placeholder="<%= Labels.get("invite_other_student.form.name")%>">
+                            <input type="text" class="form-control" id="invite_student_name" 
+                                   placeholder="<%= Labels.get("invite_student.form.name")%>">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_other_student_email">
-                            <%= Labels.get("invite_other_student.form.email_label")%>
+                        <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_student_email">
+                            <%= Labels.get("invite_student.form.email_label")%>
                         </label>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-12">
-                            <input type="email" class="form-control" id="invite_other_student_email" 
-                                   placeholder="<%= Labels.get("invite_other_student.form.email")%>">
+                            <input type="email" class="form-control" id="invite_student_email" 
+                                   placeholder="<%= Labels.get("invite_student.form.email")%>">
                         </div>
                     </div>
                 </form>                
             </div>
-            <div class="alert alert-warning d-none" role="alert" id="invite_other_student_warning">                    
+            <div class="alert alert-warning d-none" role="alert" id="invite_student_warning">                    
                 <span class="oi" data-glyph="warning"></span>
-                <span id="invite_other_student_warning_text"></span>
+                <span id="invite_student_warning_text"></span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info mx-1" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
-                <button type="button" class="btn btn-success mx-1" onclick="invite_other_student_send()"><%= Labels.get("buttons.ok")%></button>
+                <button type="button" class="btn btn-success mx-1" onclick="invite_student_send()"><%= Labels.get("buttons.ok")%></button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div id="invite_teacher_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+
+        <div class="modal-content">
+            <div class="modal-header bg-secondary text-white">
+                <div class="modal-title"> 
+                    <span class="oi mx-1" data-glyph="envelope-closed"></span>                
+                    <%= Labels.get("invite_teacher.modal.title")%>                            
+                </div>
+                <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
+            </div>
+            <div class="modal-body  text-secondary">
+                <p>
+                    <%= Labels.get("invite_teacher.modal.text")%>      
+                </p>
+                <form>
+                    <div class="form-group row">
+                        <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_teacher_name">
+                            <%= Labels.get("invite_teacher.form.name_label")%>
+                        </label>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <input type="text" class="form-control" id="invite_teacher_name" 
+                                   placeholder="<%= Labels.get("invite_teacher.form.name")%>">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-xl-6 col-lg-6 col-md-6 col-12" for="invite_teacher_email">
+                            <%= Labels.get("invite_teacher.form.email_label")%>
+                        </label>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <input type="email" class="form-control" id="invite_teacher_email" 
+                                   placeholder="<%= Labels.get("invite_teacher.form.email")%>">
+                        </div>
+                    </div>
+                </form>                
+            </div>
+            <div class="alert alert-warning d-none" role="alert" id="invite_teacher_warning">                    
+                <span class="oi" data-glyph="warning"></span>
+                <span id="invite_teacher_warning_text"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info mx-1" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
+                <button type="button" class="btn btn-success mx-1" onclick="invite_teacher_send()"><%= Labels.get("buttons.ok")%></button>
             </div>
 
         </div>

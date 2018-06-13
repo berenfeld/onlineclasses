@@ -93,6 +93,11 @@ public abstract class BaseServlet extends HttpServlet {
         User user = getUser(request);
         return (user != null) && (user instanceof Teacher);
     }
+    
+     public static boolean isAdmin(HttpServletRequest request) {
+        User user = getUser(request);
+        return (user != null) && (user.admin);
+    }
 
     public static User handleLoginInRequest(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();

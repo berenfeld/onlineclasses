@@ -60,6 +60,9 @@ public class User extends BasicEntity implements Serializable {
     @DatabaseField(foreign = true)
     public City city;
         
+    @DatabaseField
+    public boolean admin;
+    
     @Override
     public String toString() {
         String result;
@@ -77,8 +80,8 @@ public class User extends BasicEntity implements Serializable {
     public boolean isMale() {
         return gender == GENDER_MALE;
     }
+    
     public boolean isFemale() {
         return gender == GENDER_FEMALE;
-    }
-    
+    }        
 }

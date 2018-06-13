@@ -51,7 +51,7 @@ public class TestDB {
             return;
         }
         Student student = new Student();
-        student.display_name = "רן ברנפלד תלמיד";
+        student.display_name = "רן ברנפלד";
         student.first_name = "רן";
         student.last_name = "ברנפלד";
         student.email = "ichess@ichess.co.il";
@@ -59,6 +59,7 @@ public class TestDB {
         student.registered = new Date();
         student.gender = User.GENDER_MALE;
         student.emails_enabled = true;
+        student.admin = true;
 
         DB.add(student);
     }
@@ -98,7 +99,8 @@ public class TestDB {
         teacher.degree_type = allDegreeTypes.get(0);
         teacher.rating = 5;
         teacher.city = DB.getCityByName("נס ציונה");
-
+        teacher.admin = true;
+        
         DB.add(teacher);
 
         List<Topic> allTopics = DB.getAll(Topic.class);
