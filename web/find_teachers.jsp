@@ -485,22 +485,23 @@
                         <div class="card-header">
                             <h5>
                                 <u>
-                                    <%= Labels.get("find_teachers.list.title")%>
+                                    <%= Labels.get("find_teachers.list.displaying")%>
+                                    <%= teachers.size() %>
+                                    <%= Labels.get("find_teachers.list.private_teachers")%>
                                 </u>
                             </h5>
                                 
                                 <%
                                 if ( Utils.isNotEmpty(topicName)) {
                             %>
-                            <h6>
-                                <a href="javascript:find_teachers_clear_topic_name()" class="text-warning">
-                                    <span class="oi" data-glyph="x"></span>
-                                </a>
+                            <h6>                                
                                 <%= Labels.get("find_teachers.list.with_topic_name")%>
                                 &nbsp;:
                                 <%= topicName %>
                                 &nbsp;
-                                
+                                <a href="javascript:find_teachers_clear_topic_name()" class="text-warning">
+                                    <small>(&nbsp;<%= Labels.get("find_teachers.list.remove")%>&nbsp;<span class="oi" data-glyph="x"></span>)</small>
+                                </a>
                             </h6>
                             <%
                                 }
@@ -509,10 +510,7 @@
                             <%
                                 if ((minPrice != defaultMinPrice) || (maxPrice != defaultMaxPrice)) {
                             %>
-                            <h6>
-                                <a href="javascript:find_teachers_clear_prices()" class="text-warning">
-                                    <span class="oi" data-glyph="x"></span>
-                                </a>
+                            <h6>                                
                                 <%= Labels.get("find_teachers.list.with_price_range")%>
                                 <span class="left_to_right">                                        
                                     <%= minPrice%>
@@ -523,6 +521,10 @@
                                     <%= maxPrice%>
                                     <%= CLabels.get("website.currency")%>
                                 </span>
+                                &nbsp;
+                                <a href="javascript:find_teachers_clear_price()" class="text-warning">
+                                    <small>(&nbsp;<%= Labels.get("find_teachers.list.remove")%>&nbsp;<span class="oi" data-glyph="x"></span>)</small>
+                                </a>
                             </h6>
                             <%
                                 }
@@ -531,15 +533,14 @@
                             <%
                                 if ( Utils.isNotEmpty(displayName)) {
                             %>
-                            <h6>
-                                <a href="javascript:find_teachers_clear_display_name()" class="text-warning">
-                                    <span class="oi" data-glyph="x"></span>
-                                </a>
+                            <h6>                                
                                 <%= Labels.get("find_teachers.list.with_display_name")%>
                                 &nbsp;:
                                 <%= displayName %>
                                 &nbsp;
-                                
+                                <a href="javascript:find_teachers_clear_display_name()" class="text-warning">
+                                    <small>(&nbsp;<%= Labels.get("find_teachers.list.remove")%>&nbsp;<span class="oi" data-glyph="x"></span>)</small>
+                                </a>
                             </h6>
                             <%
                                 }

@@ -21,7 +21,7 @@ function find_teachers_clear_display_name()
     find_teachers_refresh_results();
 }
 
-function find_teachers_clear_prices()
+function find_teachers_clear_price()
 {
     find_teachers.price_min = find_teachers.default_min_value;
     find_teachers.price_max = find_teachers.default_max_value;
