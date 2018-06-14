@@ -150,4 +150,4 @@ function scheduled_class_init()
     $("#scheduled_class_main_board_starting_in_value").text(parseRemainingMs(remainingMs));
 }
 
-
+$(document).ready( scheduled_class_init );

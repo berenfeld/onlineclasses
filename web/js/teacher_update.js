@@ -390,3 +390,5 @@ function teacher_update_init()
         teacher_update_select_institute_type(teacher_update.teacher.institute.institute_type.id);
     }
 }
+
+$(document).ready( teacher_update_init );

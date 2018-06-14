@@ -96,4 +96,4 @@ function login_init()
     login.user = oc.user;
 }
 
-login_init();
+$(document).ready( login_init );

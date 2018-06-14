@@ -864,7 +864,6 @@
             oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
             oc.institutes = <%= Utils.gson().toJson(institutes)%>;
             oc.subjects = <%= Utils.gson().toJson(subjects)%>;
-            teacher_update_init();
         </script>
 
     </body>

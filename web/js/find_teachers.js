@@ -480,3 +480,5 @@ function find_teachers_init()
                 }
             });
 }
+
+$(document).ready( find_teachers_init );

@@ -146,6 +146,9 @@ public class RegisterTeacherServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% teacherDisplayName %>", registeringTeacher.display_name);
         emailContent = emailContent.replaceAll("<% teacherEmail %>", registeringTeacher.email);
         emailContent = emailContent.replaceAll("<% teacherFullName %>", registeringTeacher.first_name + " " + registeringTeacher.last_name);
+        emailContent = emailContent.replaceAll("<% teacherPhone %>", registeringTeacher.phone_area + "-" + registeringTeacher.phone_number);
+        emailContent = emailContent.replaceAll("<% teacherCity %>", registeringTeacher.city.name);
+        emailContent = emailContent.replaceAll("<% teacherDayOfBirth %>", Utils.formatDateWithFullYear(registeringTeacher.day_of_birth));        
         
         EmailSender.addEmail(registeringTeacher.email, Labels.get("emails.register_teacher.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);

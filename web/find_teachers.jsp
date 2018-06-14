@@ -757,7 +757,6 @@
         <script>
             find_teachers.all_subjects = <%= Utils.gson().toJson(allSubjects)%>;
             find_teachers.all_topics = <%= Utils.gson().toJson(allTopics)%>;
-            find_teachers_init();
         </script>
     </body>
 

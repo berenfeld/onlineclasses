@@ -208,7 +208,6 @@
         <script>
             index.all_subjects = <%= Utils.gson().toJson(allSubjects)%>;
             index.all_topics = <%= Utils.gson().toJson(allTopics)%>;
-            index_init();
         </script>
     </body>
 

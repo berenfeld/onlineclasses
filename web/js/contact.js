@@ -56,4 +56,4 @@ function contact_init()
             });
 }
 
-contact_init();
+$(document).ready( contact_init );

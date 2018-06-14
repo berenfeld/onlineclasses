@@ -313,4 +313,4 @@ function common_init()
     window.onerror = common_js_error;        
 }
 
-common_init();
+$(document).ready( common_init );

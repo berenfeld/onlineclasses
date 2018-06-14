@@ -6,3 +6,5 @@ function student_homepage_init()
 {
     
 }
+
+$(document).ready( student_homepage_init );

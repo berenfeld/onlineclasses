@@ -395,7 +395,6 @@
     scheduled_class.scheduled_class = <%= Utils.gson().toJson(oClass)%>;
     scheduled_class.teacher = <%= Utils.gson().toJson(teacher)%>;
     scheduled_class.student = <%= Utils.gson().toJson(student)%>;
-    scheduled_class_init();
     </script>
 </body>
 

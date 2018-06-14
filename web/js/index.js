@@ -27,3 +27,5 @@ function index_init()
                 }                
             });
 }
+
+$(document).ready( index_init );

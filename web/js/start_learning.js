@@ -169,4 +169,4 @@ function start_learning_init()
     }
 }
 
-start_learning_init();
+$(document).ready( start_learning_init );

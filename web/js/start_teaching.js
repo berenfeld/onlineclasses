@@ -117,6 +117,13 @@ function start_teaching_form_validation(request)
         return false;
     }
 
+    if (! emailIsValid(request.paypal_email)) {
+        alert_show(oc.clabels[ "start_teaching.form.submit.illegal_paypal_email"]);
+        $("#start_teaching_paypal_email").addClass("border border-warning");
+        start_teaching_scroll_to("start_teaching_paypal_email");
+        return false;
+    }
+    
     if (request.price_per_hour === 0) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_price_per_hour"]);
         $("#start_teaching_price_per_hour").addClass("border border-warning");
@@ -432,4 +439,4 @@ function start_teaching_init()
     $("#start_teaching_calendar_table td").disableSelection();
 }
 
-start_teaching_init();
+$(document).ready( start_teaching_init );
