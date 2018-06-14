@@ -44,7 +44,7 @@ function padZeroes(number, toLength)
 
 function formatTime(hours, minutes)
 {
-    return padZeroes(hours,2) + ":" + padZeroes(minutes,2);
+    return padZeroes(hours, 2) + ":" + padZeroes(minutes, 2);
 }
 
 
@@ -283,11 +283,34 @@ function remove_search_from_location()
     return uri;
 }
 
+function common_js_error_response(response)
+{
+}
+
+function common_js_error(message, url, line_number, column_number, error_object)
+{
+    var request = {};
+    request.location_href = document.location.href;
+    request.message = message;
+    request.url = url;
+    request.line_number = line_number;
+    request.error_object = JSON.stringify(error_object)
+
+    $.ajax("servlets/js_error",
+            {
+                type: "POST",
+                data: JSON.stringify(request),
+                dataType: "JSON",
+                success: common_js_error_response
+            });
+}
+
 function common_init()
 {
     $(".modal").draggable({
         handle: "div.modal-header"
     });
+    window.onerror = common_js_error;        
 }
 
 common_init();

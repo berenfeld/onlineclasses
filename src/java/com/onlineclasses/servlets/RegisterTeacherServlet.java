@@ -18,8 +18,12 @@ import com.onlineclasses.entities.Topic;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.servlets.entities.RegisterTeacherRequest;
 import com.onlineclasses.utils.CConfig;
+import com.onlineclasses.utils.Config;
+import com.onlineclasses.utils.EmailSender;
 import com.onlineclasses.utils.Labels;
+import com.onlineclasses.utils.TasksManager;
 import com.onlineclasses.utils.Utils;
+import java.io.File;
 import java.util.Date;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -130,7 +134,21 @@ public class RegisterTeacherServlet extends BaseServlet {
         BaseServlet.loginUser(request, registeringTeacher);
         Utils.info("teacher " + registeringTeacher.display_name + " email " + registeringTeacher.email + " registered");
 
-        // TODO send email
+        String email_name = Config.get("mail.emails.path") + File.separator
+                + Config.get("website.language") + File.separator + "register_teacher.html";
+        
+        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
+           
+        emailContent = emailContent.replaceAll("<% registeredTeacher %>", registeringTeacher.display_name);
+        emailContent = emailContent.replaceAll("<% websiteUrl %>", Config.get("website.url"));
+        emailContent = emailContent.replaceAll("<% websiteShortName %>", Labels.get("website.name"));
+        emailContent = emailContent.replaceAll("<% findTeachersUrl %>", Config.get("website.url") +"/find_teachers");
+        emailContent = emailContent.replaceAll("<% teacherDisplayName %>", registeringTeacher.display_name);
+        emailContent = emailContent.replaceAll("<% teacherEmail %>", registeringTeacher.email);
+        emailContent = emailContent.replaceAll("<% teacherFullName %>", registeringTeacher.first_name + " " + registeringTeacher.last_name);
+        
+        EmailSender.addEmail(registeringTeacher.email, Labels.get("emails.register_teacher.title"), emailContent);
+        TasksManager.runNow(TasksManager.TASK_EMAIL);
         return new BasicResponse(0, "");
     }
 
