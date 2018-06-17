@@ -72,6 +72,7 @@ function start_teaching_form_validation(request)
         alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_login"]);
         $("#start_teaching_google_login").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_google_login");
+        start_teaching_goto_tab("personal_information");
         return false;
     }
 
@@ -79,6 +80,7 @@ function start_teaching_form_validation(request)
         alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_accept"]);
         $("#start_teaching_accept_terms_checkbox_div").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_accept_terms_checkbox_div");
+         start_teaching_goto_tab("accept_and_finish");
         return false;
     }
 
@@ -86,13 +88,14 @@ function start_teaching_form_validation(request)
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_in_phone"]);
         $("#start_teaching_phone_number").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_phone_number");
+        start_teaching_goto_tab("personal_information");
         return false;
     }
 
     if (request.city_id === 0 ) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_city"]);
         $("#start_teaching_city").addClass("border border-warning");
-        start_teaching_scroll_to("start_teaching_city");
+        start_teaching_scroll_to("personal_information");
         return false;
     }
     
@@ -100,6 +103,7 @@ function start_teaching_form_validation(request)
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_day_of_birth"]);
         $("#start_teaching_day_of_birth").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_day_of_birth");
+        start_teaching_goto_tab("personal_information");
         return false;
     }
 
@@ -107,6 +111,7 @@ function start_teaching_form_validation(request)
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_moto"]);
         $("#start_teaching_moto").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_moto");
+        start_teaching_goto_tab("profile");
         return false;
     }
 
@@ -114,6 +119,7 @@ function start_teaching_form_validation(request)
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_paypal_email"]);
         $("#start_teaching_paypal_email").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_paypal_email");
+        start_teaching_goto_tab("prices");
         return false;
     }
 
@@ -121,6 +127,7 @@ function start_teaching_form_validation(request)
         alert_show(oc.clabels[ "start_teaching.form.submit.illegal_paypal_email"]);
         $("#start_teaching_paypal_email").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_paypal_email");
+        start_teaching_goto_tab("prices");
         return false;
     }
     
@@ -128,6 +135,7 @@ function start_teaching_form_validation(request)
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_price_per_hour"]);
         $("#start_teaching_price_per_hour").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_price_per_hour");
+        start_teaching_goto_tab("prices");
         return false;
     }
 
