@@ -70,7 +70,7 @@ public class UpdateTeacherServlet extends BaseServlet {
         }
         
         if ( 0 == DB.deleteTeacherTeachingTopics(teacher) ) {
-            Utils.warning("could not delete teaching topics of teacher " + teacher);
+            Utils.warning("no previous teaching topics, or could not delete teaching topics of teacher " + teacher);
         }
 
         for (int topicId : updateTeacherRequest.teaching_topics) {

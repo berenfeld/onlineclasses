@@ -134,6 +134,10 @@ public class Utils {
     public static List<String> toList(String str) {
         return Arrays.asList(str.split(","));
     }
+    
+    public static String mergeList(List<String> list, String token) {
+        return String.join(token, list);
+    }
 
     public static <T> T getRandomElement(List<T> list) {
         if ((list == null) || (list.isEmpty())) {

@@ -634,7 +634,7 @@
 
                                                         <a class="list-group-item list-group-item-action"
                                                            href="javascript:start_teaching_select_topic(<%= topic.id%>)">
-                                                            <input class="form-check-input my-1 mx-0"  
+                                                            <input class="start_teaching_teaching_topics_input form-check-input my-1 mx-0"  
                                                                    id="start_teaching_topic_<%= topic.id%>_checkbox" 
                                                                    name="start_teaching_topic_<%= topic.id%>_checkbox" 
                                                                    type="checkbox" data-topic-id="<%=topic.id%>" value="">

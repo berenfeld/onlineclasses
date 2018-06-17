@@ -178,7 +178,7 @@ function start_teaching_form_submit()
     alert_show( oc.clabels[ "start_teaching.register.registering"],
                 oc.clabels[ "start_teaching.register.registering_message"]);
             
-    $("#start_teaching_topics_card input[type='checkbox']").each(
+    $("input.start_teaching_teaching_topics_input']").each(
             function (index, elem) {
                 if (elem.checked) {
                     request.teaching_topics.push(parseInt10($("#" + elem.id).attr("data-topic-id")));
@@ -428,6 +428,7 @@ function start_teaching_init()
         isRTL: true,
         changeYear: true,
         defaultDate: default_year,
+        dateFormat: "dd/mm/yy",
         yearRange: (current_year - start_teaching.max_teacher_age) + ":" + (current_year - start_teaching.min_teacher_age),
         onSelect: start_teaching_select_day_of_birth
     });
