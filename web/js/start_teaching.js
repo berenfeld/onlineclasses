@@ -390,6 +390,11 @@ function start_teaching_clear_calendar()
     start_teaching_update_calendar();
 }
 
+function start_teaching_goto_tab(tab_name)
+{
+    $("#start_teaching_" + tab_name + "_link").tab('show');    
+}
+
 function start_teaching_init()
 {
     start_teaching.google_id_token = null;
