@@ -88,8 +88,9 @@ function start_teaching_form_validation(request)
 
     if (request.city_id === 0 ) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_city"]);
-        $("#start_teaching_city").addClass("border border-warning");
-        start_teaching_scroll_to("personal_information");
+        $("#start_teaching_city_select").addClass("border border-warning");
+        start_teaching_scroll_to("start_teaching_city");
+        start_teaching_goto_tab("personal_information");
         return false;
     }
     
@@ -145,7 +146,7 @@ function start_teaching_form_submit()
     request.last_name = $("#start_teaching_last_name_input").val();
     request.display_name = $("#start_teaching_display_name_input").val();
     request.phone_number = $("#start_teaching_phone_number_input").val();
-    request.phone_area = start_teaching.phone_area;
+    request.phone_area = $("#start_teaching_phone_area_select").val();
     request.day_of_birth = start_teaching.day_of_birth;
     request.skype_name = $("#start_teaching_skype_name_input").val();
     request.moto = $("#start_teaching_moto_input").val();
@@ -162,7 +163,7 @@ function start_teaching_form_submit()
     request.paypal_email = $("#start_teaching_paypal_email_input").val();
     request.teaching_topics = [];
     request.available_times = start_teaching.calendar.available_times;
-    request.city_id = start_teaching.city_id;
+    request.city_id = parseInt10($("#start_teaching_city_select").val());
     request.feedback = $("#start_teaching_feedback_input").val();
     
     if (!start_teaching_form_validation(request)) {
@@ -199,12 +200,6 @@ function start_teaching_form_submit()
 function start_teaching_select_day_of_birth(dateText)
 {
     start_teaching.day_of_birth = new Date(Date.parse(dateText));
-}
-
-function start_teaching_select_area_code(phone_area)
-{
-    start_teaching.phone_area = phone_area;
-    $("#start_teaching_area_code_value").html(phone_area);
 }
 
 function start_teaching_select_institute_type(institute_type, institute_id)
@@ -246,12 +241,6 @@ function start_teaching_select_subject(subject_id)
         start_teaching.subject_id = subject_id;
     }
 
-}
-
-function start_teaching_select_city(city_id)
-{
-    start_teaching.city_id = city_id;
-    $("#start_teaching_city_input").html(oc.cities[city_id - 1].name);
 }
 
 function start_teaching_googleLogin()

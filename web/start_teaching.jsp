@@ -38,7 +38,6 @@
     int minutesPerRow = CConfig.getInt("website.time.calendar_minutes_per_row");
     int minutesPerUnit = CConfig.getInt("website.time.unit.minutes");
     int rowsPerCell = minutesPerRow / minutesPerUnit;
-
 %>
 <!DOCTYPE html>
 <html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
@@ -230,34 +229,26 @@
                                                 </div>
 
                                                 <div class="input-group form-control border-0 col-12 col-md">
-                                                    <input type="text" class="form-control mr-3" id="start_teaching_phone_number_input"
+                                                    <input type="text" class="form-control mr-md-3" id="start_teaching_phone_number_input"
                                                            onkeypress="return isNumberKey(event)"
                                                            placeholder="<%= Labels.get("start_teaching.form.login.phone_number")%>">
 
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-info dropdown-toggle" type="button" 
-                                                                id="start_teaching_area_code_button" data-toggle="dropdown" 
-                                                                aria-haspopup="true" aria-expanded="false" name="start_teaching_area_code_button">
-                                                            <span id="start_teaching_area_code_value">
-                                                                <%= Labels.get("start_teaching.form.login.phone_area")%>
-                                                            </span>
-                                                            <span class="caret"></span>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="start_teaching_area_code_button">                                            
-                                                            <%
-                                                                for (String phoneArea : phoneAreasList) {
-                                                            %>
+                                                    <select class="custom-select form-control" id="start_teaching_phone_area_select">
+                                                        <option value="" disabled selected>
+                                                            <%= Labels.get("start_teaching.form.login.phone_area")%>
+                                                        </option>
+                                                        <%
+                                                            for (String phoneArea : phoneAreasList) {
+                                                        %>
 
-                                                            <a class="dropdown-item" href="javascript:start_teaching_select_area_code('<%= phoneArea%>')">
-                                                                <%= phoneArea%>
-                                                            </a>
+                                                        <option value="<%= phoneArea%>">
+                                                            <%= phoneArea%>
+                                                        </option>
 
-                                                            <%
-                                                                }
-                                                            %>
-
-                                                        </div>
-                                                    </div>
+                                                        <%
+                                                            }
+                                                        %>
+                                                    </select>                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -299,29 +290,24 @@
                                         </div>
 
                                         <div class="col-6 col-lg-3 my-1">
-                                            <div class="dropdown">
-                                                <button class="btn btn-block btn-info dropdown-toggle" type="button" 
-                                                        id="start_teaching_city_input" data-toggle="dropdown" 
-                                                        aria-haspopup="true" aria-expanded="false" name="start_teaching_city_input">
-                                                    <span id="start_teaching_city_value">
-                                                        <%= Labels.get("start_teaching.form.login.city")%>
-                                                    </span>
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="start_teaching_city_button">                                            
-                                                    <%
-                                                        for (City city : cities) {
-                                                    %>
+                                            <select class="custom-select form-control" id="start_teaching_city_select">
+                                                <option value="0" disabled selected>
+                                                    <%= Labels.get("start_teaching.form.login.city")%>
+                                                </option>
+                                                <%
+                                                    for (City city : cities) {
+                                                %>
 
-                                                    <a class="dropdown-item" href="javascript:start_teaching_select_city(<%= city.id%>)">
-                                                        <%= city.name%>
-                                                    </a>
+                                                <option value="<%= city.id%>">
+                                                    <%= city.name%>
+                                                </option>
 
-                                                    <%
-                                                        }
-                                                    %>
-                                                </div>
-                                            </div>
+                                                <%
+                                                    }
+                                                %>
+                                            </select>                                                    
+
+
                                         </div>
 
                                     </div>
@@ -347,7 +333,7 @@
 
                                 <div class="card-body">                                
                                     <div class="form-group row">
-                                        <div class="col-6 col-lg-3 my-1" id="start_teaching_profile_tab">
+                                        <div class="col-6 col-lg-3 my-1" id="start_teaching_moto">
                                             <label class="col-form-label" for="start_teaching_moto_input">
                                                 <%= Labels.get("start_teaching.form.publish.moto_text")%>
                                             </label>  
@@ -740,7 +726,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row no-gutters">
-                                        <div class="col-12 col-lg-6">
+                                        <div class="col-12 col-lg-4">
                                             <p class="h6">
                                                 <%= Labels.get("start_teaching.form.available_hours.choose_hours")%>   
                                             </p>  
@@ -764,17 +750,17 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12 col-lg-6 row no-gutters">
-                                            <div class="mx-auto">
-                                                <table id="start_teaching_calendar_table" class="table table-responsive table-sm">
+                                        <div class="px-2 col-12 col-lg-8 row no-gutters">
+                                            
+                                                <table id="start_teaching_calendar_table" class="d-table table table-responsive table-sm">
                                                     <thead>
                                                         <tr>
-                                                            <th class="start_teaching_calendar" style="width: 12%">
+                                                            <th class="start_teaching_calendar" style="width: 12.5%">
                                                             </th>                                        
                                                             <% for (day = 0; day < 7; day++) {
 
                                                             %>                                        
-                                                            <th class="start_teaching_calendar"  style="width: 12%">
+                                                            <th class="start_teaching_calendar"  style="width: 12.5%">
                                                                 <span><%= dayNamesLong.get(day)%></span>
                                                                 <br/>
                                                                 <span id="start_teaching_day_<%= (day + 1)%>"></span>
@@ -783,6 +769,7 @@
                                                         <tr/>
                                                     </thead>
                                                     <tbody>
+
                                                         <%
                                                             hour = startHour;
                                                             minute = 0;
@@ -824,7 +811,7 @@
                                                         %>
                                                     </tbody>
                                                 </table> 
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>

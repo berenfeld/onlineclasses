@@ -121,7 +121,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="row no-gutters">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                            <div class="px-1 col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
                                 <form>
                                     <div class="form-group row">
                                         <div class="col-3 my-1">
@@ -258,7 +258,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 schedule_class_calendar_div">
+                            <div class="px-1 col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 schedule_class_calendar_div">
                                 <div class="column-centered text-center">
                                     <nav id="schedule_class_week_select" aria-label="Page navigation">
                                         <ul class="pagination justify-content-center">
@@ -289,67 +289,65 @@
                                         </ul>
                                     </nav>
                                 </div>
-                                <div class="row no-gutters">
-                                    <div class="mx-auto">
-                                        <table id="schedule_class_calendar_table" class="table table-responsive table-sm">
-                                            <thead>
-                                                <tr>
-                                                    <th class="schedule_class_calendar" style="width: 12%">
-                                                    </th>                                        
-                                                    <% for (day = 0; day < 7; day++) {
+                                <div>
+                                    <table id="schedule_class_calendar_table" class="d-table table table-responsive table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th class="schedule_class_calendar" style="width: 12.5%">
+                                                </th>                                        
+                                                <% for (day = 0; day < 7; day++) {
 
-                                                    %>                                        
-                                                    <th class="schedule_class_calendar"  style="width: 12%">
-                                                        <span><%= dayNamesShort.get(day)%></span>
-                                                        <br/>
-                                                        <span id="schedule_class_day_<%= (day + 1)%>"></span>
-                                                    </th>
-                                                    <% }%>
-                                                <tr/>
-                                            </thead>
-                                            <tbody>
+                                                %>                                        
+                                                <th class="schedule_class_calendar"  style="width: 12.5%">
+                                                    <span><%= dayNamesShort.get(day)%></span>
+                                                    <br/>
+                                                    <span id="schedule_class_day_<%= (day + 1)%>"></span>
+                                                </th>
+                                                <% }%>
+                                            <tr/>
+                                        </thead>
+                                        <tbody>
+                                            <%
+                                                hour = startHour;
+                                                minute = 0;
+                                                int rowCount = 0;
+                                                String cellClass = "";
+                                                while (hour < endHour) {
+                                            %>  
+                                            <tr>
                                                 <%
-                                                    hour = startHour;
-                                                    minute = 0;
-                                                    int rowCount = 0;
-                                                    String cellClass = "";
-                                                    while (hour < endHour) {
-                                                %>  
-                                                <tr>
-                                                    <%
-                                                        if (rowCount == (rowsPerCell - 1)) {
-                                                            cellClass = "schedule_class_row_end";
-                                                        } else {
-                                                            cellClass = "schedule_class_row_middle";
-                                                        }
-                                                        if (rowCount == 0) {
-                                                            cellClass = "schedule_class_row_start";
-                                                    %>
-                                                    <td rowspan="<%= rowsPerCell%>" class="schedule_class_calendar">
-                                                        <%= Utils.formatTime(hour, 0)%>
-                                                    </td>
-                                                    <% } %>
-
-                                                    <% for (day = 0; day < 7; day++) {
-                                                    %>
-                                                    <td data-day="<%=day%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
-                                                        onclick="schedule_class_select_time(this)"
-                                                        class="schedule_class_calendar_time schedule_class_calendar <%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">                                                        
-                                                    </td>                                            
-                                                    <% } %>                                                                                                
-                                                </tr>
-                                                <%
-                                                        rowCount = (rowCount + 1) % rowsPerCell;
-                                                        minute += minutesPerUnit;
-                                                        if (minute == 60) {
-                                                            minute = 0;
-                                                            hour++;
-                                                        }
+                                                    if (rowCount == (rowsPerCell - 1)) {
+                                                        cellClass = "schedule_class_row_end";
+                                                    } else {
+                                                        cellClass = "schedule_class_row_middle";
                                                     }
+                                                    if (rowCount == 0) {
+                                                        cellClass = "schedule_class_row_start";
                                                 %>
-                                            </tbody>
-                                        </table> 
-                                    </div>
+                                                <td rowspan="<%= rowsPerCell%>" class="schedule_class_calendar">
+                                                    <%= Utils.formatTime(hour, 0)%>
+                                                </td>
+                                                <% } %>
+
+                                                <% for (day = 0; day < 7; day++) {
+                                                %>
+                                                <td data-day="<%=day%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
+                                                    onclick="schedule_class_select_time(this)"
+                                                    class="schedule_class_calendar_time schedule_class_calendar <%= cellClass%>" id="schedule_class_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">                                                        
+                                                </td>                                            
+                                                <% } %>                                                                                                
+                                            </tr>
+                                            <%
+                                                    rowCount = (rowCount + 1) % rowsPerCell;
+                                                    minute += minutesPerUnit;
+                                                    if (minute == 60) {
+                                                        minute = 0;
+                                                        hour++;
+                                                    }
+                                                }
+                                            %>
+                                        </tbody>
+                                    </table> 
                                 </div>
                             </div>
                         </div>
@@ -486,18 +484,18 @@
                             <h5>
                                 <u>
                                     <%= Labels.get("find_teachers.list.displaying")%>
-                                    <%= teachers.size() %>
+                                    <%= teachers.size()%>
                                     <%= Labels.get("find_teachers.list.private_teachers")%>
                                 </u>
                             </h5>
-                                
-                                <%
-                                if ( Utils.isNotEmpty(topicName)) {
+
+                            <%
+                                if (Utils.isNotEmpty(topicName)) {
                             %>
                             <h6>                                
                                 <%= Labels.get("find_teachers.list.with_topic_name")%>
                                 &nbsp;:
-                                <%= topicName %>
+                                <%= topicName%>
                                 &nbsp;
                                 <a href="javascript:find_teachers_clear_topic_name()" class="text-warning">
                                     <small>(&nbsp;<%= Labels.get("find_teachers.list.remove")%>&nbsp;<span class="oi" data-glyph="x"></span>)</small>
@@ -506,7 +504,7 @@
                             <%
                                 }
                             %>
-                            
+
                             <%
                                 if ((minPrice != defaultMinPrice) || (maxPrice != defaultMaxPrice)) {
                             %>
@@ -529,14 +527,14 @@
                             <%
                                 }
                             %>
-                            
+
                             <%
-                                if ( Utils.isNotEmpty(displayName)) {
+                                if (Utils.isNotEmpty(displayName)) {
                             %>
                             <h6>                                
                                 <%= Labels.get("find_teachers.list.with_display_name")%>
                                 &nbsp;:
-                                <%= displayName %>
+                                <%= displayName%>
                                 &nbsp;
                                 <a href="javascript:find_teachers_clear_display_name()" class="text-warning">
                                     <small>(&nbsp;<%= Labels.get("find_teachers.list.remove")%>&nbsp;<span class="oi" data-glyph="x"></span>)</small>
@@ -545,7 +543,7 @@
                             <%
                                 }
                             %>
-                            
+
                         </div>
 
                         <%
