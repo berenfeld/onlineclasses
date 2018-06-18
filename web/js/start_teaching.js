@@ -167,7 +167,7 @@ function start_teaching_form_submit()
     alert_show( oc.clabels[ "start_teaching.register.registering"],
                 oc.clabels[ "start_teaching.register.registering_message"]);
             
-    $("input.start_teaching_teaching_topics_input']").each(
+    $("input.start_teaching_teaching_topics_input").each(
             function (index, elem) {
                 if (elem.checked) {
                     request.teaching_topics.push(parseInt10($("#" + elem.id).attr("data-topic-id")));
@@ -193,7 +193,7 @@ function start_teaching_form_submit()
 
 function start_teaching_select_day_of_birth(dateText)
 {
-    start_teaching.day_of_birth = new Date(Date.parse(dateText));
+    start_teaching.day_of_birth =  $("#start_teaching_day_of_birth_input").datepicker( "getDate");
 }
 
 function start_teaching_select_institute()
@@ -427,7 +427,6 @@ function start_teaching_init()
     $("select.start_teaching_institute_select").on("change", start_teaching_select_institute);   
     $("#start_teaching_institute_type_select").on("change", start_teaching_select_institute_type);
     $("#start_teaching_subject_select").on("change", start_teaching_select_subject);
-    start_teaching_select_institute_type();
 }
 
 $(document).ready( start_teaching_init );

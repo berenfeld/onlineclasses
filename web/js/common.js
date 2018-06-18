@@ -14,7 +14,6 @@ function parseInt10(str, defaultValue)
     return n;
 }
 
-
 function redirectAfter(url, seconds)
 {
     window.setTimeout(function () {
