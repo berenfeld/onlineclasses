@@ -426,25 +426,20 @@
                                             </label>
 
                                             <div class="col-6 col-lg-3 my-1">
-                                                <button class="btn btn-info dropdown-toggle" type="button" 
-                                                        data-toggle="dropdown" id="start_teaching_degree_type_button"
-                                                        name="start_teaching_degree_type_button">
-                                                    <span class="caret"></span>                                        
-                                                    <%= Labels.get("start_teaching.form.learning.degree_type.select")%>
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="start_teaching_degree_type_button">
+                                                <select class="custom-select" id="start_teaching_degree_type_select">
+
                                                     <%
                                                         for (String degreeType : degreeTypes) {
                                                     %>
 
-                                                    <a class="dropdown-item" href="javascript:start_teaching_select_degree_type('<%= degreeType%>')">
+                                                    <option value="<%= degreeType%>">
                                                         <%= degreeType%>
-                                                    </a>
+                                                    </option>
 
                                                     <%
                                                         }
                                                     %>
-                                                </div>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -454,28 +449,28 @@
                                             </label>
 
                                             <div class="col-6 col-lg-3 my-1">
-                                                <button class="btn btn-info dropdown-toggle" type="button" 
-                                                        data-toggle="dropdown" id="start_teaching_institute_type_button">
-                                                    <span class="caret"></span>
-                                                    <%= Labels.get("start_teaching.form.learning.institue_type.select")%>
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="start_teaching_institute_type_button">
+                                                <select class="custom-select" id="start_teaching_institute_type_select">
+
+                                                    <option id="start_teaching_institute_type_choose" value="0" disabled selected>
+                                                        <%= Labels.get("start_teaching.form.learning.institue_type.choose")%>
+                                                    </option>
+                                                    
                                                     <%
                                                         for (InstituteType instituteType : instituteTypes) {
                                                     %>
 
-                                                    <a class="dropdown-item" href="javascript:start_teaching_select_institute_type(<%= instituteType.id%>)">
+                                                    <option value="<%= instituteType.id%>">
                                                         <%= instituteType.name%>
-                                                    </a>
+                                                    </option>
 
                                                     <%
                                                         }
                                                     %>
 
-                                                    <a class="dropdown-item" id="start_teaching_institute_type_other" href="javascript:start_teaching_select_institute_type(0)">
+                                                    <option id="start_teaching_institute_type_other" value="0">
                                                         <%= Labels.get("start_teaching.form.learning.institue_type.other")%>
-                                                    </a>
-                                                </div>
+                                                    </option>
+                                                </select>
                                             </div>
 
                                             <%
@@ -490,33 +485,26 @@
                                             </label>
 
                                             <div class="col-6 col-lg-3 my-1 d-none" id="start_teaching_institute_<%= instituteType%>_div">
-                                                <button class="btn btn-info dropdown-toggle" type="button" 
-                                                        data-toggle="dropdown" id="start_teaching_institute_<%= instituteType%>_select">
-                                                    <span class="caret"></span>
-                                                    <%= Labels.get("start_teaching.form.learning.institue_" + instituteType + "_select")%>
 
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="start_teaching_institute_<%= instituteType%>_button">
+                                                <select class="custom-select start_teaching_institute_select" id="start_teaching_institute_<%= instituteType%>_select>">
+
                                                     <%
-
                                                         for (int instituteId : institutesMap.keySet()) {
                                                             String instituteName = institutesMap.get(instituteId);
                                                     %>
 
-                                                    <a class="dropdown-item" 
-                                                       href="javascript:start_teaching_select_institute_type(<%= instituteType%>, <%= instituteId%>)">
+                                                    <option value="<%= instituteId %>">                                                       
                                                         <%= instituteName%>
-                                                    </a>
+                                                    </option>
 
                                                     <%
                                                         }
                                                     %>
 
-                                                    <a class="dropdown-item" id="start_teaching_institute_type_other" 
-                                                       href="javascript:start_teaching_select_institute_type(0)">
+                                                    <option value="0">
                                                         <%= Labels.get("start_teaching.form.learning.institue_type.other")%>
-                                                    </a>
-                                                </div>
+                                                    </option>
+                                                </select>
                                             </div>
 
                                             <%
@@ -751,67 +739,67 @@
                                         </div>
 
                                         <div class="px-2 col-12 col-lg-8 row no-gutters">
-                                            
-                                                <table id="start_teaching_calendar_table" class="d-table table table-responsive table-sm">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="start_teaching_calendar" style="width: 12.5%">
-                                                            </th>                                        
-                                                            <% for (day = 0; day < 7; day++) {
 
-                                                            %>                                        
-                                                            <th class="start_teaching_calendar"  style="width: 12.5%">
-                                                                <span><%= dayNamesLong.get(day)%></span>
-                                                                <br/>
-                                                                <span id="start_teaching_day_<%= (day + 1)%>"></span>
-                                                            </th>
-                                                            <% }%>
-                                                        <tr/>
-                                                    </thead>
-                                                    <tbody>
+                                            <table id="start_teaching_calendar_table" class="d-table table table-responsive table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="start_teaching_calendar" style="width: 12.5%">
+                                                        </th>                                        
+                                                        <% for (day = 0; day < 7; day++) {
 
+                                                        %>                                        
+                                                        <th class="start_teaching_calendar"  style="width: 12.5%">
+                                                            <span><%= dayNamesLong.get(day)%></span>
+                                                            <br/>
+                                                            <span id="start_teaching_day_<%= (day + 1)%>"></span>
+                                                        </th>
+                                                        <% }%>
+                                                    <tr/>
+                                                </thead>
+                                                <tbody>
+
+                                                    <%
+                                                        hour = startHour;
+                                                        minute = 0;
+                                                        int rowCount = 0;
+                                                        String cellClass = "";
+                                                        while (hour < endHour) {
+                                                    %>  
+                                                    <tr>
                                                         <%
-                                                            hour = startHour;
-                                                            minute = 0;
-                                                            int rowCount = 0;
-                                                            String cellClass = "";
-                                                            while (hour < endHour) {
-                                                        %>  
-                                                        <tr>
-                                                            <%
-                                                                if (rowCount == (rowsPerCell - 1)) {
-                                                                    cellClass = "start_teaching_row_end";
-                                                                } else {
-                                                                    cellClass = "start_teaching_row_middle";
-                                                                }
-                                                                if (rowCount == 0) {
-                                                                    cellClass = "start_teaching_row_start";
-                                                            %>
-                                                            <td rowspan="<%= rowsPerCell%>" class="start_teaching_calendar">
-                                                                <%= Utils.formatTime(hour, 0)%>                                                        
-                                                            </td>
-                                                            <% } %>
-
-                                                            <% for (day = 0; day < 7; day++) {
-                                                            %>
-                                                            <td data-day="<%= day + 1%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
-                                                                onclick="start_teaching_select_time(this)"
-                                                                class="start_teaching_calendar_time start_teaching_calendar <%= cellClass%>" id="start_teaching_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">                                                       
-                                                            </td>                                            
-                                                            <% } %>                                                                                                
-                                                        </tr>
-                                                        <%
-                                                                rowCount = (rowCount + 1) % rowsPerCell;
-                                                                minute += minutesPerUnit;
-                                                                if (minute == 60) {
-                                                                    minute = 0;
-                                                                    hour++;
-                                                                }
+                                                            if (rowCount == (rowsPerCell - 1)) {
+                                                                cellClass = "start_teaching_row_end";
+                                                            } else {
+                                                                cellClass = "start_teaching_row_middle";
                                                             }
+                                                            if (rowCount == 0) {
+                                                                cellClass = "start_teaching_row_start";
                                                         %>
-                                                    </tbody>
-                                                </table> 
-                                            
+                                                        <td rowspan="<%= rowsPerCell%>" class="start_teaching_calendar">
+                                                            <%= Utils.formatTime(hour, 0)%>                                                        
+                                                        </td>
+                                                        <% } %>
+
+                                                        <% for (day = 0; day < 7; day++) {
+                                                        %>
+                                                        <td data-day="<%= day + 1%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
+                                                            onclick="start_teaching_select_time(this)"
+                                                            class="start_teaching_calendar_time start_teaching_calendar <%= cellClass%>" id="start_teaching_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">                                                       
+                                                        </td>                                            
+                                                        <% } %>                                                                                                
+                                                    </tr>
+                                                    <%
+                                                            rowCount = (rowCount + 1) % rowsPerCell;
+                                                            minute += minutesPerUnit;
+                                                            if (minute == 60) {
+                                                                minute = 0;
+                                                                hour++;
+                                                            }
+                                                        }
+                                                    %>
+                                                </tbody>
+                                            </table> 
+
                                         </div>
                                     </div>
                                 </div>

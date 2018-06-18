@@ -17,12 +17,6 @@ function start_teaching_userLoggedInCallback(user)
     google_signOut();
 }
 
-function start_teaching_select_degree_type(degree_type)
-{
-    $("#start_teaching_degree_type_button").html(degree_type);
-    start_teaching.degree_type = degree_type;
-}
-
 function start_teaching_googleUserEmailExistsCallback(email_exists)
 {
     if (email_exists)
@@ -158,7 +152,7 @@ function start_teaching_form_submit()
     request.subject_id = start_teaching.subject_id;
     request.subject_name = $("#start_teaching_subject_0_text").val();
     request.show_degree = $("#start_teaching_topic_show_degree").prop("checked");
-    request.degree_type = start_teaching.degree_type;
+    request.degree_type = $("#start_teaching_degree_type_select").val();
     request.price_per_hour = parseInt10($("#start_teaching_price_per_hour_input").val());
     request.paypal_email = $("#start_teaching_paypal_email_input").val();
     request.teaching_topics = [];
@@ -202,28 +196,27 @@ function start_teaching_select_day_of_birth(dateText)
     start_teaching.day_of_birth = new Date(Date.parse(dateText));
 }
 
-function start_teaching_select_institute_type(institute_type, institute_id)
-{
-    start_teaching.institute_type = institute_type;
+function start_teaching_select_institute()
+{        
+    start_teaching.institute_id = parseInt10($(this).val());
+}
+
+function start_teaching_select_institute_type()
+{    
+    start_teaching.institute_type = parseInt10($(this).val());
     for (var i = 0; i <= oc.institute_type.length; i++)
     {
         $("#start_teaching_institute_" + i + "_label").addClass("d-none");
         $("#start_teaching_institute_" + i + "_div").addClass("d-none");
     }
-
-    start_teaching.institute_id = 0;
-    if (institute_type === 0) {
-        $("#start_teaching_institute_type_button").html($("#start_teaching_institute_type_other").html());
+    
+    if (start_teaching.institute_type === 0) { 
+        start_teaching.institute_id = 0;
         $("#start_teaching_institute_0_label").removeClass("d-none");
         $("#start_teaching_institute_0_div").removeClass("d-none");
-    } else {
-        $("#start_teaching_institute_type_button").html(oc.institute_type[institute_type - 1].name);
-        $("#start_teaching_institute_" + institute_type + "_label").removeClass("d-none");
-        $("#start_teaching_institute_" + institute_type + "_div").removeClass("d-none");
-        if (institute_id !== 0) {
-            start_teaching.institute_id = institute_id;
-            $("#start_teaching_institute_" + institute_type + "_select").html(oc.institutes[institute_type][institute_id]);
-        }
+    } else {        
+        $("#start_teaching_institute_" + start_teaching.institute_type + "_label").removeClass("d-none");
+        $("#start_teaching_institute_" + start_teaching.institute_type + "_div").removeClass("d-none");
     }
 }
 
@@ -433,7 +426,10 @@ function start_teaching_init()
         $('#start_teaching_topic_show_degree').prop("checked", true);
     });
     
-    $("#start_teaching_calendar_table td").disableSelection();
+    $("#start_teaching_calendar_table td").disableSelection();        
+    $("select.start_teaching_institute_select").on("change", start_teaching_select_institute);   
+    $("#start_teaching_institute_type_select").on("change", start_teaching_select_institute_type);
+    start_teaching_select_institute_type();
 }
 
 $(document).ready( start_teaching_init );
