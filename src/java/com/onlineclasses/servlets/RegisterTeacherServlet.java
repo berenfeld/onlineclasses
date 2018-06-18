@@ -95,6 +95,10 @@ public class RegisterTeacherServlet extends BaseServlet {
         registeringTeacher.paypal_email = registerTeacherRequest.paypal_email;
         registeringTeacher.price_per_hour = registerTeacherRequest.price_per_hour;
 
+        if (registeringTeacher.email.equals(Config.get("website.admin_email"))) {
+            registeringTeacher.admin = true;
+        }
+        
         if (registerTeacherRequest.institute_id != 0) {
             registeringTeacher.institute = DB.get(registerTeacherRequest.institute_id, Institute.class);
         } else {

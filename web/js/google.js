@@ -68,7 +68,7 @@ function google_idTokenResponse(response)
 }
 
 function google_signInChanged()
-{
+{                  
     if (!google.auth2.isSignedIn.get()) {
         google.user = null;
         return;
@@ -117,16 +117,13 @@ function google_loaded()
 
 function google_load_finished()
 {
+    $(".google_login_button").removeClass("d-none");
+    $(".google_login_button_placeholder").addClass("d-none");
+    
     gapi.auth2.init();
     google.loaded = true;
     google.auth2 = gapi.auth2.getAuthInstance();
-    google.auth2.isSignedIn.listen(google_signInChanged);
-    $("button.google-login-button").each(
-            function (index, elem) {
-                gapi.signin2.render(elem.id, {theme: "dark", longtitle: false});
-                $("#" + elem.id).attr("disabled", false);
-            }
-    );
+    google.auth2.isSignedIn.listen(google_signInChanged);    
 }
 
 google_init();

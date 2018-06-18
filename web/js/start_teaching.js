@@ -54,12 +54,6 @@ function start_teaching_register_complete(response)
     redirectAfter("/", 5);
 }
 
-function start_teaching_submit_warning(text)
-{
-    $("#start_teaching_warning_text").html(text);
-    $("#start_teaching_warning_div").removeClass("d-none");
-}
-
 function start_teaching_scroll_to(element)
 {
     $('html, body').scrollTop($("#" + element).offset().top);

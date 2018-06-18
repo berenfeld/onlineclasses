@@ -127,7 +127,7 @@
                             <div class="card my-1 tab-pane fade show active" id="start_teaching_personal_information_tab" role="tabpanel" 
                                  aria-labelledby="start_teaching_personal_information_link">
                                 <div class="card-header bg-secondary text-white">
-                                    <div class="row no-gutters"  id="start_teaching_google_login">
+                                    <div class="row no-gutters" id="start_teaching_google_login">
                                         <div class="col-12 col-md-6 col-lg-9">
                                             <%= Labels.get("start_teaching.form.login.text1")%> 
                                             <small class="start_teaching_required">
@@ -139,7 +139,7 @@
                                             </small>
                                         </div>
                                         <div class="col-12 col-md-6 col-lg-3">
-                                            <input type="image" src="images/google_login_button.png" class="w-100" onclick="start_teaching_googleLogin()">              
+                                            <input type="image" src="images/google_login_button.png" class="w-100 google_login_button d-none" onclick="start_teaching_googleLogin()">
                                         </div>
                                     </div>
                                 </div>
@@ -329,7 +329,7 @@
                                 <div class="card-footer">
                                     <div class="d-flex flex-row-reverse">
                                         <button class="btn btn-info" onclick="start_teaching_goto_tab('profile')">
-                                            <span class="oi" data-glyph="chevron-left"></span>                                            
+                                            <span class="oi" data-glyph="chevron-left"></span>
                                             <%= Labels.get("start_teaching.tabs.to")%><%= Labels.get("start_teaching.tabs.profile")%>
                                             <span class="oi" data-glyph="chevron-left"></span>                                            
                                         </button>
@@ -862,10 +862,6 @@
                                         out.write(htmlContent);
                                     %>
 
-
-                                </div>
-                                <div class="card-footer">
-
                                     <div class="row no-gutters">
                                         <div class="col-12 col-sm-6 col-lg-3 my-1" id="start_teaching_feedback">
                                             <label class="col-form-label" for="start_teaching_feedback_input">
@@ -879,27 +875,31 @@
                                                       placeholder="<%= Labels.get("start_teaching.form.publish.feedback_placeholder")%>"></textarea>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="card-footer">
 
-                                    <div class="checkbox my-2 h6" id="start_teaching_accept_terms_checkbox_div">
-                                        <input class="form-check-input my-1 mx-0" id="start_teaching_accept_terms_checkbox" name="start_teaching_accept_terms_checkbox" 
-                                               type="checkbox" value="">
+                                    <div class="d-flex flex-row-reverse">
 
-                                        <label class="form-check-label" for="start_teaching_accept_terms_checkbox">
-                                            <%= Labels.get("start_teaching.form.submit.terms_of_usage.read_and_accept")%>  
-                                        </label>
-                                        <small class="start_teaching_required">
-                                            (*)
-                                        </small>
-                                    </div>
+                                        <div>
+                                            <button class="btn btn-success mx-1 my-auto" onclick="start_teaching_form_submit()">
+                                                <span class="oi" data-glyph="chevron-left"></span>
+                                                <%= Labels.get("start_teaching.form.submit.button.text")%>   
+                                                <span class="oi" data-glyph="chevron-left"></span>
+                                            </button>
+                                        </div>
 
-                                    <button class="btn btn-success my-2" onclick="start_teaching_form_submit()">
-                                        <%= Labels.get("start_teaching.form.submit.button.text")%>   
-                                    </button>
+                                        <div class="checkbox mx-1 h6 my-auto" id="start_teaching_accept_terms_checkbox_div">
+                                            <input class="form-check-input my-1 mx-0" id="start_teaching_accept_terms_checkbox" name="start_teaching_accept_terms_checkbox" 
+                                                   type="checkbox" value="">
 
+                                            <label class="form-check-label" for="start_teaching_accept_terms_checkbox">
+                                                <%= Labels.get("start_teaching.form.submit.terms_of_usage.read_and_accept")%>  
+                                            </label>
+                                            <small class="start_teaching_required">
+                                                (*)
+                                            </small>
+                                        </div>
 
-                                    <div id="start_teaching_warning_div" class="alert alert-warning d-none" role="alert">
-                                        <span class="oi" data-glyph="warning"></span>    
-                                        <span id="start_teaching_warning_text"></span>
                                     </div>
                                 </div>
                             </div>
