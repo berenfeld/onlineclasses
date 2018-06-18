@@ -229,11 +229,11 @@
                                                 </div>
 
                                                 <div class="input-group form-control border-0 col-12 col-md">
-                                                    <input type="text" class="form-control mr-md-3" id="start_teaching_phone_number_input"
+                                                    <input type="text" class="col-8 form-control mr-md-3" id="start_teaching_phone_number_input"
                                                            onkeypress="return isNumberKey(event)"
                                                            placeholder="<%= Labels.get("start_teaching.form.login.phone_number")%>">
 
-                                                    <select class="custom-select form-control" id="start_teaching_phone_area_select">
+                                                    <select class="col-4 custom-select form-control" id="start_teaching_phone_area_select">
                                                         <option value="" disabled selected>
                                                             <%= Labels.get("start_teaching.form.login.phone_area")%>
                                                         </option>
@@ -529,29 +529,26 @@
                                             </label>
 
                                             <div class="col-6 col-lg-3 my-1">
-                                                <button class="btn btn-info dropdown-toggle" type="button" 
-                                                        data-toggle="dropdown" id="start_teaching_subject_button">
-                                                    <span class="caret"></span>
-                                                    <%= Labels.get("start_teaching.form.learning.subject.select")%>
-
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="start_teaching_subject_button">
-                                                    <%
+                                                <select class="custom-select" id="start_teaching_subject_select">
+                                                    <option value="0" disabled selected>
+                                                        <%= Labels.get("start_teaching.form.learning.subject.choose")%>
+                                                    </option>
+                                                            <%
                                                         for (Subject subject : subjects) {
                                                     %>
 
-                                                    <a class="dropdown-item" href="javascript:start_teaching_select_subject(<%= subject.id%>)">
+                                                    <option value="<%= subject.id%>">                                                    
                                                         <%= subject.name%>
-                                                    </a>
+                                                    </option>
 
                                                     <%
                                                         }
                                                     %>
 
-                                                    <a class="dropdown-item" id="start_teaching_subject_other" href="javascript:start_teaching_select_subject(0)">
+                                                    <option value="0">
                                                         <%= Labels.get("start_teaching.form.learning.subject.other")%>
                                                     </a>
-                                                </div>
+                                                </select>
                                             </div>   
 
                                             <label id="start_teaching_subject_0_label" class="col-6 col-lg-3 my-1 col-form-label d-none" 

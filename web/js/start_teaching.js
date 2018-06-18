@@ -220,20 +220,17 @@ function start_teaching_select_institute_type()
     }
 }
 
-function start_teaching_select_subject(subject_id)
+function start_teaching_select_subject()
 {
-    start_teaching.subject_id = subject_id;
-    if (subject_id === 0) {
-        start_teaching.subject_id = 0;
+    start_teaching.subject_id = parseInt10($(this).val());
+    
+    if ( start_teaching.subject_id === 0) {
         $("#start_teaching_subject_0_div").removeClass("d-none");
         $("#start_teaching_subject_0_label").removeClass("d-none");
     } else {
         $("#start_teaching_subject_0_div").addClass("d-none");
-        $("#start_teaching_subject_0_label").addClass("d-none");
-        $("#start_teaching_subject_button").html(oc.subjects[subject_id - 1].name);
-        start_teaching.subject_id = subject_id;
+        $("#start_teaching_subject_0_label").addClass("d-none");                
     }
-
 }
 
 function start_teaching_googleLogin()
@@ -429,6 +426,7 @@ function start_teaching_init()
     $("#start_teaching_calendar_table td").disableSelection();        
     $("select.start_teaching_institute_select").on("change", start_teaching_select_institute);   
     $("#start_teaching_institute_type_select").on("change", start_teaching_select_institute_type);
+    $("#start_teaching_subject_select").on("change", start_teaching_select_subject);
     start_teaching_select_institute_type();
 }
 
