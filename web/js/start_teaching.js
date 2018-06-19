@@ -30,10 +30,12 @@ function start_teaching_select_checbox()
 {
     event.preventDefault();
 }
-function start_teaching_select_topic(topic_id)
+
+function start_teaching_choose_topic()
 {
-    var checked = $("#start_teaching_topic_" + topic_id + "_checkbox").prop("checked");
-    $("#start_teaching_topic_" + topic_id + "_checkbox").prop("checked", !checked);
+    $(this).toggleClass("list-group-item-light");    
+    $(this).toggleClass("list-group-item-success");    
+    $(this).children("span.oi").toggleClass("d-none");
 }
 
 function start_teaching_register_complete(response)
@@ -68,7 +70,7 @@ function start_teaching_form_validation(request)
         alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_accept"]);
         $("#start_teaching_accept_terms_checkbox_div").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_accept_terms_checkbox_div");
-         start_teaching_goto_tab("accept_and_finish");
+        start_teaching_goto_tab("accept_and_finish");
         return false;
     }
 
@@ -80,14 +82,14 @@ function start_teaching_form_validation(request)
         return false;
     }
 
-    if (request.city_id === 0 ) {
+    if (request.city_id === 0) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_city"]);
         $("#start_teaching_city_select").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_city");
         start_teaching_goto_tab("personal_information");
         return false;
     }
-    
+
     if (request.day_of_birth === null) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_day_of_birth"]);
         $("#start_teaching_day_of_birth").addClass("border border-warning");
@@ -112,14 +114,14 @@ function start_teaching_form_validation(request)
         return false;
     }
 
-    if (! emailIsValid(request.paypal_email)) {
+    if (!emailIsValid(request.paypal_email)) {
         alert_show(oc.clabels[ "start_teaching.form.submit.illegal_paypal_email"]);
         $("#start_teaching_paypal_email").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_paypal_email");
         start_teaching_goto_tab("prices");
         return false;
     }
-    
+
     if (request.price_per_hour === 0) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_price_per_hour"]);
         $("#start_teaching_price_per_hour").addClass("border border-warning");
@@ -159,21 +161,24 @@ function start_teaching_form_submit()
     request.available_times = start_teaching.calendar.available_times;
     request.city_id = parseInt10($("#start_teaching_city_select").val());
     request.feedback = $("#start_teaching_feedback_input").val();
-    
+
+    $("#start_teaching_topic_list button.list-group-item").each(
+            function () {
+                if (! $(this).hasClass("list-group-item-light")) {
+                    request.teaching_topics.push(parseInt10($(this).attr("data-topic-id")));
+                }
+            }
+    );
+
+    console.log(request);
     if (!start_teaching_form_validation(request)) {
         return;
     }
 
-    alert_show( oc.clabels[ "start_teaching.register.registering"],
-                oc.clabels[ "start_teaching.register.registering_message"]);
-            
-    $("input.start_teaching_teaching_topics_input").each(
-            function (index, elem) {
-                if (elem.checked) {
-                    request.teaching_topics.push(parseInt10($("#" + elem.id).attr("data-topic-id")));
-                }
-            }
-    );
+    alert_show(oc.clabels[ "start_teaching.register.registering"],
+            oc.clabels[ "start_teaching.register.registering_message"]);
+
+
     if ($("#start_teaching_gender_input_male").prop("checked")) {
         request.gender = parseInt10($("#start_teaching_gender_input_male").val());
     }
@@ -193,28 +198,28 @@ function start_teaching_form_submit()
 
 function start_teaching_select_day_of_birth(dateText)
 {
-    start_teaching.day_of_birth =  $("#start_teaching_day_of_birth_input").datepicker( "getDate");
+    start_teaching.day_of_birth = $("#start_teaching_day_of_birth_input").datepicker("getDate");
 }
 
 function start_teaching_select_institute()
-{        
+{
     start_teaching.institute_id = parseInt10($(this).val());
 }
 
 function start_teaching_select_institute_type()
-{    
+{
     start_teaching.institute_type = parseInt10($(this).val());
     for (var i = 0; i <= oc.institute_type.length; i++)
     {
         $("#start_teaching_institute_" + i + "_label").addClass("d-none");
         $("#start_teaching_institute_" + i + "_div").addClass("d-none");
     }
-    
-    if (start_teaching.institute_type === 0) { 
+
+    if (start_teaching.institute_type === 0) {
         start_teaching.institute_id = 0;
         $("#start_teaching_institute_0_label").removeClass("d-none");
         $("#start_teaching_institute_0_div").removeClass("d-none");
-    } else {        
+    } else {
         $("#start_teaching_institute_" + start_teaching.institute_type + "_label").removeClass("d-none");
         $("#start_teaching_institute_" + start_teaching.institute_type + "_div").removeClass("d-none");
     }
@@ -223,13 +228,13 @@ function start_teaching_select_institute_type()
 function start_teaching_select_subject()
 {
     start_teaching.subject_id = parseInt10($(this).val());
-    
-    if ( start_teaching.subject_id === 0) {
+
+    if (start_teaching.subject_id === 0) {
         $("#start_teaching_subject_0_div").removeClass("d-none");
         $("#start_teaching_subject_0_label").removeClass("d-none");
     } else {
         $("#start_teaching_subject_0_div").addClass("d-none");
-        $("#start_teaching_subject_0_label").addClass("d-none");                
+        $("#start_teaching_subject_0_label").addClass("d-none");
     }
 }
 
@@ -373,7 +378,7 @@ function start_teaching_clear_calendar()
 
 function start_teaching_goto_tab(tab_name)
 {
-    $("#start_teaching_" + tab_name + "_link").tab('show');    
+    $("#start_teaching_" + tab_name + "_link").tab('show');
 }
 
 function start_teaching_init()
@@ -422,11 +427,12 @@ function start_teaching_init()
     {
         $('#start_teaching_topic_show_degree').prop("checked", true);
     });
-    
-    $("#start_teaching_calendar_table td").disableSelection();        
-    $("select.start_teaching_institute_select").on("change", start_teaching_select_institute);   
+
+    $("#start_teaching_calendar_table td").disableSelection();
+    $("select.start_teaching_institute_select").on("change", start_teaching_select_institute);
     $("#start_teaching_institute_type_select").on("change", start_teaching_select_institute_type);
     $("#start_teaching_subject_select").on("change", start_teaching_select_subject);
+    $("#start_teaching_topic_list button.list-group-item").on("click", start_teaching_choose_topic);
 }
 
-$(document).ready( start_teaching_init );
+$(document).ready(start_teaching_init);

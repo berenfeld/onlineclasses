@@ -488,13 +488,16 @@
 
                                                 <select class="custom-select start_teaching_institute_select" id="start_teaching_institute_<%= instituteType%>_select>">
 
+                                                    <option value="" disabled selected>
+                                                        <%= Labels.get("start_teaching.form.learning.institue_" + instituteType + ".choose")%>
+                                                    </option>
                                                     <%
                                                         for (int instituteId : institutesMap.keySet()) {
                                                             String instituteName = institutesMap.get(instituteId);
                                                     %>
 
                                                     <option value="<%= instituteId %>">                                                       
-                                                        <%= instituteName%>
+                                                        <%= instituteName %>
                                                     </option>
 
                                                     <%
@@ -586,7 +589,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <div class="row no-gutters">
+                                    <div class="row no-gutters" id="start_teaching_topic_list">
                                         <%
                                             for (Subject subject : allSubjects.values()) {
                                         %>
@@ -596,13 +599,18 @@
                                                     <%= subject.name%>
                                                 </div>
                                                 <div class="card-body h6">                                            
-                                                    <ul class="list-group">
+                                                    <div class="list-group">
 
                                                         <%
                                                             for (Topic topic : allTopics.values()) {
                                                                 if (topic.subject.equals(subject)) {
                                                         %>
 
+                                                        <button type="button" data-topic-id="<%= topic.id %>" class="text-right list-group-item list-group-item-light">
+                                                            <span class="d-none oi" data-glyph="check"></span>
+                                                            <%= topic.name%>
+                                                        </button>
+                                                        <!--
                                                         <a class="list-group-item list-group-item-action"
                                                            href="javascript:start_teaching_select_topic(<%= topic.id%>)">
                                                             <input class="start_teaching_teaching_topics_input form-check-input my-1 mx-0"  
@@ -613,18 +621,19 @@
                                                                 <%= topic.name%>
                                                             </label>
                                                         </a>
+                                                        -->
                                                         <%
                                                                 }
                                                             }
                                                         %>
 
-                                                    </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <%
                                             }
-                                        %>
+                                        %>                                        
                                     </div>
                                 </div>
 
