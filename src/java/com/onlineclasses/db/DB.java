@@ -276,7 +276,11 @@ public class DB {
     }
 
     public static List<AvailableTime> getTeacherAvailableTime(Teacher teacher) throws SQLException {
-        return _availableTime_db.getTeacherAvailableTime(teacher);
+        List<AvailableTime> availableTimes = _availableTime_db.getTeacherAvailableTime(teacher);
+        for (AvailableTime availableTime : availableTimes) {
+            availableTime.teacher = null;
+        }
+        return availableTimes;
     }
 
     public static int deleteTeacherAvailableTime(Teacher teacher) throws SQLException {

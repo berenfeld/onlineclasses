@@ -454,7 +454,7 @@
                                                     <option id="start_teaching_institute_type_choose" value="0" disabled selected>
                                                         <%= Labels.get("start_teaching.form.learning.institue_type.choose")%>
                                                     </option>
-                                                    
+
                                                     <%
                                                         for (InstituteType instituteType : instituteTypes) {
                                                     %>
@@ -496,8 +496,8 @@
                                                             String instituteName = institutesMap.get(instituteId);
                                                     %>
 
-                                                    <option value="<%= instituteId %>">                                                       
-                                                        <%= instituteName %>
+                                                    <option value="<%= instituteId%>">                                                       
+                                                        <%= instituteName%>
                                                     </option>
 
                                                     <%
@@ -536,7 +536,7 @@
                                                     <option value="0" disabled selected>
                                                         <%= Labels.get("start_teaching.form.learning.subject.choose")%>
                                                     </option>
-                                                            <%
+                                                    <%
                                                         for (Subject subject : subjects) {
                                                     %>
 
@@ -550,7 +550,7 @@
 
                                                     <option value="0">
                                                         <%= Labels.get("start_teaching.form.learning.subject.other")%>
-                                                    </a>
+                                                        </a>
                                                 </select>
                                             </div>   
 
@@ -606,22 +606,10 @@
                                                                 if (topic.subject.equals(subject)) {
                                                         %>
 
-                                                        <button type="button" data-topic-id="<%= topic.id %>" class="text-right list-group-item list-group-item-light">
+                                                        <button type="button" data-topic-id="<%= topic.id%>" class="text-right list-group-item list-group-item-light">
                                                             <span class="d-none oi" data-glyph="check"></span>
                                                             <%= topic.name%>
                                                         </button>
-                                                        <!--
-                                                        <a class="list-group-item list-group-item-action"
-                                                           href="javascript:start_teaching_select_topic(<%= topic.id%>)">
-                                                            <input class="start_teaching_teaching_topics_input form-check-input my-1 mx-0"  
-                                                                   id="start_teaching_topic_<%= topic.id%>_checkbox" 
-                                                                   name="start_teaching_topic_<%= topic.id%>_checkbox" 
-                                                                   type="checkbox" data-topic-id="<%=topic.id%>" value="">
-                                                            <label class="form-check-label" for="start_teaching_topic_<%= topic.id%>_checkbox">
-                                                                <%= topic.name%>
-                                                            </label>
-                                                        </a>
-                                                        -->
                                                         <%
                                                                 }
                                                             }
@@ -891,16 +879,16 @@
                 </div>
             </div>
 
+        </div>
 
-            <%@include file="footer.jsp" %>    
+        <%@include file="footer.jsp" %>    
 
-            <script>
-                oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
-                oc.institutes = <%= Utils.gson().toJson(institutes)%>;
-                oc.subjects = <%= Utils.gson().toJson(subjects)%>;
-                oc.cities = <%= Utils.gson().toJson(cities)%>;
-            </script>
-
+        <script>
+            oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
+            oc.institutes = <%= Utils.gson().toJson(institutes)%>;
+            oc.subjects = <%= Utils.gson().toJson(subjects)%>;
+            oc.cities = <%= Utils.gson().toJson(cities)%>;
+        </script>
     </body>
 
 </html>

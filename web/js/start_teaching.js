@@ -26,15 +26,10 @@ function start_teaching_googleUserEmailExistsCallback(email_exists)
     }
 }
 
-function start_teaching_select_checbox()
-{
-    event.preventDefault();
-}
-
 function start_teaching_choose_topic()
 {
-    $(this).toggleClass("list-group-item-light");    
-    $(this).toggleClass("list-group-item-success");    
+    $(this).toggleClass("list-group-item-light");
+    $(this).toggleClass("list-group-item-success");
     $(this).children("span.oi").toggleClass("d-none");
 }
 
@@ -157,14 +152,14 @@ function start_teaching_form_submit()
     request.degree_type = $("#start_teaching_degree_type_select").val();
     request.price_per_hour = parseInt10($("#start_teaching_price_per_hour_input").val());
     request.paypal_email = $("#start_teaching_paypal_email_input").val();
-    request.teaching_topics = [];
     request.available_times = start_teaching.calendar.available_times;
     request.city_id = parseInt10($("#start_teaching_city_select").val());
     request.feedback = $("#start_teaching_feedback_input").val();
 
+    request.teaching_topics = [];
     $("#start_teaching_topic_list button.list-group-item").each(
             function () {
-                if (! $(this).hasClass("list-group-item-light")) {
+                if (!$(this).hasClass("list-group-item-light")) {
                     request.teaching_topics.push(parseInt10($(this).attr("data-topic-id")));
                 }
             }
