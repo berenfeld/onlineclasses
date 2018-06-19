@@ -467,7 +467,7 @@
                                             <div class="col-6 col-lg-3 my-1">
                                                 <select class="custom-select" id="teacher_update_institute_type_select">
 
-                                                    <option id="teacher_update_institute_type_choose" value="0" disabled selected>
+                                                    <option id="teacher_update_institute_type_choose" value="" disabled selected>
                                                         <%= Labels.get("teacher_update.form.learning.institue_type.choose")%>
                                                     </option>
 
@@ -502,8 +502,7 @@
 
                                             <div class="col-6 col-lg-3 my-1 d-none" id="teacher_update_institute_<%= instituteType%>_div">
 
-                                                <select class="custom-select teacher_update_institute_select" id="teacher_update_institute_<%= instituteType%>_select>">
-
+                                                <select class="custom-select teacher_update_institute_select" id="teacher_update_institute_<%= instituteType%>_select">
                                                     <option value="" disabled selected>
                                                         <%= Labels.get("teacher_update.form.learning.institue_" + instituteType + ".choose")%>
                                                     </option>

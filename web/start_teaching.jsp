@@ -486,7 +486,7 @@
 
                                             <div class="col-6 col-lg-3 my-1 d-none" id="start_teaching_institute_<%= instituteType%>_div">
 
-                                                <select class="custom-select start_teaching_institute_select" id="start_teaching_institute_<%= instituteType%>_select>">
+                                                <select class="custom-select start_teaching_institute_select" id="start_teaching_institute_<%= instituteType%>_select">
 
                                                     <option value="" disabled selected>
                                                         <%= Labels.get("start_teaching.form.learning.institue_" + instituteType + ".choose")%>

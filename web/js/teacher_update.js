@@ -99,7 +99,7 @@ function teacher_update_form_submit()
     request.show_email = $("#teacher_update_show_email").prop("checked");
     request.show_skype = $("#teacher_update_show_skype").prop("checked");
     request.institute_id = teacher_update.institute_id;
-    request.institute_name = $("#teacher_update_institute_other_text").val();
+    request.institute_name = $("#teacher_update_institute_0_text").val();
     request.subject_id = teacher_update.subject_id;
     request.subject_name = $("#teacher_update_subject_0_text").val();
     request.show_degree = $("#teacher_update_show_degree").prop("checked");
@@ -149,6 +149,11 @@ function teacher_update_select_area_code(phone_area)
 function teacher_update_select_institute()
 {
     teacher_update.institute_id = parseInt10($(this).val());
+    if (teacher_update.institute_id === 0 )
+    {
+        teacher_update.institute_type = 0;
+        teacher_update_institute_type_updated();
+    }
 }
 
 function teacher_update_select_institute_type()
@@ -159,7 +164,7 @@ function teacher_update_select_institute_type()
 
 function teacher_update_institute_updated()
 {
-    
+    $("#teacher_update_institute_" + teacher_update.institute_type + "_select").val(teacher_update.institute_id);
 }
 
 function teacher_update_institute_type_updated()
@@ -398,6 +403,12 @@ function teacher_update_init()
         teacher_update.institute_id = teacher.institute.id;
         teacher_update.institute_type = teacher.institute.institute_type.id;
         $("#teacher_update_institute_type_select").val(teacher_update.institute_type);
+        teacher_update_institute_type_updated();
+        teacher_update_institute_updated();
+    }
+    if (teacher.institute_name !== undefined ) {
+        $("#teacher_update_institute_type_select").val(teacher_update.institute_type);
+        $("#teacher_update_institute_0_text").val(teacher.institute_name);
         teacher_update_institute_type_updated();
     }
 
