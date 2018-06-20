@@ -69,7 +69,7 @@ public class RegisterTeacherServlet extends BaseServlet {
                     + registerTeacherRequest.day_of_birth);
             return new BasicResponse(-1, Labels.get("start_teaching.response.teacher_under_age"));
         }
-       
+
         Teacher registeringTeacher = new Teacher();
         registeringTeacher.email = googleUser.email;
         registeringTeacher.display_name = registerTeacherRequest.display_name;
@@ -94,7 +94,7 @@ public class RegisterTeacherServlet extends BaseServlet {
         if (registeringTeacher.email.equals(Config.get("website.admin_email"))) {
             registeringTeacher.admin = true;
         }
-        
+
         if (registerTeacherRequest.institute_id != 0) {
             registeringTeacher.institute = DB.get(registerTeacherRequest.institute_id, Institute.class);
         } else {
@@ -129,7 +129,6 @@ public class RegisterTeacherServlet extends BaseServlet {
         }
 
         List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
-
         List<String> availableTimeList = new ArrayList();
         for (AvailableTime avilableTime : registerTeacherRequest.available_times) {
             avilableTime.teacher = registeringTeacher;
@@ -145,6 +144,22 @@ public class RegisterTeacherServlet extends BaseServlet {
         BaseServlet.loginUser(request, registeringTeacher);
         Utils.info("teacher " + registeringTeacher.display_name + " email " + registeringTeacher.email + " registered");
 
+        sendEmail(registeringTeacher, topicsList, availableTimeList);        
+
+        if (!Utils.isEmpty(registerTeacherRequest.feedback)) {
+            Feedback feedback = new Feedback();
+            feedback.from = registerTeacherRequest.display_name;
+            feedback.email = registerTeacherRequest.email;
+            feedback.message = registerTeacherRequest.feedback;
+            DB.add(feedback);
+            Utils.info("new feedback : " + feedback);
+        }
+
+        return new BasicResponse(0, "");
+    }
+
+    private void sendEmail(Teacher registeringTeacher, List<String> topicsList, List<String> availableTimeList) throws Exception
+    {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "register_teacher.html";
 
@@ -162,6 +177,8 @@ public class RegisterTeacherServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% teacherFullName %>", registeringTeacher.first_name + " " + registeringTeacher.last_name);
         emailContent = emailContent.replaceAll("<% teacherPhone %>", registeringTeacher.phone_area + "-" + registeringTeacher.phone_number);
         emailContent = emailContent.replaceAll("<% teacherCity %>", registeringTeacher.city.name);
+        emailContent = emailContent.replaceAll("<% teacherGender %>", CLabels.get(registeringTeacher.gender == User.GENDER_MALE
+                ? "language.male" : "language.female"));
         emailContent = emailContent.replaceAll("<% teacherDayOfBirth %>", Utils.formatDateWithFullYear(registeringTeacher.day_of_birth));
         emailContent = emailContent.replaceAll("<% teacherSkype %>", Utils.nonNullString(registeringTeacher.skype_name));
         emailContent = emailContent.replaceAll("<% teacherMoto %>", registeringTeacher.moto);
@@ -169,21 +186,9 @@ public class RegisterTeacherServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% teacherShowEmail %>", registeringTeacher.show_email ? yes : no);
         emailContent = emailContent.replaceAll("<% teacherShowSkype %>", registeringTeacher.show_skype ? yes : no);
         emailContent = emailContent.replaceAll("<% teacherTeachingTopics %>", Utils.mergeList(topicsList, "<br/>"));
-        emailContent = emailContent.replaceAll("<% teacherAvailableHours %>", Utils.mergeList(availableTimeList, "<br/>"));
+        emailContent = emailContent.replaceAll("<% teacherAvailableHours %>", Utils.mergeList(availableTimeList, "<br/>"));                
 
         EmailSender.addEmail(registeringTeacher.email, Labels.get("emails.register_teacher.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);
-        
-        if (!Utils.isEmpty(registerTeacherRequest.feedback)) {            
-            Feedback feedback = new Feedback();
-            feedback.from = registerTeacherRequest.display_name;
-            feedback.email = registerTeacherRequest.email;
-            feedback.message = registerTeacherRequest.feedback;
-            DB.add(feedback);
-            Utils.info("new feedback : " + feedback);
-        }
-        
-        return new BasicResponse(0, "");
     }
-
 }

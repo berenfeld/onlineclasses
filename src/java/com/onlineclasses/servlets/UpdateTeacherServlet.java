@@ -14,9 +14,17 @@ import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.TeachingTopic;
 import com.onlineclasses.entities.Topic;
+import com.onlineclasses.entities.User;
 import com.onlineclasses.servlets.entities.UpdateTeacherRequest;
+import com.onlineclasses.utils.CLabels;
+import com.onlineclasses.utils.Config;
+import com.onlineclasses.utils.Labels;
+import com.onlineclasses.utils.TasksManager;
 import com.onlineclasses.utils.Utils;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,6 +82,7 @@ public class UpdateTeacherServlet extends BaseServlet {
             Utils.warning("no previous teaching topics, or could not delete teaching topics of teacher " + teacher);
         }
 
+        List<String> topicsList = new ArrayList();
         for (int topicId : updateTeacherRequest.teaching_topics) {
             TeachingTopic teachingTopic = new TeachingTopic();
             teachingTopic.teacher = teacher;
@@ -81,22 +90,28 @@ public class UpdateTeacherServlet extends BaseServlet {
             if (DB.add(teachingTopic) != 1) {
                 Utils.warning("Could not add teaching topic " + teachingTopic + " to teacher " + teacher );
             }
+            topicsList.add(teachingTopic.topic.name);
         }
 
         if ( 0 == DB.deleteTeacherAvailableTime(teacher) ) {
             Utils.warning("could not delete available time of teacher " + teacher);
         }
         
+        List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
+        List<String> availableTimeList = new ArrayList();
         for (AvailableTime avilableTime : updateTeacherRequest.available_times) {
             avilableTime.teacher = teacher;
             if (DB.add(avilableTime) != 1) {
                 Utils.warning("Could not add available time " + avilableTime + " to teacher " + teacher );
             }
+            availableTimeList.add(dayNamesLong.get(avilableTime.day - 1) + " "
+                    + Utils.formatTime(avilableTime.start_hour, avilableTime.start_minute) + " - "
+                    + Utils.formatTime(avilableTime.end_hour, avilableTime.end_minute));
         }
 
         Utils.info("teacher " + teacher.display_name + " email " + teacher.email + " update profile");
 
-        // TODO send email
+        sendEmail(teacher, topicsList, availableTimeList);       
         
         if (!Utils.isEmpty(updateTeacherRequest.feedback)) {            
             Feedback feedback = new Feedback();
@@ -108,6 +123,40 @@ public class UpdateTeacherServlet extends BaseServlet {
         }
                 
         return new BasicResponse(0, "");
+    }
+    
+    private void sendEmail(Teacher registeringTeacher, List<String> topicsList, List<String> availableTimeList) throws Exception
+    {
+        String email_name = Config.get("mail.emails.path") + File.separator
+                + Config.get("website.language") + File.separator + "teacher_update.html";
+
+        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
+
+        String yes = CLabels.get("language.yes");
+        String no = CLabels.get("language.no");
+
+        emailContent = emailContent.replaceAll("<% registeredTeacher %>", registeringTeacher.display_name);
+        emailContent = emailContent.replaceAll("<% websiteUrl %>", Config.get("website.url"));
+        emailContent = emailContent.replaceAll("<% websiteShortName %>", Labels.get("website.name"));
+        emailContent = emailContent.replaceAll("<% findTeachersUrl %>", Config.get("website.url") + "/find_teachers");
+        emailContent = emailContent.replaceAll("<% teacherDisplayName %>", registeringTeacher.display_name);
+        emailContent = emailContent.replaceAll("<% teacherEmail %>", registeringTeacher.email);
+        emailContent = emailContent.replaceAll("<% teacherFullName %>", registeringTeacher.first_name + " " + registeringTeacher.last_name);
+        emailContent = emailContent.replaceAll("<% teacherPhone %>", registeringTeacher.phone_area + "-" + registeringTeacher.phone_number);
+        emailContent = emailContent.replaceAll("<% teacherCity %>", registeringTeacher.city.name);
+        emailContent = emailContent.replaceAll("<% teacherGender %>", CLabels.get(registeringTeacher.gender == User.GENDER_MALE
+                ? "language.male" : "language.female"));
+        emailContent = emailContent.replaceAll("<% teacherDayOfBirth %>", Utils.formatDateWithFullYear(registeringTeacher.day_of_birth));
+        emailContent = emailContent.replaceAll("<% teacherSkype %>", Utils.nonNullString(registeringTeacher.skype_name));
+        emailContent = emailContent.replaceAll("<% teacherMoto %>", registeringTeacher.moto);
+        emailContent = emailContent.replaceAll("<% teacherShowPhone %>", registeringTeacher.show_phone ? yes : no);
+        emailContent = emailContent.replaceAll("<% teacherShowEmail %>", registeringTeacher.show_email ? yes : no);
+        emailContent = emailContent.replaceAll("<% teacherShowSkype %>", registeringTeacher.show_skype ? yes : no);
+        emailContent = emailContent.replaceAll("<% teacherTeachingTopics %>", Utils.mergeList(topicsList, "<br/>"));
+        emailContent = emailContent.replaceAll("<% teacherAvailableHours %>", Utils.mergeList(availableTimeList, "<br/>"));                
+
+        EmailSender.addEmail(registeringTeacher.email, Labels.get("emails.register_teacher.title"), emailContent);
+        TasksManager.runNow(TasksManager.TASK_EMAIL);
     }
 
 }
