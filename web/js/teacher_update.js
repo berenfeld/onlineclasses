@@ -32,27 +32,27 @@ function teacher_update_submit_warning(text)
     $("#teacher_update_warning_div").removeClass("d-none");
 }
 
-function teacher_update_scroll_to(element)
-{
-    $('html, body').scrollTop($("#" + element).offset().top);
-}
-
 function teacher_update_form_validation(request)
 {
     $("#teacher_update_form *").removeClass("border border-warning");
 
+    if (stringEmpty(request.display_name)) {
+        alert_show(oc.clabels[ "teacher_update.form.submit.fill_display_name"]);
+        $("#teacher_update_display_name_input").addClass("border border-warning");
+        teacher_update_goto_tab("personal_information");
+        return false;
+    }
+    
     if (stringEmpty(request.phone_number) || stringEmpty(request.phone_area)) {
         alert_show(oc.clabels[ "teacher_update.form.submit.fill_in_phone"]);
         $("#teacher_update_phone_number").addClass("border border-warning");
-        teacher_update_scroll_to("teacher_update_phone_number");
         teacher_update_goto_tab("personal_information");
         return false;
     }
 
     if (request.city_id === 0) {
         alert_show(oc.clabels[ "teacher_update.form.submit.fill_city"]);
-        $("#teacher_update_city_select").addClass("border border-warning");
-        teacher_update_scroll_to("teacher_update_city");
+        $("#teacher_update_city_select").addClass("border border-warning");        
         teacher_update_goto_tab("personal_information");
         return false;
     }
@@ -60,7 +60,6 @@ function teacher_update_form_validation(request)
     if (request.day_of_birth === null) {
         alert_show(oc.clabels[ "teacher_update.form.submit.fill_day_of_birth"]);
         $("#teacher_update_day_of_birth").addClass("border border-warning");
-        teacher_update_scroll_to("teacher_update_day_of_birth");
         teacher_update_goto_tab("personal_information");
         return false;
     }
@@ -68,7 +67,6 @@ function teacher_update_form_validation(request)
     if (stringEmpty(request.moto)) {
         alert_show(oc.clabels[ "teacher_update.form.submit.fill_moto"]);
         $("#teacher_update_moto").addClass("border border-warning");
-        teacher_update_scroll_to("teacher_update_moto");
         teacher_update_goto_tab("profile");
         return false;
     }
@@ -76,7 +74,6 @@ function teacher_update_form_validation(request)
     if (request.price_per_hour === 0) {
         alert_show(oc.clabels[ "teacher_update.form.submit.fill_price_per_hour"]);
         $("#teacher_update_price_per_hour").addClass("border border-warning");
-        teacher_update_scroll_to("teacher_update_price_per_hour");
         teacher_update_goto_tab("prices");
         return false;
     }
@@ -189,7 +186,11 @@ function teacher_update_institute_type_updated()
 function teacher_update_select_subject()
 {
     teacher_update.subject_id = parseInt10($(this).val());
+    teacher_update_subject_selected()
+}
 
+function teacher_update_subject_selected() 
+{
     if (teacher_update.subject_id === 0) {
         $("#teacher_update_subject_0_div").removeClass("d-none");
         $("#teacher_update_subject_0_label").removeClass("d-none");
@@ -416,6 +417,11 @@ function teacher_update_init()
     if (teacher.subject !== undefined) {
         teacher_update.subject_id = teacher.subject.id;
         $("#teacher_update_subject_select").val(teacher.subject.id);
+    }
+    if (teacher.subject_name !== undefined) {
+        $("#teacher_update_subject_0_text").val(teacher.subject_name);
+        $("#teacher_update_subject_select").val(0);
+        teacher_update_subject_selected();
     }
 
     if (teacher.gender === parseInt10($("#teacher_update_gender_input_male").val())) {

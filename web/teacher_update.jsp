@@ -548,7 +548,7 @@
 
                                             <div class="col-6 col-lg-3 my-1">
                                                 <select class="custom-select" id="teacher_update_subject_select">
-                                                    <option value="0" disabled selected>
+                                                    <option value="" disabled selected>
                                                         <%= Labels.get("teacher_update.form.learning.subject.choose")%>
                                                     </option>
                                                     <%
