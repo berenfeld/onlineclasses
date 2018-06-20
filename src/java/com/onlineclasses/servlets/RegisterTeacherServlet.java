@@ -9,6 +9,7 @@ import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.BasicResponse;
 import com.onlineclasses.entities.City;
+import com.onlineclasses.entities.Feedback;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.Subject;
@@ -68,12 +69,7 @@ public class RegisterTeacherServlet extends BaseServlet {
                     + registerTeacherRequest.day_of_birth);
             return new BasicResponse(-1, Labels.get("start_teaching.response.teacher_under_age"));
         }
-
-        if (!Utils.isEmpty(registerTeacherRequest.feedback)) {
-            Utils.info("feedback from " + registerTeacherRequest.display_name + " email " + registerTeacherRequest.email + ":"
-                    + registerTeacherRequest.feedback);
-        }
-
+       
         Teacher registeringTeacher = new Teacher();
         registeringTeacher.email = googleUser.email;
         registeringTeacher.display_name = registerTeacherRequest.display_name;
@@ -177,6 +173,16 @@ public class RegisterTeacherServlet extends BaseServlet {
 
         EmailSender.addEmail(registeringTeacher.email, Labels.get("emails.register_teacher.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);
+        
+        if (!Utils.isEmpty(registerTeacherRequest.feedback)) {            
+            Feedback feedback = new Feedback();
+            feedback.from = registerTeacherRequest.display_name;
+            feedback.email = registerTeacherRequest.email;
+            feedback.message = registerTeacherRequest.feedback;
+            DB.add(feedback);
+            Utils.info("new feedback : " + feedback);
+        }
+        
         return new BasicResponse(0, "");
     }
 

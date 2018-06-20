@@ -8,6 +8,7 @@ package com.onlineclasses.servlets;
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.BasicResponse;
+import com.onlineclasses.entities.Feedback;
 import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
@@ -96,6 +97,16 @@ public class UpdateTeacherServlet extends BaseServlet {
         Utils.info("teacher " + teacher.display_name + " email " + teacher.email + " update profile");
 
         // TODO send email
+        
+        if (!Utils.isEmpty(updateTeacherRequest.feedback)) {            
+            Feedback feedback = new Feedback();
+            feedback.from = updateTeacherRequest.display_name;
+            feedback.email = teacher.email;
+            feedback.message = updateTeacherRequest.feedback;
+            DB.add(feedback);
+            Utils.info("new feedback : " + feedback);
+        }
+                
         return new BasicResponse(0, "");
     }
 

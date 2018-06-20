@@ -104,6 +104,7 @@ function teacher_update_form_submit()
     request.price_per_hour = parseInt10($("#teacher_update_price_per_hour_input").val());
     request.teaching_topics = [];
     request.available_times = teacher_update.calendar.available_times;
+    request.feedback = $("#teacher_update_feedback_input").val();
 
     request.teaching_topics = [];
     $("#teacher_update_topic_list button.list-group-item").each(
