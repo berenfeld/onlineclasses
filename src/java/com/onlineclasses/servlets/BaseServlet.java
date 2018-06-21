@@ -118,6 +118,7 @@ public abstract class BaseServlet extends HttpServlet {
             } else {
                 user = DB.getStudent(websiteCookie.user_id);
             }
+            
             if (user == null) {
                 Utils.debug("no user id from cookie in session " + session);
                 logoutUser(request);

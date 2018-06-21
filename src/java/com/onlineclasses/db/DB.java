@@ -6,6 +6,7 @@
 package com.onlineclasses.db;
 
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
+import com.mysql.jdbc.AbandonedConnectionCleanupThread;
 import com.onlineclasses.db.orm.AvailableTime_DB;
 import com.onlineclasses.db.orm.Base_DB;
 import com.onlineclasses.db.orm.Email_DB;
@@ -119,11 +120,12 @@ public class DB {
         }
     }
 
-    public static void close() {
-        _dataSource.close();
+    public static void close() {        
         try {
-            _connectionSource.close();
-        } catch (IOException ex) {
+            AbandonedConnectionCleanupThread.checkedShutdown();
+            _dataSource.close();
+            _connectionSource.close();            
+        } catch (Exception ex) {
             Utils.exception(ex);
         }
     }
@@ -397,8 +399,8 @@ public class DB {
     public static synchronized AttachedFile getClassAttachedFile(OClass oClass, String fileName) throws SQLException {
         return _attachedFile_DB.getClassAttachedFile(oClass, fileName);
     }
-    
-    public static City getCityByName(String name)  throws SQLException {
+
+    public static City getCityByName(String name) throws SQLException {
         return _city_DB.getCityByName(name);
     }
 }
