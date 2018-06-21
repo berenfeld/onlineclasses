@@ -12,5 +12,6 @@ package com.onlineclasses.entities;
 public class WCookie {
         
     public int user_id;
+    public boolean is_teacher;
     public String hash;       
 }

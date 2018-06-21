@@ -113,7 +113,11 @@ public abstract class BaseServlet extends HttpServlet {
 
             String cookieStr = URLDecoder.decode(cookie.getValue(), "UTF-8");
             WCookie websiteCookie = Utils.gson().fromJson(cookieStr, WCookie.class);
-            user = DB.getUser(websiteCookie.user_id);
+            if (websiteCookie.is_teacher) {
+                user = DB.getTeacher(websiteCookie.user_id);
+            } else {
+                user = DB.getStudent(websiteCookie.user_id);
+            }
             if (user == null) {
                 Utils.debug("no user id from cookie in session " + session);
                 logoutUser(request);
@@ -146,6 +150,7 @@ public abstract class BaseServlet extends HttpServlet {
             WCookie websiteCookie = new WCookie();
             websiteCookie.user_id = user.id;
             websiteCookie.hash = calculateUserHash(user);
+            websiteCookie.is_teacher = user.isTeacher();
             String websiteCookieString = URLEncoder.encode(Utils.gson().toJson(websiteCookie), "UTF-8");
             cookie.setValue(websiteCookieString);
             cookie.setMaxAge((int) TimeUnit.DAYS.toSeconds(Config.getInt("website.cookie.age.days")));

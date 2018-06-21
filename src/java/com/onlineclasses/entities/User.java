@@ -83,5 +83,13 @@ public class User extends BasicEntity implements Serializable {
     
     public boolean isFemale() {
         return gender == GENDER_FEMALE;
-    }        
+    } 
+    
+    public boolean isStudent() {
+        return this instanceof Student;
+    }
+    
+    public boolean isTeacher() {
+        return this instanceof Teacher;
+    }
 }

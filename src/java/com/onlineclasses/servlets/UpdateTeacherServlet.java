@@ -18,6 +18,7 @@ import com.onlineclasses.entities.User;
 import com.onlineclasses.servlets.entities.UpdateTeacherRequest;
 import com.onlineclasses.utils.CLabels;
 import com.onlineclasses.utils.Config;
+import com.onlineclasses.utils.EmailSender;
 import com.onlineclasses.utils.Labels;
 import com.onlineclasses.utils.TasksManager;
 import com.onlineclasses.utils.Utils;
