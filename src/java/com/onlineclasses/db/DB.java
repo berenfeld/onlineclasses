@@ -396,6 +396,10 @@ public class DB {
         return _oclass_db.updateClassStatus(oClass, status);
     }
 
+    public static int updateClassPricePerHour(OClass oClass, int newPricePerHour) throws SQLException {
+        return _oclass_db.updateClassPricePerHour(oClass, newPricePerHour);
+    }
+    
     public static int updateAttachedFileUploadedBytes(AttachedFile attachedFile) throws SQLException {
         return _attachedFile_DB.updateAttachedFileUploadedBytes(attachedFile);
     }

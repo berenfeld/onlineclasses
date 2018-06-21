@@ -39,7 +39,7 @@ public class OClass_DB extends Base_DB<OClass> {
         where.le(OClass.START_DATE_COLUMN, _getStudentUpcomingClassesStartDateArg);
         queryBuilder.orderBy(OClass.START_DATE_COLUMN, true);
         _getStudentUpcomingClasses = queryBuilder.prepare();
-        
+
         where.reset();
         where.eq(OClass.TEACHER_COLUMN, _getTeacherUpcomingClassesTeacherArg);
         where.and();
@@ -48,7 +48,7 @@ public class OClass_DB extends Base_DB<OClass> {
         where.le(OClass.START_DATE_COLUMN, _getTeacherUpcomingClassesStartDateArg);
         queryBuilder.orderBy(OClass.START_DATE_COLUMN, true);
         _getTeacherUpcomingClasses = queryBuilder.prepare();
-        
+
     }
 
     private final PreparedQuery<OClass> _getTeacherNotCanceledClasses;
@@ -83,4 +83,12 @@ public class OClass_DB extends Base_DB<OClass> {
         updateBuilder.updateColumnValue(OClass.STATUS_COLUMN, status);
         return updateBuilder.update();
     }
+
+    public int updateClassPricePerHour(OClass oClass, int newPricePerHour) throws SQLException {
+        UpdateBuilder<OClass, Integer> updateBuilder = _dao.updateBuilder();
+        updateBuilder.where().idEq(oClass.id);
+        updateBuilder.updateColumnValue(OClass.PRICE_PER_HOUR_COLUMN, newPricePerHour);
+        return updateBuilder.update();
+    }
+
 }

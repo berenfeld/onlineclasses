@@ -19,6 +19,11 @@ function text_input_modal_hide()
     $("#text_input_modal").modal('hide');
 }
 
+function text_input_modal_set_value(value)
+{
+    $("#text_input_modal_input").val(value);
+}
+
 function text_input_modal_show(title, message, ok_cb)
 {
     text_input_modal_hide_info();

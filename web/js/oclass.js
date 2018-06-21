@@ -1,4 +1,4 @@
-/* global online_classes */
+/* global oc */
 
 var oclass = {};
 
@@ -141,8 +141,49 @@ function schedule_class_cancel_click()
             oclass_cancel_class_ok);
 }
 
+function oclass_update_price_click()
+{
+    text_input_modal_set_value(oclass.oclass.price);
+    text_input_modal_show( oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.text"], oclass_update_price_changed);
+}
+
+function oclass_update_price_response(response)
+{
+    if (response.rc === 0 ) {
+        alert_show( oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.price_updated"]);
+        reloadAfter(2)
+        return;
+    }
+    alert_show( oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.failed_to_update_price"] +" : " + response.message);
+}
+
+function oclass_update_price_changed(new_price_str)
+{
+    var new_price = parseInt10(new_price_str);
+    if ((new_price === 0)|| (! isDigits(new_price_str))) {   
+        text_input_modal_hide();
+        alert_show( oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.illegal_price"]);
+        return;
+    }
+    
+    text_input_modal_hide();
+    alert_show(oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.request_sent"]);
+        
+    var request = {};
+    request.oclass_id = oclass.oclass.id;
+    request.new_price = new_price;
+    $.ajax("servlets/update_class_price",
+            {
+                type: "POST",
+                data: JSON.stringify(request),
+                dataType: "JSON",
+                success: oclass_update_price_response
+            });
+}
+
 function oclass_init()
 {
+    oclass.oclass.price = oclass.oclass.price_per_hour * oclass.oclass.duration_minutes / 60;
     oclass.file_name = null;
     var today = new Date();
     var start_date = new Date(Date.parse(oclass.oclass.start_date));

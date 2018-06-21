@@ -26,7 +26,8 @@ public class OClass extends BasicEntity  {
     @DatabaseField(canBeNull = false)
     public int duration_minutes;
        
-    @DatabaseField
+    public static final String PRICE_PER_HOUR_COLUMN = "price_per_hour";
+    @DatabaseField(columnName = PRICE_PER_HOUR_COLUMN)
     public int price_per_hour;
     
     @DatabaseField

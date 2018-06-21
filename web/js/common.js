@@ -7,11 +7,16 @@ function parseInt10(str, defaultValue)
     if (defaultValue === undefined) {
         defaultValue = 0;
     }
-    n = parseInt(str);
+    n = parseInt(str, 10);
     if (isNaN(n)) {
         return defaultValue;
     }
     return n;
+}
+
+function isDigits(str)
+{
+    return /^\d+$/.test(str);
 }
 
 function redirectAfter(url, seconds)

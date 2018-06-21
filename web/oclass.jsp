@@ -239,9 +239,9 @@
                             }
                         %>
                         <%
-                            if (isTeacher) {
+                            if ((isTeacher) && (oClass.payment == null)) {
                         %>
-                        <button class="btn btn-info">
+                        <button class="btn btn-info" onclick="oclass_update_price_click()">
                             <%= Labels.get("oclass.sidebar.update_price")%>
                         </button>
                         <%
