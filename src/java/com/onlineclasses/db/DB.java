@@ -336,6 +336,10 @@ public class DB {
         return _oclass_db.getStudentUpcomingClasses(student);
     }
 
+    public static List<OClass> getTeacherUpcomingClasses(Teacher teacher) throws SQLException {
+        return _oclass_db.getTeacherUpcomingClasses(teacher);
+    }
+        
     public static <T> int add(T t) throws SQLException {
         return ORM_ENTITIES.get(t.getClass()).add(t);
     }

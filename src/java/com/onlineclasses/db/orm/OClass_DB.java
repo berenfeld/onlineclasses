@@ -39,14 +39,26 @@ public class OClass_DB extends Base_DB<OClass> {
         where.le(OClass.START_DATE_COLUMN, _getStudentUpcomingClassesStartDateArg);
         queryBuilder.orderBy(OClass.START_DATE_COLUMN, true);
         _getStudentUpcomingClasses = queryBuilder.prepare();
+        
+        where.reset();
+        where.eq(OClass.TEACHER_COLUMN, _getTeacherUpcomingClassesTeacherArg);
+        where.and();
+        where.eq(OClass.STATUS_COLUMN, OClass.STATUS_SCHEDULED);
+        where.and();
+        where.le(OClass.START_DATE_COLUMN, _getTeacherUpcomingClassesStartDateArg);
+        queryBuilder.orderBy(OClass.START_DATE_COLUMN, true);
+        _getTeacherUpcomingClasses = queryBuilder.prepare();
+        
     }
 
     private final PreparedQuery<OClass> _getTeacherNotCanceledClasses;
     private final SelectArg _getTeacherClassesTeacherArg = new SelectArg();
-
     private final PreparedQuery<OClass> _getStudentUpcomingClasses;
     private final SelectArg _getStudentUpcomingClassesStudentArg = new SelectArg();
     private final SelectArg _getStudentUpcomingClassesStartDateArg = new SelectArg();
+    private final PreparedQuery<OClass> _getTeacherUpcomingClasses;
+    private final SelectArg _getTeacherUpcomingClassesTeacherArg = new SelectArg();
+    private final SelectArg _getTeacherUpcomingClassesStartDateArg = new SelectArg();
 
     public synchronized List<OClass> getTeacherNotCanceledScheduledClasses(Teacher teacher) throws SQLException {
         _getTeacherClassesTeacherArg.setValue(teacher);
@@ -57,6 +69,12 @@ public class OClass_DB extends Base_DB<OClass> {
         _getStudentUpcomingClassesStudentArg.setValue(student);
         _getStudentUpcomingClassesStartDateArg.setValue(Utils.xHoursFromNow(CConfig.getInt("website.time.upcoming_student_classes_hours")));
         return _dao.query(_getStudentUpcomingClasses);
+    }
+
+    public synchronized List<OClass> getTeacherUpcomingClasses(Teacher teacher) throws SQLException {
+        _getTeacherUpcomingClassesTeacherArg.setValue(teacher);
+        _getTeacherUpcomingClassesStartDateArg.setValue(Utils.xHoursFromNow(CConfig.getInt("website.time.upcoming_teacher_classes_hours")));
+        return _dao.query(_getTeacherUpcomingClasses);
     }
 
     public int updateClassStatus(OClass scheduledClass, int status) throws SQLException {

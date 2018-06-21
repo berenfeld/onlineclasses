@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.entities.Teacher"%>
 <%@page import="com.onlineclasses.utils.Utils"%>
 <%@page import="com.onlineclasses.db.DB"%>
 <%@page import="com.onlineclasses.entities.Student"%>
@@ -11,7 +12,7 @@
 
 <%
     User com_user = BaseServlet.getUser(request);
-    List<OClass> com_studentUpcomingClasses = new ArrayList<>();
+    List<OClass> com_upcomingClasses = new ArrayList<>();
     String com_userName = Labels.get("navbar.guest.name");
     String com_homepagePage = "teacher_homepage";
     String com_updateDetailsPage = "teacher_update";
@@ -19,9 +20,11 @@
         com_userName = com_user.display_name;
 
         if (com_user instanceof Student) {
-            com_studentUpcomingClasses = DB.getStudentUpcomingClasses((Student) com_user);
+            com_upcomingClasses = DB.getStudentUpcomingClasses((Student) com_user);
             com_homepagePage = "student_homepage";
             com_updateDetailsPage = "student_update";
+        } else {
+            com_upcomingClasses = DB.getTeacherUpcomingClasses((Teacher) com_user);
         }
     }
     String com_visibleToAdminClass = "d-none";
@@ -124,19 +127,19 @@
                             <%= Labels.get("navbar.user.update_details")%>
                         </a>
                         <%
-                            if (!com_studentUpcomingClasses.isEmpty()) {
+                            if (!com_upcomingClasses.isEmpty()) {
                         %>
                         <a class="dropdown-item" href="#">
                             <%= Labels.get("navbar.user.upcoming_classes")%>
                         </a>
                         <div class="dropdown-divider"></div>
                         <%
-                            for (OClass studentUpcomingClass : com_studentUpcomingClasses) {
+                            for (OClass upcomingClass : com_upcomingClasses) {
                         %>
-                        <a class="dropdown-item" href="scheduled_class?id=<%= studentUpcomingClass.id%>">
-                            <%= studentUpcomingClass.subject%>
+                        <a class="dropdown-item" href="scheduled_class?id=<%= upcomingClass.id%>">
+                            <%= upcomingClass.subject%>
                             &nbsp;
-                            <%= Utils.formatDateTime(studentUpcomingClass.start_date)%>
+                            <%= Utils.formatDateTime(upcomingClass.start_date)%>
                         </a>
                         <%
                             }
