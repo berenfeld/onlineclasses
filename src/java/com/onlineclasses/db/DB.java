@@ -318,10 +318,10 @@ public class DB {
     }
 
     public static OClass getOClass(int id) throws SQLException {
-        OClass scheduledClass = _oclass_db.get(id);
-        scheduledClass.teacher = getTeacher(scheduledClass.teacher.id);
-        scheduledClass.student = getStudent(scheduledClass.student.id);
-        return scheduledClass;
+        OClass oClass = _oclass_db.get(id);
+        oClass.teacher = getTeacher(oClass.teacher.id);
+        oClass.student = getStudent(oClass.student.id);
+        return oClass;
     }
 
     public static int updateUserEmailEnabled(Student student) throws SQLException {
@@ -368,32 +368,32 @@ public class DB {
         return _institute_db.get(id);
     }
 
-    public static List<ClassComment> getScheuduledClassComments(OClass scheduledClass) throws SQLException {
-        List<ClassComment> scheduledClassComments = _classComment_DB.getScheuduledClassComments(scheduledClass);
-        for (ClassComment scheduledClassComment : scheduledClassComments) {
-            if (scheduledClassComment.student != null) {
-                scheduledClassComment.student = getStudent(scheduledClassComment.student.id);
-            } else if (scheduledClassComment.teacher != null) {
-                scheduledClassComment.teacher = getTeacher(scheduledClassComment.teacher.id);
+    public static List<ClassComment> getScheuduledClassComments(OClass oClass) throws SQLException {
+        List<ClassComment> oClassComments = _classComment_DB.getScheuduledClassComments(oClass);
+        for (ClassComment oClassComment : oClassComments) {
+            if (oClassComment.student != null) {
+                oClassComment.student = getStudent(oClassComment.student.id);
+            } else if (oClassComment.teacher != null) {
+                oClassComment.teacher = getTeacher(oClassComment.teacher.id);
             }
         }
-        return scheduledClassComments;
+        return oClassComments;
     }
 
-    public static List<AttachedFile> getClassAttachedFiles(OClass scheduledClass) throws SQLException {
-        List<AttachedFile> scheduledClassAttachedFiles = _attachedFile_DB.getClassAttachedFiles(scheduledClass);
-        for (AttachedFile scheduledClassAttachedFile : scheduledClassAttachedFiles) {
-            if (scheduledClassAttachedFile.student != null) {
-                scheduledClassAttachedFile.student = getStudent(scheduledClassAttachedFile.student.id);
-            } else if (scheduledClassAttachedFile.teacher != null) {
-                scheduledClassAttachedFile.teacher = getTeacher(scheduledClassAttachedFile.teacher.id);
+    public static List<AttachedFile> getClassAttachedFiles(OClass oClass) throws SQLException {
+        List<AttachedFile> oClassAttachedFiles = _attachedFile_DB.getClassAttachedFiles(oClass);
+        for (AttachedFile oClassAttachedFile : oClassAttachedFiles) {
+            if (oClassAttachedFile.student != null) {
+                oClassAttachedFile.student = getStudent(oClassAttachedFile.student.id);
+            } else if (oClassAttachedFile.teacher != null) {
+                oClassAttachedFile.teacher = getTeacher(oClassAttachedFile.teacher.id);
             }
         }
-        return scheduledClassAttachedFiles;
+        return oClassAttachedFiles;
     }
 
-    public static int updateClassStatus(OClass scheduledClass, int status) throws SQLException {
-        return _oclass_db.updateClassStatus(scheduledClass, status);
+    public static int updateClassStatus(OClass oClass, int status) throws SQLException {
+        return _oclass_db.updateClassStatus(oClass, status);
     }
 
     public static int updateAttachedFileUploadedBytes(AttachedFile attachedFile) throws SQLException {

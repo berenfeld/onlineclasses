@@ -77,9 +77,9 @@ public class OClass_DB extends Base_DB<OClass> {
         return _dao.query(_getTeacherUpcomingClasses);
     }
 
-    public int updateClassStatus(OClass scheduledClass, int status) throws SQLException {
+    public int updateClassStatus(OClass oClass, int status) throws SQLException {
         UpdateBuilder<OClass, Integer> updateBuilder = _dao.updateBuilder();
-        updateBuilder.where().idEq(scheduledClass.id);
+        updateBuilder.where().idEq(oClass.id);
         updateBuilder.updateColumnValue(OClass.STATUS_COLUMN, status);
         return updateBuilder.update();
     }

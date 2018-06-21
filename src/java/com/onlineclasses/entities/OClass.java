@@ -37,9 +37,9 @@ public class OClass extends BasicEntity  {
     @DatabaseField( canBeNull = false)
     public Date registered;
     
-    public static final int STATUS_SCHEDULED = Config.getInt("website.scheduled_class.status.scheduled");
-    public static final int STATUS_CANCELCED = Config.getInt("website.scheduled_class.status.canceled");
-    public static final int STATUS_DONE = Config.getInt("website.scheduled_class.status.done");
+    public static final int STATUS_SCHEDULED = Config.getInt("website.oclass.status.scheduled");
+    public static final int STATUS_CANCELCED = Config.getInt("website.oclass.status.canceled");
+    public static final int STATUS_DONE = Config.getInt("website.oclass.status.done");
     
     public static final String STATUS_COLUMN = "status";
     @DatabaseField( canBeNull = false, columnName = STATUS_COLUMN)

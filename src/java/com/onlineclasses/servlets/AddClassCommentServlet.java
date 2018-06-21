@@ -44,40 +44,40 @@ public class AddClassCommentServlet extends BaseServlet {
 
         Utils.info(user + " add comment " + addClassCommentRequest.comment + " on class id " + addClassCommentRequest.oclass_id);
 
-        OClass scheduledClass = DB.getOClass(addClassCommentRequest.oclass_id);
-        if (scheduledClass == null) {
+        OClass oClass = DB.getOClass(addClassCommentRequest.oclass_id);
+        if (oClass == null) {
             Utils.warning("can'f find scheduled class id " + addClassCommentRequest.oclass_id);
             return new BasicResponse(-1, "scheduled class not found");
         }
 
-        ClassComment scheduledClassComment = new ClassComment();
-        scheduledClassComment.comment = addClassCommentRequest.comment;
-        scheduledClassComment.scheduled_class = scheduledClass;
+        ClassComment oClassComment = new ClassComment();
+        oClassComment.comment = addClassCommentRequest.comment;
+        oClassComment.oclass = oClass;
 
-        if (user.equals(scheduledClass.student)) {
-            scheduledClassComment.student = (Student) user;
-        } else if (user.equals(scheduledClass.teacher)) {
-            scheduledClassComment.teacher = (Teacher) user;
+        if (user.equals(oClass.student)) {
+            oClassComment.student = (Student) user;
+        } else if (user.equals(oClass.teacher)) {
+            oClassComment.teacher = (Teacher) user;
         } else {
             Utils.warning(user + "can'f add comment on scheduled class id " + addClassCommentRequest.oclass_id + ", not student not teacher");
             return new BasicResponse(-1, "not student not teacher");
         }
 
-        scheduledClassComment.added = new Date();
-        if (1 != DB.add(scheduledClassComment)) {
+        oClassComment.added = new Date();
+        if (1 != DB.add(oClassComment)) {
             Utils.warning("failed to add scheduled class comment");
             return new BasicResponse(-1, "failed to add comment");
         }
 
         Calendar classStart = Calendar.getInstance();
-        classStart.setTime(scheduledClass.start_date);
+        classStart.setTime(oClass.start_date);
 
-        sendEmail(user, scheduledClass, classStart, scheduledClassComment.comment);
+        sendEmail(user, oClass, classStart, oClassComment.comment);
 
         return new BasicResponse(0, "");
     }
 
-    private void sendEmail(User commentator, OClass scheduledClass, Calendar classStart, String comment) throws Exception {
+    private void sendEmail(User commentator, OClass oClass, Calendar classStart, String comment) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "class_added_comment.html";
         Utils.info("sending email " + email_name);
@@ -86,14 +86,14 @@ public class AddClassCommentServlet extends BaseServlet {
 
         emailContent = emailContent.replaceAll("<% commentator %>", commentator.display_name);
         emailContent = emailContent.replaceAll("<% comment %>", comment);
-        emailContent = emailContent.replaceAll("<% classDay %>", Utils.dayNameLong(classStart.get(Calendar.DAY_OF_WEEK)) + " " + new SimpleDateFormat("dd/MM/YYYY").format(scheduledClass.start_date));
-        emailContent = emailContent.replaceAll("<% classTime %>", new SimpleDateFormat("HH:mm").format(scheduledClass.start_date));
-        emailContent = emailContent.replaceAll("<% scheduledClassLink %>", Config.get("website.url") + "/scheduled_class?id=" + scheduledClass.id);
-        emailContent = emailContent.replaceAll("<% gotoClass %>", Labels.get("emails.new_scheduled_class.goto_class"));
-        emailContent = emailContent.replaceAll("<% classSubject %>", scheduledClass.subject);
+        emailContent = emailContent.replaceAll("<% classDay %>", Utils.dayNameLong(classStart.get(Calendar.DAY_OF_WEEK)) + " " + new SimpleDateFormat("dd/MM/YYYY").format(oClass.start_date));
+        emailContent = emailContent.replaceAll("<% classTime %>", new SimpleDateFormat("HH:mm").format(oClass.start_date));
+        emailContent = emailContent.replaceAll("<% oClassLink %>", Config.get("website.url") + "/oclass?id=" + oClass.id);
+        emailContent = emailContent.replaceAll("<% gotoClass %>", Labels.get("emails.new_oclass.goto_class"));
+        emailContent = emailContent.replaceAll("<% classSubject %>", oClass.subject);
 
-        List<User> to = Arrays.asList(scheduledClass.student, scheduledClass.teacher);
-        EmailSender.addEmail(to, Labels.get("emails.scheduled_class_added_comment.title"), emailContent);
+        List<User> to = Arrays.asList(oClass.student, oClass.teacher);
+        EmailSender.addEmail(to, Labels.get("emails.oclass_added_comment.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);
     }
 

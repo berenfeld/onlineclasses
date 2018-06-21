@@ -136,7 +136,7 @@
                         <%
                             for (OClass upcomingClass : com_upcomingClasses) {
                         %>
-                        <a class="dropdown-item" href="scheduled_class?id=<%= upcomingClass.id%>">
+                        <a class="dropdown-item" href="oclass?id=<%= upcomingClass.id%>">
                             <%= upcomingClass.subject%>
                             &nbsp;
                             <%= Utils.formatDateTime(upcomingClass.start_date)%>

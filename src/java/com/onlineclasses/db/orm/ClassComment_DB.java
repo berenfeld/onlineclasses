@@ -25,7 +25,7 @@ public class ClassComment_DB extends Base_DB<ClassComment> {
         super(connectionSource, ClassComment.class);
         QueryBuilder<ClassComment, Integer> queryBuilder = _dao.queryBuilder();
         
-        queryBuilder.where().eq(ClassComment.SCHEDULED_CLASS_FIELD, _getScheuduledClassCommentsScheduledClassArg);
+        queryBuilder.where().eq(ClassComment.OCLASS_FIELD, _getScheuduledClassCommentsScheduledClassArg);
         queryBuilder.orderBy(ClassComment.ADDED_FIELD, true);
         _getScheuduledClassComments = queryBuilder.prepare();        
     }
@@ -33,9 +33,9 @@ public class ClassComment_DB extends Base_DB<ClassComment> {
     private final PreparedQuery<ClassComment> _getScheuduledClassComments;
     private final SelectArg _getScheuduledClassCommentsScheduledClassArg = new SelectArg();
     
-    public synchronized List<ClassComment> getScheuduledClassComments(OClass scheduledClass) throws SQLException
+    public synchronized List<ClassComment> getScheuduledClassComments(OClass oClass) throws SQLException
     {
-        _getScheuduledClassCommentsScheduledClassArg.setValue(scheduledClass);
+        _getScheuduledClassCommentsScheduledClassArg.setValue(oClass);
         return _dao.query(_getScheuduledClassComments);
     }
 }

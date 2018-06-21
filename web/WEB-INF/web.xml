@@ -26,8 +26,8 @@
         <jsp-file>/find_teachers.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>scheduled_class</servlet-name>
-        <jsp-file>/scheduled_class.jsp</jsp-file>
+        <servlet-name>oclass</servlet-name>
+        <jsp-file>/oclass.jsp</jsp-file>
     </servlet>
     <servlet>
         <servlet-name>unsubscribe</servlet-name>
@@ -74,8 +74,8 @@
         <url-pattern>/find_teachers</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>scheduled_class</servlet-name>
-        <url-pattern>/scheduled_class</url-pattern>
+        <servlet-name>oclass</servlet-name>
+        <url-pattern>/oclass</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>unsubscribe</servlet-name>

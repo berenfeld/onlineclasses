@@ -59,16 +59,16 @@ public class FileUploadServlet extends HttpServlet {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
 
-            int scheduledClassId = Utils.parseInt(request.getParameter("oclass_id"));
-            String comment = request.getParameter("scheduled_class_attach_file_comment");
-            Part filePart = request.getPart("scheduled_class_attach_file_input");
+            int oClassId = Utils.parseInt(request.getParameter("oclass_id"));
+            String comment = request.getParameter("oclass_attach_file_comment");
+            Part filePart = request.getPart("oclass_attach_file_input");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             long fileSize = filePart.getSize();
-            Utils.info("upload file " + fileName + " size " + fileSize + " from user " + user + " sched class " + scheduledClassId + " comment " + comment);
+            Utils.info("upload file " + fileName + " size " + fileSize + " from user " + user + " sched class " + oClassId + " comment " + comment);
 
-            OClass oclass = DB.getOClass(scheduledClassId);
+            OClass oclass = DB.getOClass(oClassId);
             if (oclass == null) {
-                Utils.warning("class id " + scheduledClassId + " not found");
+                Utils.warning("class id " + oClassId + " not found");
                 return;
             }
 
@@ -79,7 +79,7 @@ public class FileUploadServlet extends HttpServlet {
 
             attachedFile = new AttachedFile();
             attachedFile.added = new Date();
-            attachedFile.scheduled_class = oclass;
+            attachedFile.oclass = oclass;
             attachedFile.name = fileName;
             attachedFile.size = (int) fileSize;
             attachedFile.uploaded = 0;
@@ -102,7 +102,7 @@ public class FileUploadServlet extends HttpServlet {
 
             String classRootDirName = Utils.getRealPath(request.getServletContext(), "",
                     Config.get("website.file.upload.root"),
-                    Config.get("website.file.upload.classes_prefix") + scheduledClassId);
+                    Config.get("website.file.upload.classes_prefix") + oClassId);
             Utils.info("class root dir name " + classRootDirName);
 
             File classRootDir = new File(classRootDirName);
@@ -113,7 +113,7 @@ public class FileUploadServlet extends HttpServlet {
 
             String outputFileName = Utils.getRealPath(request.getServletContext(), fileName,
                     Config.get("website.file.upload.root"),
-                    Config.get("website.file.upload.classes_prefix") + scheduledClassId);
+                    Config.get("website.file.upload.classes_prefix") + oClassId);
 
             InputStream fi = filePart.getInputStream();
             File outputFile = new File(outputFileName);
@@ -166,12 +166,12 @@ public class FileUploadServlet extends HttpServlet {
         emailContent = emailContent.replaceAll("<% comment %>", attachedFile.comment);
         emailContent = emailContent.replaceAll("<% classDay %>", Utils.dayNameLong(classStart.get(Calendar.DAY_OF_WEEK)) + " " + new SimpleDateFormat("dd/MM/YYYY").format(oClass.start_date));
         emailContent = emailContent.replaceAll("<% classTime %>", new SimpleDateFormat("HH:mm").format(oClass.start_date));
-        emailContent = emailContent.replaceAll("<% scheduledClassLink %>", Config.get("website.url") + "/scheduled_class?id=" + oClass.id);
-        emailContent = emailContent.replaceAll("<% gotoClass %>", Labels.get("emails.new_scheduled_class.goto_class"));
+        emailContent = emailContent.replaceAll("<% oClassLink %>", Config.get("website.url") + "/oclass?id=" + oClass.id);
+        emailContent = emailContent.replaceAll("<% gotoClass %>", Labels.get("emails.new_oclass.goto_class"));
         emailContent = emailContent.replaceAll("<% classSubject %>", oClass.subject);
 
         List<User> to = Arrays.asList(oClass.student, oClass.teacher);
-        EmailSender.addEmail(to, Labels.get("emails.scheduled_class_added_comment.title"), emailContent);
+        EmailSender.addEmail(to, Labels.get("emails.oclass_added_comment.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);
     }
 

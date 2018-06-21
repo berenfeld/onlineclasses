@@ -13,9 +13,9 @@ public class ClassComment extends BasicEntity {
     @DatabaseField(canBeNull = false)
     public String comment;
     
-    public static final String SCHEDULED_CLASS_FIELD = "scheduled_class";
-    @DatabaseField(canBeNull = false, foreign = true, columnName = SCHEDULED_CLASS_FIELD)
-    public OClass scheduled_class;
+    public static final String OCLASS_FIELD = "oclass";
+    @DatabaseField(canBeNull = false, foreign = true, columnName = OCLASS_FIELD)
+    public OClass oclass;
     
     @DatabaseField(foreign = true)
     public Student student;

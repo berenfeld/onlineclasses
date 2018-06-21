@@ -13,9 +13,9 @@ public class AttachedFile extends BasicEntity {
     public AttachedFile()
     {}
     
-    public static final String SCHEDULED_CLASS_FIELD = "scheduled_class";
-    @DatabaseField(canBeNull = false, foreign = true, columnName = SCHEDULED_CLASS_FIELD)
-    public OClass scheduled_class;
+    public static final String OCLASS_FIELD = "oclass";
+    @DatabaseField(canBeNull = false, foreign = true, columnName = OCLASS_FIELD)
+    public OClass oclass;
 
     public static final String NAME_FIELD = "file_name";
     @DatabaseField(canBeNull = false, columnName = NAME_FIELD)

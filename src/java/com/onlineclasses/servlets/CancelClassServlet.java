@@ -68,7 +68,7 @@ public class CancelClassServlet extends BaseServlet {
         }
               
         ClassComment oClassComment = new ClassComment();
-        oClassComment.scheduled_class = oClass;
+        oClassComment.oclass = oClass;
         oClassComment.student = student;
         oClassComment.teacher = teacher;
         oClassComment.comment = "Class canceled. Reason : "+ cancelClassRequest.comment;
@@ -82,13 +82,13 @@ public class CancelClassServlet extends BaseServlet {
         return new BasicResponse(0, "");
     }
     
-    private void sendEmail(User user, OClass scheduledClass, String comment) throws Exception {
+    private void sendEmail(User user, OClass oClass, String comment) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "class_canceled.html";
         Utils.info("sending email " + email_name);
 
-        Teacher teacher = DB.get(scheduledClass.teacher.id, Teacher.class);
-        Student student = DB.get(scheduledClass.student.id, Student.class);
+        Teacher teacher = DB.get(oClass.teacher.id, Teacher.class);
+        Student student = DB.get(oClass.student.id, Student.class);
 
         String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
 
@@ -96,7 +96,7 @@ public class CancelClassServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% studentName %>", student.display_name);
         emailContent = emailContent.replaceAll("<% teacherName %>", teacher.display_name);
         emailContent = emailContent.replaceAll("<% cancelReason %>", comment);
-        emailContent = emailContent.replaceAll("<% classSubject %>", scheduledClass.subject);
+        emailContent = emailContent.replaceAll("<% classSubject %>", oClass.subject);
         emailContent = emailContent.replaceAll("<% findTeachersUrl %>", Config.get("website.url") + "/find_teachers");
 
         List<User> to = Arrays.asList(student, teacher);

@@ -84,12 +84,12 @@ public class ScheduleClassServlet extends BaseServlet {
         }
 
         List<OClass> allTeacherClasses = DB.getTeacherScheduledClasses(teacher);
-        for (OClass scheduledClass : allTeacherClasses) {
+        for (OClass oClass : allTeacherClasses) {
             Calendar otherClassStart = Calendar.getInstance();
-            otherClassStart.setTime(scheduledClass.start_date);
+            otherClassStart.setTime(oClass.start_date);
             Calendar otherClassEnd = Calendar.getInstance();
-            otherClassEnd.setTime(scheduledClass.start_date);
-            otherClassEnd.add(Calendar.MINUTE, scheduledClass.duration_minutes);
+            otherClassEnd.setTime(oClass.start_date);
+            otherClassEnd.add(Calendar.MINUTE, oClass.duration_minutes);
 
             if (Utils.overlappingEvents(classStart, classEnd, otherClassStart, otherClassEnd)) {
                 Utils.warning("student " + student.display_name + " can't schedule class with " + teacher.display_name
@@ -99,44 +99,44 @@ public class ScheduleClassServlet extends BaseServlet {
         }
 
         // check that it does not collide with other scheduled classes
-        OClass scheduledClass = new OClass();
-        scheduledClass.teacher = teacher;
-        scheduledClass.student = student;
-        scheduledClass.start_date = scheduleClassRequest.start_date;
-        scheduledClass.duration_minutes = scheduleClassRequest.duration_minutes;
-        scheduledClass.price_per_hour = teacher.price_per_hour;
-        scheduledClass.subject = scheduleClassRequest.subject;
-        scheduledClass.registered = new Date();
-        scheduledClass.status = OClass.STATUS_SCHEDULED;
+        OClass oClass = new OClass();
+        oClass.teacher = teacher;
+        oClass.student = student;
+        oClass.start_date = scheduleClassRequest.start_date;
+        oClass.duration_minutes = scheduleClassRequest.duration_minutes;
+        oClass.price_per_hour = teacher.price_per_hour;
+        oClass.subject = scheduleClassRequest.subject;
+        oClass.registered = new Date();
+        oClass.status = OClass.STATUS_SCHEDULED;
 
-        if (1 != DB.add(scheduledClass)) {
+        if (1 != DB.add(oClass)) {
             Utils.warning("student " + student.display_name + " schedule class failed. DB error");
             return new BasicResponse(-1, "can't schedule class");
         }
 
         Utils.info("student " + student.display_name + " scheduled class with " + teacher.display_name
-                + " at " + scheduledClass.start_date + " duration " + scheduledClass.duration_minutes + " subject "
-                + scheduledClass.subject);
+                + " at " + oClass.start_date + " duration " + oClass.duration_minutes + " subject "
+                + oClass.subject);
 
         if (!Utils.isEmpty(scheduleClassRequest.student_comment)) {
-            ClassComment scheduledClassComment = new ClassComment();
-            scheduledClassComment.added = new Date();
-            scheduledClassComment.student = student;
-            scheduledClassComment.comment = scheduleClassRequest.student_comment;
-            scheduledClassComment.scheduled_class = scheduledClass;
-            DB.add(scheduledClassComment);
+            ClassComment oClassComment = new ClassComment();
+            oClassComment.added = new Date();
+            oClassComment.student = student;
+            oClassComment.comment = scheduleClassRequest.student_comment;
+            oClassComment.oclass = oClass;
+            DB.add(oClassComment);
         }
   
-        sendEmail(student, teacher, scheduledClass, classStart);
+        sendEmail(student, teacher, oClass, classStart);
 
         ScheduleClassResponse scheduleClassResponse = new ScheduleClassResponse();
-        scheduleClassResponse.class_id = scheduledClass.id;
+        scheduleClassResponse.class_id = oClass.id;
 
         // TODO send email
         return scheduleClassResponse;
     }
 
-    private void sendEmail(Student student, Teacher teacher, OClass scheduledClass, Calendar classStart) throws Exception {
+    private void sendEmail(Student student, Teacher teacher, OClass oClass, Calendar classStart) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "new_class.html";
         Utils.info("sending email " + email_name);
@@ -144,14 +144,14 @@ public class ScheduleClassServlet extends BaseServlet {
         String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
 
         emailContent = emailContent.replaceAll("<% teacherName %>", teacher.display_name);
-        emailContent = emailContent.replaceAll("<% classDay %>", Utils.dayNameLong(classStart.get(Calendar.DAY_OF_WEEK)) + " " + new SimpleDateFormat("dd/MM/YYYY").format(scheduledClass.start_date));
-        emailContent = emailContent.replaceAll("<% classTime %>", new SimpleDateFormat("HH:mm").format(scheduledClass.start_date));
-        emailContent = emailContent.replaceAll("<% scheduledClassLink %>", Config.get("website.url") + "/scheduled_class?id=" + scheduledClass.id);
-        emailContent = emailContent.replaceAll("<% gotoClass %>", Labels.get("emails.new_scheduled_class.goto_class"));
-        emailContent = emailContent.replaceAll("<% classSubject %>", scheduledClass.subject);
+        emailContent = emailContent.replaceAll("<% classDay %>", Utils.dayNameLong(classStart.get(Calendar.DAY_OF_WEEK)) + " " + new SimpleDateFormat("dd/MM/YYYY").format(oClass.start_date));
+        emailContent = emailContent.replaceAll("<% classTime %>", new SimpleDateFormat("HH:mm").format(oClass.start_date));
+        emailContent = emailContent.replaceAll("<% oClassLink %>", Config.get("website.url") + "/oclass?id=" + oClass.id);
+        emailContent = emailContent.replaceAll("<% gotoClass %>", Labels.get("emails.new_oclass.goto_class"));
+        emailContent = emailContent.replaceAll("<% classSubject %>", oClass.subject);
 
         List<User> to = Arrays.asList(student, teacher);
-        EmailSender.addEmail(to, Labels.get("emails.new_scheduled_class.title"), emailContent);
+        EmailSender.addEmail(to, Labels.get("emails.new_oclass.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);
     }
 

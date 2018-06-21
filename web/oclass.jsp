@@ -29,7 +29,7 @@
 <html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
     <head>
         <%@include file="header.jsp" %>
-        <link rel="stylesheet" href="css/scheduled_class.css">
+        <link rel="stylesheet" href="css/oclass.css">
     </head>
     <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
         <%@include file="body.jsp" %>    
@@ -41,7 +41,7 @@
                 <input type="hidden" name="amount" value="<%= classPriceFormatted%>">
                 <input type="hidden" name="currency_code" value="<%= Config.get("website.paypal.currency_code")%>">
                 <INPUT TYPE="hidden" name="charset" value="utf-8">
-                <INPUT TYPE="hidden" NAME="return" value="<%= Utils.buildWebsiteURL("scheduled_class", "id=" + oClass.id)%>">
+                <INPUT TYPE="hidden" NAME="return" value="<%= Utils.buildWebsiteURL("oclass", "id=" + oClass.id)%>">
                 <input type="hidden" name="<email>" value="<%= student.email%>">
                 <input type="hidden" name="<first_name>" value="<%= student.first_name%>">
                 <input type="hidden" name="<last_name>" value="<%= student.last_name%> ">
@@ -55,19 +55,19 @@
                         <div class="modal-header bg-secondary text-white">                                
                             <div class="modal-title"> 
                                 <span class="oi" data-glyph="dollar"></span> 
-                                <%= Labels.get("scheduled.class.payment_modal.title")%>
+                                <%= Labels.get("oclass.payment_modal.title")%>
                             </div>
                             <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>   
                         </div>
                         <div class="modal-body">
                             <h6>
-                                <%= Labels.get("scheduled.class.payment_modal.text1")%>
+                                <%= Labels.get("oclass.payment_modal.text1")%>
                                 <br/>
-                                <%= Labels.get("scheduled.class.payment_modal.text2")%>
+                                <%= Labels.get("oclass.payment_modal.text2")%>
                             </h6>
                             <div class="form-group row">
                                 <label for="schedule_class_payment_modal_price" class="col-6 col-form-label my-1">
-                                    <%= Labels.get("scheduled.class.payment_modal.total_price")%>
+                                    <%= Labels.get("oclass.payment_modal.total_price")%>
                                 </label>
                                 <div class="col-6 my-1">
                                     <div class="input-group">
@@ -86,11 +86,11 @@
                                 <br/>
                                 <p class="col-12 my-1">
                                     <small>
-                                        <%= Labels.get("scheduled.class.payment_modal.calculation_start")%>                                        
+                                        <%= Labels.get("oclass.payment_modal.calculation_start")%>                                        
                                         <%= oClass.duration_minutes / 60.0%>
                                         <%= CLabels.get("language.hours")%>
                                         &times;
-                                        <%= Labels.get("scheduled.class.payment_modal.calculation_end")%>                                        
+                                        <%= Labels.get("oclass.payment_modal.calculation_end")%>                                        
                                         <%= Utils.formatPrice(oClass.price_per_hour)%>
                                         <%= CLabels.get("website.currency")%>
                                     </small>
@@ -114,60 +114,60 @@
             </form>
         </div>
 
-        <iframe id="scheduled_class_post_hidden_iframe" name="scheduled_class_post_hidden_iframe" class="d-none"></iframe>
+        <iframe id="oclass_post_hidden_iframe" name="oclass_post_hidden_iframe" class="d-none"></iframe>
 
-        <div id="scheduled_class_attach_file_modal" class="modal fade" role="dialog">
+        <div id="oclass_attach_file_modal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-md">
                 <form action="/servlets/file_upload" method="post" enctype="multipart/form-data"
-                      target="scheduled_class_post_hidden_iframe"
-                      onsubmit="scheduled_class_submit_file()">
+                      target="oclass_post_hidden_iframe"
+                      onsubmit="oclass_submit_file()">
                     <div class="modal-content">
                         <div class="modal-header bg-secondary text-white">                                
                             <div class="modal-title"> 
                                 <span class="oi" data-glyph="file"></span> 
-                                <%= Labels.get("scheduled.class.attach_file_modal.title")%>
+                                <%= Labels.get("oclass.attach_file_modal.title")%>
                             </div>
                             <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>   
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="oclass_id" value="<%= oClass.id%>">
                             <div class="form-group row">                                 
-                                <div id="scheduled_class_attach_file_button_wrapper" class="col-4">                                
-                                    <input type="file" name="scheduled_class_attach_file_input"
-                                           id="scheduled_class_attach_file_input"                                           
-                                           onchange="scheduled_class_update_chosen_file()">  
+                                <div id="oclass_attach_file_button_wrapper" class="col-4">                                
+                                    <input type="file" name="oclass_attach_file_input"
+                                           id="oclass_attach_file_input"                                           
+                                           onchange="oclass_update_chosen_file()">  
                                     <button class="btn btn-info">
-                                        <%= Labels.get("scheduled.class.attach_file_modal.choose_file")%>
+                                        <%= Labels.get("oclass.attach_file_modal.choose_file")%>
                                     </button>
                                 </div>
                                 <div class="col-8">     
-                                    <label type="text" for="scheduled_class_attach_file_input"                                           
+                                    <label type="text" for="oclass_attach_file_input"                                           
                                            class="form-control">
-                                        <span id="scheduled_class_attach_file_chosen_file_name">
-                                            <%= Labels.get("scheduled.class.attach_file_modal.no_file_chosen")%>
+                                        <span id="oclass_attach_file_chosen_file_name">
+                                            <%= Labels.get("oclass.attach_file_modal.no_file_chosen")%>
                                         </span>
 
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group row">     
-                                <label for="scheduled_class_attach_file_comment"
+                                <label for="oclass_attach_file_comment"
                                        class="col-form-label col-4">
-                                    <%= Labels.get("scheduled.class.attach_file_modal.add_comment")%>
+                                    <%= Labels.get("oclass.attach_file_modal.add_comment")%>
                                 </label>
                                 <div class="col-8">                                
                                     <input type="text" class="form-control"
-                                           name="scheduled_class_attach_file_comment"
-                                           id="scheduled_class_attach_file_comment">  
+                                           name="oclass_attach_file_comment"
+                                           id="oclass_attach_file_comment">  
                                 </div>
                             </div>
                         </div>
-                        <div id="scheduled_class_attach_file_info_div" class="alert alert-info d-none" role="alert">
+                        <div id="oclass_attach_file_info_div" class="alert alert-info d-none" role="alert">
                             <span class="oi" data-glyph="info"></span>    
-                            <span id="scheduled_class_attach_file_info_text"></span>
+                            <span id="oclass_attach_file_info_text"></span>
                         </div>
                         <div class="modal-footer">
-                            <input type="submit" id="scheduled_class_attach_file_submit_button" 
+                            <input type="submit" id="oclass_attach_file_submit_button" 
                                    class="btn btn-success mx-1" value="<%= Labels.get("buttons.ok")%>" name="upload" id="upload" />
                             <button type="button" class="btn btn-info mx-1" data-dismiss="modal">
                                 <%= Labels.get("buttons.cancel")%>
@@ -184,44 +184,44 @@
             <div class="col-xl-4 col-lg-4">                        
                 <div class="card my-2">
                     <div class="card-header h5">
-                        <%= Labels.get("scheduled.class.sidebar.general.title")%>
+                        <%= Labels.get("oclass.sidebar.general.title")%>
                     </div>
                     <div class="card-body bg-secondary text-white">
 
                         <h6>
-                            <%= Labels.get("scheduled.class.sidebar.subject")%>&nbsp;
+                            <%= Labels.get("oclass.sidebar.subject")%>&nbsp;
                             <%= oClass.subject%>&nbsp;
                         </h6>
                         <h6>
-                            <%= Labels.get("scheduled.class.sidebar.status")%>&nbsp;
-                            <%= Utils.toList(Labels.get("scheduled_class.status.text")).get(oClass.status - 1)%>&nbsp;
+                            <%= Labels.get("oclass.sidebar.status")%>&nbsp;
+                            <%= Utils.toList(Labels.get("oclass.status.text")).get(oClass.status - 1)%>&nbsp;
                         </h6>
                         <h6>
-                            <%= Labels.get("scheduled.class.sidebar.teacher")%>&nbsp;
+                            <%= Labels.get("oclass.sidebar.teacher")%>&nbsp;
                             <%= oClass.teacher.display_name%>&nbsp;
                         </h6>
                         <h6>
-                            <%= Labels.get("scheduled.class.sidebar.student")%>&nbsp;
+                            <%= Labels.get("oclass.sidebar.student")%>&nbsp;
                             <%= oClass.student.display_name%>&nbsp;
                         </h6>
                         <h6>
-                            <%= Labels.get("scheduled.class.sidebar.start_date")%>&nbsp;
+                            <%= Labels.get("oclass.sidebar.start_date")%>&nbsp;
                             <%= Utils.formatDateTime(oClass.start_date)%>&nbsp;
                         </h6>
                         <h6>
-                            <%= Labels.get("scheduled.class.sidebar.duration_text")%>&nbsp;
+                            <%= Labels.get("oclass.sidebar.duration_text")%>&nbsp;
                             <%= oClass.duration_minutes%>&nbsp;
                             <%= CLabels.get("language.minutes")%>
                         </h6>
                         <h6>
-                            <%= Labels.get("scheduled.class.sidebar.price_text")%>&nbsp;
+                            <%= Labels.get("oclass.sidebar.price_text")%>&nbsp;
                             <%=  classPriceFormatted%>&nbsp;
                             <%= CLabels.get("website.currency")%>
                             <%
                                 if (oClass.payment == null) {
                             %>
-                            <a class="text-warning" href="javascript:scheduled_class_pay()">
-                                <%= Labels.get("scheduled.class.sidebar.payment.not_paid_yet")%>                                
+                            <a class="text-warning" href="javascript:oclass_pay()">
+                                <%= Labels.get("oclass.sidebar.payment.not_paid_yet")%>                                
                             </a>
                             <%
                                 }
@@ -232,8 +232,8 @@
                         <%
                             if (isStudent) {
                         %>
-                        <button class="btn btn-warning" onclick="scheduled_class_pay()">
-                            <%= Labels.get("scheduled.class.sidebar.pay_for_class")%>
+                        <button class="btn btn-warning" onclick="oclass_pay()">
+                            <%= Labels.get("oclass.sidebar.pay_for_class")%>
                         </button>
                         <%
                             }
@@ -242,26 +242,26 @@
                             if (isTeacher) {
                         %>
                         <button class="btn btn-info">
-                            <%= Labels.get("scheduled.class.sidebar.update_price")%>
+                            <%= Labels.get("oclass.sidebar.update_price")%>
                         </button>
                         <%
                             }
                         %>
                         <button class="btn btn-danger" onclick="schedule_class_cancel_click()">
-                            <%= Labels.get("scheduled.class.sidebar.cancel_class")%>
+                            <%= Labels.get("oclass.sidebar.cancel_class")%>
                         </button>
 
                     </div>
                 </div>
                 <div class="card my-2">
                     <div class="card-header h5">
-                        <%= Labels.get("scheduled.class.sidebar.comments.title")%>
+                        <%= Labels.get("oclass.sidebar.comments.title")%>
                     </div>
                     <div class="card-body bg-secondary text-white">
                         <p class="my-0">
                             <%
                                 if (classComments.isEmpty()) {
-                                    out.write(Labels.get("scheduled.class.sidebar.comments.no_comments"));
+                                    out.write(Labels.get("oclass.sidebar.comments.no_comments"));
                                 }
                                 for (ClassComment comment : classComments) {
                             %>
@@ -290,7 +290,7 @@
                         <div class="row">
                             <div class="col mx-auto">
                                 <button onclick="schedule_class_add_comment()" class="btn btn-info">
-                                    <%= Labels.get("scheduled.class.sidebar.add_comment")%>
+                                    <%= Labels.get("oclass.sidebar.add_comment")%>
                                 </button>
                             </div>
                         </div>
@@ -299,13 +299,13 @@
 
                 <div class="card my-2">
                     <div class="card-header h5">
-                        <%= Labels.get("scheduled.class.sidebar.attached_files")%>
+                        <%= Labels.get("oclass.sidebar.attached_files")%>
                     </div>
                     <div class="card-body bg-secondary text-white">
                         <p class="my-0">
                             <%
                                 if (classAttachedFiles.isEmpty()) {
-                                    out.write(Labels.get("scheduled.class.sidebar.attache_file.no_attached_files"));
+                                    out.write(Labels.get("oclass.sidebar.attache_file.no_attached_files"));
                                 }
                                 for (AttachedFile oClassAttachedFile : classAttachedFiles) {
                                     if (oClassAttachedFile.size != oClassAttachedFile.uploaded) {
@@ -324,12 +324,12 @@
                                 </b>
                             </a>
                             <span class="small">
-                                <%= Labels.get("scheduled.class.attach_file.file_size")%>
+                                <%= Labels.get("oclass.attach_file.file_size")%>
                                 <%= Utils.formatFileSize(oClassAttachedFile.size)%>
                             </span>
                             <br/>
                             <span class="small">
-                                <%= Labels.get("scheduled.class.attach_file.uploaded_by")%>
+                                <%= Labels.get("oclass.attach_file.uploaded_by")%>
                                 <%
                                     if (oClassAttachedFile.student != null) {
                                         out.write(oClassAttachedFile.student.display_name);
@@ -337,14 +337,14 @@
                                         out.write(oClassAttachedFile.teacher.display_name);
                                     }
                                 %>
-                                <%= Labels.get("scheduled.class.attach_file.uploaded_at_date")%>                                                                
+                                <%= Labels.get("oclass.attach_file.uploaded_at_date")%>                                                                
                                 <%= Utils.formatDateTime(oClassAttachedFile.added)%>                                
                             </span>
                             <%
                                 if (Utils.isNotEmpty(oClassAttachedFile.comment)) {
                             %>
                             <span class="small">
-                                <%= Labels.get("scheduled.class.attach_file.with_comment")%>        
+                                <%= Labels.get("oclass.attach_file.with_comment")%>        
                                 <%= oClassAttachedFile.comment%>
                             </span>
                             <%
@@ -360,7 +360,7 @@
                         <div class="row">
                             <div class="col mx-auto">
                                 <button onclick="schedule_class_attach_file()" class="btn btn-info">
-                                    <%= Labels.get("scheduled.class.sidebar.attache_file")%>
+                                    <%= Labels.get("oclass.sidebar.attache_file")%>
                                 </button>
                             </div>
                         </div>
@@ -368,20 +368,20 @@
                 </div>
             </div>
             <div class="col-xl-8 col-lg-8 my-2">
-                <div id="scheduled_class_main_board">
+                <div id="oclass_main_board">
                     <table>
                         <tr ><h2 class="text-center">&nbsp;</h2></tr>
                         <tr ><h2 class="text-center">&nbsp;</h2></tr>
                         <tr>                            
-                        <h2 class="text-center" id="scheduled_class_main_board_title">
-                            <%= Labels.get("scheduled.class.title")%>
+                        <h2 class="text-center" id="oclass_main_board_title">
+                            <%= Labels.get("oclass.title")%>
                             <%= oClass.subject%>
                         </h2>
                         </tr>
                         <tr>
-                        <h2 class="text-center" id="scheduled_class_main_board_starting_in">
-                            <%= Labels.get("scheduled.class.starting_in")%>  
-                            <span id="scheduled_class_main_board_starting_in_value"></span>
+                        <h2 class="text-center" id="oclass_main_board_starting_in">
+                            <%= Labels.get("oclass.starting_in")%>  
+                            <span id="oclass_main_board_starting_in_value"></span>
                         </h2>
                         </tr>                        
                     </table>
@@ -392,9 +392,9 @@
 
     <%@include file="footer.jsp" %>    
     <script>
-    scheduled_class.scheduled_class = <%= Utils.gson().toJson(oClass)%>;
-    scheduled_class.teacher = <%= Utils.gson().toJson(teacher)%>;
-    scheduled_class.student = <%= Utils.gson().toJson(student)%>;
+    oclass.oclass = <%= Utils.gson().toJson(oClass)%>;
+    oclass.teacher = <%= Utils.gson().toJson(teacher)%>;
+    oclass.student = <%= Utils.gson().toJson(student)%>;
     </script>
 </body>
 

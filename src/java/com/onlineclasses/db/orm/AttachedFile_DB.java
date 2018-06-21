@@ -27,13 +27,13 @@ public class AttachedFile_DB extends Base_DB<AttachedFile> {
         super(connectionSource, AttachedFile.class);
         QueryBuilder<AttachedFile, Integer> queryBuilder = _dao.queryBuilder();
 
-        queryBuilder.where().eq(AttachedFile.SCHEDULED_CLASS_FIELD, _getClassAttachedFilesClassArg);
+        queryBuilder.where().eq(AttachedFile.OCLASS_FIELD, _getClassAttachedFilesClassArg);
         queryBuilder.orderBy(AttachedFile.ADDED_FIELD, true);
         _getClassAttachedFiles = queryBuilder.prepare();
         
         queryBuilder.reset();
         Where<AttachedFile, Integer> where = queryBuilder.where();
-        where.eq(AttachedFile.SCHEDULED_CLASS_FIELD, _getClassAttachedFileByNameClassArg);
+        where.eq(AttachedFile.OCLASS_FIELD, _getClassAttachedFileByNameClassArg);
         where.and();
         where.eq(AttachedFile.NAME_FIELD, _getClassAttachedFileByNameFileNameArg);        
         _getClassAttachedFileByName = queryBuilder.prepare();
@@ -46,8 +46,8 @@ public class AttachedFile_DB extends Base_DB<AttachedFile> {
     private final SelectArg _getClassAttachedFileByNameClassArg = new SelectArg();
     private final SelectArg _getClassAttachedFileByNameFileNameArg = new SelectArg();
     
-    public synchronized List<AttachedFile> getClassAttachedFiles(OClass scheduledClass) throws SQLException {
-        _getClassAttachedFilesClassArg.setValue(scheduledClass);
+    public synchronized List<AttachedFile> getClassAttachedFiles(OClass oClass) throws SQLException {
+        _getClassAttachedFilesClassArg.setValue(oClass);
         return _dao.query(_getClassAttachedFiles);
     }
 
