@@ -52,7 +52,7 @@ function start_teaching_scroll_to(element)
 
 function start_teaching_form_validation(request)
 {
-    $("#start_teaching_form *").removeClass("border border-warning");
+    $("#start_teaching_form *").removeClass("border border-warning");    
     if (start_teaching.google_id_token === null) {
         alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_login"]);
         $("#start_teaching_google_login").addClass("border border-warning");

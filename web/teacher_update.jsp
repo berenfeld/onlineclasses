@@ -218,14 +218,14 @@
                                         <div class="col-6 col-lg-3 my-1">
                                             <div class="row form-check form-check-inline no-gutters">
                                                 <input type="radio" checked class="mx-2 form-check form-check-inline" 
-                                                       value="<%= Config.get("website.gender.male")%>" 
+                                                       value="<%= CConfig.get("website.gender.male")%>" 
                                                        id="teacher_update_gender_input_male" name="teacher_update_gender_input">
                                                 <label class="mx-2 col-form-label" for="teacher_update_gender_input_male">
                                                     <%= Labels.get("teacher_update.form.login.gender.male")%>   
                                                 </label>
 
                                                 <input type="radio" class="mx-2 form-check form-check-inline" 
-                                                       value="<%= Config.get("website.gender.female")%>" 
+                                                       value="<%= CConfig.get("website.gender.female")%>" 
                                                        id="teacher_update_gender_input_female" name="teacher_update_gender_input">
                                                 <label class="mx-2 col-form-label" for="teacher_update_gender_input_female">
                                                     <%= Labels.get("teacher_update.form.login.gender.female")%>   

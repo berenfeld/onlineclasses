@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.entities.Teacher"%>
 <%@page import="com.onlineclasses.utils.Config"%>
 <%@page import="com.onlineclasses.utils.Labels"%>
 <%@page import="com.onlineclasses.utils.Utils"%>
@@ -10,8 +11,8 @@
 <%@page import="com.onlineclasses.entities.User"%>
 
 <%
-    User user_footer = BaseServlet.getUser(request);
-    String userGson = Utils.gson().toJson(user_footer);
+    User foo_user = BaseServlet.getUser(request);
+    String userGson = Utils.gson().toJson(foo_user);
     String foo_url = request.getRequestURI();
     String foo_pageName = foo_url.substring(foo_url.lastIndexOf("/") + 1);
     if (Utils.isEmpty(foo_pageName)) {
@@ -70,6 +71,7 @@
 <script>
     var oc = {};
     oc.user = <%= userGson%>;
+    oc.is_teacher = <%= foo_user instanceof Teacher %>;
     oc.clabels = <%= Utils.gson().toJson(CLabels.getAll())%>;
     oc.cconfig = <%= Utils.gson().toJson(CConfig.getAll())%>;
     oc.parameters = <%= parametersJson%>;

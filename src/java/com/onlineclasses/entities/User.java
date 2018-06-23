@@ -6,14 +6,15 @@
 package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.onlineclasses.utils.CConfig;
 import com.onlineclasses.utils.Config;
 import java.io.Serializable;
 import java.util.Date;
 
 public class User extends BasicEntity implements Serializable {
 
-    public static final int GENDER_MALE = Config.getInt("website.gender.male");
-    public static final int GENDER_FEMALE = Config.getInt("website.gender.female");
+    public static final int GENDER_MALE = CConfig.getInt("website.gender.male");
+    public static final int GENDER_FEMALE = CConfig.getInt("website.gender.female");
 
     public static final String EMAIL_COLUMN = "email";
     @DatabaseField(canBeNull = false, unique = true, columnName = EMAIL_COLUMN)

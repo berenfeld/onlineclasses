@@ -91,9 +91,14 @@ function login_googleLogin()
     }
 }
 
+function login_isTeacher()
+{
+   return oc.is_teacher;
+}
+
 function login_init()
 {
-    login.user = oc.user;
+    login.user = oc.user;    
 }
 
 $(document).ready( login_init );

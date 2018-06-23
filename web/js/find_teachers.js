@@ -65,9 +65,16 @@ function schedule_class_button_clicked(source)
     if (!login_isLoggedIn())
     {
         if (oc.cconfig["schedule_class.allow_schedule_if_not_logged_in"] === "false") {
-            $("#schedule_class_not_logged_in_modal").modal("show");
+            alert_show( oc.clabels["schedule_class.failed_to_schedule_class_alert.title"], 
+                oc.clabels["schedule_class.failed_to_schedule_class_alert.not_logged_in"] );
             return;
         }
+    }
+
+    if (login_isTeacher()) {
+        alert_show( oc.clabels["schedule_class.failed_to_schedule_class_alert.title"], 
+                oc.clabels["schedule_class.failed_to_schedule_class_alert.teacher_cant_schedule_class"] );
+        return;
     }
     var teacher_button = $("#" + event.target.id);
     find_teachers.teacher_id = parseInt10(teacher_button.attr("data-teacher-id"));
@@ -481,4 +488,4 @@ function find_teachers_init()
             });
 }
 
-$(document).ready( find_teachers_init );
+$(document).ready(find_teachers_init);

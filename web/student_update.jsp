@@ -111,7 +111,7 @@
                                     <div class="row no-gutters">
                                         <div class="col">
                                             <input type="radio" checked class="form-check form-check-inline" 
-                                                   value="<%= Config.get("website.gender.male")%>" 
+                                                   value="<%= CConfig.get("website.gender.male")%>" 
                                                    id="start_learning_gender_input_male" name="start_learning_gender_input" placeholder="">
                                             <label class="col-form-label my-1" for="start_learning_gender_input_male">
                                                 <%= Labels.get("start_learning.form.login.gender.male")%>   
@@ -119,7 +119,7 @@
                                         </div>
                                         <div class="col">
                                             <input type="radio" class="form-check form-check-inline" 
-                                                   value="<%= Config.get("website.gender.female")%>" 
+                                                   value="<%= CConfig.get("website.gender.female")%>" 
                                                    id="start_learning_gender_input_female" name="start_learning_gender_input" placeholder="">
                                             <label class="col-form-label my-1" for="start_learning_gender_input_female">
                                                 <%= Labels.get("start_learning.form.login.gender.female")%>   
