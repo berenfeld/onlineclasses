@@ -65,17 +65,18 @@ function schedule_class_button_clicked(source)
     if (!login_isLoggedIn())
     {
         if (oc.cconfig["schedule_class.allow_schedule_if_not_logged_in"] === "false") {
-            alert_show( oc.clabels["schedule_class.failed_to_schedule_class_alert.title"], 
-                oc.clabels["schedule_class.failed_to_schedule_class_alert.not_logged_in"] );
+            alert_show(oc.clabels["schedule_class.failed_to_schedule_class_alert.title"],
+                    oc.clabels["schedule_class.failed_to_schedule_class_alert.not_logged_in"]);
             return;
         }
     }
 
     if (login_isTeacher()) {
-        alert_show( oc.clabels["schedule_class.failed_to_schedule_class_alert.title"], 
-                oc.clabels["schedule_class.failed_to_schedule_class_alert.teacher_cant_schedule_class"] );
+        alert_show(oc.clabels["schedule_class.failed_to_schedule_class_alert.title"],
+                oc.clabels["schedule_class.failed_to_schedule_class_alert.teacher_cant_schedule_class"]);
         return;
     }
+
     var teacher_button = $("#" + event.target.id);
     find_teachers.teacher_id = parseInt10(teacher_button.attr("data-teacher-id"));
     var request = {};
@@ -370,6 +371,7 @@ function schedule_class_confirm()
         }
     }
 
+    // check subject
     var subject = $("#start_schedule_class_subject_input").val();
     if (!subject)
     {
@@ -377,6 +379,20 @@ function schedule_class_confirm()
         $("#schedule_class_warning_div").removeClass("d-none");
         return;
     }
+
+    // check duration
+    if (duration < find_teachers.teacher.min_class_length) {
+        $("#schedule_class_warning").text(oc.clabels["schedule_class.failed_to_schedule_class_alert.duration_too_short"]);
+        $("#schedule_class_warning_div").removeClass("d-none");
+        return;
+    }
+
+    if (duration > find_teachers.teacher.min_class_length) {
+        $("#schedule_class_warning").text(oc.clabels["schedule_class.failed_to_schedule_class_alert.duration_too_long"]);
+        $("#schedule_class_warning_div").removeClass("d-none");
+        return;
+    }
+
     var request = {};
     request.teacher_id = find_teachers.teacher_id;
     request.start_date = start_date;
