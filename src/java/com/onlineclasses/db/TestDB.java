@@ -100,7 +100,9 @@ public class TestDB {
         teacher.rating = 5;
         teacher.city = DB.getCityByName("נס ציונה");
         teacher.admin = true;
-        
+        teacher.min_class_length = 120;
+        teacher.max_class_length = 120;
+
         DB.add(teacher);
 
         List<Topic> allTopics = DB.getAll(Topic.class);
@@ -152,6 +154,9 @@ public class TestDB {
             teacher.subject = Utils.getRandomElement(allSubjects);
             teacher.institute = Utils.getRandomElement(allInstitues);
             teacher.degree_type = Utils.getRandomElement(allDegreeTypes);
+            teacher.min_class_length = 30;
+            teacher.max_class_length = 30;
+
             DB.add(teacher);
 
             int minutesUnit = CConfig.getInt("website.time.unit.minutes");
@@ -201,15 +206,15 @@ public class TestDB {
         Calendar startDate = Calendar.getInstance();
         startDate.setTime(Utils.xHoursFromNow(48 + random.nextInt(120)));
         startDate.set(Calendar.MINUTE, 0);
-        startDate.set(Calendar.SECOND, 0 );
-        startDate.set(Calendar.MILLISECOND, 0 );        
+        startDate.set(Calendar.SECOND, 0);
+        startDate.set(Calendar.MILLISECOND, 0);
         oClass.start_date = startDate.getTime();
         oClass.registered = new Date();
         oClass.status = OClass.STATUS_SCHEDULED;
         oClass.price_per_hour = oClass.teacher.price_per_hour;
-        oClass.duration_minutes = 30 + ( 30 * random.nextInt(4));
-        oClass.subject = "שיעור נסיון";        
-        DB.add(oClass);                
+        oClass.duration_minutes = 30 + (30 * random.nextInt(4));
+        oClass.subject = "שיעור נסיון";
+        DB.add(oClass);
     }
 
     private static void addInstitutes() throws SQLException {

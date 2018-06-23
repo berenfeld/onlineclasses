@@ -90,7 +90,9 @@ public class RegisterTeacherServlet extends BaseServlet {
         registeringTeacher.show_degree = registerTeacherRequest.show_degree;
         registeringTeacher.paypal_email = registerTeacherRequest.paypal_email;
         registeringTeacher.price_per_hour = registerTeacherRequest.price_per_hour;
-
+        registeringTeacher.min_class_length = registerTeacherRequest.min_class_length;
+        registeringTeacher.max_class_length = registerTeacherRequest.max_class_length;
+        
         if (registeringTeacher.email.equals(Config.get("website.admin_email"))) {
             registeringTeacher.admin = true;
         }
@@ -144,7 +146,7 @@ public class RegisterTeacherServlet extends BaseServlet {
         BaseServlet.loginUser(request, registeringTeacher);
         Utils.info("teacher " + registeringTeacher.display_name + " email " + registeringTeacher.email + " registered");
 
-        sendEmail(registeringTeacher, topicsList, availableTimeList);        
+        sendEmail(registeringTeacher, topicsList, availableTimeList);
 
         if (!Utils.isEmpty(registerTeacherRequest.feedback)) {
             Feedback feedback = new Feedback();
@@ -158,8 +160,7 @@ public class RegisterTeacherServlet extends BaseServlet {
         return new BasicResponse(0, "");
     }
 
-    private void sendEmail(Teacher registeringTeacher, List<String> topicsList, List<String> availableTimeList) throws Exception
-    {
+    private void sendEmail(Teacher registeringTeacher, List<String> topicsList, List<String> availableTimeList) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "register_teacher.html";
 
@@ -186,7 +187,7 @@ public class RegisterTeacherServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% teacherShowEmail %>", registeringTeacher.show_email ? yes : no);
         emailContent = emailContent.replaceAll("<% teacherShowSkype %>", registeringTeacher.show_skype ? yes : no);
         emailContent = emailContent.replaceAll("<% teacherTeachingTopics %>", Utils.mergeList(topicsList, "<br/>"));
-        emailContent = emailContent.replaceAll("<% teacherAvailableHours %>", Utils.mergeList(availableTimeList, "<br/>"));                
+        emailContent = emailContent.replaceAll("<% teacherAvailableHours %>", Utils.mergeList(availableTimeList, "<br/>"));
 
         EmailSender.addEmail(registeringTeacher.email, Labels.get("emails.register_teacher.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);

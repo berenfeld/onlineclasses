@@ -44,4 +44,6 @@ public class RegisterTeacherRequest extends BasicRequest {
     public List<AvailableTime> available_times;
     public int city_id;
     public String feedback;
+    public int min_class_length;
+    public int max_class_length;
 }

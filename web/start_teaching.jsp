@@ -37,6 +37,8 @@
     int hour, day, minute;
     int minutesPerRow = CConfig.getInt("website.time.calendar_minutes_per_row");
     int minutesPerUnit = CConfig.getInt("website.time.unit.minutes");
+    int minimumClassLengthMinutes = CConfig.getInt("website.time.min_lesson_length_minutes");
+    int maximumClassLengthMinutes = CConfig.getInt("website.time.max_lesson_length_minutes");
     int rowsPerCell = minutesPerRow / minutesPerUnit;
 %>
 <!DOCTYPE html>
@@ -714,11 +716,70 @@
                                             </p>  
                                             <p class="h6">
                                                 <%= Labels.get("start_teaching.form.available_hours.choose_hours2")%>   
-                                            </p>  
+                                            </p> 
+                                            <p class="h6">
+                                                <%= Labels.get("start_teaching.form.available_hours.choose_hours3")%>   
+                                            </p>
+                                            <div class="row no-gutters my-1">
+                                                <div class="col-12 col-sm-6 col-md-3 col-lg-6 my-1">
+                                                    <label class="col-form-label mx-1" for="start_teaching_min_class_length">
+                                                        <%= Labels.get("start_teaching.form.available_hours.min_class_length")%>
+                                                    </label>
+                                                </div>
+                                                <div class="col-12 col-sm-6 col-md-3 col-lg-6 my-1">
+                                                    <select class="custom-select form-control" id="start_teaching_min_class_length">
+                                                        <%
+                                                            int minutes = minimumClassLengthMinutes;
+                                                            while (minutes <= maximumClassLengthMinutes) {
+                                                        %>
+
+                                                        <option value="<%= minutes%>"
+                                                                <% if (minutes == minimumClassLengthMinutes) {
+                                                                        out.write("selected");
+                                                                    }%>
+                                                                >
+                                                            <%= minutes%>&nbsp;<%= CLabels.get("language.minutes")%>
+                                                        </option>
+                                                        <%
+                                                                minutes += minutesPerUnit;
+                                                            }
+                                                        %>
+
+                                                    </select>                                                    
+                                                </div>
+                                                <div class="col-12 col-sm-6 col-md-3 col-lg-6 my-1">
+                                                    <label class="col-form-label mx-1" for="start_teaching_max_class_length">
+                                                        <%= Labels.get("start_teaching.form.available_hours.max_class_length")%>
+                                                    </label>
+                                                </div>
+                                                <div class="col-12 col-sm-6 col-md-3 col-lg-6 my-1">
+                                                    <select class="custom-select form-control" id="start_teaching_max_class_length">
+                                                        <%
+                                                            minutes = minimumClassLengthMinutes;
+                                                            while (minutes <= maximumClassLengthMinutes) {
+                                                        %>
+
+                                                        <option value="<%= minutes%>"
+                                                                <% if (minutes == maximumClassLengthMinutes) {
+                                                                        out.write("selected");
+                                                                    }%>
+                                                                >
+                                                            <%= minutes%>&nbsp;<%= CLabels.get("language.minutes")%>
+                                                        </option>
+                                                        <%
+                                                                minutes += minutesPerUnit;
+                                                            }
+                                                        %>
+
+                                                    </select>                                                    
+                                                </div>
+                                            </div>
                                             <div class="card my-1">
                                                 <div class="h6 card-header">
                                                     <%= Labels.get("start_teaching.form.available_hours.hours_chosen")%>   
                                                 </div>
+
+
                                                 <div class="card-body">
                                                     <p class="h6" id="start_teaching_selected_hours">
 

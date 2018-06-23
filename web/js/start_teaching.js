@@ -155,7 +155,8 @@ function start_teaching_form_submit()
     request.available_times = start_teaching.calendar.available_times;
     request.city_id = parseInt10($("#start_teaching_city_select").val());
     request.feedback = $("#start_teaching_feedback_input").val();
-
+    request.min_class_length = parseInt10($("start_teaching_min_class_length").val());
+    request.max_class_length = parseInt10($("start_teaching_max_class_length").val());
     request.teaching_topics = [];
     $("#start_teaching_topic_list button.list-group-item").each(
             function () {
