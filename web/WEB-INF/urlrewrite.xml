@@ -15,6 +15,7 @@
         <name>redirect all requests except localhost to the same host www.onlineclasses.co.il</name>
         <condition name="host" operator="notequal">www.onlineclasses.co.il</condition>
         <condition name="host" operator="notequal">localhost</condition>
+        <condition name="host" operator="notequal">local.onlineclasses.co.il</condition>
         <from>^/(.*)</from>
         <to type="permanent-redirect" last="true">https://www.onlineclasses.co.il/$1</to>
     </rule>

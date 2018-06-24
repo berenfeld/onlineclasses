@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.onlineclasses.entities;
+package com.onlineclasses.servlets.entities;
+
+import com.onlineclasses.entities.BasicRequest;
 
 /**
  *
  * @author me
  */
-public class LoginRequest extends BasicRequest {
-    public LoginRequest()
+public class FacebookAccessTokenRequest extends BasicRequest {
+    public FacebookAccessTokenRequest()
     {
         
     }
     
-    public String google_id_token;       
     public String facebook_access_token;
 }

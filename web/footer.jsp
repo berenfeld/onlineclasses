@@ -84,5 +84,6 @@
 <script src="js/alert_modal.js"></script>
 <script src="js/text_input_modal.js"></script>
 <script src="js/google.js"></script>
+<script src="js/facebook.js"></script>
 <script src="js/login.js"></script>
 <script src="js/<%= foo_pageName %>.js"></script>

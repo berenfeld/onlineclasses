@@ -26,6 +26,25 @@ function login_googleLoggedIn(googleUser)
 
 }
 
+function login_facebookLoggedIn(facebookUser)
+{
+    facebook_clearUserLoggedinCallback();
+
+    $("#login_modal_info_text").html(oc.clabels["login.progress.start"]);
+    $("#login_modal_info_div").removeClass("d-none");
+
+    var request = {};
+    request.facebook_access_token = facebookUser.facebook_access_token;
+    $.ajax("servlets/login",
+            {
+                type: "POST",
+                data: JSON.stringify(request),
+                dataType: "JSON",
+                success: login_loginRequestComplete
+            });
+
+}
+
 function login_loginRequestComplete(response)
 {
     if (response.rc === 0) {
@@ -37,6 +56,7 @@ function login_loginRequestComplete(response)
                 oc.clabels["login.progress.failed"] + " : " +
                 response.message);
         google_signOut();
+        facebook_signOut();
     }
 }
 
@@ -58,6 +78,7 @@ function logout_logoutRequestComplete(response)
 {
     $("#login_modal").modal('hide');
     google_signOut();
+    facebook_signOut();
     location.reload();
 }
 
@@ -91,14 +112,26 @@ function login_googleLogin()
     }
 }
 
+
 function login_isTeacher()
 {
-   return oc.is_teacher;
+    return oc.is_teacher;
+}
+
+function login_facebookLogin()
+{
+    var facebookUser = facebook_getLoggedInUser();
+    if (facebookUser === null) {
+        facebook_setUserLoggedinCallback(login_facebookLoggedIn);
+        facebook_signIn();
+    } else {
+        login_facebookLoggedIn(facebookUser);
+    }
 }
 
 function login_init()
 {
-    login.user = oc.user;    
+    login.user = oc.user;
 }
 
-$(document).ready( login_init );
+$(document).ready(login_init);

@@ -183,6 +183,9 @@
                     <div class="col-6">                        
                         <input type="image" src="images/google_login_button.png" class="w-100" onclick="login_googleLogin()">              
                     </div>
+                    <div class="col-6">                        
+                        <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="login_facebookLogin()">
+                    </div>
                 </div>
                 <h5>
                     <small>

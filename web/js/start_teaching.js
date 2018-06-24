@@ -6,7 +6,10 @@ function start_teaching_userLoggedInCallback(user)
 {
     alert_show(oc.clabels["start_teaching.login_successful"] + " " + user.email);
     google_clearUserLoggedinCallback();
+    facebook_clearUserLoggedinCallback();
     start_teaching.google_id_token = user.google_id_token;
+    start_teaching.facebook_access_token = user.facebook_access_token;
+    
     $("#start_teaching_email_input").val(user.email);
     $("#start_teaching_display_name_input").val(user.name);
     $("#start_teaching_first_name_input").val(user.first_name);
@@ -15,6 +18,7 @@ function start_teaching_userLoggedInCallback(user)
     $("#start_teaching_first_name_input").attr("disabled", false);
     $("#start_teaching_last_name_input").attr("disabled", false);
     google_signOut();
+    facebook_signOut();
 }
 
 function start_teaching_googleUserEmailExistsCallback(email_exists)
@@ -53,7 +57,8 @@ function start_teaching_scroll_to(element)
 function start_teaching_form_validation(request)
 {
     $("#start_teaching_form *").removeClass("border border-warning");    
-    if (start_teaching.google_id_token === null) {
+    
+    if ((start_teaching.google_id_token === null) && (start_teaching.facebook_access_token === null)) {
         alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_login"]);
         $("#start_teaching_google_login").addClass("border border-warning");
         start_teaching_scroll_to("start_teaching_google_login");
@@ -124,7 +129,7 @@ function start_teaching_form_validation(request)
         start_teaching_goto_tab("prices");
         return false;
     }
-
+    
     return true;
 }
 
@@ -132,6 +137,7 @@ function start_teaching_form_submit()
 {
     var request = {};
     request.google_id_token = start_teaching.google_id_token;
+    request.facebook_access_token = start_teaching.facebook_access_token;
     request.email = $("#start_teaching_email_input").val();
     request.first_name = $("#start_teaching_first_name_input").val();
     request.last_name = $("#start_teaching_last_name_input").val();
@@ -245,6 +251,17 @@ function start_teaching_googleLogin()
     }
 }
 
+function start_teaching_facebookLogin()
+{
+    var facebookUser = facebook_getLoggedInUser();
+    if (facebookUser === null) {
+        facebook_setUserLoggedinCallback(start_teaching_userLoggedInCallback);
+        facebook_signIn();
+    } else {
+        start_teaching_userLoggedInCallback(facebookUser);
+    }
+}
+
 function start_teaching_select_single_time(day, hour, minute)
 {
     start_teaching.calendar.last_select = {
@@ -264,7 +281,7 @@ function start_teaching_select_single_time(day, hour, minute)
     start_teaching_update_calendar();
 }
 
-function start_teaching_select_time()
+function start_teaching_select_time(event)
 {
     event.preventDefault();
     event.stopPropagation();
@@ -380,9 +397,11 @@ function start_teaching_goto_tab(tab_name)
 function start_teaching_init()
 {
     start_teaching.google_id_token = null;
+    start_teaching.facebook_access_token = null;
     start_teaching.day_of_birth = null;
     start_teaching.city_id = 0;
-    start_teaching.subject_id = 0;
+    start_teaching.subject_id = 0;    
+    
     start_teaching.calendar = {};
     start_teaching.calendar.minutes_unit = parseInt10(oc.cconfig[ "website.time.unit.minutes"]);
     start_teaching.calendar.day_names_long = oc.clabels[ "website.days.long" ].split(",");
@@ -429,6 +448,7 @@ function start_teaching_init()
     $("#start_teaching_institute_type_select").on("change", start_teaching_select_institute_type);
     $("#start_teaching_subject_select").on("change", start_teaching_select_subject);
     $("#start_teaching_topic_list button.list-group-item").on("click", start_teaching_choose_topic);
+    $("td.start_teaching_calendar_time").on("click", start_teaching_select_time);
 }
 
 $(document).ready(start_teaching_init);

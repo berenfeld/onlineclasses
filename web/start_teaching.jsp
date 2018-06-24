@@ -129,7 +129,7 @@
                                  aria-labelledby="start_teaching_personal_information_link">
                                 <div class="card-header bg-secondary text-white">
                                     <div class="row no-gutters" id="start_teaching_google_login">
-                                        <div class="col-12 col-md-6 col-lg-9">
+                                        <div class="col-12 col-lg-6 px-2">
                                             <%= Labels.get("start_teaching.form.login.text1")%> 
                                             <small class="start_teaching_required">
                                                 (*)
@@ -139,8 +139,11 @@
                                                 <%= Labels.get("start_teaching.form.login.text2")%> 
                                             </small>
                                         </div>
-                                        <div class="col-12 col-md-6 col-lg-3">
+                                        <div class="col-6 col-lg-3 px-2">
                                             <input type="image" src="images/google_login_button.png" class="w-100 google_login_button d-none" onclick="start_teaching_googleLogin()">
+                                        </div>
+                                        <div class="col-6 col-lg-3 px-2">
+                                            <input type="image" src="images/facebook_login_button.png" class="w-100 facebook_login_button d-none" onclick="start_teaching_facebookLogin()">
                                         </div>
                                     </div>
                                 </div>
@@ -837,8 +840,7 @@
 
                                                         <% for (day = 0; day < 7; day++) {
                                                         %>
-                                                        <td data-day="<%= day + 1%>" data-hour="<%= hour%>" data-minute="<%= minute%>"
-                                                            onclick="start_teaching_select_time(this)"
+                                                        <td data-day="<%= day + 1%>" data-hour="<%= hour%>" data-minute="<%= minute%>"                                                            
                                                             class="start_teaching_calendar_time start_teaching_calendar <%= cellClass%>" id="start_teaching_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">                                                       
                                                         </td>                                            
                                                         <% } %>                                                                                                

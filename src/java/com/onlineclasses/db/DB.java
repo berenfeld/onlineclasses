@@ -18,6 +18,7 @@ import com.onlineclasses.db.orm.AttachedFile_DB;
 import com.onlineclasses.db.orm.City_DB;
 import com.onlineclasses.db.orm.ClassComment_DB;
 import com.onlineclasses.db.orm.Feedback_DB;
+import com.onlineclasses.db.orm.FacebookUser_DB;
 import com.onlineclasses.db.orm.OClass_DB;
 import com.onlineclasses.db.orm.Student_DB;
 import com.onlineclasses.db.orm.Subject_DB;
@@ -35,6 +36,7 @@ import com.onlineclasses.entities.AttachedFile;
 import com.onlineclasses.entities.City;
 import com.onlineclasses.entities.ClassComment;
 import com.onlineclasses.entities.Feedback;
+import com.onlineclasses.entities.FacebookUser;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
@@ -43,7 +45,6 @@ import com.onlineclasses.entities.Topic;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.Utils;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -138,6 +139,7 @@ public class DB {
     private static OClass_DB _oclass_db;
     private static Email_DB _email_db;
     private static GoogleUser_DB _googleUser_db;
+    private static FacebookUser_DB _facebookUser_db;
     private static ClassComment_DB _classComment_DB;
     private static AttachedFile_DB _attachedFile_DB;
     private static Payment_DB _payment_DB;
@@ -160,6 +162,7 @@ public class DB {
         _oclass_db = new OClass_DB(_connectionSource);
         _email_db = new Email_DB(_connectionSource);
         _googleUser_db = new GoogleUser_DB(_connectionSource);
+        _facebookUser_db = new FacebookUser_DB(_connectionSource);
         _classComment_DB = new ClassComment_DB(_connectionSource);
         _attachedFile_DB = new AttachedFile_DB(_connectionSource);
         _payment_DB = new Payment_DB(_connectionSource);
@@ -177,6 +180,7 @@ public class DB {
         ORM_ENTITIES.put(OClass.class, _oclass_db);
         ORM_ENTITIES.put(Email.class, _email_db);
         ORM_ENTITIES.put(GoogleUser.class, _googleUser_db);
+        ORM_ENTITIES.put(FacebookUser.class, _facebookUser_db);
         ORM_ENTITIES.put(ClassComment.class, _classComment_DB);
         ORM_ENTITIES.put(AttachedFile.class, _attachedFile_DB);
         ORM_ENTITIES.put(Payment.class, _payment_DB);
@@ -409,6 +413,10 @@ public class DB {
     }
 
     public static City getCityByName(String name) throws SQLException {
-        return _city_DB.getCityByName(name);
+        return _city_DB.getCityByName(name);    
+    }
+    
+    public static FacebookUser getFacebookUserByFacebookID(String facebook_id) throws SQLException {
+        return _facebookUser_db.getFacebookUserByFacebookID(facebook_id);
     }
 }

@@ -7,6 +7,7 @@ package com.onlineclasses.servlets;
  */
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
+import com.onlineclasses.entities.FacebookUser;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.LoginRequest;
 import com.onlineclasses.entities.User;
@@ -43,6 +44,25 @@ public class LoginServlet extends BaseServlet {
         return new BasicResponse(0, "");
     }
 
+    private BasicResponse loginWithFacebook(LoginRequest loginRequest, HttpServletRequest request) throws Exception {
+        FacebookUser facebookUser = FacebookAccessTokenServlet.getFacebookUser(loginRequest.facebook_access_token);
+        if (facebookUser == null) {
+            Utils.warning("failed to get user from facebook access token");
+            return new BasicResponse(-1, Labels.get("login.request.user_not_found"));
+        }
+
+        User user = DB.getUserByEmail(facebookUser.email);
+        if (user == null) {
+            Utils.warning("Can't find facebook logged in user with email " + facebookUser.email);
+            // TODO : fast register
+            return new BasicResponse(-1, Labels.get("login.request.user_not_found"));
+        }
+
+        Utils.info("user " + user.display_name + " logged in with email " + user.email);
+        BaseServlet.loginUser(request, user);
+        return new BasicResponse(0, "");
+    }
+
     @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
@@ -50,6 +70,10 @@ public class LoginServlet extends BaseServlet {
 
         if (Utils.isNotEmpty(loginRequest.google_id_token)) {
             return loginWithGoogle(loginRequest, request);
+        } else if (Utils.isNotEmpty(loginRequest.facebook_access_token)) {
+            return loginWithFacebook(loginRequest, request);
+        } else {
+            Utils.warning("no google id or facebook token in login request");
         }
         Utils.warning("no google id in login request");
         return new BasicResponse(-1, Labels.get("login.request.invalid_request"));
