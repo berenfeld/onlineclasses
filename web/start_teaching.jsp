@@ -78,9 +78,15 @@
                         </div>
 
                         <div>
-                            <ul class="nav nav-tabs my-1" id="start_teaching_tab_list">                         
+                            <ul class="nav nav-tabs my-1" id="start_teaching_tab_list">     
                                 <li class="nav-item">
-                                    <a  id="start_teaching_personal_information_link" class="nav-link active" data-toggle="tab" 
+                                    <a  id="start_teaching_login_link" class="nav-link active" data-toggle="tab" 
+                                        href="#start_teaching_login_tab">
+                                        <%= Labels.get("start_teaching.tabs.login")%>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a  id="start_teaching_personal_information_link" class="nav-link" data-toggle="tab" 
                                         href="#start_teaching_personal_information_tab">
                                         <%= Labels.get("start_teaching.tabs.personal_information")%>
                                     </a>
@@ -125,26 +131,47 @@
                         </div>
                         <div class="tab-content" id="start_teaching_tabs">
 
-                            <div class="card my-1 tab-pane fade show active" id="start_teaching_personal_information_tab" role="tabpanel" 
-                                 aria-labelledby="start_teaching_personal_information_link">
+                            <div class="card my-1 tab-pane fade show active" id="start_teaching_login_tab" role="tabpanel" 
+                                 aria-labelledby="start_teaching_login_link">
                                 <div class="card-header bg-secondary text-white">
-                                    <div class="row no-gutters" id="start_teaching_google_login">
-                                        <div class="col-12 col-lg-6 px-2">
-                                            <%= Labels.get("start_teaching.form.login.text1")%> 
-                                            <small class="start_teaching_required">
-                                                (*)
-                                            </small>
-                                            <br/>
-                                            <small>
-                                                <%= Labels.get("start_teaching.form.login.text2")%> 
-                                            </small>
-                                        </div>
+                                    <div class="card-title">
+                                        <%= Labels.get("start_teaching.form.login.text1")%> 
+                                        <small class="start_teaching_required">
+                                            (*)
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        <%= Labels.get("start_teaching.form.login.text2")%> 
+                                    </p>
+                                    <div class="row no-gutters">
                                         <div class="col-6 col-lg-3 px-2">
                                             <input type="image" src="images/google_login_button.png" class="w-100 google_login_button d-none" onclick="start_teaching_googleLogin()">
                                         </div>
                                         <div class="col-6 col-lg-3 px-2">
                                             <input type="image" src="images/facebook_login_button.png" class="w-100 facebook_login_button d-none" onclick="start_teaching_facebookLogin()">
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="d-flex flex-row-reverse">
+                                        <button class="btn btn-info start_teaching_tabs_button" 
+                                                id="start_teaching_goto_tab_personal_information_button"
+                                                onclick="start_teaching_goto_tab('personal_information')">
+                                            <span class="oi" data-glyph="chevron-left"></span>
+                                            <%= Labels.get("start_teaching.tabs.to")%><%= Labels.get("start_teaching.tabs.personal_information")%>
+                                            <span class="oi" data-glyph="chevron-left"></span>                                            
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card my-1 tab-pane fade show" id="start_teaching_personal_information_tab" role="tabpanel" 
+                                 aria-labelledby="start_teaching_personal_information_link">
+                                <div class="card-header bg-secondary text-white">                                   
+                                    <div class="card-title">
+                                        <%= Labels.get("start_teaching.form.personal_information.text1")%>                                                                                     
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -234,11 +261,13 @@
                                                 </div>
 
                                                 <div class="input-group form-control border-0 col-12 col-md">
-                                                    <input type="text" class="col-8 form-control mr-md-3" id="start_teaching_phone_number_input"
+                                                    <input type="text" class="col-8 form-control mr-md-3 start_teaching_required" 
+                                                           id="start_teaching_phone_number_input"                                                           
                                                            onkeypress="return isNumberKey(event)"
                                                            placeholder="<%= Labels.get("start_teaching.form.login.phone_number")%>">
 
-                                                    <select class="col-4 custom-select form-control" id="start_teaching_phone_area_select">
+                                                    <select class="col-4 custom-select form-control start_teaching_required" 
+                                                            id="start_teaching_phone_area_select">
                                                         <option value="" disabled selected>
                                                             <%= Labels.get("start_teaching.form.login.phone_area")%>
                                                         </option>
@@ -268,7 +297,7 @@
                                         </div>
 
                                         <div class="col-6 col-lg-3 my-1">
-                                            <input type="text" class="form-control" id="start_teaching_day_of_birth_input"
+                                            <input type="text" class="form-control start_teaching_required" id="start_teaching_day_of_birth_input"
                                                    name="start_teaching_day_of_birth_input"
                                                    placeholder="<%= Labels.get("start_teaching.form.login.day_of_birth")%>">
                                         </div>
@@ -295,7 +324,7 @@
                                         </div>
 
                                         <div class="col-6 col-lg-3 my-1">
-                                            <select class="custom-select form-control" id="start_teaching_city_select">
+                                            <select class="custom-select form-control start_teaching_required" id="start_teaching_city_select">
                                                 <option value="0" disabled selected>
                                                     <%= Labels.get("start_teaching.form.login.city")%>
                                                 </option>
@@ -319,7 +348,9 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="d-flex flex-row-reverse">
-                                        <button class="btn btn-info" onclick="start_teaching_goto_tab('profile')">
+                                        <button class="btn btn-info start_teaching_tabs_button" 
+                                                id="start_teaching_goto_tab_profile_button"
+                                                onclick="start_teaching_goto_tab('profile')">
                                             <span class="oi" data-glyph="chevron-left"></span>
                                             <%= Labels.get("start_teaching.tabs.to")%><%= Labels.get("start_teaching.tabs.profile")%>
                                             <span class="oi" data-glyph="chevron-left"></span>                                            
@@ -348,7 +379,7 @@
                                         </div>
 
                                         <div class="col-6 col-lg-9 my-1">
-                                            <textarea rows="4" class="form-control" id="start_teaching_moto_input" 
+                                            <textarea rows="4" class="form-control start_teaching_required" id="start_teaching_moto_input" 
                                                       name="start_teaching_moto_input"
                                                       placeholder="<%= Labels.get("start_teaching.form.publish.moto_placeholder")%>"></textarea>
                                         </div>
@@ -388,7 +419,9 @@
 
                                 <div class="card-footer">
                                     <div class="d-flex flex-row-reverse">
-                                        <button class="btn btn-info" onclick="start_teaching_goto_tab('education')">
+                                        <button class="btn btn-info start_teaching_tabs_button"
+                                                id="start_teaching_goto_tab_education_button"
+                                                onclick="start_teaching_goto_tab('education')">
                                             <span class="oi" data-glyph="chevron-left"></span>                                            
                                             <%= Labels.get("start_teaching.tabs.to")%><%= Labels.get("start_teaching.tabs.education")%>
                                             <span class="oi" data-glyph="chevron-left"></span>                                            
@@ -576,7 +609,9 @@
 
                                 <div class="card-footer">
                                     <div class="d-flex flex-row-reverse">
-                                        <button class="btn btn-info" onclick="start_teaching_goto_tab('teaching_topics')">
+                                        <button class="btn btn-info start_teaching_tabs_button" 
+                                                id="start_teaching_goto_tab_teaching_topics_button"
+                                                onclick="start_teaching_goto_tab('teaching_topics')">
                                             <span class="oi" data-glyph="chevron-left"></span>                                            
                                             <%= Labels.get("start_teaching.tabs.to")%><%= Labels.get("start_teaching.tabs.teaching_topics")%>
                                             <span class="oi" data-glyph="chevron-left"></span>                                            
@@ -632,7 +667,9 @@
 
                                 <div class="card-footer">
                                     <div class="d-flex flex-row-reverse">
-                                        <button class="btn btn-info" onclick="start_teaching_goto_tab('prices')">
+                                        <button class="btn btn-info start_teaching_tabs_button" 
+                                                id="start_teaching_goto_tab_prices_button"
+                                                onclick="start_teaching_goto_tab('prices')">
                                             <span class="oi" data-glyph="chevron-left"></span>                                            
                                             <%= Labels.get("start_teaching.tabs.to")%><%= Labels.get("start_teaching.tabs.prices")%>
                                             <span class="oi" data-glyph="chevron-left"></span>                                            
@@ -661,7 +698,7 @@
                                         </div>
 
                                         <div class="col-6 col-lg-3 my-1">
-                                            <input type="email" class="form-control" id="start_teaching_paypal_email_input" 
+                                            <input type="email" class="form-control start_teaching_required" id="start_teaching_paypal_email_input" 
                                                    name="start_teaching_paypal_email_input"
                                                    placeholder="<%= Labels.get("start_teaching.form.paypal_email.placeholder")%>">
                                         </div>
@@ -677,7 +714,7 @@
 
                                         <div class="col-6 col-lg-3 my-1" id="start_teaching_price_per_hour">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="start_teaching_price_per_hour_input" 
+                                                <input type="text" class="form-control start_teaching_required" id="start_teaching_price_per_hour_input" 
                                                        name="start_teaching_price_per_hour_input"
                                                        onkeypress="return isNumberKey(event)"
                                                        placeholder="<%= Labels.get("start_teaching.form.payment.price_per_hour.placeholder")%>">
@@ -694,7 +731,9 @@
 
                                 <div class="card-footer">
                                     <div class="d-flex flex-row-reverse">
-                                        <button class="btn btn-info" onclick="start_teaching_goto_tab('teaching_hours')">
+                                        <button class="btn btn-info start_teaching_tabs_button" 
+                                                id="start_teaching_goto_tab_teaching_hours_button"
+                                                onclick="start_teaching_goto_tab('teaching_hours')">
                                             <span class="oi" data-glyph="chevron-left"></span>                                            
                                             <%= Labels.get("start_teaching.tabs.to")%><%= Labels.get("start_teaching.tabs.teaching_hours")%>
                                             <span class="oi" data-glyph="chevron-left"></span>                                            
@@ -863,7 +902,9 @@
 
                                 <div class="card-footer">
                                     <div class="d-flex flex-row-reverse">
-                                        <button class="btn btn-info" onclick="start_teaching_goto_tab('accept_and_finish')">
+                                        <button class="btn btn-info start_teaching_tabs_button" 
+                                                id="start_teaching_goto_tab_accept_and_finish_button"
+                                                onclick="start_teaching_goto_tab('accept_and_finish')">
                                             <span class="oi" data-glyph="chevron-left"></span>                                            
                                             <%= Labels.get("start_teaching.tabs.to")%><%= Labels.get("start_teaching.tabs.accept_and_finish")%>
                                             <span class="oi" data-glyph="chevron-left"></span>                                            

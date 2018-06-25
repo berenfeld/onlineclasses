@@ -118,6 +118,8 @@ function facebook_load()
         });     
         FB.getLoginStatus(facebook_gotLoginStatus);
         facebook.init_done = true;
+        $(".facebook_login_button").removeClass("d-none");
+        $(".facebook_login_button_placeholder").addClass("d-none");
     };
 
     (function (d, s, id) {

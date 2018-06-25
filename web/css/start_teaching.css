@@ -55,7 +55,17 @@ td.calendar_busy {
 }
 
 small.start_teaching_required
-{
+{    
     color:red;
     font-weight: bold
+}
+
+input.start_teaching_required, select.start_teaching_required, textarea.start_teaching_required
+{
+    border-color: red;
+}
+
+input.start_teaching_required_filled, select.start_teaching_required_filled, textarea.start_teaching_required_filled
+{
+    border-color: green;
 }

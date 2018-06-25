@@ -4,12 +4,12 @@ var start_teaching = {};
 
 function start_teaching_userLoggedInCallback(user)
 {
-    alert_show(oc.clabels["start_teaching.login_successful"] + " " + user.email);
+    //alert_show(oc.clabels["start_teaching.login_successful"] + " " + user.email);
     google_clearUserLoggedinCallback();
     facebook_clearUserLoggedinCallback();
     start_teaching.google_id_token = user.google_id_token;
     start_teaching.facebook_access_token = user.facebook_access_token;
-    
+
     $("#start_teaching_email_input").val(user.email);
     $("#start_teaching_display_name_input").val(user.name);
     $("#start_teaching_first_name_input").val(user.first_name);
@@ -19,6 +19,10 @@ function start_teaching_userLoggedInCallback(user)
     $("#start_teaching_last_name_input").attr("disabled", false);
     google_signOut();
     facebook_signOut();
+    start_teaching_check_tabs();
+    start_teaching_goto_tab("personal_information");
+    // TODO this does not work, probably need to wait for the divs to show/hide
+    $("#start_teaching_display_name_input").focus();
 }
 
 function start_teaching_googleUserEmailExistsCallback(email_exists)
@@ -49,19 +53,14 @@ function start_teaching_register_complete(response)
     redirectAfter("/", 5);
 }
 
-function start_teaching_scroll_to(element)
-{
-    $('html, body').scrollTop($("#" + element).offset().top);
-}
 
 function start_teaching_form_validation(request)
 {
-    $("#start_teaching_form *").removeClass("border border-warning");    
-    
+    $("#start_teaching_form *").removeClass("border border-warning");
+
     if ((start_teaching.google_id_token === null) && (start_teaching.facebook_access_token === null)) {
         alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_login"]);
         $("#start_teaching_google_login").addClass("border border-warning");
-        start_teaching_scroll_to("start_teaching_google_login");
         start_teaching_goto_tab("personal_information");
         return false;
     }
@@ -69,7 +68,6 @@ function start_teaching_form_validation(request)
     if (!$("#start_teaching_accept_terms_checkbox").is(":checked")) {
         alert_show(oc.clabels[ "start_teaching.form.submit.terms_of_usage.please_accept"]);
         $("#start_teaching_accept_terms_checkbox_div").addClass("border border-warning");
-        start_teaching_scroll_to("start_teaching_accept_terms_checkbox_div");
         start_teaching_goto_tab("accept_and_finish");
         return false;
     }
@@ -77,7 +75,6 @@ function start_teaching_form_validation(request)
     if (stringEmpty(request.phone_number) || stringEmpty(request.phone_area)) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_in_phone"]);
         $("#start_teaching_phone_number").addClass("border border-warning");
-        start_teaching_scroll_to("start_teaching_phone_number");
         start_teaching_goto_tab("personal_information");
         return false;
     }
@@ -85,7 +82,6 @@ function start_teaching_form_validation(request)
     if (request.city_id === 0) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_city"]);
         $("#start_teaching_city_select").addClass("border border-warning");
-        start_teaching_scroll_to("start_teaching_city");
         start_teaching_goto_tab("personal_information");
         return false;
     }
@@ -93,7 +89,6 @@ function start_teaching_form_validation(request)
     if (request.day_of_birth === null) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_day_of_birth"]);
         $("#start_teaching_day_of_birth").addClass("border border-warning");
-        start_teaching_scroll_to("start_teaching_day_of_birth");
         start_teaching_goto_tab("personal_information");
         return false;
     }
@@ -101,7 +96,6 @@ function start_teaching_form_validation(request)
     if (stringEmpty(request.moto)) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_moto"]);
         $("#start_teaching_moto").addClass("border border-warning");
-        start_teaching_scroll_to("start_teaching_moto");
         start_teaching_goto_tab("profile");
         return false;
     }
@@ -109,7 +103,6 @@ function start_teaching_form_validation(request)
     if (stringEmpty(request.paypal_email)) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_paypal_email"]);
         $("#start_teaching_paypal_email").addClass("border border-warning");
-        start_teaching_scroll_to("start_teaching_paypal_email");
         start_teaching_goto_tab("prices");
         return false;
     }
@@ -117,7 +110,6 @@ function start_teaching_form_validation(request)
     if (!emailIsValid(request.paypal_email)) {
         alert_show(oc.clabels[ "start_teaching.form.submit.illegal_paypal_email"]);
         $("#start_teaching_paypal_email").addClass("border border-warning");
-        start_teaching_scroll_to("start_teaching_paypal_email");
         start_teaching_goto_tab("prices");
         return false;
     }
@@ -125,11 +117,10 @@ function start_teaching_form_validation(request)
     if (request.price_per_hour === 0) {
         alert_show(oc.clabels[ "start_teaching.form.submit.fill_price_per_hour"]);
         $("#start_teaching_price_per_hour").addClass("border border-warning");
-        start_teaching_scroll_to("start_teaching_price_per_hour");
         start_teaching_goto_tab("prices");
         return false;
     }
-    
+
     return true;
 }
 
@@ -198,9 +189,10 @@ function start_teaching_form_submit()
     );
 }
 
-function start_teaching_select_day_of_birth(dateText)
+function start_teaching_select_day_of_birth()
 {
     start_teaching.day_of_birth = $("#start_teaching_day_of_birth_input").datepicker("getDate");
+    start_teaching_check_tabs();
 }
 
 function start_teaching_select_institute()
@@ -394,14 +386,117 @@ function start_teaching_goto_tab(tab_name)
     $("#start_teaching_" + tab_name + "_link").tab('show');
 }
 
+function start_teaching_check_tabs()
+{
+    $("#start_teaching_tab_list a.nav-link").addClass("disabled");
+    $("button.start_teaching_tabs_button").addClass("disabled");
+
+    // google login tab always enabled
+    $("#start_teaching_login_link").removeClass("disabled");
+
+    // if logged in, show personal information
+    if ((start_teaching.google_id_token === null) && (start_teaching.facebook_access_token === null)) {
+        return;
+    }
+
+    $("#start_teaching_personal_information_link").removeClass("disabled");
+    $("#start_teaching_goto_tab_personal_information_button").removeClass("disabled");
+
+    $("input.start_teaching_required").removeClass("start_teaching_required_filled");
+    $("select.start_teaching_required").removeClass("start_teaching_required_filled");
+
+    // if mandatory fields are present :  phone, day of birth and city, can show profile tab
+    var request = {};
+    request.phone_number = $("#start_teaching_phone_number_input").val();
+    request.phone_area = $("#start_teaching_phone_area_select").val();
+    request.day_of_birth = start_teaching.day_of_birth;
+    request.city_id = parseInt10($("#start_teaching_city_select").val());
+
+    var pass_to_profile = true;
+    if (stringEmpty(request.phone_number) || stringEmpty(request.phone_area)) {
+        pass_to_profile = false;
+    } else {
+        $("#start_teaching_phone_number_input").addClass("start_teaching_required_filled");
+        $("#start_teaching_phone_area_select").addClass("start_teaching_required_filled");
+    }
+
+    if (request.city_id === 0) {
+        pass_to_profile = false;
+    } else {
+        $("#start_teaching_city_select").addClass("start_teaching_required_filled");
+    }
+
+    if (request.day_of_birth === null) {
+        pass_to_profile = false;
+    } else {
+        $("#start_teaching_day_of_birth_input").addClass("start_teaching_required_filled");
+    }
+
+    if (!pass_to_profile) {
+        return;
+    }
+
+    $("#start_teaching_profile_link").removeClass("disabled");
+    $("#start_teaching_goto_tab_profile_button").removeClass("disabled");
+    
+    // if moto is filled - can go to education
+    // TODO moto minimum length
+    request.moto = $("#start_teaching_moto_input").val();
+    
+    if (stringEmpty(request.moto)) {
+        return;
+    }
+    $("#start_teaching_moto_input").addClass("start_teaching_required_filled");
+    
+    $("#start_teaching_education_link").removeClass("disabled");
+    $("#start_teaching_goto_tab_education_button").removeClass("disabled");
+    
+    // can move to teaching_topics
+    $("#start_teaching_teaching_topics_link").removeClass("disabled");
+    $("#start_teaching_goto_tab_teaching_topics_button").removeClass("disabled");
+    
+    // can move to prices
+    $("#start_teaching_prices_link").removeClass("disabled");
+    $("#start_teaching_goto_tab_prices_button").removeClass("disabled");
+    
+    var pass_to_teaching_hours = true;
+    
+    request.paypal_email = $("#start_teaching_paypal_email_input").val();
+    if (stringEmpty(request.paypal_email)) {
+        pass_to_teaching_hours = false;
+    } else {
+        $("#start_teaching_paypal_email_input").addClass("start_teaching_required_filled");
+    }
+    
+    request.price_per_hour = parseInt10($("#start_teaching_price_per_hour_input").val());
+    if (request.price_per_hour === 0) {
+        pass_to_teaching_hours = false;
+        $("#start_teaching_price_per_hour_input").val("");
+    } else {
+        $("#start_teaching_price_per_hour_input").addClass("start_teaching_required_filled");
+    }
+    
+    if (! pass_to_teaching_hours) {
+        return;
+    }
+    
+    // can move to teaching_hours
+    $("#start_teaching_teaching_hours_link").removeClass("disabled");
+    $("#start_teaching_goto_tab_teaching_hours_button").removeClass("disabled");
+    
+    // can move to accept_and_finish
+    $("#start_teaching_accept_and_finish_link").removeClass("disabled");
+    $("#start_teaching_goto_tab_accept_and_finish_button").removeClass("disabled");
+}
+
 function start_teaching_init()
 {
     start_teaching.google_id_token = null;
     start_teaching.facebook_access_token = null;
     start_teaching.day_of_birth = null;
     start_teaching.city_id = 0;
-    start_teaching.subject_id = 0;    
-    
+    start_teaching.subject_id = 0;
+
     start_teaching.calendar = {};
     start_teaching.calendar.minutes_unit = parseInt10(oc.cconfig[ "website.time.unit.minutes"]);
     start_teaching.calendar.day_names_long = oc.clabels[ "website.days.long" ].split(",");
@@ -449,6 +544,10 @@ function start_teaching_init()
     $("#start_teaching_subject_select").on("change", start_teaching_select_subject);
     $("#start_teaching_topic_list button.list-group-item").on("click", start_teaching_choose_topic);
     $("td.start_teaching_calendar_time").on("click", start_teaching_select_time);
+    $("input.start_teaching_required").on("change", start_teaching_check_tabs);
+    $("select.start_teaching_required").on("change", start_teaching_check_tabs);
+    $("textarea.start_teaching_required").on("change", start_teaching_check_tabs);
+    start_teaching_check_tabs();
 }
 
 $(document).ready(start_teaching_init);
