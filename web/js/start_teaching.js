@@ -569,6 +569,26 @@ function start_teaching_init()
     $("input.start_teaching_required").on("change", start_teaching_check_tabs);
     $("select.start_teaching_required").on("change", start_teaching_check_tabs);
     $("textarea.start_teaching_required").on("change", start_teaching_check_tabs);
+    $("#start_teaching_personal_information_link").on("shown.bs.tab",
+            function (event)
+            {
+                $("#start_teaching_display_name_input").focus();
+            });
+    $("#start_teaching_profile_link").on("shown.bs.tab",
+            function (event)
+            {
+                $("#start_teaching_moto_input").focus();
+            });
+    $("#start_teaching_education_link").on("shown.bs.tab",
+            function (event)
+            {
+                $("#start_teaching_topic_show_degree").focus();
+            });
+    $("#start_teaching_prices_link").on("shown.bs.tab",
+            function (event)
+            {
+                $("#start_teaching_paypal_email_input").focus();
+            });
     start_teaching_check_tabs();
 }
 
