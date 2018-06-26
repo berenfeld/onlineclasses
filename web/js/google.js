@@ -118,8 +118,8 @@ function google_loaded()
 
 function google_load_finished()
 {
-    $(".google_login_button").removeClass("d-none");
-    $(".google_login_button_placeholder").addClass("d-none");
+    $("div.google_login_button_placeholder").addClass("d-none");
+    $("div.google_login_button").removeClass("d-none");
     
     gapi.auth2.init();
     google.loaded = true;

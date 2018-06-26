@@ -117,9 +117,9 @@ function facebook_load()
             version: 'v2.12'
         });     
         FB.getLoginStatus(facebook_gotLoginStatus);
-        facebook.init_done = true;
-        $(".facebook_login_button").removeClass("d-none");
-        $(".facebook_login_button_placeholder").addClass("d-none");
+        facebook.init_done = true;        
+        $("div.facebook_login_button_placeholder").addClass("d-none");
+        $("div.facebook_login_button").removeClass("d-none");
     };
 
     (function (d, s, id) {

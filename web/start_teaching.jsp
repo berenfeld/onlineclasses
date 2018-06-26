@@ -146,11 +146,31 @@
                                         <%= Labels.get("start_teaching.form.login.text2")%> 
                                     </p>
                                     <div class="row no-gutters">
-                                        <div class="col-6 col-lg-3 px-2">
-                                            <input type="image" src="images/google_login_button.png" class="w-100 google_login_button d-none" onclick="start_teaching_googleLogin()">
+                                        <div class="col-6 col-lg-3 px-2 google_login_button d-none">
+                                            <input type="image" src="images/google_login_button.png" class="w-100" onclick="start_teaching_googleLogin()">
                                         </div>
-                                        <div class="col-6 col-lg-3 px-2">
-                                            <input type="image" src="images/facebook_login_button.png" class="w-100 facebook_login_button d-none" onclick="start_teaching_facebookLogin()">
+                                        <div class="col-6 col-lg-3 px-2 google_login_button_placeholder text-center text-dark">
+                                            <div class="common_relative_container">
+                                                <img class="common_low_opacity w-100" src="images/google_login_button.png"></img>
+                                                <div class="common_absolute_centered">
+                                                    <h5>                                                        
+                                                        <%= Labels.get("start_teaching.form.login.google_loading")%> 
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-lg-3 px-2 facebook_login_button d-none">
+                                            <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="start_teaching_facebookLogin()">
+                                        </div>
+                                        <div class="col-6 col-lg-3 px-2 facebook_login_button_placeholder border rounded text-center text-info">
+                                            <div class="common_relative_container">
+                                                <img class="common_low_opacity w-100" src="images/facebook_login_button.png"></img>
+                                                <div class="common_absolute_centered">
+                                                    <h5>                                                        
+                                                        <%= Labels.get("start_teaching.form.login.facebook_loading")%> 
+                                                    </h5>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

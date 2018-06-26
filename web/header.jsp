@@ -26,7 +26,6 @@
 <% if ("rtl".equals(Config.get("website.direction"))) { %>        
 <link rel="stylesheet" href="css/bootstrap-rtl.css">
 <% }%>
-<link rel="stylesheet" href="css/extras.css">
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/<%= hea_pageName %>.css">
 <link href="css/open-iconic.css" rel="stylesheet">

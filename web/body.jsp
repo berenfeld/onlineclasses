@@ -52,10 +52,10 @@
                         <a class="dropdown-item" href="abous_us">
                             <%= Labels.get("navbar.about.us.who.we.are")%>
                         </a>
-                        <a class="dropdown-item <%= com_visibleToAdminClass %>" href="javascript:invite_student()">
+                        <a class="dropdown-item <%= com_visibleToAdminClass%>" href="javascript:invite_student()">
                             <%= Labels.get("navbar.about.us.invite_student")%>
                         </a>
-                        <a class="dropdown-item <%= com_visibleToAdminClass %>" href="javascript:invite_teacher()">
+                        <a class="dropdown-item <%= com_visibleToAdminClass%>" href="javascript:invite_teacher()">
                             <%= Labels.get("navbar.about.us.invite_teacher")%>
                         </a>
                         <a class="dropdown-item" href="contact">
@@ -180,11 +180,31 @@
                     <%= Labels.get("login.modal.text1")%>                    
                 </h5>
                 <div class="row no-gutters">
-                    <div class="col-6">                        
-                        <input type="image" src="images/google_login_button.png" class="w-100" onclick="login_googleLogin()">              
+                    <div class="col-6 px-2 google_login_button d-none">
+                        <input type="image" src="images/google_login_button.png" class="w-100" onclick="login_googleLogin()">
                     </div>
-                    <div class="col-6">                        
+                    <div class="col-6 px-2 google_login_button_placeholder text-center text-dark">
+                        <div class="common_relative_container">
+                            <img class="common_low_opacity w-100" src="images/google_login_button.png"></img>
+                            <div class="common_absolute_centered">
+                                <h5>                                                        
+                                    <%= Labels.get("start_teaching.form.login.google_loading")%> 
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 px-2 facebook_login_button d-none">
                         <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="login_facebookLogin()">
+                    </div>
+                    <div class="col-6 px-2 facebook_login_button_placeholder border rounded text-center text-info">
+                        <div class="common_relative_container">
+                            <img class="common_low_opacity w-100" src="images/facebook_login_button.png"></img>
+                            <div class="common_absolute_centered">
+                                <h5>                                                        
+                                    <%= Labels.get("start_teaching.form.login.facebook_loading")%> 
+                                </h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <h5>
