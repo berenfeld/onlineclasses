@@ -938,7 +938,6 @@
                                  aria-labelledby="start_teaching_accept_and_finish_link">
                                 <div class="card-header text-white bg-secondary">
                                     <div class="card-title">
-
                                         <%= Labels.get("start_teaching.form.submit.title")%>   
                                     </div>
                                 </div>
@@ -946,14 +945,11 @@
                                     <h6>
                                         <%= Labels.get("start_teaching.form.submit.accept_terms_of_usage")%>  
                                     </h6>
-
-                                    <%
-                                        String htmlFileName = Config.get("html.path") + File.separator
-                                                + Config.get("website.language") + File.separator + "terms_of_usage.html";
-                                        String htmlContent = Utils.getStringFromInputStream(getServletContext(), htmlFileName);
-
-                                        out.write(htmlContent);
-                                    %>
+                                    <p>
+                                        <a href="javascript:start_teaching_terms_of_usage()">
+                                            <%= Labels.get("start_teaching.form.publish.read_terms_of_usage")%>
+                                        </a>
+                                    </p>
 
                                     <div class="row no-gutters">
                                         <div class="col-12 col-sm-6 col-lg-3 my-1" id="start_teaching_feedback">
@@ -974,7 +970,9 @@
                                     <div class="d-flex flex-row-reverse">
 
                                         <div>
-                                            <button class="btn btn-success mx-1 my-auto" onclick="start_teaching_form_submit()">
+                                            <button class="btn btn-success mx-1 my-auto disabled start_teaching_tabs_button"
+                                                    id="start_teaching_form_submit_button"
+                                                    onclick="start_teaching_form_submit()">
                                                 <span class="oi" data-glyph="chevron-left"></span>
                                                 <%= Labels.get("start_teaching.form.submit.button.text")%>   
                                                 <span class="oi" data-glyph="chevron-left"></span>
@@ -982,7 +980,8 @@
                                         </div>
 
                                         <div class="checkbox mx-1 h6 my-auto" id="start_teaching_accept_terms_checkbox_div">
-                                            <input class="form-check-input my-1 mx-0" id="start_teaching_accept_terms_checkbox" name="start_teaching_accept_terms_checkbox" 
+                                            <input class="form-check-input my-1 mx-0 start_teaching_required" id="start_teaching_accept_terms_checkbox" 
+                                                   name="start_teaching_accept_terms_checkbox" 
                                                    type="checkbox" value="">
 
                                             <label class="form-check-label" for="start_teaching_accept_terms_checkbox">

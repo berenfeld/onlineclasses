@@ -391,6 +391,11 @@ function start_teaching_check_tabs()
     $("#start_teaching_tab_list a.nav-link").addClass("disabled");
     $("button.start_teaching_tabs_button").addClass("disabled");
 
+    if (oc.cconfig["start_teaching.enable_all_tabs"] === "true") {
+        $("#start_teaching_tab_list a.nav-link").removeClass("disabled");
+        $("button.start_teaching_tabs_button").removeClass("disabled");
+    }
+
     // google login tab always enabled
     $("#start_teaching_login_link").removeClass("disabled");
 
@@ -438,36 +443,36 @@ function start_teaching_check_tabs()
 
     $("#start_teaching_profile_link").removeClass("disabled");
     $("#start_teaching_goto_tab_profile_button").removeClass("disabled");
-    
+
     // if moto is filled - can go to education
     // TODO moto minimum length
     request.moto = $("#start_teaching_moto_input").val();
-    
+
     if (stringEmpty(request.moto)) {
         return;
     }
     $("#start_teaching_moto_input").addClass("start_teaching_required_filled");
-    
+
     $("#start_teaching_education_link").removeClass("disabled");
     $("#start_teaching_goto_tab_education_button").removeClass("disabled");
-    
+
     // can move to teaching_topics
     $("#start_teaching_teaching_topics_link").removeClass("disabled");
     $("#start_teaching_goto_tab_teaching_topics_button").removeClass("disabled");
-    
+
     // can move to prices
     $("#start_teaching_prices_link").removeClass("disabled");
     $("#start_teaching_goto_tab_prices_button").removeClass("disabled");
-    
+
     var pass_to_teaching_hours = true;
-    
+
     request.paypal_email = $("#start_teaching_paypal_email_input").val();
-    if (stringEmpty(request.paypal_email)) {
+    if (!emailIsValid(request.paypal_email)) {
         pass_to_teaching_hours = false;
     } else {
         $("#start_teaching_paypal_email_input").addClass("start_teaching_required_filled");
     }
-    
+
     request.price_per_hour = parseInt10($("#start_teaching_price_per_hour_input").val());
     if (request.price_per_hour === 0) {
         pass_to_teaching_hours = false;
@@ -475,22 +480,39 @@ function start_teaching_check_tabs()
     } else {
         $("#start_teaching_price_per_hour_input").addClass("start_teaching_required_filled");
     }
-    
-    if (! pass_to_teaching_hours) {
+
+    if (!pass_to_teaching_hours) {
         return;
     }
-    
+
     // can move to teaching_hours
     $("#start_teaching_teaching_hours_link").removeClass("disabled");
     $("#start_teaching_goto_tab_teaching_hours_button").removeClass("disabled");
-    
-    // can move to accept_and_finish
+
     $("#start_teaching_accept_and_finish_link").removeClass("disabled");
     $("#start_teaching_goto_tab_accept_and_finish_button").removeClass("disabled");
+
+    if (!$("#start_teaching_accept_terms_checkbox").is(":checked")) {
+        return;
+    }
+
+    if (!start_teaching.read_terms_of_usage) {
+        return;
+    }
+    // can enable submit button
+    $("#start_teaching_form_submit_button").removeClass("disabled");
+}
+
+function start_teaching_terms_of_usage()
+{
+    window.open('terms_of_usage', 'terms_of_usage', 'width=1280,height=720');
+    start_teaching.read_terms_of_usage = true;
+    start_teaching_check_tabs();
 }
 
 function start_teaching_init()
 {
+    start_teaching.read_terms_of_usage = false;
     start_teaching.google_id_token = null;
     start_teaching.facebook_access_token = null;
     start_teaching.day_of_birth = null;
