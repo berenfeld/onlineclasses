@@ -404,7 +404,7 @@
                                                       placeholder="<%= Labels.get("start_teaching.form.publish.moto_placeholder")%>"></textarea>
                                         </div>
 
-                                        <div class="col-12 my-1">
+                                        <div class="col-12 my-1 d-inline form-control border rounded bg-light">
                                             <input class="form-check-input mx-0"  
                                                    id="start_teaching_show_phone" 
                                                    name="start_teaching_show_phone"
@@ -414,7 +414,7 @@
                                             </label>
                                         </div>
 
-                                        <div class="col-12 my-1">
+                                        <div class="col-12 my-1 d-inline form-control border rounded bg-light">
                                             <input class="form-check-input mx-0"  
                                                    id="start_teaching_show_email" 
                                                    name="start_teaching_show_email"
@@ -424,7 +424,7 @@
                                             </label>
                                         </div>
 
-                                        <div class="col-12 my-1">
+                                        <div class="col-12 my-1 d-inline form-control border rounded bg-light">
                                             <input class="form-check-input mx-0"  
                                                    id="start_teaching_show_skype" 
                                                    name="start_teaching_show_skype"
@@ -462,20 +462,20 @@
                                 <div class="card-body">
 
                                     <div class="form-group row">
-                                        <a class="list-group-item list-group-item-action" 
-                                           aria-expanded="false"
-                                           aria-controls="start_teaching_degree_information_div"                                   
-                                           data-toggle="collapse"
-                                           href="#start_teaching_degree_information_div">
-                                            <input class="form-check-input my-1 mx-0"  
-                                                   id="start_teaching_topic_show_degree" 
-                                                   name="start_teaching_topic_show_degree"
-                                                   type="checkbox" value="">
-                                            <label class="form-check-label" for="start_teaching_topic_show_degree">
+                                        <div class="col-12 my-1 d-inline form-control border rounded bg-light">
+                                            <input class="form-check-input mx-0"  
+                                                   id="start_teaching_show_degree" 
+                                                   name="start_teaching_show_degree"
+                                                   type="checkbox">
+                                            <label class="form-check-label" data-toggle="collapse"  for="start_teaching_show_degree"
+                                                   data-target="#start_teaching_degree_information_div" 
+                                                   aria-expanded="false" aria-controls="start_teaching_degree_information_div">                                            
                                                 <%= Labels.get("start_teaching.form.learning_information.show_degree")%>
                                             </label>
-                                        </a>
+
+                                        </div>
                                     </div>
+
                                     <div class="collapse" id="start_teaching_degree_information_div">
                                         <div class="form-group row" aria-expanded="false" >
 

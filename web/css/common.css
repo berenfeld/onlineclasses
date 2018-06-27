@@ -163,3 +163,6 @@ div.modal-header {
     cursor: move;
 }
 
+div.start_teaching_checkbox {
+    background-color: blue;
+}

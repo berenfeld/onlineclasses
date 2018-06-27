@@ -466,6 +466,7 @@ function start_teaching_check_tabs()
     }
     $("#start_teaching_moto_input").addClass("start_teaching_required_filled");
 
+    // can move to education
     $("#start_teaching_education_link").removeClass("disabled");
     $("#start_teaching_goto_tab_education_button").removeClass("disabled");
 
@@ -561,18 +562,6 @@ function start_teaching_init()
                 oc.clabels[ "start_teaching.login.already_logged_in.text"]);
     }
 
-    $('#start_teaching_topic_show_degree').on('click', function (e) {
-        event.preventDefault();
-    });
-    $('#start_teaching_degree_information_div').on('hide.bs.collapse', function ()
-    {
-        $('#start_teaching_topic_show_degree').prop("checked", false);
-    });
-    $('#start_teaching_degree_information_div').on('show.bs.collapse', function ()
-    {
-        $('#start_teaching_topic_show_degree').prop("checked", true);
-    });
-
     $("#start_teaching_calendar_table td").disableSelection();
     $("select.start_teaching_institute_select").on("change", start_teaching_select_institute);
     $("#start_teaching_institute_type_select").on("change", start_teaching_select_institute_type);
@@ -582,6 +571,7 @@ function start_teaching_init()
     $("input.start_teaching_required").on("change", start_teaching_check_tabs);
     $("select.start_teaching_required").on("change", start_teaching_check_tabs);
     $("textarea.start_teaching_required").on("change", start_teaching_check_tabs);
+
     $("#start_teaching_personal_information_link").on("shown.bs.tab",
             function (event)
             {
@@ -604,7 +594,12 @@ function start_teaching_init()
             });
     common_number_only_input($("#start_teaching_phone_number"));
     common_number_only_input($("#start_teaching_price_per_hour"));
-    
+
+    $("#start_teaching_show_degree").click(
+            function (e)
+            {
+                $("#start_teaching_degree_information_div").collapse("toggle");
+            });
     start_teaching_check_tabs();
 }
 
