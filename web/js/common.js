@@ -309,12 +309,47 @@ function common_js_error(message, url, line_number, column_number, error_object)
             });
 }
 
+function common_number_only_input(element)
+{
+    element.keydown(
+            function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1) {
+                    return;
+                }
+
+                // Allow: Ctrl/cmd+A
+                if (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) {
+                    return;
+                }
+
+                // Allow: Ctrl/cmd+C
+                if (e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) {
+                    return;
+                }
+                // Allow: Ctrl/cmd+X
+                if (e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true)) {
+                    return;
+                }
+                // Allow: home, end, left, right
+                if (e.keyCode >= 35 && e.keyCode <= 39) {
+                    return;
+                }
+
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            }
+    );
+}
+
 function common_init()
 {
     $(".modal").draggable({
         handle: "div.modal-header"
     });
-    window.onerror = common_js_error;        
+    window.onerror = common_js_error;
 }
 
-$(document).ready( common_init );
+$(document).ready(common_init);

@@ -410,18 +410,31 @@ function start_teaching_check_tabs()
     $("input.start_teaching_required").removeClass("start_teaching_required_filled");
     $("select.start_teaching_required").removeClass("start_teaching_required_filled");
 
-    // if mandatory fields are present :  phone, day of birth and city, can show profile tab
+    // if mandatory fields are present : display_name, phone, day of birth and city, can show profile tab
     var request = {};
     request.phone_number = $("#start_teaching_phone_number_input").val();
     request.phone_area = $("#start_teaching_phone_area_select").val();
     request.day_of_birth = start_teaching.day_of_birth;
     request.city_id = parseInt10($("#start_teaching_city_select").val());
+    request.display_name = $("#start_teaching_display_name_input").val();
 
     var pass_to_profile = true;
-    if (stringEmpty(request.phone_number) || stringEmpty(request.phone_area)) {
+
+    if (stringEmpty(request.display_name)) {
+        pass_to_profile = false;
+    } else {
+        $("#start_teaching_display_name_input").addClass("start_teaching_required_filled");
+    }
+
+    if (stringEmpty(request.phone_number)) {
         pass_to_profile = false;
     } else {
         $("#start_teaching_phone_number_input").addClass("start_teaching_required_filled");
+    }
+
+    if (stringEmpty(request.phone_area)) {
+        pass_to_profile = false;
+    } else {
         $("#start_teaching_phone_area_select").addClass("start_teaching_required_filled");
     }
 
@@ -589,6 +602,9 @@ function start_teaching_init()
             {
                 $("#start_teaching_paypal_email_input").focus();
             });
+    common_number_only_input($("#start_teaching_phone_number"));
+    common_number_only_input($("#start_teaching_price_per_hour"));
+    
     start_teaching_check_tabs();
 }
 

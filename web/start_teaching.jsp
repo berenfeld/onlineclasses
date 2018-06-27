@@ -216,7 +216,7 @@
                                             </label>
                                         </div>
                                         <div class="col-6 col-lg-3 my-1">
-                                            <input type="text" class="form-control" id="start_teaching_display_name_input" 
+                                            <input type="text" class="form-control start_teaching_required" id="start_teaching_display_name_input" 
                                                    placeholder="<%= Labels.get("start_teaching.form.login.display_name")%>" disabled>
                                         </div>
 
