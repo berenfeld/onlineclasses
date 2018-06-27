@@ -17,6 +17,9 @@ function google_init()
 }
 
 function google_signOut() {
+    if (!google_isLoaded()) {
+        return;
+    }
     google.auth2.signOut();
     google.auth2.disconnect();
 }

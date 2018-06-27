@@ -146,10 +146,10 @@
                                         <%= Labels.get("start_teaching.form.login.text2")%> 
                                     </p>
                                     <div class="row no-gutters">
-                                        <div class="col-6 col-lg-3 px-2 google_login_button d-none">
+                                        <div class="col-12 col-sm-6 col-lg-3 px-2 google_login_button d-none">
                                             <input type="image" src="images/google_login_button.png" class="w-100" onclick="start_teaching_googleLogin()">
                                         </div>
-                                        <div class="col-6 col-lg-3 px-2 google_login_button_placeholder text-center text-dark">
+                                        <div class="col-12 col-sm-6 col-lg-3 px-2 google_login_button_placeholder text-center text-dark">
                                             <div class="common_relative_container">
                                                 <img class="common_low_opacity w-100" src="images/google_login_button.png"></img>
                                                 <div class="common_absolute_centered">
