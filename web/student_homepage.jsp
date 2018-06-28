@@ -3,6 +3,20 @@
 <%@page import="com.onlineclasses.entities.Student"%>
 <%@page import="com.onlineclasses.utils.Config"%>
 
+<%
+    int studentId = Utils.parseInt(request.getParameter("id"));
+    Student student = null; 
+    if (studentId != 0) {
+        student = DB.getStudent(studentId);
+    } else {
+        student = (Student) BaseServlet.getUser(request);
+    }
+    if (student == null) {
+        Utils.warning("student not found");
+        response.sendRedirect("/");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
     <head>

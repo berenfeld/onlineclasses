@@ -556,7 +556,9 @@
                                     <div class="col-3 col-xl-2 px-0 mx-0 my-0 text-center">
                                         <img src="<%= teacher.image_url%>" class="w-100 mx-auto border border-info img-responsive rounded mx-1 my-1"/>
                                         <h6>
+                                            <a href="teacher_homepage?id=<%= teacher.id %>">
                                             <%= teacher.display_name%>
+                                            </a>
                                         </h6>
                                         <h6>
                                             <div class="d-inline-block" style="position:relative; cursor:default"
@@ -571,9 +573,7 @@
                                                     <span class="oi" data-glyph="star"></span>
                                                     <span class="oi" data-glyph="star"></span>
                                                 </div>
-
                                             </div>
-
                                         </h6>
                                         <h6>
                                             <button id="schedule_class_button_<%= teacher.id%>" data-teacher-id="<%= teacher.id%>" 
