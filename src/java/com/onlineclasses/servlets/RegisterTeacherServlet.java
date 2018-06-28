@@ -73,7 +73,7 @@ public class RegisterTeacherServlet extends BaseServlet {
         Teacher registeringTeacher = new Teacher();
         registeringTeacher.email = googleUser.email;
         registeringTeacher.display_name = registerTeacherRequest.display_name;
-        registeringTeacher.image_url = googleUser.image_url;
+        registeringTeacher.image_url = registerTeacherRequest.image_url;
         registeringTeacher.first_name = registerTeacherRequest.first_name;
         registeringTeacher.last_name = registerTeacherRequest.last_name;
         registeringTeacher.gender = registerTeacherRequest.gender;

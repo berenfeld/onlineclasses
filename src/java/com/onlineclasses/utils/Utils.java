@@ -139,11 +139,18 @@ public class Utils {
         return String.join(token, list);
     }
 
+    private static final Random random = new Random();
+    
+    public static String getRandomString(int length) {
+        byte[] bytes = new byte[length];
+        random.nextBytes(bytes);
+        return DatatypeConverter.printHexBinary(bytes);
+    }
+    
     public static <T> T getRandomElement(List<T> list) {
         if ((list == null) || (list.isEmpty())) {
             return null;
-        }
-        Random random = new Random();
+        }        
         return list.get(random.nextInt(list.size()));
     }
 

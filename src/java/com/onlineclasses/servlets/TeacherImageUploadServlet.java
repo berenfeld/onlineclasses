@@ -17,6 +17,9 @@ import com.onlineclasses.utils.EmailSender;
 import com.onlineclasses.utils.Labels;
 import com.onlineclasses.utils.TasksManager;
 import com.onlineclasses.utils.Utils;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,6 +30,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -38,8 +42,8 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @MultipartConfig
-@WebServlet(urlPatterns = {"/servlets/file_upload"})
-public class FileUploadServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/servlets/teacher_image_upload"})
+public class TeacherImageUploadServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -49,72 +53,46 @@ public class FileUploadServlet extends HttpServlet {
             Utils.info("creating root folder " + uploadDirName);
             uploadDir.mkdir();
         }
+
+        String uploadImagesDirName = Utils.getRealPath(config.getServletContext(), "",
+                CConfig.get("website.file.upload.root"), CConfig.get("website.file.upload.images_root"));
+        File uploadImagesDir = new File(uploadImagesDirName);
+        if (!uploadImagesDir.exists()) {
+            Utils.info("creating root images folder " + uploadImagesDir);
+            uploadImagesDir.mkdir();
+        }
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        AttachedFile attachedFile;
         try {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
 
-            int oClassId = Utils.parseInt(request.getParameter("oclass_id"));
-            String comment = request.getParameter("oclass_attach_file_comment");
-            Part filePart = request.getPart("oclass_attach_file_input");
+            String imageId = request.getParameter("image_id");
+            Part filePart = request.getPart("start_teaching_img_upload_input");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             long fileSize = filePart.getSize();
-            Utils.info("upload file " + fileName + " size " + fileSize + " from user " + user + " sched class " + oClassId + " comment " + comment);
+            Utils.info("upload file " + fileName + " size " + fileSize + " from user " + user);
 
-            OClass oclass = DB.getOClass(oClassId);
-            if (oclass == null) {
-                Utils.warning("class id " + oClassId + " not found");
-                return;
-            }
-
-            if (user == null) {
-                Utils.warning("guest can't upload file");
-                return;
-            }
-
-            attachedFile = new AttachedFile();
-            attachedFile.added = new Date();
-            attachedFile.oclass = oclass;
-            attachedFile.name = fileName;
-            attachedFile.size = (int) fileSize;
-            attachedFile.uploaded = 0;
-            attachedFile.removed = false;
-            attachedFile.comment = comment;
-
-            if (user.equals(oclass.student)) {
-                attachedFile.student = (Student) user;
-            } else if (user.equals(oclass.teacher)) {
-                attachedFile.teacher = (Teacher) user;
-            } else {
-                Utils.warning("not teacher and not student can't upload file");
-                return;
-            }
-            DB.add(attachedFile);
-            if (attachedFile.id == 0) {
-                Utils.warning("failed to add attached file");
-                return;
-            }
-
-            String classRootDirName = Utils.getRealPath(request.getServletContext(), "",
+            String imageDirName = Utils.getRealPath(request.getServletContext(), "",
                     CConfig.get("website.file.upload.root"),
-                    Config.get("website.file.upload.classes_prefix") + oClassId);
-            Utils.info("class root dir name " + classRootDirName);
+                    CConfig.get("website.file.upload.images_root"),
+                    imageId);
+            Utils.info("image dir name " + imageDirName);
 
-            File classRootDir = new File(classRootDirName);
-            if (!classRootDir.exists()) {
-                Utils.info("creating scheduled class root folder " + classRootDirName);
-                classRootDir.mkdir();
+            File imageDir = new File(imageDirName);
+            if (!imageDir.exists()) {
+                Utils.info("creating image dir root folder " + imageDirName);
+                imageDir.mkdir();
             }
 
-            String outputFileName = Utils.getRealPath(request.getServletContext(), fileName,
+            String outputFileName = Utils.getRealPath(request.getServletContext(), fileName ,
                     CConfig.get("website.file.upload.root"),
-                    Config.get("website.file.upload.classes_prefix") + oClassId);
+                    CConfig.get("website.file.upload.images_root"),
+                    imageId);
 
             InputStream fi = filePart.getInputStream();
             File outputFile = new File(outputFileName);
@@ -126,30 +104,40 @@ public class FileUploadServlet extends HttpServlet {
             outputFile.createNewFile();
             FileOutputStream fo = new FileOutputStream(outputFileName);
             int chunkSize = Config.getInt("website.file.upload.chunk_size");
-            int updateDbThreshold = Config.getInt("website.file.upload.update_db_threshold");
 
             int read;
-            int written = 0;
-            int lastWrittenUpdated = 0;
             final byte[] bytes = new byte[chunkSize];
 
             while ((read = fi.read(bytes)) != -1) {
                 fo.write(bytes, 0, read);
-                written += read;
-                if (written > lastWrittenUpdated + updateDbThreshold) {
-                    attachedFile.uploaded = written;
-                    DB.updateAttachedFileUploadedBytes(attachedFile);
-                    lastWrittenUpdated = written;
-                }
             }
-            attachedFile.uploaded = written;
-            DB.updateAttachedFileUploadedBytes(attachedFile);
 
-            sendEmail(user, oclass, attachedFile);
+            File input = new File(outputFileName);
+            BufferedImage image = ImageIO.read(input);
+
+            BufferedImage resized = resize(image, image.getWidth(), image.getWidth());
+
+            String scaledOutputFileName = Utils.getRealPath(request.getServletContext(), fileName + ".png",
+                    CConfig.get("website.file.upload.root"),
+                    CConfig.get("website.file.upload.images_root"),
+                    imageId);
+
+            File output = new File(scaledOutputFileName);
+            ImageIO.write(resized, "png", output);
+
             Utils.info("upload file done file " + fileName + " size " + fileSize);
         } catch (Exception ex) {
             Utils.exception(ex);
         }
+    }
+
+    private static BufferedImage resize(BufferedImage img, int height, int width) {
+        Image tmp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = resized.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+        return resized;
     }
 
     private void sendEmail(User uploader, OClass oClass, AttachedFile attachedFile) throws Exception {

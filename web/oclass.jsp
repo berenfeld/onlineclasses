@@ -168,7 +168,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="submit" id="oclass_attach_file_submit_button" 
-                                   class="btn btn-success mx-1" value="<%= Labels.get("buttons.ok")%>" name="upload" id="upload" />
+                                   class="btn btn-success mx-1" value="<%= Labels.get("buttons.ok")%>"/>
                             <button type="button" class="btn btn-info mx-1" data-dismiss="modal">
                                 <%= Labels.get("buttons.cancel")%>
                             </button>
@@ -314,7 +314,7 @@
                             %>
                             <%
                                 String filePath
-                                        = Config.get("website.file.upload.root") + "/"
+                                        = CConfig.get("website.file.upload.root") + "/"
                                         + Config.get("website.file.upload.classes_prefix")
                                         + oClass.id + "/" + oClassAttachedFile.name;
                             %>

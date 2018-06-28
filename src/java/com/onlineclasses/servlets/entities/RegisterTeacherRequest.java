@@ -23,6 +23,7 @@ public class RegisterTeacherRequest extends BasicRequest {
     public String first_name;
     public String last_name;
     public String display_name;
+    public String image_url;
     public String phone_number;
     public String phone_area;
     public int gender;

@@ -69,3 +69,18 @@ input.start_teaching_required_filled, select.start_teaching_required_filled, tex
 {
     border-color: green;
 }
+
+#start_teaching_img_upload_button_wrapper
+{
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+#start_teaching_img_upload_button_wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}

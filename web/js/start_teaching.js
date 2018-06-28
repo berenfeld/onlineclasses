@@ -9,14 +9,18 @@ function start_teaching_userLoggedInCallback(user)
     facebook_clearUserLoggedinCallback();
     start_teaching.google_id_token = user.google_id_token;
     start_teaching.facebook_access_token = user.facebook_access_token;
-
+    start_teaching.social_image_url = user.image_url;
+    start_teaching.image_url = user.image_url;
+    
     $("#start_teaching_email_input").val(user.email);
     $("#start_teaching_display_name_input").val(user.name);
     $("#start_teaching_first_name_input").val(user.first_name);
     $("#start_teaching_last_name_input").val(user.last_name);
-    $("#start_teaching_display_name_input").attr("disabled", false);
-    $("#start_teaching_first_name_input").attr("disabled", false);
-    $("#start_teaching_last_name_input").attr("disabled", false);
+    $("#start_teaching_display_name_input").prop("disabled", false);
+    $("#start_teaching_first_name_input").prop("disabled", false);
+    $("#start_teaching_last_name_input").prop("disabled", false);
+    $("#start_teaching_image_img").prop("src", user.image_url);
+
     google_signOut();
     facebook_signOut();
     start_teaching_check_tabs();
@@ -32,6 +36,56 @@ function start_teaching_googleUserEmailExistsCallback(email_exists)
         alert_show(oc.clabels[ "start_teaching.login.email_exists.title"],
                 oc.clabels[ "start_teaching.login.email_exists.text"]);
     }
+}
+
+function start_teaching_check_img_loaded()
+{
+    $("#start_teaching_image_loading").addClass("d-none");
+    $("#start_teaching_image_img").removeClass("d-none");
+    $("#start_teaching_image_img").attr("src", start_teaching.loading_image_url);
+    if (start_teaching.social_image_url === start_teaching.loading_image_url) {
+        $("#start_teaching_img_upload_reset_image").addClass("d-none");
+    } else {
+        $("#start_teaching_img_upload_reset_image").removeClass("d-none");
+    }
+    start_teaching.image_url = start_teaching.loading_image_url;
+}
+
+function start_teaching_check_img_url_fail()
+{
+    setTimeout(start_teaching_check_img_url, 1000);
+}
+
+function start_teaching_reset_img_upload()
+{
+    $("#start_teaching_image_loading").removeClass("d-none");
+    $("#start_teaching_image_img").addClass("d-none");
+    start_teaching.loading_image_url = start_teaching.social_image_url;
+    start_teaching_check_img_url();
+}
+
+function start_teaching_check_img_url()
+{
+    $.ajax(
+            {
+                url: start_teaching.loading_image_url,
+                success: start_teaching_check_img_loaded,
+                error: start_teaching_check_img_url_fail,
+            }
+    );
+}
+
+function start_teaching_img_upload()
+{    
+    filename = $("#start_teaching_img_upload_input").val();
+    filename = filename.replace(/.*[\/\\]/, '');
+
+    $("#start_teaching_image_upload_form").submit();
+    $("#start_teaching_image_loading").removeClass("d-none");
+    $("#start_teaching_image_img").addClass("d-none");
+    start_teaching.loading_image_url = "/" + oc.cconfig["website.file.upload.root"] + 
+            "/" + oc.cconfig["website.file.upload.images_root"] + "/" + $("#start_teaching_image_id").val() + "/" + filename + ".png";
+    start_teaching_check_img_url();
 }
 
 function start_teaching_choose_topic()
@@ -133,6 +187,7 @@ function start_teaching_form_submit()
     request.first_name = $("#start_teaching_first_name_input").val();
     request.last_name = $("#start_teaching_last_name_input").val();
     request.display_name = $("#start_teaching_display_name_input").val();
+    request.image_url = start_teaching.image_url;
     request.phone_number = $("#start_teaching_phone_number_input").val();
     request.phone_area = $("#start_teaching_phone_area_select").val();
     request.day_of_birth = start_teaching.day_of_birth;
@@ -600,7 +655,7 @@ function start_teaching_init()
             {
                 $("#start_teaching_degree_information_div").collapse("toggle");
             });
-    start_teaching_check_tabs();
+    start_teaching_check_tabs();        
 }
 
 $(document).ready(start_teaching_init);

@@ -70,7 +70,7 @@ function oclass_check_file_status_response(response)
             response.file_size);
     if (response.uploaded === response.file_size) {
         $("#oclass_attach_file_info_text").html( oc.clabels["oclass.attach_file.file_upload_done"] );
-        $("#oclass_attach_file_submit_button").attr("disabled", false);
+        $("#oclass_attach_file_submit_button").prop("disabled", false);
         reloadAfter(2);
         return;
     }
@@ -100,7 +100,7 @@ function oclass_submit_file()
     }
     $("#oclass_attach_file_info_div").removeClass("d-none");
     $("#oclass_attach_file_info_text").html(oc.clabels["oclass.attach_file.uploading_file"]);
-    $("#oclass_attach_file_submit_button").attr("disabled", true);
+    $("#oclass_attach_file_submit_button").prop("disabled", true);
     oclass_check_file_status();
     return true;
 }
