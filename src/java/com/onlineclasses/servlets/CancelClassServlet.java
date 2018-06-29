@@ -38,50 +38,50 @@ public class CancelClassServlet extends BaseServlet {
         CancelClassRequest cancelClassRequest = Utils.gson().fromJson(requestString, CancelClassRequest.class);
 
         User user = getUser(request);
-        if (user == null ) {
+        if (user == null) {
             Utils.warning("guest can'f cancel scheduled class id " + cancelClassRequest.oclass_id);
             return new BasicResponse(-1, "guest can't cancel class");
         }
-        
-        Utils.info(user + " cancel class " +  cancelClassRequest.oclass_id + " comment " + cancelClassRequest.comment);
 
-        OClass oClass  = DB.getOClass(cancelClassRequest.oclass_id);
-        if ( oClass == null ) {
+        Utils.info(user + " cancel class " + cancelClassRequest.oclass_id + " comment " + cancelClassRequest.comment);
+
+        OClass oClass = DB.getOClass(cancelClassRequest.oclass_id);
+        if (oClass == null) {
             Utils.warning("can'd find scheduled class id " + cancelClassRequest.oclass_id);
             return new BasicResponse(-1, "scheduled class not found");
         }
-       
+
         if (oClass.status == OClass.STATUS_CANCELCED) {
             Utils.warning("class" + cancelClassRequest.oclass_id + " already canceled");
             return new BasicResponse(-1, "class already canceled");
         }
-        
+
         Student student = null;
         Teacher teacher = null;
-        if ( user.equals(oClass.student) ) {
-            student = (Student)user;            
-        } else if ( user.equals(oClass.teacher) ) {
-            teacher = (Teacher)user;            
+        if (user.equals(oClass.student)) {
+            student = (Student) user;
+        } else if (user.equals(oClass.teacher)) {
+            teacher = (Teacher) user;
         } else {
             Utils.warning(user + "can'd cancel on scheduled class id " + cancelClassRequest.oclass_id + ", not student not teacher");
             return new BasicResponse(-1, "not student not teacher");
         }
-              
+
         ClassComment oClassComment = new ClassComment();
         oClassComment.oclass = oClass;
         oClassComment.student = student;
         oClassComment.teacher = teacher;
-        oClassComment.comment = "Class canceled. Reason : "+ cancelClassRequest.comment;
+        oClassComment.comment = "Class canceled. Reason : " + cancelClassRequest.comment;
         oClassComment.added = new Date();
         DB.add(oClassComment);
-        
+
         DB.updateClassStatus(oClass, OClass.STATUS_CANCELCED);
-                
-        sendEmail(user, oClass, oClassComment.comment );
-        
+
+        sendEmail(user, oClass, oClassComment.comment);
+
         return new BasicResponse(0, "");
     }
-    
+
     private void sendEmail(User user, OClass oClass, String comment) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "class_canceled.html";

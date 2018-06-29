@@ -30,14 +30,14 @@ public class InviteTeacherServlet extends BaseServlet {
 
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "invite_teacher.html";
-        
+
         String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
-           
+
         emailContent = emailContent.replaceAll("<% invitedTeacher %>", inviteTeacherRequest.teacher_name);
         emailContent = emailContent.replaceAll("<% websiteUrl %>", Config.get("website.url"));
         emailContent = emailContent.replaceAll("<% websiteShortName %>", Labels.get("website.name"));
-        emailContent = emailContent.replaceAll("<% findTeachersUrl %>", Config.get("website.url") +"/find_teachers");
-        emailContent = emailContent.replaceAll("<% registerTeacherUrl %>", Config.get("website.url") +"/start_teaching");
+        emailContent = emailContent.replaceAll("<% findTeachersUrl %>", Config.get("website.url") + "/find_teachers");
+        emailContent = emailContent.replaceAll("<% registerTeacherUrl %>", Config.get("website.url") + "/start_teaching");
 
         EmailSender.addEmail(inviteTeacherRequest.teacher_email, Labels.get("emails.invite_teacher.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);

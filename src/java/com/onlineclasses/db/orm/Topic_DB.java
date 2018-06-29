@@ -32,7 +32,7 @@ public class Topic_DB extends Base_DB<Topic> {
 
     private final SelectArg _getTopicsByNameArg = new SelectArg();
     private final PreparedQuery<Topic> _getTopicsByName;
-    
+
     public synchronized List<Topic> getTopicsByName(String name) throws SQLException {
         _getTopicsByNameArg.setValue(name);
         return _dao.query(_getTopicsByName);

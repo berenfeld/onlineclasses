@@ -12,10 +12,10 @@ import com.onlineclasses.entities.BasicRequest;
  * @author me
  */
 public class CancelClassRequest extends BasicRequest {
-    public CancelClassRequest()
-    {
-        
-    }     
+
+    public CancelClassRequest() {
+
+    }
     public int oclass_id;
     public String comment;
 }

@@ -13,28 +13,25 @@ import java.util.List;
  * @author me
  */
 public class TasksManager {
-    
+
     public static final int TASK_EMAIL = 1;
-    public static void init()
-    {
-         BaseTask.init();
-         _emailSeneder = new EmailSender();
-         _emailSeneder.schedule(Config.getInt("mail.send_interval_minutes"));
-         _tasks.add(_emailSeneder);
+
+    public static void init() {
+        BaseTask.init();
+        _emailSeneder = new EmailSender();
+        _emailSeneder.schedule(Config.getInt("mail.send_interval_minutes"));
+        _tasks.add(_emailSeneder);
     }
-    
+
     public static void close() {
         BaseTask.close();
     }
-    
-    
-    public static void runNow(int task)
-    {
+
+    public static void runNow(int task) {
         _tasks.get(task - 1).runNow();
     }
-      
+
     private static List<BaseTask> _tasks = new ArrayList<>();
     private static EmailSender _emailSeneder;
 
-    
 }

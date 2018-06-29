@@ -42,7 +42,7 @@ public class CConfig {
     public static Object getObject(Object property) {
         return _properties.get(property);
     }
-    
+
     public static String get(String property) {
         return (String) _properties.get(property);
     }

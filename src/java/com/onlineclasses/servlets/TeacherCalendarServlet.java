@@ -19,15 +19,14 @@ public class TeacherCalendarServlet extends BaseServlet {
 
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        
+
         TeacherCalendarRequest teacherCalendarRequest = Utils.gson().fromJson(requestString, TeacherCalendarRequest.class);
-        
-        
+
         TeacherCalendarResponse teacherCalendarResponse = new TeacherCalendarResponse();
-        
+
         teacherCalendarResponse.teacher = DB.getTeacher(teacherCalendarRequest.teacher_id);
         teacherCalendarResponse.available_times = DB.getTeacherAvailableTime(teacherCalendarResponse.teacher);
-        teacherCalendarResponse.oclasses = DB.getTeacherScheduledClasses(teacherCalendarResponse.teacher);               
+        teacherCalendarResponse.oclasses = DB.getTeacherScheduledClasses(teacherCalendarResponse.teacher);
         return teacherCalendarResponse;
     }
 

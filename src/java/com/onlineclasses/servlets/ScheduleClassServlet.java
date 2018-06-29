@@ -60,10 +60,10 @@ public class ScheduleClassServlet extends BaseServlet {
         }
 
         if (student.email.equals(teacher.email)) {
-            Utils.warning("student " + student.display_name + " can't schedule with himself");            
+            Utils.warning("student " + student.display_name + " can't schedule with himself");
             return new BasicResponse(-1, "can't schedule class");
         }
-        
+
         Calendar now = Calendar.getInstance();
         Calendar classStart = Calendar.getInstance();
         classStart.setTime(scheduleClassRequest.start_date);
@@ -73,19 +73,17 @@ public class ScheduleClassServlet extends BaseServlet {
 
         int minTimeBeforeScheduleClassStartHours = CConfig.getInt("website.time.min_time_before_schedule_class_start_hours");
 
-        if (scheduleClassRequest.duration_minutes < teacher.min_class_length)
-        {
+        if (scheduleClassRequest.duration_minutes < teacher.min_class_length) {
             Utils.warning("student " + student.display_name + " can't schedule class with " + teacher.display_name
                     + " class duration " + scheduleClassRequest.duration_minutes + " too short");
             return new BasicResponse(-1, "can't schedule class");
         }
-        if (scheduleClassRequest.duration_minutes > teacher.max_class_length)
-        {
+        if (scheduleClassRequest.duration_minutes > teacher.max_class_length) {
             Utils.warning("student " + student.display_name + " can't schedule class with " + teacher.display_name
                     + " class duration " + scheduleClassRequest.duration_minutes + " too long");
             return new BasicResponse(-1, "can't schedule class");
         }
-        
+
         if ((classStart.getTimeInMillis() - now.getTimeInMillis()) < (minTimeBeforeScheduleClassStartHours * Utils.MS_IN_HOUR)) {
             Utils.warning("student " + student.display_name + " can't schedule class with " + teacher.display_name
                     + " at " + scheduleClassRequest.start_date + " too late.");
@@ -140,7 +138,7 @@ public class ScheduleClassServlet extends BaseServlet {
             oClassComment.oclass = oClass;
             DB.add(oClassComment);
         }
-  
+
         sendEmail(student, teacher, oClass, classStart);
 
         ScheduleClassResponse scheduleClassResponse = new ScheduleClassResponse();

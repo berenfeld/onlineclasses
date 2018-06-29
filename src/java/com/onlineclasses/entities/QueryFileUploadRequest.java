@@ -10,11 +10,11 @@ package com.onlineclasses.entities;
  * @author me
  */
 public class QueryFileUploadRequest extends BasicRequest {
-    public QueryFileUploadRequest()
-    {
-        
+
+    public QueryFileUploadRequest() {
+
     }
-    
+
     public int oclass_id;
     public String file_name;
 }

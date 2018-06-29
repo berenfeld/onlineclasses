@@ -7,8 +7,8 @@ package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
 
-public class FacebookUser extends BasicEntity { 
-       
+public class FacebookUser extends BasicEntity {
+
     public static final String EMAIL_COLUMN = "email";
     @DatabaseField(canBeNull = true, unique = true, columnName = EMAIL_COLUMN)
     public String email;
@@ -23,11 +23,11 @@ public class FacebookUser extends BasicEntity {
 
     @DatabaseField
     public String image_url;
-    
+
     public static final String FACEBOOK_ID_COLUMN = "facebook_id";
     @DatabaseField(unique = true, canBeNull = false, columnName = FACEBOOK_ID_COLUMN)
     public String facebook_id;
-    
+
     @Override
     public String toString() {
         return display_name;

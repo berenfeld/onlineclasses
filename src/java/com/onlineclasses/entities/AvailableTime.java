@@ -8,33 +8,33 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 import com.onlineclasses.utils.Utils;
 
-public class AvailableTime extends BasicEntity  {
+public class AvailableTime extends BasicEntity {
 
     public static final String TEACHER_ID_COLUMN = "teacher_id";
     @DatabaseField(canBeNull = false, foreign = true, columnName = TEACHER_ID_COLUMN)
     public Teacher teacher;
-    
+
     public static final String DAY_COLUMN = "day";
     @DatabaseField(canBeNull = false, columnName = DAY_COLUMN)
     public int day;
-    
+
     @DatabaseField(canBeNull = false)
     public int start_hour;
-    
+
     @DatabaseField(canBeNull = false)
     public int start_minute;
-    
+
     @DatabaseField(canBeNull = false)
     public int end_hour;
-    
+
     @DatabaseField(canBeNull = false)
     public int end_minute;
-    
+
     @Override
     public String toString() {
-        String result = "from " + Utils.formatTime(start_hour, start_minute ) + " to " + Utils.formatTime(end_hour, end_minute);
-        if (teacher != null ) {
-            result += " of teacher " + teacher;                    
+        String result = "from " + Utils.formatTime(start_hour, start_minute) + " to " + Utils.formatTime(end_hour, end_minute);
+        if (teacher != null) {
+            result += " of teacher " + teacher;
         }
         return result;
     }

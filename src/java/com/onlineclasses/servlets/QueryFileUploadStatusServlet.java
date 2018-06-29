@@ -31,12 +31,12 @@ public class QueryFileUploadStatusServlet extends BaseServlet {
         if (oClass == null) {
             return new BasicResponse(-1, "class not found");
         }
-        
+
         AttachedFile attachedFile = DB.getClassAttachedFile(oClass, queryFileUploadRequest.file_name);
         if (attachedFile == null) {
             return new BasicResponse(-1, "attached file not found");
         }
-               
+
         QueryFileUploadResponse queryFileUploadResponse = new QueryFileUploadResponse();
         queryFileUploadResponse.file_size = attachedFile.size;
         queryFileUploadResponse.uploaded = attachedFile.uploaded;

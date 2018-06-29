@@ -93,9 +93,9 @@ public class RegisterStudentServlet extends BaseServlet {
 
         BaseServlet.loginUser(request, registeringStudent);
 
-        Utils.info( "user " + registeringStudent.display_name + " email " + registeringStudent.email + " registered");
+        Utils.info("user " + registeringStudent.display_name + " email " + registeringStudent.email + " registered");
 
-        return new BasicResponse( 0, "");
+        return new BasicResponse(0, "");
     }
 
 }

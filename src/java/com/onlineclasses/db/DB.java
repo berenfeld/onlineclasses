@@ -121,11 +121,11 @@ public class DB {
         }
     }
 
-    public static void close() {        
+    public static void close() {
         try {
             AbandonedConnectionCleanupThread.checkedShutdown();
             _dataSource.close();
-            _connectionSource.close();            
+            _connectionSource.close();
         } catch (Exception ex) {
             Utils.exception(ex);
         }
@@ -343,7 +343,7 @@ public class DB {
     public static List<OClass> getTeacherUpcomingClasses(Teacher teacher) throws SQLException {
         return _oclass_db.getTeacherUpcomingClasses(teacher);
     }
-        
+
     public static <T> int add(T t) throws SQLException {
         return ORM_ENTITIES.get(t.getClass()).add(t);
     }
@@ -403,7 +403,7 @@ public class DB {
     public static int updateClassPricePerHour(OClass oClass, int newPricePerHour) throws SQLException {
         return _oclass_db.updateClassPricePerHour(oClass, newPricePerHour);
     }
-    
+
     public static int updateAttachedFileUploadedBytes(AttachedFile attachedFile) throws SQLException {
         return _attachedFile_DB.updateAttachedFileUploadedBytes(attachedFile);
     }
@@ -413,9 +413,9 @@ public class DB {
     }
 
     public static City getCityByName(String name) throws SQLException {
-        return _city_DB.getCityByName(name);    
+        return _city_DB.getCityByName(name);
     }
-    
+
     public static FacebookUser getFacebookUserByFacebookID(String facebook_id) throws SQLException {
         return _facebookUser_db.getFacebookUserByFacebookID(facebook_id);
     }

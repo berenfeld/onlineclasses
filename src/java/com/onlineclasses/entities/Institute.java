@@ -8,10 +8,10 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 
 public class Institute extends BasicEntity {
-        
+
     @DatabaseField
-    public String name;       
-    
+    public String name;
+
     public static final String INSTITUTE_TYPE_FIELD = "institute_type";
     @DatabaseField(foreign = true, columnName = INSTITUTE_TYPE_FIELD)
     public InstituteType institute_type;

@@ -30,12 +30,12 @@ public class AttachedFile_DB extends Base_DB<AttachedFile> {
         queryBuilder.where().eq(AttachedFile.OCLASS_FIELD, _getClassAttachedFilesClassArg);
         queryBuilder.orderBy(AttachedFile.ADDED_FIELD, true);
         _getClassAttachedFiles = queryBuilder.prepare();
-        
+
         queryBuilder.reset();
         Where<AttachedFile, Integer> where = queryBuilder.where();
         where.eq(AttachedFile.OCLASS_FIELD, _getClassAttachedFileByNameClassArg);
         where.and();
-        where.eq(AttachedFile.NAME_FIELD, _getClassAttachedFileByNameFileNameArg);        
+        where.eq(AttachedFile.NAME_FIELD, _getClassAttachedFileByNameFileNameArg);
         _getClassAttachedFileByName = queryBuilder.prepare();
     }
 
@@ -45,7 +45,7 @@ public class AttachedFile_DB extends Base_DB<AttachedFile> {
     private final PreparedQuery<AttachedFile> _getClassAttachedFileByName;
     private final SelectArg _getClassAttachedFileByNameClassArg = new SelectArg();
     private final SelectArg _getClassAttachedFileByNameFileNameArg = new SelectArg();
-    
+
     public synchronized List<AttachedFile> getClassAttachedFiles(OClass oClass) throws SQLException {
         _getClassAttachedFilesClassArg.setValue(oClass);
         return _dao.query(_getClassAttachedFiles);
@@ -57,7 +57,7 @@ public class AttachedFile_DB extends Base_DB<AttachedFile> {
         updateBuilder.updateColumnValue(AttachedFile.UPLOADED_FIELD, attachedFile.uploaded);
         return updateBuilder.update();
     }
-    
+
     public synchronized AttachedFile getClassAttachedFile(OClass oClass, String fileName) throws SQLException {
         _getClassAttachedFileByNameClassArg.setValue(oClass);
         _getClassAttachedFileByNameFileNameArg.setValue(fileName);

@@ -12,11 +12,11 @@ import com.onlineclasses.entities.BasicRequest;
  * @author me
  */
 public class AddClassCommentRequest extends BasicRequest {
-    public AddClassCommentRequest()
-    {
-        
+
+    public AddClassCommentRequest() {
+
     }
-    
-    public String comment;       
+
+    public String comment;
     public int oclass_id;
 }

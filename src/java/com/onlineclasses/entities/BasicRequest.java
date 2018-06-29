@@ -10,11 +10,11 @@ package com.onlineclasses.entities;
  * @author me
  */
 public class BasicRequest {
-    public BasicRequest()
-    {
-        
+
+    public BasicRequest() {
+
     }
-    
+
     public int type;
     public int error_message;
 }

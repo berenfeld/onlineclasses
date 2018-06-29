@@ -22,7 +22,7 @@ public class City_DB extends Base_DB<City> {
         super(connectionSource, City.class);
     }
 
-    public City getCityByName(String name)  throws SQLException {
+    public City getCityByName(String name) throws SQLException {
         Map<String, Object> fieldValues = new HashMap();
         fieldValues.put(City.NAME_COLUMN, name);
         return Utils.getFirstElement(_dao.queryForFieldValues(fieldValues));

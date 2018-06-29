@@ -13,8 +13,8 @@ import java.util.Date;
  * @author me
  */
 public class ScheduleClassRequest extends BasicRequest {
-    public ScheduleClassRequest()
-    {
+
+    public ScheduleClassRequest() {
     }
     public int teacher_id;
     public Date start_date;

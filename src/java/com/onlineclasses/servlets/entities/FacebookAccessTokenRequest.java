@@ -12,10 +12,10 @@ import com.onlineclasses.entities.BasicRequest;
  * @author me
  */
 public class FacebookAccessTokenRequest extends BasicRequest {
-    public FacebookAccessTokenRequest()
-    {
-        
+
+    public FacebookAccessTokenRequest() {
+
     }
-    
+
     public String facebook_access_token;
 }

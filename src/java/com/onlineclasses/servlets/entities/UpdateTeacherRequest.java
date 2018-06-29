@@ -20,7 +20,7 @@ public class UpdateTeacherRequest extends BasicRequest {
     }
     public String first_name;
     public String last_name;
-    public String display_name;    
+    public String display_name;
     public String skype_name;
     public String moto;
     public boolean show_phone;

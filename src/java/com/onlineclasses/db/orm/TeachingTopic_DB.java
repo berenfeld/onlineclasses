@@ -29,7 +29,7 @@ public class TeachingTopic_DB extends Base_DB<TeachingTopic> {
         Where<TeachingTopic, Integer> where = queryBuilder.where();
         where.eq(TeachingTopic.TEACHER_ID_COLUMN, _getTeacherTeachingTopicsTeacherIdArg);
         _getTeacherTeachingTopicsQuery = queryBuilder.prepare();
-        
+
         DeleteBuilder<TeachingTopic, Integer> deleteBuilder = _dao.deleteBuilder();
         where = deleteBuilder.where();
         where.eq(TeachingTopic.TEACHER_ID_COLUMN, _deleteTeacherTeachingTopicsTeacherIdArg);
@@ -45,7 +45,7 @@ public class TeachingTopic_DB extends Base_DB<TeachingTopic> {
         _getTeacherTeachingTopicsTeacherIdArg.setValue(teacher);
         return _dao.query(_getTeacherTeachingTopicsQuery);
     }
-    
+
     public synchronized int deleteTeacherTeachingTopics(Teacher teacher) throws SQLException {
         _deleteTeacherTeachingTopicsTeacherIdArg.setValue(teacher);
         return _dao.delete(_deleteTeacherTeachingTopicsQuery);

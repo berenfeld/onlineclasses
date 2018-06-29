@@ -16,11 +16,11 @@ import java.util.List;
  * @author me
  */
 public class TeacherCalendarResponse extends BasicResponse {
-    public TeacherCalendarResponse()
-    {
-        
+
+    public TeacherCalendarResponse() {
+
     }
-   
+
     public Teacher teacher;
     public List<AvailableTime> available_times;
     public List<OClass> oclasses;

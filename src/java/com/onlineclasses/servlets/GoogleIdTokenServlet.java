@@ -61,7 +61,7 @@ public class GoogleIdTokenServlet extends BaseServlet {
 
             user.last_name = (String) payload.get("family_name");
             user.first_name = (String) payload.get("given_name");
-            
+
             return user;
             // Use or store profile information
         } catch (Exception ex) {
@@ -79,22 +79,22 @@ public class GoogleIdTokenServlet extends BaseServlet {
         String googleIdToken = googleIdTokenRequest.google_id_token;
         Utils.debug("google id token from " + BaseServlet.getUser(request) + " token " + googleIdToken);
 
-        GoogleUser googleUser = userFromGoogleToken(googleIdToken);        
-        if ( googleUser == null ) {
-            Utils.warning("google login from token failed");            
-            return new BasicResponse(-1,"");            
+        GoogleUser googleUser = userFromGoogleToken(googleIdToken);
+        if (googleUser == null) {
+            Utils.warning("google login from token failed");
+            return new BasicResponse(-1, "");
         }
-                
+
         User user = DB.getUserByEmail(googleUser.email);
         if (user == null) {
             GoogleUser fromDB = DB.getGoogleUserByEmail(googleUser.email);
-            if ( fromDB == null) {
-                Utils.info("google login from new email " + googleUser.email);            
+            if (fromDB == null) {
+                Utils.info("google login from new email " + googleUser.email);
                 DB.add(googleUser);
             }
-            
+
         }
-        return new GoogleIdTokenResponse(user != null);        
+        return new GoogleIdTokenResponse(user != null);
     }
 
 }

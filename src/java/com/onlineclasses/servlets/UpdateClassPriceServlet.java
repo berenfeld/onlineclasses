@@ -39,38 +39,37 @@ public class UpdateClassPriceServlet extends BaseServlet {
         UpdateClassPriceRequest updateClassPriceRequest = Utils.gson().fromJson(requestString, UpdateClassPriceRequest.class);
 
         User user = getUser(request);
-        if (user == null ) {
+        if (user == null) {
             Utils.warning("guest can'f cancel scheduled class id " + updateClassPriceRequest.oclass_id);
             return new BasicResponse(-1, "guest can't cancel class");
         }
-        
-        Utils.info(user + " update class price " +  updateClassPriceRequest.oclass_id + " new_price " + updateClassPriceRequest.new_price);
 
-        OClass oClass  = DB.getOClass(updateClassPriceRequest.oclass_id);
-        if ( oClass == null ) {
+        Utils.info(user + " update class price " + updateClassPriceRequest.oclass_id + " new_price " + updateClassPriceRequest.new_price);
+
+        OClass oClass = DB.getOClass(updateClassPriceRequest.oclass_id);
+        if (oClass == null) {
             Utils.warning("can'd find scheduled class id " + updateClassPriceRequest.oclass_id);
             return new BasicResponse(-1, "scheduled class not found");
         }
-       
-        if (oClass.payment != null ) {
+
+        if (oClass.payment != null) {
             Utils.warning("class" + updateClassPriceRequest.oclass_id + " already paid");
             return new BasicResponse(-1, "class already canceled");
         }
-        
-        if ( ! user.equals(oClass.teacher) ) {            
+
+        if (!user.equals(oClass.teacher)) {
             Utils.warning(user + "can'd update price on class id " + updateClassPriceRequest.oclass_id + ", not teacher");
             return new BasicResponse(-1, "not teacher");
         }
-              
-        
-        int newPricePerHour = (int)( updateClassPriceRequest.new_price * Utils.MINUTES_IN_HOUR ) / oClass.duration_minutes;
+
+        int newPricePerHour = (int) (updateClassPriceRequest.new_price * Utils.MINUTES_IN_HOUR) / oClass.duration_minutes;
         DB.updateClassPricePerHour(oClass, newPricePerHour);
-                
-        sendEmail(user, oClass, updateClassPriceRequest.new_price );
-        
+
+        sendEmail(user, oClass, updateClassPriceRequest.new_price);
+
         return new BasicResponse(0, "");
     }
-    
+
     private void sendEmail(User user, OClass oClass, int newPrice) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "class_price_updated.html";

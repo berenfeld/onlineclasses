@@ -12,11 +12,11 @@ import com.onlineclasses.entities.BasicRequest;
  * @author me
  */
 public class GoogleIdTokenRequest extends BasicRequest {
-    public GoogleIdTokenRequest()
-    {
-        
+
+    public GoogleIdTokenRequest() {
+
     }
-    
+
     public String google_id_token;
     public String reason;
 

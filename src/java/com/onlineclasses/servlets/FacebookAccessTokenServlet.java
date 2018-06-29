@@ -57,11 +57,11 @@ public class FacebookAccessTokenServlet extends BaseServlet {
             facebookUser.email = profile.email;
             facebookUser.facebook_id = profile.id;
             facebookUser.image_url = "http://graph.facebook.com/" + profile.id + "/picture?type=square";
-            
+
             if (Config.getBool("facebook.debug_fake_emails")) {
                 facebookUser.email = "facebook_user_" + facebookUser.facebook_id + "@gmail.com";
             }
-            
+
             return facebookUser;
         } catch (Exception e) {
             Utils.exception(e);

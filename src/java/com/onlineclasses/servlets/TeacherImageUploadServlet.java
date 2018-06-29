@@ -5,10 +5,7 @@ package com.onlineclasses.servlets;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.AttachedFile;
-import com.onlineclasses.entities.Teacher;
-import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.OClass;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.CConfig;
@@ -28,7 +25,6 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletConfig;
@@ -44,6 +40,14 @@ import javax.servlet.http.Part;
 @MultipartConfig
 @WebServlet(urlPatterns = {"/servlets/teacher_image_upload"})
 public class TeacherImageUploadServlet extends HttpServlet {
+    private static BufferedImage resize(BufferedImage img, int height, int width) {
+        Image tmp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = resized.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+        return resized;
+    }
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -89,7 +93,7 @@ public class TeacherImageUploadServlet extends HttpServlet {
                 imageDir.mkdir();
             }
 
-            String outputFileName = Utils.getRealPath(request.getServletContext(), fileName ,
+            String outputFileName = Utils.getRealPath(request.getServletContext(), fileName,
                     CConfig.get("website.file.upload.root"),
                     CConfig.get("website.file.upload.images_root"),
                     imageId);
@@ -131,14 +135,6 @@ public class TeacherImageUploadServlet extends HttpServlet {
         }
     }
 
-    private static BufferedImage resize(BufferedImage img, int height, int width) {
-        Image tmp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = resized.createGraphics();
-        g2d.drawImage(tmp, 0, 0, null);
-        g2d.dispose();
-        return resized;
-    }
 
     private void sendEmail(User uploader, OClass oClass, AttachedFile attachedFile) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator

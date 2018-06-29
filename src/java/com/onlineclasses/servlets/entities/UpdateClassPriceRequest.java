@@ -12,10 +12,10 @@ import com.onlineclasses.entities.BasicRequest;
  * @author me
  */
 public class UpdateClassPriceRequest extends BasicRequest {
-    public UpdateClassPriceRequest()
-    {
-        
-    }     
+
+    public UpdateClassPriceRequest() {
+
+    }
     public int oclass_id;
     public int new_price;
 }

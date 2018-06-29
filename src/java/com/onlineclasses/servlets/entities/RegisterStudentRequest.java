@@ -13,11 +13,11 @@ import java.util.Date;
  * @author me
  */
 public class RegisterStudentRequest extends BasicRequest {
-    public RegisterStudentRequest()
-    {
+
+    public RegisterStudentRequest() {
     }
-    public String google_id_token;    
-    public String facebook_access_token;    
+    public String google_id_token;
+    public String facebook_access_token;
     public String email;
     public String first_name;
     public String last_name;
@@ -25,7 +25,7 @@ public class RegisterStudentRequest extends BasicRequest {
     public String phone_number;
     public String phone_area;
     public int gender;
-    public Date day_of_birth;   
+    public Date day_of_birth;
     public int institute_id;
     public String institute_name;
     public int subject_id;

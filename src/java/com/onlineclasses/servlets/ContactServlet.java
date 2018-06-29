@@ -24,16 +24,16 @@ public class ContactServlet extends BaseServlet {
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         ContactRequest contactRequest = Utils.gson().fromJson(requestString, ContactRequest.class);
-                        
+
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "contact.html";
         String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
- 
-        emailContent = emailContent.replaceAll("<% contactName %>", contactRequest.name);        
+
+        emailContent = emailContent.replaceAll("<% contactName %>", contactRequest.name);
         emailContent = emailContent.replaceAll("<% contactSubject %>", contactRequest.subject);
         emailContent = emailContent.replaceAll("<% contactPhone %>", contactRequest.phone);
         emailContent = emailContent.replaceAll("<% contactEmail %>", contactRequest.email);
-        emailContent = emailContent.replaceAll("<% contactMessage %>", contactRequest.message);       
+        emailContent = emailContent.replaceAll("<% contactMessage %>", contactRequest.message);
 
         EmailSender.addEmail(contactRequest.email, Labels.get("emails.contact.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);

@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author me
  */
-public class Institute_DB extends Base_DB<Institute>{
+public class Institute_DB extends Base_DB<Institute> {
 
     public Institute_DB(ConnectionSource connectionSource) throws SQLException {
         super(connectionSource, Institute.class);
@@ -26,10 +26,10 @@ public class Institute_DB extends Base_DB<Institute>{
         queryBuilder.where().eq(Institute.INSTITUTE_TYPE_FIELD, _queryByInstituteTypeArg);
         _queryByInstituteType = queryBuilder.prepare();
     }
-    
+
     private final SelectArg _queryByInstituteTypeArg = new SelectArg();
     private final PreparedQuery<Institute> _queryByInstituteType;
-    
+
     public synchronized List<Institute> getInstitutes(InstituteType instituteType) throws SQLException {
         _queryByInstituteTypeArg.setValue(instituteType);
         return _dao.query(_queryByInstituteType);

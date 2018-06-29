@@ -12,12 +12,12 @@ import com.onlineclasses.entities.BasicResponse;
  * @author me
  */
 public class GoogleIdTokenResponse extends BasicResponse {
-    public GoogleIdTokenResponse(boolean email_exists)
-    {
-        super(0,"");
+
+    public GoogleIdTokenResponse(boolean email_exists) {
+        super(0, "");
         this.email_exists = email_exists;
     }
-    
+
     public boolean email_exists;
 
 }

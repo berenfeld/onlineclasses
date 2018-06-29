@@ -10,9 +10,9 @@ import java.util.Date;
 
 public class AttachedFile extends BasicEntity {
 
-    public AttachedFile()
-    {}
-    
+    public AttachedFile() {
+    }
+
     public static final String OCLASS_FIELD = "oclass";
     @DatabaseField(canBeNull = false, foreign = true, columnName = OCLASS_FIELD)
     public OClass oclass;
@@ -33,14 +33,14 @@ public class AttachedFile extends BasicEntity {
     public static final String ADDED_FIELD = "added";
     @DatabaseField(columnName = ADDED_FIELD, canBeNull = false)
     public Date added;
-    
+
     @DatabaseField
     public int size;
-    
+
     public static final String UPLOADED_FIELD = "uploaded";
     @DatabaseField(columnName = UPLOADED_FIELD)
     public int uploaded;
-    
+
     @DatabaseField
     public String comment;
 }

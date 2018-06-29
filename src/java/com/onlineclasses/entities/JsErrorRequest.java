@@ -10,13 +10,13 @@ package com.onlineclasses.entities;
  * @author me
  */
 public class JsErrorRequest extends BasicRequest {
-    public JsErrorRequest()
-    {
-        
+
+    public JsErrorRequest() {
+
     }
-    public String location_href;       
-    public String message;       
-    public String url;       
+    public String location_href;
+    public String message;
+    public String url;
     public int line_number;
     public String error_object;
 }

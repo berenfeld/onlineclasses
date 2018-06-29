@@ -10,11 +10,11 @@ package com.onlineclasses.entities;
  * @author me
  */
 public class QueryFileUploadResponse extends BasicResponse {
-    public QueryFileUploadResponse()
-    {
-        super(0,"");
+
+    public QueryFileUploadResponse() {
+        super(0, "");
     }
-    
+
     public int uploaded;
     public int file_size;
 }

@@ -9,8 +9,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.onlineclasses.utils.CConfig;
 import com.onlineclasses.utils.Config;
 
-public class GoogleUser extends BasicEntity { 
-    
+public class GoogleUser extends BasicEntity {
+
     public static final int GENDER_MALE = CConfig.getInt("website.gender.male");
     public static final int GENDER_FEMALE = CConfig.getInt("website.gender.female");
 
@@ -28,7 +28,7 @@ public class GoogleUser extends BasicEntity {
 
     @DatabaseField
     public String image_url;
-    
+
     @Override
     public String toString() {
         return display_name;

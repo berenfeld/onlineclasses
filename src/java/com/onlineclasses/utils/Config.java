@@ -36,7 +36,7 @@ public class Config {
     public static boolean getBool(String property) {
         return Boolean.valueOf(get(property));
     }
-    
+
     public static int getInt(String property) {
         return Integer.valueOf(get(property));
     }

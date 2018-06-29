@@ -8,22 +8,22 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 
 public class TeachingTopic extends BasicEntity {
-                
+
     @DatabaseField(foreign = true)
     public Topic topic;
-    
+
     public static final String TEACHER_ID_COLUMN = "teacher_id";
     @DatabaseField(foreign = true, columnName = TEACHER_ID_COLUMN)
     public Teacher teacher;
-    
-        @Override
+
+    @Override
     public String toString() {
         String result = "unknown topic";
         if (topic != null) {
             result = " topic " + topic;
         }
-        if (teacher != null ) {
-            result += " of teacher " + teacher;                    
+        if (teacher != null) {
+            result += " of teacher " + teacher;
         }
         return result;
     }

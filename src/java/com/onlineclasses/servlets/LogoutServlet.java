@@ -18,13 +18,13 @@ public class LogoutServlet extends BaseServlet {
     @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        
+
         User user = BaseServlet.getUser(request);
         if (user != null) {
             Utils.info("user " + user.display_name + " logged out");
-            BaseServlet.logoutUser(request);        
+            BaseServlet.logoutUser(request);
         }
-        
+
         return new BasicResponse(0, "");
     }
 

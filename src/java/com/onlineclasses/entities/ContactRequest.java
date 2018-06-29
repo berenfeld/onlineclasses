@@ -10,14 +10,14 @@ package com.onlineclasses.entities;
  * @author me
  */
 public class ContactRequest extends BasicRequest {
-    public ContactRequest()
-    {
-        
+
+    public ContactRequest() {
+
     }
-    
-    public String name;       
-    public String email;       
-    public String phone;       
-    public String subject;       
-    public String message;       
+
+    public String name;
+    public String email;
+    public String phone;
+    public String subject;
+    public String message;
 }

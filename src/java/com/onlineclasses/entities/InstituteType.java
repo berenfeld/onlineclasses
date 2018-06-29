@@ -8,15 +8,15 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 
 public class InstituteType extends BasicEntity {
-        
+
     @DatabaseField
-    public String name;       
-    
+    public String name;
+
     @Override
     public String toString() {
         String result = "id " + id;
         if (name != null) {
-            result += " " + name;            
+            result += " " + name;
         }
         return result;
     }

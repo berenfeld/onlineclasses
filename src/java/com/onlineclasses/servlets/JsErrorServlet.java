@@ -19,7 +19,7 @@ public class JsErrorServlet extends BaseServlet {
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         JsErrorRequest jsErrorRequest = Utils.gson().fromJson(requestString, JsErrorRequest.class);
-                        
+
         Utils.warning("JS error from " + BaseServlet.getUser(request) + " at " + jsErrorRequest.location_href);
         Utils.warning("js file: " + jsErrorRequest.url + ":" + jsErrorRequest.line_number);
         Utils.warning("message: " + jsErrorRequest.message);

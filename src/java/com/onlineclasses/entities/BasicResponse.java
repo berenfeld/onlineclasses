@@ -10,17 +10,16 @@ package com.onlineclasses.entities;
  * @author me
  */
 public class BasicResponse {
-    public BasicResponse()
-    {
-        
+
+    public BasicResponse() {
+
     }
-    
-    public BasicResponse( int rc, String message)
-    {
+
+    public BasicResponse(int rc, String message) {
         this.rc = rc;
         this.message = message;
     }
-    
+
     public int rc = 0;
     public String message;
 }

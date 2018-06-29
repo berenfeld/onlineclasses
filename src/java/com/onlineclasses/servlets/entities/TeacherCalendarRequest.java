@@ -12,8 +12,8 @@ import com.onlineclasses.entities.BasicRequest;
  * @author me
  */
 public class TeacherCalendarRequest extends BasicRequest {
-    public TeacherCalendarRequest()
-    {
+
+    public TeacherCalendarRequest() {
     }
     public int teacher_id;
 }

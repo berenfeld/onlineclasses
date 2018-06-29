@@ -39,5 +39,5 @@ public class FacebookUser_DB extends Base_DB<FacebookUser> {
             Utils.exception(ex);
             return null;
         }
-    }    
+    }
 }

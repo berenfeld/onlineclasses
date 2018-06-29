@@ -39,31 +39,31 @@ public class User extends BasicEntity implements Serializable {
 
     @DatabaseField
     public int gender;
-    
+
     @DatabaseField(canBeNull = false)
     public Date registered;
-    
+
     @DatabaseField
     public Date day_of_birth;
-    
+
     @DatabaseField(foreign = true)
     public Institute institute;
-    
+
     @DatabaseField
     public String institute_name;
-    
+
     @DatabaseField(foreign = true)
     public Subject subject;
-    
+
     @DatabaseField
     public String subject_name;
 
     @DatabaseField(foreign = true)
     public City city;
-        
+
     @DatabaseField
     public boolean admin;
-    
+
     @Override
     public String toString() {
         String result;
@@ -72,24 +72,24 @@ public class User extends BasicEntity implements Serializable {
         } else {
             result = "teacher " + id;
         }
-        if ( display_name != null ) {
+        if (display_name != null) {
             result += " " + display_name;
         }
         return result;
     }
-    
+
     public boolean isMale() {
         return gender == GENDER_MALE;
     }
-    
+
     public boolean isFemale() {
         return gender == GENDER_FEMALE;
-    } 
-    
+    }
+
     public boolean isStudent() {
         return this instanceof Student;
     }
-    
+
     public boolean isTeacher() {
         return this instanceof Teacher;
     }

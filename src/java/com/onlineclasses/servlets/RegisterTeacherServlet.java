@@ -92,7 +92,7 @@ public class RegisterTeacherServlet extends BaseServlet {
         registeringTeacher.price_per_hour = registerTeacherRequest.price_per_hour;
         registeringTeacher.min_class_length = registerTeacherRequest.min_class_length;
         registeringTeacher.max_class_length = registerTeacherRequest.max_class_length;
-        
+
         if (registeringTeacher.email.equals(Config.get("website.admin_email"))) {
             registeringTeacher.admin = true;
         }
@@ -187,7 +187,7 @@ public class RegisterTeacherServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% teacherShowEmail %>", registeringTeacher.show_email ? yes : no);
         emailContent = emailContent.replaceAll("<% teacherShowSkype %>", registeringTeacher.show_skype ? yes : no);
         emailContent = emailContent.replaceAll("<% teacherTeachingTopics %>", Utils.mergeList(topicsList, "<br/>"));
-        emailContent = emailContent.replaceAll("<% teacherAvailableHours %>", Utils.mergeList(availableTimeList, "<br/>"));        
+        emailContent = emailContent.replaceAll("<% teacherAvailableHours %>", Utils.mergeList(availableTimeList, "<br/>"));
         emailContent = emailContent.replaceAll("<% updateTeacherUrl %>", Config.get("website.url") + "/teacher_update");
 
         EmailSender.addEmail(registeringTeacher.email, Labels.get("emails.register_teacher.title"), emailContent);

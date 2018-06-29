@@ -13,9 +13,10 @@ import java.util.ResourceBundle;
  * @author me
  */
 public class Labels {
+
     private static ResourceBundle labels = ResourceBundle.getBundle("labels", new Locale(Config.get("website.language"), Config.get("website.country")));
-    
-    public static String get(String key ) {
+
+    public static String get(String key) {
         try {
             return labels.getString(key);
         } catch (java.util.MissingResourceException ex) {

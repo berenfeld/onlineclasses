@@ -21,9 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginServlet extends BaseServlet {
 
     private BasicResponse loginWithGoogle(LoginRequest loginRequest, HttpServletRequest request) throws Exception {
-        
+
         if (getUser(request) != null) {
-            Utils.warning("login from user "+ getUser(request).display_name + " already connected");
+            Utils.warning("login from user " + getUser(request).display_name + " already connected");
             return new BasicResponse(-1, Labels.get("login.request.already_connected"));
         }
         GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(loginRequest.google_id_token);

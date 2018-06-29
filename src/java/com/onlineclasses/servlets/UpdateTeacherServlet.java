@@ -39,14 +39,14 @@ public class UpdateTeacherServlet extends BaseServlet {
         UpdateTeacherRequest updateTeacherRequest = Utils.gson().fromJson(requestString, UpdateTeacherRequest.class);
 
         Teacher teacher = (Teacher) BaseServlet.getUser(request);
-        if (teacher ==null) {
+        if (teacher == null) {
             Utils.warning("not logged in");
             return new BasicResponse(-1, "not logged in");
         }
-        
+
         teacher.display_name = updateTeacherRequest.display_name;
         teacher.first_name = updateTeacherRequest.first_name;
-        teacher.last_name = updateTeacherRequest.last_name;        
+        teacher.last_name = updateTeacherRequest.last_name;
         teacher.skype_name = updateTeacherRequest.skype_name;
         teacher.moto = updateTeacherRequest.moto;
         teacher.show_phone = updateTeacherRequest.show_phone;
@@ -60,14 +60,14 @@ public class UpdateTeacherServlet extends BaseServlet {
         teacher.institute = null;
         teacher.institute_name = null;
         if (updateTeacherRequest.institute_id != 0) {
-            teacher.institute = DB.get(updateTeacherRequest.institute_id, Institute.class);            
-        } else {            
+            teacher.institute = DB.get(updateTeacherRequest.institute_id, Institute.class);
+        } else {
             teacher.institute_name = updateTeacherRequest.institute_name;
         }
 
         teacher.subject = null;
         teacher.subject_name = null;
-                
+
         if (updateTeacherRequest.subject_id != 0) {
             teacher.subject = DB.get(updateTeacherRequest.subject_id, Subject.class);
         } else {
@@ -78,8 +78,8 @@ public class UpdateTeacherServlet extends BaseServlet {
             Utils.warning("Could not update teacher " + teacher.display_name);
             return new BasicResponse(-1, "user is already registered");
         }
-        
-        if ( 0 == DB.deleteTeacherTeachingTopics(teacher) ) {
+
+        if (0 == DB.deleteTeacherTeachingTopics(teacher)) {
             Utils.warning("no previous teaching topics, or could not delete teaching topics of teacher " + teacher);
         }
 
@@ -89,21 +89,21 @@ public class UpdateTeacherServlet extends BaseServlet {
             teachingTopic.teacher = teacher;
             teachingTopic.topic = DB.get(topicId, Topic.class);
             if (DB.add(teachingTopic) != 1) {
-                Utils.warning("Could not add teaching topic " + teachingTopic + " to teacher " + teacher );
+                Utils.warning("Could not add teaching topic " + teachingTopic + " to teacher " + teacher);
             }
             topicsList.add(teachingTopic.topic.name);
         }
 
-        if ( 0 == DB.deleteTeacherAvailableTime(teacher) ) {
+        if (0 == DB.deleteTeacherAvailableTime(teacher)) {
             Utils.warning("could not delete available time of teacher " + teacher);
         }
-        
+
         List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
         List<String> availableTimeList = new ArrayList();
         for (AvailableTime avilableTime : updateTeacherRequest.available_times) {
             avilableTime.teacher = teacher;
             if (DB.add(avilableTime) != 1) {
-                Utils.warning("Could not add available time " + avilableTime + " to teacher " + teacher );
+                Utils.warning("Could not add available time " + avilableTime + " to teacher " + teacher);
             }
             availableTimeList.add(dayNamesLong.get(avilableTime.day - 1) + " "
                     + Utils.formatTime(avilableTime.start_hour, avilableTime.start_minute) + " - "
@@ -112,9 +112,9 @@ public class UpdateTeacherServlet extends BaseServlet {
 
         Utils.info("teacher " + teacher.display_name + " email " + teacher.email + " update profile");
 
-        sendEmail(teacher, topicsList, availableTimeList);       
-        
-        if (!Utils.isEmpty(updateTeacherRequest.feedback)) {            
+        sendEmail(teacher, topicsList, availableTimeList);
+
+        if (!Utils.isEmpty(updateTeacherRequest.feedback)) {
             Feedback feedback = new Feedback();
             feedback.from = updateTeacherRequest.display_name;
             feedback.email = teacher.email;
@@ -122,12 +122,11 @@ public class UpdateTeacherServlet extends BaseServlet {
             DB.add(feedback);
             Utils.info("new feedback : " + feedback);
         }
-                
+
         return new BasicResponse(0, "");
     }
-    
-    private void sendEmail(Teacher registeringTeacher, List<String> topicsList, List<String> availableTimeList) throws Exception
-    {
+
+    private void sendEmail(Teacher registeringTeacher, List<String> topicsList, List<String> availableTimeList) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "teacher_update.html";
 
@@ -154,7 +153,7 @@ public class UpdateTeacherServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% teacherShowEmail %>", registeringTeacher.show_email ? yes : no);
         emailContent = emailContent.replaceAll("<% teacherShowSkype %>", registeringTeacher.show_skype ? yes : no);
         emailContent = emailContent.replaceAll("<% teacherTeachingTopics %>", Utils.mergeList(topicsList, "<br/>"));
-        emailContent = emailContent.replaceAll("<% teacherAvailableHours %>", Utils.mergeList(availableTimeList, "<br/>"));                
+        emailContent = emailContent.replaceAll("<% teacherAvailableHours %>", Utils.mergeList(availableTimeList, "<br/>"));
 
         EmailSender.addEmail(registeringTeacher.email, Labels.get("emails.register_teacher.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);

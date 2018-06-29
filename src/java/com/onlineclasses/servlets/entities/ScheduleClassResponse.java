@@ -12,11 +12,11 @@ import com.onlineclasses.entities.BasicResponse;
  * @author me
  */
 public class ScheduleClassResponse extends BasicResponse {
-    public ScheduleClassResponse()
-    {
-        
+
+    public ScheduleClassResponse() {
+
     }
-   
+
     public int class_id;
 
 }

@@ -43,10 +43,10 @@ public class Teacher extends User {
 
     @DatabaseField
     public int min_class_length;
-    
+
     @DatabaseField
     public int max_class_length;
-    
+
     public List<AvailableTime> available_time;
 
     public List<Topic> teaching_topics;

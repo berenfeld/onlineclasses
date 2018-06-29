@@ -15,10 +15,9 @@ public class Topic extends BasicEntity {
 
     @DatabaseField(foreign = true, canBeNull = false)
     public Subject subject;
-    
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         String result = "topic " + id;
         if (name != null) {
             result += " " + name;

@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author me
  */
-public class InstituteType_DB extends Base_DB<InstituteType>{
+public class InstituteType_DB extends Base_DB<InstituteType> {
 
     public InstituteType_DB(ConnectionSource connectionSource) throws SQLException {
         super(connectionSource, InstituteType.class);

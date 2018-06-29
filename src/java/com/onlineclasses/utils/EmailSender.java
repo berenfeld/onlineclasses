@@ -25,7 +25,7 @@ public class EmailSender extends BaseTask {
 
     @Override
     protected void runTask() throws Exception {
-        if ( ! Config.getBool("mail.enabled")) {
+        if (!Config.getBool("mail.enabled")) {
             Utils.warning("not sending email. email disabled");
             return;
         }
@@ -44,18 +44,18 @@ public class EmailSender extends BaseTask {
         emailToSend.message = emailToSend.message.replaceAll("<% websiteName %>", Labels.get("mail.website.name"));
         emailToSend.message = emailToSend.message.replaceAll("<% adminEmail %>", Config.get("website.admin_email"));
         emailToSend.message = emailToSend.message.replaceAll("<% contactUs %>", Labels.get("emails.contact_us"));
-                
+
         String hashString = emailToSend.to + "." + Config.get("website.secret.md5");
         String unsubscribeURL = Config.get("website.url") + "/unsubscribe?email=" + emailToSend.to + "&hash=" + hashString;
-                
+
         emailToSend.message = emailToSend.message.replaceAll("<% unsubscribeURL %>", unsubscribeURL);
 
         HtmlEmail email = new HtmlEmail();
 
         email.setCharset(org.apache.commons.mail.EmailConstants.UTF_8);
-        email.addHeader( "Content-Language", Config.get("website.html_language"));        
-        email.addHeader( "List-Unsubscribe", "<mailto:" + Config.get("mail.admin") + ">, <" + unsubscribeURL + ">");
-        
+        email.addHeader("Content-Language", Config.get("website.html_language"));
+        email.addHeader("List-Unsubscribe", "<mailto:" + Config.get("mail.admin") + ">, <" + unsubscribeURL + ">");
+
         email.setHostName(Config.get("mail.host"));
         email.setSmtpPort(Config.getInt("mail.port"));
         email.setFrom(Config.get("mail.from"), Config.get("mail.from.name"));
@@ -63,8 +63,8 @@ public class EmailSender extends BaseTask {
         email.setSubject(emailToSend.subject);
         email.setHtmlMsg(emailToSend.message);
         email.addTo(emailToSend.to);
-        email.addBcc(Config.get("mail.admin"));                                
-        
+        email.addBcc(Config.get("mail.admin"));
+
         try {
             email.send();
         } catch (EmailException ex) {
@@ -84,7 +84,7 @@ public class EmailSender extends BaseTask {
         email.message = message;
 
         if (1 != DB.add(email)) {
-            Utils.warning("failed to add email id " + email.id + " to " + email.to );
+            Utils.warning("failed to add email id " + email.id + " to " + email.to);
         }
 
         Utils.info("sending email " + email.subject + " to " + email.to + " text : " + email.message);
@@ -92,12 +92,12 @@ public class EmailSender extends BaseTask {
 
     public static void addEmail(List<User> tos, String subject, String message) throws Exception {
         for (User to : tos) {
-            if ( ( to instanceof Student ) && ( ! ((Student)to).emails_enabled) ) {
-                Utils.warning("not sending email to email disabled user " + to );
+            if ((to instanceof Student) && (!((Student) to).emails_enabled)) {
+                Utils.warning("not sending email to email disabled user " + to);
                 continue;
             }
             addEmail(to.email, subject, message);
-        }    
-        
+        }
+
     }
 }

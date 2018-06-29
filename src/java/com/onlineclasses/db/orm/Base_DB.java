@@ -31,7 +31,7 @@ public class Base_DB<T> {
         TableUtils.dropTable(_dao, true);
         TableUtils.createTable(_dao);
     }
-    
+
     public int add(T t) throws SQLException {
         return _dao.create(t);
     }
@@ -43,20 +43,20 @@ public class Base_DB<T> {
     public T get(int id) throws SQLException {
         return _dao.queryForId(id);
     }
-    
-    public int delete(T t)throws SQLException {
+
+    public int delete(T t) throws SQLException {
         return _dao.delete(t);
-    }    
-    
+    }
+
     public int update(T t) throws SQLException {
         return _dao.update(t);
     }
-    
+
     public Map<Integer, T> getAllMap() throws SQLException {
         List<T> all = getAll();
-        Map<Integer, T > allMap = new HashMap<>();
+        Map<Integer, T> allMap = new HashMap<>();
         for (T t : all) {
-            int id = ((BasicEntity)t).id;
+            int id = ((BasicEntity) t).id;
             allMap.put(id, t);
         }
         return allMap;

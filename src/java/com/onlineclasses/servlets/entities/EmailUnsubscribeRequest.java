@@ -12,8 +12,8 @@ import com.onlineclasses.entities.BasicRequest;
  * @author me
  */
 public class EmailUnsubscribeRequest extends BasicRequest {
-    public EmailUnsubscribeRequest()
-    {
+
+    public EmailUnsubscribeRequest() {
     }
     public String email;
     public String hash;

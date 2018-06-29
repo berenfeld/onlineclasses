@@ -50,7 +50,7 @@ public abstract class BaseServlet extends HttpServlet {
 
     private static Cookie findCookieFromUser(HttpServletRequest request) {
         String cookieName = Config.get("website.cookie.name");
-        if ( request.getCookies() == null) {
+        if (request.getCookies() == null) {
             return null;
         }
         for (Cookie cookie : request.getCookies()) {
@@ -93,8 +93,8 @@ public abstract class BaseServlet extends HttpServlet {
         User user = getUser(request);
         return (user != null) && (user instanceof Teacher);
     }
-    
-     public static boolean isAdmin(HttpServletRequest request) {
+
+    public static boolean isAdmin(HttpServletRequest request) {
         User user = getUser(request);
         return (user != null) && (user.admin);
     }
@@ -118,7 +118,7 @@ public abstract class BaseServlet extends HttpServlet {
             } else {
                 user = DB.getStudent(websiteCookie.user_id);
             }
-            
+
             if (user == null) {
                 Utils.debug("no user id from cookie in session " + session);
                 logoutUser(request);

@@ -10,11 +10,11 @@ package com.onlineclasses.entities;
  * @author me
  */
 public class LoginRequest extends BasicRequest {
-    public LoginRequest()
-    {
-        
+
+    public LoginRequest() {
+
     }
-    
-    public String google_id_token;       
+
+    public String google_id_token;
     public String facebook_access_token;
 }

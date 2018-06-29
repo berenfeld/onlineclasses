@@ -25,34 +25,33 @@ public class AvailableTime_DB extends Base_DB<AvailableTime> {
 
     public AvailableTime_DB(ConnectionSource connectionSource) throws SQLException {
         super(connectionSource, AvailableTime.class);
-        
+
         QueryBuilder<AvailableTime, Integer> queryBuilder = _dao.queryBuilder();
         Where<AvailableTime, Integer> where = queryBuilder.where();
-        where.eq(AvailableTime.TEACHER_ID_COLUMN, _getTeacherAvailableTimeTeacherIdArg);        
+        where.eq(AvailableTime.TEACHER_ID_COLUMN, _getTeacherAvailableTimeTeacherIdArg);
         queryBuilder.orderBy(AvailableTime.DAY_COLUMN, true);
         _getTeacherAvailableTimeQuery = queryBuilder.prepare();
-        
+
         DeleteBuilder<AvailableTime, Integer> deleteBuilder = _dao.deleteBuilder();
         where = deleteBuilder.where();
-        where.eq(AvailableTime.TEACHER_ID_COLUMN, _getTeacherAvailableTimeTeacherIdArg);        
+        where.eq(AvailableTime.TEACHER_ID_COLUMN, _getTeacherAvailableTimeTeacherIdArg);
         _deleteTeacherAvailableTimeQuery = deleteBuilder.prepare();
-        
-    }
 
+    }
 
     private final SelectArg _getTeacherAvailableTimeTeacherIdArg = new SelectArg();
     private final PreparedQuery<AvailableTime> _getTeacherAvailableTimeQuery;
     private final SelectArg _deleteTeacherAvailableTimeTeacherIdArg = new SelectArg();
     private final PreparedDelete<AvailableTime> _deleteTeacherAvailableTimeQuery;
-    
-    public synchronized List<AvailableTime> getTeacherAvailableTime(Teacher teacher) throws SQLException {        
+
+    public synchronized List<AvailableTime> getTeacherAvailableTime(Teacher teacher) throws SQLException {
         _getTeacherAvailableTimeTeacherIdArg.setValue(teacher);
         return _dao.query(_getTeacherAvailableTimeQuery);
     }
- 
-    public synchronized int deleteTeacherAvailableTime(Teacher teacher) throws SQLException {        
+
+    public synchronized int deleteTeacherAvailableTime(Teacher teacher) throws SQLException {
         _deleteTeacherAvailableTimeTeacherIdArg.setValue(teacher);
         return _dao.delete(_deleteTeacherAvailableTimeQuery);
     }
-    
+
 }

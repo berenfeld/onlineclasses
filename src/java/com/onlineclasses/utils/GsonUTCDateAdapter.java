@@ -32,7 +32,7 @@ public class GsonUTCDateAdapter implements JsonSerializer<Date>, JsonDeserialize
     }
 
     @Override
-    public JsonElement serialize(Date date, Type type, JsonSerializationContext jsc) {    
+    public JsonElement serialize(Date date, Type type, JsonSerializationContext jsc) {
         return new JsonPrimitive(_dateFormat.format(date));
     }
 

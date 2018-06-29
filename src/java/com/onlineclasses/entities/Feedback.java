@@ -14,10 +14,10 @@ public class Feedback extends BasicEntity {
 
     @DatabaseField(canBeNull = false)
     public String email;
-    
+
     @DatabaseField(canBeNull = false)
     public String message;
-    
+
     @Override
     public String toString() {
         String result = "id " + id;

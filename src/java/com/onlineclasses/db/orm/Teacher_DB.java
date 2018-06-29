@@ -34,7 +34,7 @@ public class Teacher_DB extends Base_DB<Teacher> {
         _teacherFindQuery = queryBuilder.prepare();
         queryBuilder.reset();
         queryBuilder.where().eq(Teacher.EMAIL_COLUMN, _queryByEmailArg);
-        _queryByEmail = queryBuilder.prepare();           
+        _queryByEmail = queryBuilder.prepare();
     }
 
     private static SelectArg _teacherFindQueryMinPriceArg = new SelectArg();
@@ -44,12 +44,12 @@ public class Teacher_DB extends Base_DB<Teacher> {
     private final SelectArg _queryByEmailArg = new SelectArg();
     private final PreparedQuery<Teacher> _queryByEmail;
 
-    public synchronized List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName) throws SQLException {        
+    public synchronized List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName) throws SQLException {
         _teacherFindQueryMinPriceArg.setValue(minPrice);
         _teacherFindQueryMaxPriceArg.setValue(maxPrice);
         _teacherFindQueryNameArg.setValue("%" + displayName + "%");
         Utils.debug("find teacher with args min price " + minPrice + " max price " + maxPrice + " display name " + displayName);
-        return _dao.query(_teacherFindQuery);        
+        return _dao.query(_teacherFindQuery);
     }
 
     public synchronized Teacher getTeacherByEmail(String email) throws SQLException {

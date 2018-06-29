@@ -12,11 +12,11 @@ import com.onlineclasses.entities.BasicRequest;
  * @author me
  */
 public class InviteStudentRequest extends BasicRequest {
-    public InviteStudentRequest()
-    {
-        
+
+    public InviteStudentRequest() {
+
     }
-    
-    public String student_name;       
-    public String student_email;       
+
+    public String student_name;
+    public String student_email;
 }
