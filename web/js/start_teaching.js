@@ -11,7 +11,7 @@ function start_teaching_userLoggedInCallback(user)
     start_teaching.facebook_access_token = user.facebook_access_token;
     start_teaching.social_image_url = user.image_url;
     start_teaching.image_url = user.image_url;
-    
+
     $("#start_teaching_email_input").val(user.email);
     $("#start_teaching_display_name_input").val(user.name);
     $("#start_teaching_first_name_input").val(user.first_name);
@@ -49,6 +49,7 @@ function start_teaching_check_img_loaded()
         $("#start_teaching_img_upload_reset_image").removeClass("d-none");
     }
     start_teaching.image_url = start_teaching.loading_image_url;
+    $("#start_teaching_image_id").val(makeRandomString(16));
 }
 
 function start_teaching_check_img_url_fail()
@@ -70,21 +71,18 @@ function start_teaching_check_img_url()
             {
                 url: start_teaching.loading_image_url,
                 success: start_teaching_check_img_loaded,
-                error: start_teaching_check_img_url_fail,
+                error: start_teaching_check_img_url_fail
             }
     );
 }
 
 function start_teaching_img_upload()
-{    
-    filename = $("#start_teaching_img_upload_input").val();
-    filename = filename.replace(/.*[\/\\]/, '');
-
+{
     $("#start_teaching_image_upload_form").submit();
     $("#start_teaching_image_loading").removeClass("d-none");
     $("#start_teaching_image_img").addClass("d-none");
-    start_teaching.loading_image_url = "/" + oc.cconfig["website.file.upload.root"] + 
-            "/" + oc.cconfig["website.file.upload.images_root"] + "/" + $("#start_teaching_image_id").val() + "/" + filename + ".png";
+    start_teaching.loading_image_url = "/" + oc.cconfig["website.file.upload.root"] +
+            "/" + oc.cconfig["website.file.upload.images_root"] + "/" + $("#start_teaching_image_id").val() + ".png";
     start_teaching_check_img_url();
 }
 
@@ -655,7 +653,8 @@ function start_teaching_init()
             {
                 $("#start_teaching_degree_information_div").collapse("toggle");
             });
-    start_teaching_check_tabs();        
+    start_teaching_check_tabs();
+    $("#start_teaching_image_id").val(makeRandomString(16));
 }
 
 $(document).ready(start_teaching_init);

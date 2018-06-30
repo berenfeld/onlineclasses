@@ -158,7 +158,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-lg-3 px-2 facebook_login_button d-none">
+                                    <div class="col-12 col-sm-6 col-lg-3 px-2 facebook_login_button d-none">
                                         <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="start_teaching_facebookLogin()">
                                     </div>
                                     <div class="col-6 col-lg-3 px-2 facebook_login_button_placeholder border rounded text-center text-info">
@@ -195,7 +195,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <div class="col-6 col-lg-3 my-1">                                    
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">                                    
                                         <label class="col-form-label" for="start_teaching_email_input">
                                             <%= Labels.get("start_teaching.form.login.email")%>                                        
                                         </label>                     
@@ -204,44 +204,48 @@
                                         </small>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <input type="email" class="form-control" id="start_teaching_email_input" 
                                                placeholder="<%= Labels.get("start_teaching.form.login.email")%>" disabled>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <label class="col-form-label" for="start_teaching_display_name_input">
                                             <%= Labels.get("start_teaching.form.login.display_name")%>
+                                            <br/>
+                                            <small>
+                                                <%= Labels.get("start_teaching.form.login.display_name.small_text")%>
+                                            </small>
                                         </label>
                                     </div>
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <input type="text" class="form-control start_teaching_required" id="start_teaching_display_name_input" 
                                                placeholder="<%= Labels.get("start_teaching.form.login.display_name")%>" disabled>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <label class="col-form-label" for="start_teaching_first_name_input">
                                             <%= Labels.get("start_teaching.form.login.first_name")%>
                                         </label>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <input type="text" class="form-control" id="start_teaching_first_name_input"
                                                placeholder="<%= Labels.get("start_teaching.form.login.first_name")%>" disabled>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <label class="col-form-label" for="start_teaching_last_name_input">
                                             <%= Labels.get("start_teaching.form.login.last_name")%>
                                         </label>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <input type="text" class="form-control" id="start_teaching_last_name_input" 
                                                placeholder="<%= Labels.get("start_teaching.form.login.last_name")%>" disabled>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <label class="col-form-label" for="start_teaching_gender_input">
                                             <%= Labels.get("start_teaching.form.login.gender")%>   
                                         </label>
@@ -250,7 +254,7 @@
                                         </small>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <div class="row form-check form-check-inline no-gutters">
                                             <input type="radio" checked class="mx-2 form-check form-check-inline" 
                                                    value="<%= CConfig.get("website.gender.male")%>" 
@@ -315,19 +319,19 @@
                                         </small>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <input type="text" class="form-control start_teaching_required" id="start_teaching_day_of_birth_input"
                                                name="start_teaching_day_of_birth_input"
                                                placeholder="<%= Labels.get("start_teaching.form.login.day_of_birth")%>">
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <label class="col-form-label" for="start_teaching_skype_name_input">
                                             <%= Labels.get("start_teaching.form.login.skype_name")%>
                                         </label>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <input type="text" class="form-control" id="start_teaching_skype_name_input"
                                                name="start_teaching_skype_name_input"
                                                placeholder="<%= Labels.get("start_teaching.form.login.skype_name")%>">
@@ -342,7 +346,7 @@
                                         </small>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <select class="custom-select form-control start_teaching_required" id="start_teaching_city_select">
                                             <option value="0" disabled selected>
                                                 <%= Labels.get("start_teaching.form.login.city")%>
@@ -361,18 +365,22 @@
                                         </select>                                                    
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1" id="start_teaching_image">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="start_teaching_image">
                                         <label class="col-form-label" for="start_teaching_image_input">
                                             <%= Labels.get("start_teaching.form.personal_information.choose_avatar_image")%>
-                                        </label>
-                                        <small class="start_teaching_required">
+                                            <small class="start_teaching_required">
                                             (*)
                                         </small>
+                                            <br/>
+                                        <small>
+                                            <%= Labels.get("start_teaching.form.personal_information.avatar_image_small_text")%>
+                                        </small>
+                                        </label>
+                                                                                
                                     </div>
                                     <iframe id="start_teaching_post_hidden_iframe" name="start_teaching_post_hidden_iframe" class="d-none"></iframe>                                                
 
-
-                                    <div class="col-6 col-lg-3 my-1" id="start_teaching_image">                                            
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="start_teaching_image">                                            
                                         <div class="row no-gutters">
                                             <div class="col-6 px-1">    
                                                 <img id="start_teaching_image_img" class="w-100"></img>                                                  
@@ -387,8 +395,8 @@
                                                       enctype="multipart/form-data"
                                                       id="start_teaching_image_upload_form"                                                      
                                                       target="start_teaching_post_hidden_iframe">
-                                                    <input type="hidden" id="start_teaching_image_id" name="image_id" value="<%= Utils.getRandomString(16)%>">
-                                                    
+                                                    <input type="hidden" id="start_teaching_image_id" name="image_id">
+
                                                     <div id="start_teaching_img_upload_button_wrapper" class="w-100">                                                         
                                                         <input type="file" name="start_teaching_img_upload_input"
                                                                id="start_teaching_img_upload_input"
@@ -432,7 +440,7 @@
 
                             <div class="card-body">                                
                                 <div class="form-group row">
-                                    <div class="col-6 col-lg-3 my-1" id="start_teaching_moto">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="start_teaching_moto">
                                         <label class="col-form-label" for="start_teaching_moto_input">
                                             <%= Labels.get("start_teaching.form.publish.moto_text")%>
                                         </label>  
@@ -441,7 +449,7 @@
                                         </small>
                                     </div>
 
-                                    <div class="col-6 col-lg-9 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-9 my-1">
                                         <textarea rows="4" class="form-control start_teaching_required" id="start_teaching_moto_input" 
                                                   name="start_teaching_moto_input"
                                                   placeholder="<%= Labels.get("start_teaching.form.publish.moto_placeholder")%>"></textarea>
@@ -522,11 +530,11 @@
                                 <div class="collapse" id="start_teaching_degree_information_div">
                                     <div class="form-group row" aria-expanded="false" >
 
-                                        <label class="col-6 col-lg-3 my-1 col-form-label" for="start_teaching_degree_type_button">
+                                        <label class="col-12 col-sm-6 col-lg-3 my-1 col-form-label" for="start_teaching_degree_type_button">
                                             <%= Labels.get("start_teaching.form.learning.degree_type.title")%>
                                         </label>
 
-                                        <div class="col-6 col-lg-3 my-1">
+                                        <div class="col-12 col-sm-6 col-lg-3 my-1">
                                             <select class="custom-select" id="start_teaching_degree_type_select">
 
                                                 <%
@@ -545,11 +553,11 @@
                                     </div>
                                     <div class="form-group row">
 
-                                        <label class="col-6 col-lg-3 my-1 col-form-label" for="start_teaching_institute_type">
+                                        <label class="col-12 col-sm-6 col-lg-3 my-1 col-form-label" for="start_teaching_institute_type">
                                             <%= Labels.get("start_teaching.form.learning.education.title")%>
                                         </label>
 
-                                        <div class="col-6 col-lg-3 my-1">
+                                        <div class="col-12 col-sm-6 col-lg-3 my-1">
                                             <select class="custom-select" id="start_teaching_institute_type_select">
 
                                                 <option id="start_teaching_institute_type_choose" value="0" disabled selected>
@@ -585,7 +593,7 @@
                                             <%= Labels.get("start_teaching.form.learning.institue_" + instituteType + "_select")%>
                                         </label>
 
-                                        <div class="col-6 col-lg-3 my-1 d-none" id="start_teaching_institute_<%= instituteType%>_div">
+                                        <div class="col-12 col-sm-6 col-lg-3 my-1 d-none" id="start_teaching_institute_<%= instituteType%>_div">
 
                                             <select class="custom-select start_teaching_institute_select" id="start_teaching_institute_<%= instituteType%>_select">
 
@@ -615,12 +623,12 @@
                                             }
                                         %>
                                         <label id="start_teaching_institute_0_label"
-                                               class="col-6 col-lg-3 my-1 col-form-label d-none" 
+                                               class="col-12 col-sm-6 col-lg-3 my-1 col-form-label d-none" 
                                                for="start_teaching_institute_0_text">
                                             <%= Labels.get("start_teaching.form.learning.institue.other.choose")%>
                                         </label>
 
-                                        <div id="start_teaching_institute_0_div" class="col-6 col-lg-3 my-1 d-none">
+                                        <div id="start_teaching_institute_0_div" class="col-12 col-sm-6 col-lg-3 my-1 d-none">
                                             <input type="text" class="form-control" id="start_teaching_institute_0_text" 
                                                    name="start_teaching_institute_0_text"
                                                    placeholder="<%= Labels.get("start_teaching.form.learning.institue.other.choose")%>">
@@ -628,11 +636,11 @@
 
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-6 col-lg-3 my-1 col-form-label" for="start_teaching_subject">
+                                        <label class="col-12 col-sm-6 col-lg-3 my-1 col-form-label" for="start_teaching_subject">
                                             <%= Labels.get("start_teaching.form.learning.subject.title")%>
                                         </label>
 
-                                        <div class="col-6 col-lg-3 my-1">
+                                        <div class="col-12 col-sm-6 col-lg-3 my-1">
                                             <select class="custom-select" id="start_teaching_subject_select">
                                                 <option value="0" disabled selected>
                                                     <%= Labels.get("start_teaching.form.learning.subject.choose")%>
@@ -655,12 +663,12 @@
                                             </select>
                                         </div>   
 
-                                        <label id="start_teaching_subject_0_label" class="col-6 col-lg-3 my-1 col-form-label d-none" 
+                                        <label id="start_teaching_subject_0_label" class="col-12 col-sm-6 col-lg-3 my-1 col-form-label d-none" 
                                                for="start_teaching_subject_0_text">
                                             <%= Labels.get("start_teaching.form.learning.subject.other.choose")%>
                                         </label>
 
-                                        <div id="start_teaching_subject_0_div" class="col-6 col-lg-3 my-1 d-none">
+                                        <div id="start_teaching_subject_0_div" class="col-12 col-sm-6 col-lg-3 my-1 d-none">
                                             <input type="text" class="form-control" id="start_teaching_subject_0_text" 
                                                    name="start_teaching_institute_0_text"
                                                    placeholder="<%= Labels.get("start_teaching.form.learning.subject.other.choose")%>">
@@ -760,13 +768,13 @@
                                         </small>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <input type="email" class="form-control start_teaching_required" id="start_teaching_paypal_email_input" 
                                                name="start_teaching_paypal_email_input"
                                                placeholder="<%= Labels.get("start_teaching.form.paypal_email.placeholder")%>">
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <label class="col-form-label" for="start_teaching_price_per_hour_input">
                                             <%= Labels.get("start_teaching.form.payment.price_per_hour")%>
                                         </label> 
@@ -775,7 +783,7 @@
                                         </small>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1" id="start_teaching_price_per_hour">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="start_teaching_price_per_hour">
                                         <div class="input-group">
                                             <input type="text" class="form-control start_teaching_required" id="start_teaching_price_per_hour_input" 
                                                    name="start_teaching_price_per_hour_input"
@@ -1047,10 +1055,10 @@
         <%@include file="footer.jsp" %>    
 
         <script>
-                oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
-                oc.institutes = <%= Utils.gson().toJson(institutes)%>;
-                oc.subjects = <%= Utils.gson().toJson(subjects)%>;
-                oc.cities = <%= Utils.gson().toJson(cities)%>;
+            oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
+            oc.institutes = <%= Utils.gson().toJson(institutes)%>;
+            oc.subjects = <%= Utils.gson().toJson(subjects)%>;
+            oc.cities = <%= Utils.gson().toJson(cities)%>;
         </script>
     </body>
 

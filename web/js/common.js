@@ -14,6 +14,16 @@ function parseInt10(str, defaultValue)
     return n;
 }
 
+function makeRandomString(length) {
+    var result = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < length; i++)
+        result += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return result;
+}
+
 function isDigits(str)
 {
     return /^\d+$/.test(str);

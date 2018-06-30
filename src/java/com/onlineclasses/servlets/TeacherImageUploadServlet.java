@@ -18,7 +18,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -93,44 +92,18 @@ public class TeacherImageUploadServlet extends HttpServlet {
                 imageDir.mkdir();
             }
 
-            String outputFileName = Utils.getRealPath(request.getServletContext(), fileName,
-                    CConfig.get("website.file.upload.root"),
-                    CConfig.get("website.file.upload.images_root"),
-                    imageId);
-
             InputStream fi = filePart.getInputStream();
-            File outputFile = new File(outputFileName);
-            if (outputFile.exists()) {
-                Utils.warning("output file name " + outputFileName + " already uploaded");
-                return;
-            }
-
-            outputFile.createNewFile();
-            FileOutputStream fo = new FileOutputStream(outputFileName);
-            int chunkSize = Config.getInt("website.file.upload.chunk_size");
-
-            int read;
-            final byte[] bytes = new byte[chunkSize];
-
-            while ((read = fi.read(bytes)) != -1) {
-                fo.write(bytes, 0, read);
-            }
-
-            File input = new File(outputFileName);
-            BufferedImage image = ImageIO.read(input);
-
+            BufferedImage image = ImageIO.read(fi);
             BufferedImage resized = resize(image, image.getWidth(), image.getWidth());
-
-            String scaledOutputFileName = Utils.getRealPath(request.getServletContext(), fileName + ".png",
+            String scaledOutputFileName = Utils.getRealPath(request.getServletContext(), imageId + ".png",
                     CConfig.get("website.file.upload.root"),
-                    CConfig.get("website.file.upload.images_root"),
-                    imageId);
+                    CConfig.get("website.file.upload.images_root"));                    
 
             File output = new File(scaledOutputFileName);
             ImageIO.write(resized, "png", output);
 
-            Utils.info("upload file done file " + fileName + " size " + fileSize);
-        } catch (Exception ex) {
+            Utils.info("upload file done file " + fileName + " size " + fileSize + " scled file " + scaledOutputFileName);
+        } catch (IOException | ServletException ex) {
             Utils.exception(ex);
         }
     }
