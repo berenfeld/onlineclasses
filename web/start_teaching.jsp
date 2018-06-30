@@ -197,11 +197,12 @@
                                 <div class="form-group row">
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">                                    
                                         <label class="col-form-label" for="start_teaching_email_input">
-                                            <%= Labels.get("start_teaching.form.login.email")%>                                        
+                                            <%= Labels.get("start_teaching.form.login.email")%>  
+                                            <small class="start_teaching_required">
+                                                (*)
+                                            </small>                                            
                                         </label>                     
-                                        <small class="start_teaching_required">
-                                            (*)
-                                        </small>
+
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
@@ -277,10 +278,10 @@
                                             <div class="col-12 col-md my-1">
                                                 <label class="col-form-label" for="start_teaching_phone_number_input">
                                                     <%= Labels.get("start_teaching.form.login.phone_number")%>
-                                                </label>
-                                                <small class="start_teaching_required">
-                                                    (*)
-                                                </small>
+                                                    <small class="start_teaching_required">
+                                                        (*)
+                                                    </small>
+                                                </label>                                                    
                                             </div>
 
                                             <div class="input-group form-control border-0 col-12 col-md">
@@ -313,10 +314,15 @@
                                     <div class="col-6 col-lg-3 my-1" id="start_teaching_day_of_birth">
                                         <label class="col-form-label" for="start_teaching_day_of_birth_input">
                                             <%= Labels.get("start_teaching.form.login.day_of_birth")%>
-                                        </label>
-                                        <small class="start_teaching_required">
+                                            <small class="start_teaching_required">
                                             (*)
                                         </small>
+                                            <br/>
+                                            <small>
+                                                <%= Labels.get("start_teaching.form.login.day_of_birth.small_text")%>
+                                            </small>
+                                        </label>
+                                        
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
@@ -369,14 +375,14 @@
                                         <label class="col-form-label" for="start_teaching_image_input">
                                             <%= Labels.get("start_teaching.form.personal_information.choose_avatar_image")%>
                                             <small class="start_teaching_required">
-                                            (*)
-                                        </small>
+                                                (*)
+                                            </small>
                                             <br/>
-                                        <small>
-                                            <%= Labels.get("start_teaching.form.personal_information.avatar_image_small_text")%>
-                                        </small>
+                                            <small>
+                                                <%= Labels.get("start_teaching.form.personal_information.avatar_image_small_text")%>
+                                            </small>
                                         </label>
-                                                                                
+
                                     </div>
                                     <iframe id="start_teaching_post_hidden_iframe" name="start_teaching_post_hidden_iframe" class="d-none"></iframe>                                                
 

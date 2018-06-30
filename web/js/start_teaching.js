@@ -500,13 +500,20 @@ function start_teaching_check_tabs()
     if (request.day_of_birth === null) {
         pass_to_profile = false;
     } else {
-        $("#start_teaching_day_of_birth_input").addClass("start_teaching_required_filled");
+        var minDate = xYearsFromNow(- parseInt10(oc.cconfig["start_teaching.min_teacher_age"]));
+        if (request.day_of_birth.getTime() > minDate.getTime()) {
+            pass_to_profile = false;
+        } else {
+            $("#start_teaching_day_of_birth_input").addClass("start_teaching_required_filled");
+        }
     }
+    
+    
+    
 
-    if (!pass_to_profile) {
+    if (! pass_to_profile ) {
         return;
     }
-
     $("#start_teaching_profile_link").removeClass("disabled");
     $("#start_teaching_goto_tab_profile_button").removeClass("disabled");
 

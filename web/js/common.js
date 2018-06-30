@@ -93,6 +93,12 @@ function sameDay(date1, date2) {
             (date1.getDate() === date2.getDate());
 }
 
+function xYearsFromNow(years) {
+    var date = new Date();
+    date.setFullYear(date.getFullYear() + years);
+    return date;
+}
+
 function parseDate(date) {
     return date.getDate() + "/" + (date.getMonth() + 1);
 }

@@ -52,7 +52,6 @@ function facebook_clearUserLoggedinCallback(userLoggedInCallback)
 
 function facebook_getPersonalInformation(response)
 {   
-    console.log(response);
     var facebookUser = {};
     facebookUser.name = response.name;
     facebookUser.first_name = response.first_name;
