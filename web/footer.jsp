@@ -63,11 +63,6 @@
     </nav>
 </div>
 
-<script src="js/lib/jquery.min.js"></script>
-<script src="js/lib/jquery-ui.js"></script>
-<script src="js/lib/bootstrap.bundle.min.js"></script>
-<script src="https://apis.google.com/js/platform.js?onload=google_loaded" async defer></script>
-
 <script>
     var oc = {};
     oc.user = <%= userGson%>;
@@ -77,13 +72,10 @@
     oc.parameters = <%= parametersJson%>;
 </script>
 
+<script src="js/lib/jquery.min.js"></script>
+<script src="js/lib/jquery-ui.js"></script>
+<script src="js/lib/bootstrap.bundle.min.js"></script>
+<script src="https://apis.google.com/js/platform.js?onload=google_loaded" async defer></script>
 <script src="js/lib/md5.js"></script>
-<script src="js/common.js"></script>
-<script src="js/confirm.js"></script>
-<script src="js/progress_modal.js"></script>
-<script src="js/alert_modal.js"></script>
-<script src="js/text_input_modal.js"></script>
-<script src="js/google.js"></script>
-<script src="js/facebook.js"></script>
-<script src="js/login.js"></script>
+<script src="js/common_libs/online_classes.js"></script>
 <script src="js/<%= foo_pageName %>.js"></script>

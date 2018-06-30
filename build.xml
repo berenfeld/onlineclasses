@@ -68,4 +68,13 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="-pre-dist">    
+        <echo level="info" message="Concatanate all javascript to a single file" />
+        <fileset  id="all_js_files" dir="${build.web.dir}/js/common_libs">            
+            <include name="*.js"/>
+        </fileset >
+        <concat destfile="${build.web.dir}/js/common_libs/online_classes.js" fixlastline="true">
+            <fileset refid="all_js_files" />
+        </concat>
+    </target>
 </project>
