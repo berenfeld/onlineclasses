@@ -43,11 +43,12 @@ public class UpdateTeacherServlet extends BaseServlet {
             Utils.warning("not logged in");
             return new BasicResponse(-1, "not logged in");
         }
-
-        teacher.display_name = updateTeacherRequest.display_name;
+        
         teacher.first_name = updateTeacherRequest.first_name;
         teacher.last_name = updateTeacherRequest.last_name;
         teacher.skype_name = updateTeacherRequest.skype_name;
+        teacher.phone_number = updateTeacherRequest.phone_number;
+        teacher.phone_area = updateTeacherRequest.phone_area;
         teacher.moto = updateTeacherRequest.moto;
         teacher.show_phone = updateTeacherRequest.show_phone;
         teacher.show_email = updateTeacherRequest.show_email;
@@ -56,7 +57,8 @@ public class UpdateTeacherServlet extends BaseServlet {
         teacher.degree_type = updateTeacherRequest.degree_type;
         teacher.show_degree = updateTeacherRequest.show_degree;
         teacher.price_per_hour = updateTeacherRequest.price_per_hour;
-
+        teacher.image_url = updateTeacherRequest.image_url;
+                
         teacher.institute = null;
         teacher.institute_name = null;
         if (updateTeacherRequest.institute_id != 0) {
@@ -116,7 +118,7 @@ public class UpdateTeacherServlet extends BaseServlet {
 
         if (!Utils.isEmpty(updateTeacherRequest.feedback)) {
             Feedback feedback = new Feedback();
-            feedback.from = updateTeacherRequest.display_name;
+            feedback.from = teacher.display_name;
             feedback.email = teacher.email;
             feedback.message = updateTeacherRequest.feedback;
             DB.add(feedback);
@@ -128,7 +130,7 @@ public class UpdateTeacherServlet extends BaseServlet {
 
     private void sendEmail(Teacher registeringTeacher, List<String> topicsList, List<String> availableTimeList) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
-                + Config.get("website.language") + File.separator + "teacher_update.html";
+                + Config.get("website.language") + File.separator + "update_teacher.html";
 
         String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
 
