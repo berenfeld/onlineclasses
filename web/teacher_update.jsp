@@ -973,16 +973,7 @@
                                     <%= Labels.get("teacher_update.form.submit.title")%>   
                                 </div>
                             </div>
-                            <div class="card-body">                            
-                                <h6>
-                                    <%= Labels.get("teacher_update.form.submit.accept_terms_of_usage")%>  
-                                </h6>
-                                <p>
-                                    <a href="javascript:teacher_update_terms_of_usage()">
-                                        <%= Labels.get("teacher_update.form.publish.read_terms_of_usage")%>
-                                    </a>
-                                </p>
-
+                            <div class="card-body">                                                            
                                 <div class="row no-gutters">
                                     <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_update_feedback">
                                         <label class="col-form-label" for="teacher_update_feedback_input">
@@ -1001,7 +992,7 @@
 
                                 <div class="d-flex flex-row-reverse">
                                     <div>
-                                        <button type="button" class="btn btn-success mx-1 my-auto disabled teacher_update_tabs_button"
+                                        <button type="button" class="btn btn-success mx-1 my-auto teacher_update_tabs_button"
                                                 id="teacher_update_form_submit_button"
                                                 onclick="teacher_update_form_submit()">
                                             <span class="oi" data-glyph="chevron-left"></span>
@@ -1009,20 +1000,7 @@
                                             <span class="oi" data-glyph="chevron-left"></span>
                                         </button>
                                     </div>
-
-                                    <div class="checkbox mx-1 h6 my-auto" id="teacher_update_accept_terms_checkbox_div">
-                                        <input class="form-check-input my-1 mx-0 teacher_update_required teacher_update_required_filled" id="teacher_update_accept_terms_checkbox" 
-                                               name="teacher_update_accept_terms_checkbox" 
-                                               type="checkbox" value="">
-
-                                        <label class="form-check-label" for="teacher_update_accept_terms_checkbox">
-                                            <%= Labels.get("teacher_update.form.submit.terms_of_usage.read_and_accept")%>  
-                                        </label>
-                                        <small class="teacher_update_required teacher_update_required_filled">
-                                            (*)
-                                        </small>
-                                    </div>
-
+                                    
                                 </div>
                             </div>
                         </div>

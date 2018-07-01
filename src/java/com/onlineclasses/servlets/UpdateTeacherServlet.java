@@ -43,7 +43,7 @@ public class UpdateTeacherServlet extends BaseServlet {
             Utils.warning("not logged in");
             return new BasicResponse(-1, "not logged in");
         }
-        
+
         teacher.skype_name = updateTeacherRequest.skype_name;
         teacher.phone_number = updateTeacherRequest.phone_number;
         teacher.phone_area = updateTeacherRequest.phone_area;
@@ -56,7 +56,9 @@ public class UpdateTeacherServlet extends BaseServlet {
         teacher.show_degree = updateTeacherRequest.show_degree;
         teacher.price_per_hour = updateTeacherRequest.price_per_hour;
         teacher.image_url = updateTeacherRequest.image_url;
-                
+        teacher.min_class_length = updateTeacherRequest.min_class_length;
+        teacher.max_class_length = updateTeacherRequest.max_class_length;
+
         teacher.institute = null;
         teacher.institute_name = null;
         if (updateTeacherRequest.institute_id != 0) {

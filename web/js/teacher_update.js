@@ -66,20 +66,12 @@ function teacher_update_register_complete(response)
     }
     alert_show(oc.clabels[ "teacher_update.register.success.title"],
             oc.clabels[ "teacher_update.register.success.message"]);
-    redirectAfter("/", 5);
 }
 
 
 function teacher_update_form_validation(request)
 {
     $("#teacher_update_form *").removeClass("border border-warning");
-
-    if (!$("#teacher_update_accept_terms_checkbox").is(":checked")) {
-        alert_show(oc.clabels[ "teacher_update.form.submit.terms_of_usage.please_accept"]);
-        $("#teacher_update_accept_terms_checkbox_div").addClass("border border-warning");
-        teacher_update_goto_tab("accept_and_finish");
-        return false;
-    }
 
     if (stringEmpty(request.phone_number) || stringEmpty(request.phone_area)) {
         alert_show(oc.clabels[ "teacher_update.form.submit.fill_in_phone"]);
@@ -170,15 +162,15 @@ function teacher_update_form_submit()
     request.institute_name = $("#teacher_update_institute_other_text").val();
     request.subject_id = teacher_update.subject_id;
     request.subject_name = $("#teacher_update_subject_0_text").val();
-    request.show_degree = $("#teacher_update_topic_show_degree").prop("checked");
+    request.show_degree = $('#teacher_update_show_degree').prop("checked");
     request.degree_type = $("#teacher_update_degree_type_select").val();
     request.price_per_hour = parseInt10($("#teacher_update_price_per_hour_input").val());
     request.paypal_email = $("#teacher_update_paypal_email_input").val();
     request.available_times = teacher_update.calendar.available_times;
     request.city_id = parseInt10($("#teacher_update_city_select").val());
     request.feedback = $("#teacher_update_feedback_input").val();
-    request.min_class_length = parseInt10($("teacher_update_min_class_length").val());
-    request.max_class_length = parseInt10($("teacher_update_max_class_length").val());
+    request.min_class_length = parseInt10($("#teacher_update_min_class_length").val());
+    request.max_class_length = parseInt10($("#teacher_update_max_class_length").val());
     request.teaching_topics = [];
     $("#teacher_update_topic_list button.list-group-item").each(
             function () {
@@ -193,8 +185,8 @@ function teacher_update_form_submit()
         return;
     }
 
-    alert_show(oc.clabels[ "teacher_update.register.registering"],
-            oc.clabels[ "teacher_update.register.registering_message"]);
+    alert_show(oc.clabels[ "teacher_update.update.updating.title"],
+            oc.clabels[ "teacher_update.update.updating.message"]);
 
 
     if ($("#teacher_update_gender_input_male").prop("checked")) {
@@ -553,22 +545,8 @@ function teacher_update_check_tabs()
     $("#teacher_update_accept_and_finish_link").removeClass("disabled");
     $("#teacher_update_goto_tab_accept_and_finish_button").removeClass("disabled");
 
-    if (!$("#teacher_update_accept_terms_checkbox").is(":checked")) {
-        return;
-    }
-
-    if (!teacher_update.read_terms_of_usage) {
-        return;
-    }
     // can enable submit button
     $("#teacher_update_form_submit_button").removeClass("disabled");
-}
-
-function teacher_update_terms_of_usage()
-{
-    window.open('terms_of_usage', 'terms_of_usage', 'width=1280,height=720');
-    teacher_update.read_terms_of_usage = true;
-    teacher_update_check_tabs();
 }
 
 function teacher_update_init()
@@ -588,7 +566,9 @@ function teacher_update_init()
     $("#teacher_update_show_phone").prop("checked", teacher.show_phone);
     $("#teacher_update_paypal_email_input").val(teacher.paypal_email);
     $("#teacher_update_price_per_hour_input").val(teacher.price_per_hour);
-
+    $("#teacher_update_min_class_length").val(teacher.min_class_length);
+    $("#teacher_update_max_class_length").val(teacher.max_class_length);
+    
     if (teacher.show_degree) {
         $('#teacher_update_show_degree').prop("checked", true);
         $('#teacher_update_degree_information_div').collapse("show");
@@ -637,7 +617,7 @@ function teacher_update_init()
     }
 
     teacher_update.day_of_birth = new Date(Date.parse(teacher.day_of_birth));
-    teacher_update.iamge_url = teacher.image_url;
+    teacher_update.image_url = teacher.image_url;
 
     teacher_update.calendar = {};
     teacher_update.calendar.minutes_unit = parseInt10(oc.cconfig[ "website.time.unit.minutes"]);

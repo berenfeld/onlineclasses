@@ -34,4 +34,6 @@ public class UpdateTeacherRequest extends BasicRequest {
     public int price_per_hour;
     public List<AvailableTime> available_times;
     public String feedback;
+    public int min_class_length;
+    public int max_class_length;
 }
