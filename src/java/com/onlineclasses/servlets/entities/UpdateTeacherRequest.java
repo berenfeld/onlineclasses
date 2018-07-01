@@ -16,10 +16,6 @@ import java.util.List;
  */
 public class UpdateTeacherRequest extends BasicRequest {
 
-    public UpdateTeacherRequest() {
-    }
-    public String first_name;
-    public String last_name;    
     public String skype_name;
     public String image_url;
     public String phone_number;

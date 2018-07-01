@@ -44,8 +44,6 @@ public class UpdateTeacherServlet extends BaseServlet {
             return new BasicResponse(-1, "not logged in");
         }
         
-        teacher.first_name = updateTeacherRequest.first_name;
-        teacher.last_name = updateTeacherRequest.last_name;
         teacher.skype_name = updateTeacherRequest.skype_name;
         teacher.phone_number = updateTeacherRequest.phone_number;
         teacher.phone_area = updateTeacherRequest.phone_area;

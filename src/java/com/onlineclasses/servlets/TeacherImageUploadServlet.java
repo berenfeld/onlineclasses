@@ -75,7 +75,7 @@ public class TeacherImageUploadServlet extends HttpServlet {
             User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
 
             String imageId = request.getParameter("image_id");
-            Part filePart = request.getPart("start_teaching_img_upload_input");
+            Part filePart = request.getPart("img_upload_input");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             long fileSize = filePart.getSize();
             Utils.info("upload file " + fileName + " size " + fileSize + " from user " + user);

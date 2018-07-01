@@ -224,6 +224,7 @@
                                         <div class="row form-check form-check-inline no-gutters">
                                             <input type="radio" checked class="mx-2 form-check form-check-inline" 
                                                    value="<%= CConfig.get("website.gender.male")%>" 
+                                                   disabled
                                                    id="teacher_update_gender_input_male" name="teacher_update_gender_input">
                                             <label class="mx-2 col-form-label" for="teacher_update_gender_input_male">
                                                 <%= Labels.get("teacher_update.form.login.gender.male")%>   
@@ -231,6 +232,7 @@
 
                                             <input type="radio" class="mx-2 form-check form-check-inline" 
                                                    value="<%= CConfig.get("website.gender.female")%>" 
+                                                   disabled
                                                    id="teacher_update_gender_input_female" name="teacher_update_gender_input">
                                             <label class="mx-2 col-form-label" for="teacher_update_gender_input_female">
                                                 <%= Labels.get("teacher_update.form.login.gender.female")%>   
@@ -369,8 +371,8 @@
                                                     <input type="hidden" id="teacher_update_image_id" name="image_id">
 
                                                     <div id="teacher_update_img_upload_button_wrapper" class="w-100">                                                         
-                                                        <input type="file" name="teacher_update_img_upload_input"
-                                                               id="teacher_update_img_upload_input"
+                                                        <input type="file" name="img_upload_input"
+                                                               id="img_upload_input"
                                                                onchange="teacher_update_img_upload()">  
                                                         <button type="button" class="btn btn-success btn-block">
                                                             <%= Labels.get("teacher_update.form.personal_information.upload_from_file")%>

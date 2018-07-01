@@ -158,8 +158,6 @@ function teacher_update_form_submit()
 {
     var request = {};
     request.email = $("#teacher_update_email_input").val();
-    request.first_name = $("#teacher_update_first_name_input").val();
-    request.last_name = $("#teacher_update_last_name_input").val();    
     request.image_url = teacher_update.image_url;
     request.phone_number = $("#teacher_update_phone_number_input").val();
     request.phone_area = $("#teacher_update_phone_area_select").val();    
@@ -462,6 +460,7 @@ function teacher_update_check_tabs()
 
     $("input.teacher_update_required").removeClass("teacher_update_required_filled");
     $("select.teacher_update_required").removeClass("teacher_update_required_filled");
+    $("textarea.teacher_update_required").removeClass("teacher_update_required_filled");
 
     // if mandatory fields are present : display_name, phone, day of birth and city, can show profile tab
     var request = {};
@@ -711,7 +710,7 @@ function teacher_update_init()
     teacher_update.max_teacher_age = parseInt10(oc.cconfig[ "teacher_update.max_teacher_age"]);
     teacher_update.min_phone_digits = parseInt10(oc.cconfig[ "website.phone.min_digits"]);
     teacher_update.max_phone_digits = parseInt10(oc.cconfig[ "website.phone.max_digits"]);
-    teacher_update.min_moto_length = parseInt10(oc.cconfig[ "teacher_update.min_moto_length"]);
+    teacher_update.min_moto_length = parseInt10(oc.cconfig[ "website.min_moto_length"]);
     teacher_update.min_price_per_hour = parseInt10(oc.cconfig[ "website.price_per_hour.min"]);
     teacher_update.max_price_per_hour = parseInt10(oc.cconfig[ "website.price_per_hour.max"]);        
     teacher_update_goto_tab("personal_information");

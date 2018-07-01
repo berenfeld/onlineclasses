@@ -484,6 +484,7 @@ function start_teaching_check_tabs()
 
     $("input.start_teaching_required").removeClass("start_teaching_required_filled");
     $("select.start_teaching_required").removeClass("start_teaching_required_filled");
+    $("textarea.start_teaching_required").removeClass("start_teaching_required_filled");
 
     // if mandatory fields are present : display_name, phone, day of birth and city, can show profile tab
     var request = {};
@@ -631,7 +632,7 @@ function start_teaching_init()
     start_teaching.max_teacher_age = parseInt10(oc.cconfig[ "start_teaching.max_teacher_age"]);
     start_teaching.min_phone_digits = parseInt10(oc.cconfig[ "website.phone.min_digits"]);
     start_teaching.max_phone_digits = parseInt10(oc.cconfig[ "website.phone.max_digits"]);
-    start_teaching.min_moto_length = parseInt10(oc.cconfig[ "start_teaching.min_moto_length"]);
+    start_teaching.min_moto_length = parseInt10(oc.cconfig[ "website.min_moto_length"]);
     start_teaching.min_price_per_hour = parseInt10(oc.cconfig[ "website.price_per_hour.min"]);
     start_teaching.max_price_per_hour = parseInt10(oc.cconfig[ "website.price_per_hour.max"]);
 
