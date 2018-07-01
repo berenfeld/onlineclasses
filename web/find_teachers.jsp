@@ -16,9 +16,9 @@
 <%@page import="com.onlineclasses.utils.Labels"%>
 
 <%
-    int defaultMinPrice = CConfig.getInt("find_teachers.price.min");
+    int defaultMinPrice = CConfig.getInt("website.price_per_hour.min");
     int minPrice = Utils.parseInt(request.getParameter("price_min"), defaultMinPrice);
-    int defaultMaxPrice = CConfig.getInt("find_teachers.price.max");
+    int defaultMaxPrice = CConfig.getInt("website.price_per_hour.max");
     int maxPrice = Utils.parseInt(request.getParameter("price_max"), defaultMaxPrice);
     String displayName = Utils.nonNullString(request.getParameter("display_name"));
     String topicName = Utils.nonNullString(request.getParameter("topic_name"));

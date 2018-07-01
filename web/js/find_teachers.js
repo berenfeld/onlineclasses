@@ -454,8 +454,8 @@ function find_teachers_init()
 
     schedule_class_update_calendar();
 
-    find_teachers.default_min_value = parseInt(oc.cconfig[ "find_teachers.price.min" ]);
-    find_teachers.default_max_value = parseInt(oc.cconfig[ "find_teachers.price.max" ]);
+    find_teachers.default_min_value = parseInt(oc.cconfig[ "website.price_per_hour.min" ]);
+    find_teachers.default_max_value = parseInt(oc.cconfig[ "website.price_per_hour.max" ]);
 
     find_teachers.price_min = parseInt10(oc.parameters[ "price_min" ], find_teachers.default_min_value);
     find_teachers.price_max = parseInt10(oc.parameters[ "price_max" ], find_teachers.default_max_value);

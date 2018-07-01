@@ -175,7 +175,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
-                                    <button class="btn btn-info start_teaching_tabs_button" 
+                                    <button type="button" class="btn btn-info start_teaching_tabs_button" 
                                             id="start_teaching_goto_tab_personal_information_button"
                                             onclick="start_teaching_goto_tab('personal_information')">
                                         <span class="oi" data-glyph="chevron-left"></span>
@@ -407,13 +407,12 @@
                                                         <input type="file" name="start_teaching_img_upload_input"
                                                                id="start_teaching_img_upload_input"
                                                                onchange="start_teaching_img_upload()">  
-
-                                                        <button class="btn btn-success btn-block">
+                                                        <button type="button" class="btn btn-success btn-block">
                                                             <%= Labels.get("start_teaching.form.personal_information.upload_from_file")%>
                                                         </button>
 
                                                     </div>
-                                                    <button onclick="start_teaching_reset_img_upload()" class="btn btn-success btn-block d-none" id="start_teaching_img_upload_reset_image">
+                                                    <button type="button" onclick="start_teaching_reset_img_upload()" class="btn btn-success btn-block d-none" id="start_teaching_img_upload_reset_image">
                                                         <%= Labels.get("start_teaching.form.personal_information.reset_to_social_image")%>
                                                     </button>
                                                 </form>
@@ -425,7 +424,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
-                                    <button class="btn btn-info start_teaching_tabs_button" 
+                                    <button type="button" class="btn btn-info start_teaching_tabs_button" 
                                             id="start_teaching_goto_tab_profile_button"
                                             onclick="start_teaching_goto_tab('profile')">
                                         <span class="oi" data-glyph="chevron-left"></span>
@@ -452,6 +451,10 @@
                                         </label>  
                                         <small class="start_teaching_required">
                                             (*)
+                                        </small>
+                                        <br/>
+                                        <small>
+                                            <%= Labels.get("start_teaching.form.publish.moto.small_text")%>
                                         </small>
                                     </div>
 
@@ -496,7 +499,7 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
-                                    <button class="btn btn-info start_teaching_tabs_button"
+                                    <button type="button" class="btn btn-info start_teaching_tabs_button"
                                             id="start_teaching_goto_tab_education_button"
                                             onclick="start_teaching_goto_tab('education')">
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
@@ -686,7 +689,7 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
-                                    <button class="btn btn-info start_teaching_tabs_button" 
+                                    <button type="button" class="btn btn-info start_teaching_tabs_button" 
                                             id="start_teaching_goto_tab_teaching_topics_button"
                                             onclick="start_teaching_goto_tab('teaching_topics')">
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
@@ -744,7 +747,7 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
-                                    <button class="btn btn-info start_teaching_tabs_button" 
+                                    <button type="button" class="btn btn-info start_teaching_tabs_button" 
                                             id="start_teaching_goto_tab_prices_button"
                                             onclick="start_teaching_goto_tab('prices')">
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
@@ -783,10 +786,15 @@
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <label class="col-form-label" for="start_teaching_price_per_hour_input">
                                             <%= Labels.get("start_teaching.form.payment.price_per_hour")%>
-                                        </label> 
-                                        <small class="start_teaching_required">
+                                            <small class="start_teaching_required">
                                             (*)
-                                        </small>
+                                            </small>
+                                            <br/>
+                                            <small>
+                                            <%= Labels.get("start_teaching.form.payment.price_per_hour.small_text")%>
+                                            </small>
+                                        </label> 
+                                        
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1" id="start_teaching_price_per_hour">
@@ -808,7 +816,7 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
-                                    <button class="btn btn-info start_teaching_tabs_button" 
+                                    <button type="button" class="btn btn-info start_teaching_tabs_button" 
                                             id="start_teaching_goto_tab_teaching_hours_button"
                                             onclick="start_teaching_goto_tab('teaching_hours')">
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
@@ -906,7 +914,7 @@
                                             </div>
                                         </div>
                                         <div class="my-2">
-                                            <button class="btn btn-primary" onclick="start_teaching_clear_calendar()">
+                                            <button type="button" class="btn btn-primary" onclick="start_teaching_clear_calendar()">
                                                 <%= Labels.get("start_teaching.form.available_hours.clear_button")%>   
                                             </button>
                                         </div>
@@ -979,7 +987,7 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
-                                    <button class="btn btn-info start_teaching_tabs_button" 
+                                    <button type="button" class="btn btn-info start_teaching_tabs_button" 
                                             id="start_teaching_goto_tab_accept_and_finish_button"
                                             onclick="start_teaching_goto_tab('accept_and_finish')">
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
@@ -1027,7 +1035,7 @@
                                 <div class="d-flex flex-row-reverse">
 
                                     <div>
-                                        <button class="btn btn-success mx-1 my-auto disabled start_teaching_tabs_button"
+                                        <button type="button" class="btn btn-success mx-1 my-auto disabled start_teaching_tabs_button"
                                                 id="start_teaching_form_submit_button"
                                                 onclick="start_teaching_form_submit()">
                                             <span class="oi" data-glyph="chevron-left"></span>

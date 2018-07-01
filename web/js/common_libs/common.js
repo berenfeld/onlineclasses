@@ -42,6 +42,11 @@ function stringLengthBetween(str, min_length, max_length)
     return ( ( str.length >= min_length ) && ( str.length <= max_length ) );
 }
 
+function numberBetween(x, min,max)
+{
+    return ( ( x >= min ) && ( x <= max ) );
+}
+
 function reloadAfter(seconds)
 {
     window.setTimeout(function () {
