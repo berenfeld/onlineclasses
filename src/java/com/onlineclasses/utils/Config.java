@@ -39,5 +39,5 @@ public class Config {
 
     public static int getInt(String property) {
         return Integer.valueOf(get(property));
-    }
+    }    
 }

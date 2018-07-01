@@ -280,7 +280,7 @@
                                                     <%= Labels.get("start_teaching.form.login.phone_number")%>
                                                     <small class="start_teaching_required">
                                                         (*)
-                                                    </small>
+                                                    </small>                                                    
                                                 </label>                                                    
                                             </div>
 

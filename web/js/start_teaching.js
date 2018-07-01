@@ -477,14 +477,19 @@ function start_teaching_check_tabs()
         pass_to_profile = false;
     } else {
         $("#start_teaching_display_name_input").addClass("start_teaching_required_filled");
-    }
+    }    
 
     if (stringEmpty(request.phone_number)) {
         pass_to_profile = false;
     } else {
-        $("#start_teaching_phone_number_input").addClass("start_teaching_required_filled");
+        if (! stringLengthBetween(  request.phone_number, oc.cconfig[ "website.phone.min_digits"],
+                                    oc.cconfig[ "website.phone.max_digits"] ) ) {                                    
+            pass_to_profile = false;
+        } else {
+            $("#start_teaching_phone_number_input").addClass("start_teaching_required_filled");
+        }
     }
-
+    
     if (stringEmpty(request.phone_area)) {
         pass_to_profile = false;
     } else {

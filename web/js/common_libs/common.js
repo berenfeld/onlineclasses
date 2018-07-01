@@ -37,6 +37,11 @@ function redirectAfter(url, seconds)
 
 }
 
+function stringLengthBetween(str, min_length, max_length)
+{
+    return ( ( str.length >= min_length ) && ( str.length <= max_length ) );
+}
+
 function reloadAfter(seconds)
 {
     window.setTimeout(function () {
