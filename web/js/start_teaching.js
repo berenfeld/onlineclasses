@@ -464,11 +464,11 @@ function start_teaching_goto_tab(tab_name)
 function start_teaching_check_tabs()
 {
     $("#start_teaching_tab_list a.nav-link").addClass("disabled");
-    $("button.start_teaching_tabs_button").addClass("disabled");
+    disableButtons($("button.start_teaching_tabs_button"));
 
     if (oc.cconfig["start_teaching.enable_all_tabs"] === "true") {
         $("#start_teaching_tab_list a.nav-link").removeClass("disabled");
-        $("button.start_teaching_tabs_button").removeClass("disabled");
+        enableButtons($("button.start_teaching_tabs_button"));
     }
 
     // google login tab always enabled
@@ -480,7 +480,7 @@ function start_teaching_check_tabs()
     }
 
     $("#start_teaching_personal_information_link").removeClass("disabled");
-    $("#start_teaching_goto_tab_personal_information_button").removeClass("disabled");
+    enableButtons($("#start_teaching_goto_tab_personal_information_button"));
 
     $("input.start_teaching_required").removeClass("start_teaching_required_filled");
     $("select.start_teaching_required").removeClass("start_teaching_required_filled");
@@ -539,7 +539,7 @@ function start_teaching_check_tabs()
         return;
     }
     $("#start_teaching_profile_link").removeClass("disabled");
-    $("#start_teaching_goto_tab_profile_button").removeClass("disabled");
+    enableButtons($("#start_teaching_goto_tab_profile_button"));
 
     // if moto is filled - can go to education
     // TODO moto minimum length
@@ -555,15 +555,15 @@ function start_teaching_check_tabs()
 
     // can move to education
     $("#start_teaching_education_link").removeClass("disabled");
-    $("#start_teaching_goto_tab_education_button").removeClass("disabled");
+    enableButtons($("#start_teaching_goto_tab_education_button"));
 
     // can move to teaching_topics
     $("#start_teaching_teaching_topics_link").removeClass("disabled");
-    $("#start_teaching_goto_tab_teaching_topics_button").removeClass("disabled");
+    enableButtons($("#start_teaching_goto_tab_teaching_topics_button"));
 
     // can move to prices
     $("#start_teaching_prices_link").removeClass("disabled");
-    $("#start_teaching_goto_tab_prices_button").removeClass("disabled");
+    enableButtons($("#start_teaching_goto_tab_prices_button"));
 
     var pass_to_teaching_hours = true;
 
@@ -591,10 +591,10 @@ function start_teaching_check_tabs()
 
     // can move to teaching_hours
     $("#start_teaching_teaching_hours_link").removeClass("disabled");
-    $("#start_teaching_goto_tab_teaching_hours_button").removeClass("disabled");
+    enableButtons($("#start_teaching_goto_tab_teaching_hours_button"));
 
     $("#start_teaching_accept_and_finish_link").removeClass("disabled");
-    $("#start_teaching_goto_tab_accept_and_finish_button").removeClass("disabled");
+    enableButtons($("#start_teaching_goto_tab_accept_and_finish_button"));
 
     if (!$("#start_teaching_accept_terms_checkbox").is(":checked")) {
         return;
@@ -604,7 +604,7 @@ function start_teaching_check_tabs()
         return;
     }
     // can enable submit button
-    $("#start_teaching_form_submit_button").removeClass("disabled");
+    enableButtons($("#start_teaching_form_submit_button"));
 }
 
 function start_teaching_terms_of_usage()

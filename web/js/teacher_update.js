@@ -152,7 +152,7 @@ function teacher_update_form_submit()
     request.email = $("#teacher_update_email_input").val();
     request.image_url = teacher_update.image_url;
     request.phone_number = $("#teacher_update_phone_number_input").val();
-    request.phone_area = $("#teacher_update_phone_area_select").val();    
+    request.phone_area = $("#teacher_update_phone_area_select").val();
     request.skype_name = $("#teacher_update_skype_name_input").val();
     request.moto = $("#teacher_update_moto_input").val();
     request.show_phone = $("#teacher_update_show_phone").prop("checked");
@@ -216,13 +216,13 @@ function teacher_update_select_day_of_birth()
 function teacher_update_select_institute()
 {
     teacher_update.institute_id = parseInt10($(this).val());
-    if (teacher_update.institute_id === 0 )
+    if (teacher_update.institute_id === 0)
     {
         teacher_update.institute_type = 0;
         teacher_update_institute_type_updated();
     }
 }
- 
+
 function teacher_update_select_institute_type()
 {
     teacher_update.institute_type = parseInt10($(this).val());
@@ -258,7 +258,7 @@ function teacher_update_select_subject()
     teacher_update_subject_selected()
 }
 
-function teacher_update_subject_selected() 
+function teacher_update_subject_selected()
 {
     if (teacher_update.subject_id === 0) {
         $("#teacher_update_subject_0_div").removeClass("d-none");
@@ -344,7 +344,7 @@ function teacher_update_select_time(event)
 function teacher_update_init_calendar()
 {
     console.log(teacher_update.available_times);
-    
+
     teacher_update.calendar.available_times = teacher_update.available_times;
 
     var available_text = "";
@@ -440,15 +440,15 @@ function teacher_update_goto_tab(tab_name)
 function teacher_update_check_tabs()
 {
     $("#teacher_update_tab_list a.nav-link").addClass("disabled");
-    $("button.teacher_update_tabs_button").addClass("disabled");
+    disableButtons($("button.teacher_update_tabs_button"))
 
     if (oc.cconfig["teacher_update.enable_all_tabs"] === "true") {
         $("#teacher_update_tab_list a.nav-link").removeClass("disabled");
-        $("button.teacher_update_tabs_button").removeClass("disabled");
+        enableButtons($("button.teacher_update_tabs_button"));
     }
 
     $("#teacher_update_personal_information_link").removeClass("disabled");
-    $("#teacher_update_goto_tab_personal_information_button").removeClass("disabled");
+    enableButtons($("#teacher_update_goto_tab_personal_information_button"));
 
     $("input.teacher_update_required").removeClass("teacher_update_required_filled");
     $("select.teacher_update_required").removeClass("teacher_update_required_filled");
@@ -488,7 +488,7 @@ function teacher_update_check_tabs()
         return;
     }
     $("#teacher_update_profile_link").removeClass("disabled");
-    $("#teacher_update_goto_tab_profile_button").removeClass("disabled");
+    enableButtons($("#teacher_update_goto_tab_profile_button"));
 
     // if moto is filled - can go to education
     // TODO moto minimum length
@@ -504,15 +504,15 @@ function teacher_update_check_tabs()
 
     // can move to education
     $("#teacher_update_education_link").removeClass("disabled");
-    $("#teacher_update_goto_tab_education_button").removeClass("disabled");
+    enableButtons($("#teacher_update_goto_tab_education_button"));
 
     // can move to teaching_topics
     $("#teacher_update_teaching_topics_link").removeClass("disabled");
-    $("#teacher_update_goto_tab_teaching_topics_button").removeClass("disabled");
+    enableButtons($("#teacher_update_goto_tab_teaching_topics_button"));
 
     // can move to prices
     $("#teacher_update_prices_link").removeClass("disabled");
-    $("#teacher_update_goto_tab_prices_button").removeClass("disabled");
+    enableButtons($("#teacher_update_goto_tab_prices_button"));
 
     var pass_to_teaching_hours = true;
 
@@ -540,13 +540,13 @@ function teacher_update_check_tabs()
 
     // can move to teaching_hours
     $("#teacher_update_teaching_hours_link").removeClass("disabled");
-    $("#teacher_update_goto_tab_teaching_hours_button").removeClass("disabled");
+    enableButtons($("#teacher_update_goto_tab_teaching_hours_button"));
 
     $("#teacher_update_accept_and_finish_link").removeClass("disabled");
-    $("#teacher_update_goto_tab_accept_and_finish_button").removeClass("disabled");
+    enableButtons($("#teacher_update_goto_tab_accept_and_finish_button"));
 
     // can enable submit button
-    $("#teacher_update_form_submit_button").removeClass("disabled");
+    enableButtons($("#teacher_update_form_submit_button"));
 }
 
 function teacher_update_init()
@@ -568,7 +568,7 @@ function teacher_update_init()
     $("#teacher_update_price_per_hour_input").val(teacher.price_per_hour);
     $("#teacher_update_min_class_length").val(teacher.min_class_length);
     $("#teacher_update_max_class_length").val(teacher.max_class_length);
-    
+
     if (teacher.show_degree) {
         $('#teacher_update_show_degree').prop("checked", true);
         $('#teacher_update_degree_information_div').collapse("show");
@@ -626,7 +626,7 @@ function teacher_update_init()
     teacher_update.calendar.available_times = [];
     teacher_update.min_teacher_age = parseInt10(oc.cconfig[ "teacher_update.min_teacher_age"]);
     teacher_update.max_teacher_age = parseInt10(oc.cconfig[ "teacher_update.max_teacher_age"]);
-    
+
     var current_year = new Date().getFullYear();
 
     $("#teacher_update_day_of_birth_input").datepicker({
@@ -692,7 +692,7 @@ function teacher_update_init()
     teacher_update.max_phone_digits = parseInt10(oc.cconfig[ "website.phone.max_digits"]);
     teacher_update.min_moto_length = parseInt10(oc.cconfig[ "website.min_moto_length"]);
     teacher_update.min_price_per_hour = parseInt10(oc.cconfig[ "website.price_per_hour.min"]);
-    teacher_update.max_price_per_hour = parseInt10(oc.cconfig[ "website.price_per_hour.max"]);        
+    teacher_update.max_price_per_hour = parseInt10(oc.cconfig[ "website.price_per_hour.max"]);
     teacher_update_goto_tab("personal_information");
 }
 

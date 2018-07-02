@@ -370,6 +370,18 @@ function common_number_only_input(element)
     );
 }
 
+function disableButtons(buttons)
+{
+    buttons.addClass("disabled");
+    buttons.prop("disabled", true);
+}
+
+function enableButtons(buttons)
+{
+    buttons.removeClass("disabled");
+    buttons.removeProp("disabled");
+}
+
 function common_init()
 {
     $(".modal").draggable({
