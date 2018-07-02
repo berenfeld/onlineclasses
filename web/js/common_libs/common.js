@@ -379,7 +379,7 @@ function disableButtons(buttons)
 function enableButtons(buttons)
 {
     buttons.removeClass("disabled");
-    buttons.removeProp("disabled");
+    buttons.prop("disabled", false);
 }
 
 function common_init()

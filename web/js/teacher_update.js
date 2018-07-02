@@ -627,8 +627,6 @@ function teacher_update_init()
     teacher_update.min_teacher_age = parseInt10(oc.cconfig[ "teacher_update.min_teacher_age"]);
     teacher_update.max_teacher_age = parseInt10(oc.cconfig[ "teacher_update.max_teacher_age"]);
 
-    var current_year = new Date().getFullYear();
-
     $("#teacher_update_day_of_birth_input").datepicker({
         dayNames: teacher_update.calendar.day_names_long,
         dayNamesMin: oc.clabels[ "website.days.short" ].split(","),
@@ -637,7 +635,7 @@ function teacher_update_init()
         isRTL: true,
         changeYear: true,
         dateFormat: "dd/mm/yy",
-        yearRange: (current_year - teacher_update.max_teacher_age) + ":" + (current_year - teacher_update.min_teacher_age),
+        yearRange: "-"+ teacher_update.max_teacher_age + ":-" + teacher_update.min_teacher_age,
         onSelect: teacher_update_select_day_of_birth
     });
     $("#teacher_update_day_of_birth_input").datepicker("setDate", teacher_update.day_of_birth);

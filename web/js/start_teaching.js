@@ -637,9 +637,6 @@ function start_teaching_init()
     start_teaching.max_price_per_hour = parseInt10(oc.cconfig[ "website.price_per_hour.max"]);
 
     google_addEmailExistsCallback(start_teaching_googleUserEmailExistsCallback);
-    var current_year = new Date().getFullYear();
-    var default_year = new Date();
-    default_year.setFullYear(current_year - start_teaching.min_teacher_age);
     $("#start_teaching_day_of_birth_input").datepicker({
         dayNames: start_teaching.calendar.day_names_long,
         dayNamesMin: oc.clabels[ "website.days.short" ].split(","),
@@ -647,9 +644,8 @@ function start_teaching_init()
         monthNamesShort: oc.clabels[ "website.months.short" ].split(","),
         isRTL: true,
         changeYear: true,
-        defaultDate: default_year,
         dateFormat: "dd/mm/yy",
-        yearRange: (current_year - start_teaching.max_teacher_age) + ":" + (current_year - start_teaching.min_teacher_age),
+        yearRange: "-"+ start_teaching.max_teacher_age + ":-" + start_teaching.min_teacher_age,
         onSelect: start_teaching_select_day_of_birth
     });
     if (login_isLoggedIn())
