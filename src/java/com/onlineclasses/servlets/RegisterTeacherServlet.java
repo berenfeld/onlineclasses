@@ -41,6 +41,11 @@ public class RegisterTeacherServlet extends BaseServlet {
             throws Exception {
         RegisterTeacherRequest registerTeacherRequest = Utils.gson().fromJson(requestString, RegisterTeacherRequest.class);
 
+        if (registerTeacherRequest == null) {
+            Utils.warning("no data in teacher register request");
+            return new BasicResponse(-1, Labels.get("start_teaching.response.not_logged_in"));
+        }
+        
         if (Utils.isEmpty(registerTeacherRequest.google_id_token)) {
             Utils.warning("no google id in login request");
             return new BasicResponse(-1, Labels.get("start_teaching.response.not_logged_in"));

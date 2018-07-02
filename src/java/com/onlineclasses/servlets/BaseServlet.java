@@ -28,12 +28,17 @@ import javax.servlet.http.HttpSession;
 public abstract class BaseServlet extends HttpServlet {
 
     private String getRequestString(HttpServletRequest request) throws IOException {
-        String requestString = "";
         BufferedReader reader = request.getReader();
-        while (reader.ready()) {
-            requestString += URLDecoder.decode(reader.readLine(), "UTF-8");
-        }
-        return requestString;
+        StringBuilder jb = new StringBuilder();
+        String line;
+        do {
+            line = reader.readLine();
+            if ( line == null) {
+                break;
+            }
+            jb.append(URLDecoder.decode(line, "UTF-8"));
+        } while(true);
+        return jb.toString();
     }
 
     private static String calculateUserHash(User user) throws Exception {
@@ -120,13 +125,13 @@ public abstract class BaseServlet extends HttpServlet {
             }
 
             if (user == null) {
-                Utils.debug("no user id from cookie in session " + session);
+                Utils.warning("no user id from cookie in session " + session);
                 logoutUser(request);
                 return null;
             }
 
             if (!verifyHash(user, websiteCookie.hash)) {
-                Utils.debug("incorrect hash in cookie in session " + session);
+                Utils.warning("incorrect hash in cookie in session " + session + " user " + user.display_name);
                 logoutUser(request);
                 return null;
             }
