@@ -145,14 +145,14 @@ public class FileUploadServlet extends HttpServlet {
             attachedFile.uploaded = written;
             DB.updateAttachedFileUploadedBytes(attachedFile);
 
-            sendEmail(user, oclass, attachedFile);
+            sendEmail(request, user, oclass, attachedFile);
             Utils.info("upload file done file " + fileName + " size " + fileSize);
         } catch (Exception ex) {
             Utils.exception(ex);
         }
     }
 
-    private void sendEmail(User uploader, OClass oClass, AttachedFile attachedFile) throws Exception {
+    private void sendEmail(HttpServletRequest request, User uploader, OClass oClass, AttachedFile attachedFile) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "class_added_file.html";
         Utils.info("sending email " + email_name);
@@ -160,7 +160,7 @@ public class FileUploadServlet extends HttpServlet {
         Calendar classStart = Calendar.getInstance();
         classStart.setTime(oClass.start_date);
 
-        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
+        String emailContent = Utils.getStringFromInputStream(request.getServletContext(), email_name);
 
         emailContent = emailContent.replaceAll("<% commentator %>", uploader.display_name);
         emailContent = emailContent.replaceAll("<% fileName %>", attachedFile.name);

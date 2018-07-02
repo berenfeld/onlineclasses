@@ -5,12 +5,13 @@
  */
 package com.onlineclasses.entities;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import java.util.Date;
 
 public class ClassComment extends BasicEntity {
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(canBeNull = false, dataType = DataType.LONG_STRING)
     public String comment;
 
     public static final String OCLASS_FIELD = "oclass";

@@ -167,11 +167,8 @@
                             <span id="oclass_attach_file_info_text"></span>
                         </div>
                         <div class="modal-footer">
-                            <input type="submit" id="oclass_attach_file_submit_button" 
+                            <input type="submit" id="oclass_attach_file_submit_button"
                                    class="btn btn-success mx-1" value="<%= Labels.get("buttons.ok")%>"/>
-                            <button type="button" class="btn btn-info mx-1" data-dismiss="modal">
-                                <%= Labels.get("buttons.cancel")%>
-                            </button>
                         </div>
                 </form>
             </div>

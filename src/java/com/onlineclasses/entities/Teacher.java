@@ -5,6 +5,7 @@
  */
 package com.onlineclasses.entities;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Teacher extends User {
     @DatabaseField
     public String skype_name;
 
-    @DatabaseField
+    @DatabaseField( dataType = DataType.LONG_STRING )
     public String moto;
 
     @DatabaseField
