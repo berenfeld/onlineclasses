@@ -162,3 +162,7 @@ span.oi {
 div.modal-header {
     cursor: move;
 }
+
+button.btn {
+    white-space: normal;
+}

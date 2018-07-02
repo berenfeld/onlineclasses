@@ -553,7 +553,7 @@
                         <div class="card my-2">
                             <div class="card-body">
                                 <div class="row no-gutters">      
-                                    <div class="col-3 col-xl-2 px-0 mx-0 my-0 text-center">
+                                    <div class="col-3 col-xl-2 px-1 mx-0 my-0 text-center">
                                         <img src="<%= teacher.image_url%>" class="w-100 mx-auto border border-info img-responsive rounded mx-1 my-1"/>
                                         <h6>
                                             <a href="teacher_homepage?id=<%= teacher.id %>">
@@ -584,7 +584,7 @@
                                         </h6>
                                     </div>
 
-                                    <div class="media-body col-9 col-xl-10 mx-1 px-1">
+                                    <div class="media-body col-9 col-xl-10 mx-0 px-1">
                                         <div class="card">                                            
                                             <div class="card-header h5">
                                                 <cite>
