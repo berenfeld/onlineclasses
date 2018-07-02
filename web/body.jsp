@@ -49,7 +49,7 @@
                         <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="abous_us">
+                        <a class="dropdown-item" href="about_us">
                             <%= Labels.get("navbar.about.us.who.we.are")%>
                         </a>
                         <a class="dropdown-item <%= com_visibleToAdminClass%>" href="javascript:invite_student()">

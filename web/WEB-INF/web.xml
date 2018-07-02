@@ -61,6 +61,10 @@
         <servlet-name>student_update</servlet-name>
         <jsp-file>/student_update.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>about_us</servlet-name>
+        <jsp-file>/about_us.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>start_teaching</servlet-name>
         <url-pattern>/start_teaching</url-pattern>
@@ -108,6 +112,10 @@
     <servlet-mapping>
         <servlet-name>student_update</servlet-name>
         <url-pattern>/student_update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>about_us</servlet-name>
+        <url-pattern>/about_us</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
