@@ -542,6 +542,7 @@ function teacher_update_init()
     $("#teacher_update_show_email").prop("checked", teacher.show_email);
     $("#teacher_update_show_skype").prop("checked", teacher.show_skype);
     $("#teacher_update_show_phone").prop("checked", teacher.show_phone);
+    $("#teacher_update_paypal_email_input").val(teacher.paypal_email);
     $("#teacher_update_price_per_hour_input").val(teacher.price_per_hour);
     $("#teacher_update_min_class_length").val(teacher.min_class_length);
     $("#teacher_update_max_class_length").val(teacher.max_class_length);
@@ -656,7 +657,6 @@ function teacher_update_init()
     $("select.teacher_update_institute_select").on("change", teacher_update_select_institute);
     $("#teacher_update_institute_type_select").on("change", teacher_update_select_institute_type);
     $("#teacher_update_subject_select").on("change", teacher_update_select_subject);
-    $("#teacher_update_topic_list button.list-group-item").on("click", teacher_update_choose_topic);
     $("td.teacher_update_calendar_time").on("click", teacher_update_select_time);
     $("input.teacher_update_required").on("change", teacher_update_check_tabs);
     $("select.teacher_update_required").on("change", teacher_update_check_tabs);

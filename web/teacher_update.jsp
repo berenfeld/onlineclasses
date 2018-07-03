@@ -171,8 +171,9 @@
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <input type="email" class="form-control" id="teacher_update_email_input" 
-                                               placeholder="<%= Labels.get("teacher_update.form.login.email")%>" disabled>
+                                        <input type="email" class="form-control" id="teacher_update_email_input"
+                                               disabled tabindex="-1"
+                                               placeholder="<%= Labels.get("teacher_update.form.login.email")%>">
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
@@ -186,7 +187,8 @@
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <input type="text" class="form-control" id="teacher_update_display_name_input" 
-                                               placeholder="<%= Labels.get("teacher_update.form.login.display_name")%>" disabled>
+                                               disabled tabindex="-1"
+                                               placeholder="<%= Labels.get("teacher_update.form.login.display_name")%>">
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
@@ -197,7 +199,8 @@
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <input type="text" class="form-control" id="teacher_update_first_name_input"
-                                               placeholder="<%= Labels.get("teacher_update.form.login.first_name")%>" disabled>
+                                               disabled tabindex="-1"
+                                               placeholder="<%= Labels.get("teacher_update.form.login.first_name")%>">
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
@@ -208,7 +211,8 @@
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <input type="text" class="form-control" id="teacher_update_last_name_input" 
-                                               placeholder="<%= Labels.get("teacher_update.form.login.last_name")%>" disabled>
+                                               disabled tabindex="-1"
+                                               placeholder="<%= Labels.get("teacher_update.form.login.last_name")%>">
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
@@ -294,7 +298,8 @@
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <input type="text" class="form-control" id="teacher_update_day_of_birth_input"
-                                               name="teacher_update_day_of_birth_input" disabled
+                                               name="teacher_update_day_of_birth_input"
+                                               disabled tabindex="-1"
                                                placeholder="<%= Labels.get("teacher_update.form.login.day_of_birth")%>">
                                     </div>
 
@@ -370,9 +375,10 @@
                                                       target="teacher_update_post_hidden_iframe">
                                                     <input type="hidden" id="teacher_update_image_id" name="image_id">
 
-                                                    <div id="teacher_update_img_upload_button_wrapper" class="w-100">                                                         
+                                                    <div class="common_relative_container w-100">                                                         
                                                         <input type="file" name="img_upload_input"
                                                                id="img_upload_input"
+                                                               tabindex="-1" class="file_chooser_hidden"
                                                                onchange="teacher_update_img_upload()">  
                                                         <button type="button" class="btn btn-success btn-block">
                                                             <%= Labels.get("teacher_update.form.personal_information.upload_from_file")%>
@@ -745,8 +751,8 @@
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <input type="email" class="form-control teacher_update_required teacher_update_required_filled" id="teacher_update_paypal_email_input" 
-                                               name="teacher_update_paypal_email_input" disabled
+                                        <input type="email" class="form-control" id="teacher_update_paypal_email_input" 
+                                               name="teacher_update_paypal_email_input" disabled tabindex="-1"
                                                placeholder="<%= Labels.get("teacher_update.form.paypal_email.placeholder")%>">
                                     </div>
 

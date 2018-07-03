@@ -403,9 +403,10 @@
                                                       target="start_teaching_post_hidden_iframe">
                                                     <input type="hidden" id="start_teaching_image_id" name="image_id">
 
-                                                    <div id="start_teaching_img_upload_button_wrapper" class="w-100">                                                         
+                                                    <div class="common_relative_container w-100">                                                            
                                                         <input type="file" name="img_upload_input" tabindex="-1"
                                                                id="img_upload_input"
+                                                               tabindex="-1" class="file_chooser_hidden"
                                                                onchange="start_teaching_img_upload()">  
                                                         <button type="button" class="btn btn-success btn-block">
                                                             <%= Labels.get("start_teaching.form.personal_information.upload_from_file")%>
