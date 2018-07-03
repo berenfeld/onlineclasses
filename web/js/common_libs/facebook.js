@@ -23,6 +23,7 @@ function facebook_signOut()
     if (facebook.auth !== null) {
         FB.logout(facebook_logoutResponse);
     }
+    facebook.user = null;
 }
 
 function facebook_loginResponse(response)
@@ -52,6 +53,7 @@ function facebook_clearUserLoggedinCallback(userLoggedInCallback)
 
 function facebook_getPersonalInformation(response)
 {   
+    console.log(response);
     var facebookUser = {};
     facebookUser.name = response.name;
     facebookUser.first_name = response.first_name;
@@ -59,7 +61,9 @@ function facebook_getPersonalInformation(response)
     facebookUser.gender = response.gender;
     facebookUser.email = response.email;
     facebookUser.facebook_access_token = facebook.accessToken;
-    facebookUser.facebook_id_token = null;
+    facebookUser.facebook_id_token = null;    
+    facebookUser.image_url = oc.cconfig["facebook.graph_api_url"] + "/v" +
+            oc.cconfig["facebook.graph_api_version"] + "/" + facebook.uid + "/picture?type=square";
     facebook.user = facebookUser;
     
     if (! login_isLoggedIn())
@@ -115,7 +119,7 @@ function facebook_load()
             status: true,
             version: 'v2.12'
         });     
-        FB.getLoginStatus(facebook_gotLoginStatus);
+        FB.getLoginStatus(facebook_gotLoginStatus, true);
         facebook.init_done = true;        
         $("div.facebook_login_button_placeholder").addClass("d-none");
         $("div.facebook_login_button").removeClass("d-none");

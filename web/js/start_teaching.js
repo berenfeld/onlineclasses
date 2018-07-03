@@ -9,8 +9,7 @@ function start_teaching_userLoggedInCallback(user)
     facebook_clearUserLoggedinCallback();
     start_teaching.google_id_token = user.google_id_token;
     start_teaching.facebook_access_token = user.facebook_access_token;
-    start_teaching.social_image_url = user.image_url;
-    start_teaching.image_url = user.image_url;
+    start_teaching.social_image_url = user.image_url;    
 
     $("#start_teaching_email_input").val(user.email);
     $("#start_teaching_display_name_input").val(user.name);

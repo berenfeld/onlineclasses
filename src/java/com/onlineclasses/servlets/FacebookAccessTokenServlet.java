@@ -5,6 +5,8 @@ package com.onlineclasses.servlets;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
 import com.onlineclasses.entities.FacebookUser;
@@ -13,6 +15,7 @@ import com.onlineclasses.utils.CConfig;
 import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.Utils;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
@@ -39,9 +42,8 @@ public class FacebookAccessTokenServlet extends BaseServlet {
 
     public static FacebookUser getFacebookUser(String accessToken) {
         try {
-
-            String facebookGraphURL = Config.get("facebook.graph_api_url");
-            String url = facebookGraphURL + "/me?access_token=" + accessToken + "&fields=" + CConfig.get("facebook.fields");
+            String facebookGraphURL = CConfig.get("facebook.graph_api_url");
+            String url = facebookGraphURL + "/v" + CConfig.get("facebook.graph_api_version") + "/me?access_token=" + accessToken + "&fields=" + CConfig.get("facebook.fields");
             Utils.info("getting from facebook url " + url);
             URL u = new URL(url);
             URLConnection c = u.openConnection();
@@ -56,14 +58,16 @@ public class FacebookAccessTokenServlet extends BaseServlet {
             facebookUser.last_name = profile.last_name;
             facebookUser.email = profile.email;
             facebookUser.facebook_id = profile.id;
-            facebookUser.image_url = "http://graph.facebook.com/" + profile.id + "/picture?type=square";
+            facebookUser.image_url = CConfig.get("facebook.graph_api_url" ) +
+                    "/v" + CConfig.get("facebook.graph_api_version") + "/" +
+                    profile.id + "/picture?type=square";
 
-            if (Config.getBool("facebook.debug_fake_emails")) {
+            if (Config.getBool("facebook.debug_fake_emails") && (Utils.isEmpty(facebookUser.email)))  {
                 facebookUser.email = "facebook_user_" + facebookUser.facebook_id + "@gmail.com";
             }
 
             return facebookUser;
-        } catch (Exception e) {
+        } catch (JsonIOException | JsonSyntaxException | IOException e) {
             Utils.exception(e);
         }
         return null;
@@ -90,7 +94,7 @@ public class FacebookAccessTokenServlet extends BaseServlet {
         }
 
         DB.add(facebookUser);
-        Utils.info("welcome facebook user " + facebookUser);
+        Utils.info("welcome facebook user " + facebookUser + " details " + Utils.gson().toJson(facebookUser));
 
         return new BasicResponse(0, "");
     }
