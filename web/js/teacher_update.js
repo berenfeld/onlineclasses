@@ -115,20 +115,6 @@ function teacher_update_form_validation(request)
         return false;
     }
 
-    if (stringEmpty(request.paypal_email)) {
-        alert_show(oc.clabels[ "teacher_update.form.submit.fill_paypal_email"]);
-        $("#teacher_update_paypal_email").addClass("border border-warning");
-        teacher_update_goto_tab("prices");
-        return false;
-    }
-
-    if (!emailIsValid(request.paypal_email)) {
-        alert_show(oc.clabels[ "teacher_update.form.submit.illegal_paypal_email"]);
-        $("#teacher_update_paypal_email").addClass("border border-warning");
-        teacher_update_goto_tab("prices");
-        return false;
-    }
-
     if (request.price_per_hour === 0) {
         alert_show(oc.clabels[ "teacher_update.form.submit.fill_price_per_hour"]);
         $("#teacher_update_price_per_hour").addClass("border border-warning");
@@ -165,7 +151,6 @@ function teacher_update_form_submit()
     request.show_degree = $('#teacher_update_show_degree').prop("checked");
     request.degree_type = $("#teacher_update_degree_type_select").val();
     request.price_per_hour = parseInt10($("#teacher_update_price_per_hour_input").val());
-    request.paypal_email = $("#teacher_update_paypal_email_input").val();
     request.available_times = teacher_update.calendar.available_times;
     request.city_id = parseInt10($("#teacher_update_city_select").val());
     request.feedback = $("#teacher_update_feedback_input").val();
@@ -516,13 +501,6 @@ function teacher_update_check_tabs()
 
     var pass_to_teaching_hours = true;
 
-    request.paypal_email = $("#teacher_update_paypal_email_input").val();
-    if (!emailIsValid(request.paypal_email)) {
-        pass_to_teaching_hours = false;
-    } else {
-        $("#teacher_update_paypal_email_input").addClass("teacher_update_required_filled");
-    }
-
     request.price_per_hour = parseInt10($("#teacher_update_price_per_hour_input").val());
     if (request.price_per_hour === 0) {
         pass_to_teaching_hours = false;
@@ -564,7 +542,6 @@ function teacher_update_init()
     $("#teacher_update_show_email").prop("checked", teacher.show_email);
     $("#teacher_update_show_skype").prop("checked", teacher.show_skype);
     $("#teacher_update_show_phone").prop("checked", teacher.show_phone);
-    $("#teacher_update_paypal_email_input").val(teacher.paypal_email);
     $("#teacher_update_price_per_hour_input").val(teacher.price_per_hour);
     $("#teacher_update_min_class_length").val(teacher.min_class_length);
     $("#teacher_update_max_class_length").val(teacher.max_class_length);
@@ -673,7 +650,7 @@ function teacher_update_init()
     $("#teacher_update_prices_link").on("shown.bs.tab",
             function (event)
             {
-                $("#teacher_update_paypal_email_input").focus();
+                $("#teacher_update_price_per_hour_input").focus();
             });
     $("#teacher_update_calendar_table td").disableSelection();
     $("select.teacher_update_institute_select").on("change", teacher_update_select_institute);

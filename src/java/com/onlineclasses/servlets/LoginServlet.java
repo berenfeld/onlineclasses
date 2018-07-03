@@ -45,7 +45,7 @@ public class LoginServlet extends BaseServlet {
     }
 
     private BasicResponse loginWithFacebook(LoginRequest loginRequest, HttpServletRequest request) throws Exception {
-        FacebookUser facebookUser = FacebookAccessTokenServlet.getFacebookUser(loginRequest.facebook_access_token);
+        FacebookUser facebookUser = FacebookAccessTokenServlet.userFromFacebookAccessToken(loginRequest.facebook_access_token);
         if (facebookUser == null) {
             Utils.warning("failed to get user from facebook access token");
             return new BasicResponse(-1, Labels.get("login.request.user_not_found"));

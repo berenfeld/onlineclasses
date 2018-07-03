@@ -404,7 +404,7 @@
                                                     <input type="hidden" id="start_teaching_image_id" name="image_id">
 
                                                     <div id="start_teaching_img_upload_button_wrapper" class="w-100">                                                         
-                                                        <input type="file" name="img_upload_input"
+                                                        <input type="file" name="img_upload_input" tabindex="-1"
                                                                id="img_upload_input"
                                                                onchange="start_teaching_img_upload()">  
                                                         <button type="button" class="btn btn-success btn-block">

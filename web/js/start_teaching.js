@@ -10,6 +10,7 @@ function start_teaching_userLoggedInCallback(user)
     start_teaching.google_id_token = user.google_id_token;
     start_teaching.facebook_access_token = user.facebook_access_token;
     start_teaching.social_image_url = user.image_url;    
+    start_teaching.image_url = user.image_url;    
 
     $("#start_teaching_email_input").val(user.email);
     $("#start_teaching_display_name_input").val(user.name);
@@ -225,8 +226,8 @@ function start_teaching_form_submit()
     request.available_times = start_teaching.calendar.available_times;
     request.city_id = parseInt10($("#start_teaching_city_select").val());
     request.feedback = $("#start_teaching_feedback_input").val();
-    request.min_class_length = parseInt10($("start_teaching_min_class_length").val());
-    request.max_class_length = parseInt10($("start_teaching_max_class_length").val());
+    request.min_class_length = parseInt10($("#start_teaching_min_class_length").val());
+    request.max_class_length = parseInt10($("#start_teaching_max_class_length").val());
     request.teaching_topics = [];
     $("#start_teaching_topic_list button.list-group-item").each(
             function () {

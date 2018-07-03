@@ -746,7 +746,7 @@
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
                                         <input type="email" class="form-control teacher_update_required teacher_update_required_filled" id="teacher_update_paypal_email_input" 
-                                               name="teacher_update_paypal_email_input"
+                                               name="teacher_update_paypal_email_input" disabled
                                                placeholder="<%= Labels.get("teacher_update.form.paypal_email.placeholder")%>">
                                     </div>
 

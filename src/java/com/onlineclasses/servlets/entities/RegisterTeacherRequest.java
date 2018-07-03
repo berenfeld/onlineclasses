@@ -19,6 +19,7 @@ public class RegisterTeacherRequest extends BasicRequest {
     public RegisterTeacherRequest() {
     }
     public String google_id_token;
+    public String facebook_access_token;
     public String email;
     public String first_name;
     public String last_name;

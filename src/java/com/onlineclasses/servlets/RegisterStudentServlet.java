@@ -48,7 +48,7 @@ public class RegisterStudentServlet extends BaseServlet {
             email = googleUser.email;
             image_url = googleUser.image_url;
         } else if (Utils.isNotEmpty(registerStudentRequest.facebook_access_token)) {
-            FacebookUser facebookUser = FacebookAccessTokenServlet.getFacebookUser(registerStudentRequest.facebook_access_token);
+            FacebookUser facebookUser = FacebookAccessTokenServlet.userFromFacebookAccessToken(registerStudentRequest.facebook_access_token);
             if (facebookUser == null) {
                 Utils.warning("failed to get user from facebook access token");
                 return new BasicResponse(-1, "user was not found");

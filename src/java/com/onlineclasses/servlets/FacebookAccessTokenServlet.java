@@ -40,7 +40,7 @@ public class FacebookAccessTokenServlet extends BaseServlet {
         }
     }
 
-    public static FacebookUser getFacebookUser(String accessToken) {
+    public static FacebookUser userFromFacebookAccessToken(String accessToken) {
         try {
             String facebookGraphURL = CConfig.get("facebook.graph_api_url");
             String url = facebookGraphURL + "/v" + CConfig.get("facebook.graph_api_version") + "/me?access_token=" + accessToken + "&fields=" + CConfig.get("facebook.fields");
@@ -81,7 +81,7 @@ public class FacebookAccessTokenServlet extends BaseServlet {
         FacebookAccessTokenRequest facebookAccessTokenRequest = Utils.gson().fromJson(requestString, FacebookAccessTokenRequest.class);
 
         String accessToken = facebookAccessTokenRequest.facebook_access_token;
-        FacebookUser facebookUser = getFacebookUser(accessToken);
+        FacebookUser facebookUser = userFromFacebookAccessToken(accessToken);
 
         if (facebookUser == null) {
             Utils.warning("failed to get facebook profile from access token");
