@@ -51,6 +51,7 @@ function oclass_update_chosen_file()
     filename = filename.replace(/.*[\/\\]/, '');
     $("#oclass_attach_file_chosen_file_name").html(filename);
     oclass.file_name = filename;
+    enableButtons($("#oclass_attach_file_submit_button")); 
 }
 
 function oclass_check_file_status_response(response)
@@ -69,9 +70,9 @@ function oclass_check_file_status_response(response)
             " " +
             response.file_size);
     if (response.uploaded === response.file_size) {
-        $("#oclass_attach_file_info_text").html( oc.clabels["oclass.attach_file.file_upload_done"] );
-        enableButtons($("#oclass_attach_file_submit_button"));
+        $("#oclass_attach_file_info_text").html( oc.clabels["oclass.attach_file.file_upload_done"] );        
         reloadAfter(2);
+        enableButtons($("#oclass_attach_file_submit_button"));
         return;
     }
     setTimeout(oclass_check_file_status, 1000);

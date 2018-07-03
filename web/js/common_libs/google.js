@@ -129,5 +129,3 @@ function google_load_finished()
     google.auth2 = gapi.auth2.getAuthInstance();
     google.auth2.isSignedIn.listen(google_signInChanged);    
 }
-
-google_init();

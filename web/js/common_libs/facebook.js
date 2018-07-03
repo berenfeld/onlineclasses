@@ -165,5 +165,3 @@ function facebook_init()
     facebook.userLoggedInCallback = null;
     facebook_load();
 }
-
-facebook_init();

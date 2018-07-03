@@ -133,5 +133,3 @@ function login_init()
 {
     login.user = oc.user;
 }
-
-$(document).ready(login_init);

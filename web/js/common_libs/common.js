@@ -390,4 +390,13 @@ function common_init()
     window.onerror = common_js_error;
 }
 
-$(document).ready(common_init);
+function online_classes_init()
+{
+    common_init();
+    confirm_init();
+    alert_modal_init();
+    progress_modal_init();
+    login_init();
+    facebook_init();
+    google_init();
+}

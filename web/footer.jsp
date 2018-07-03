@@ -66,7 +66,7 @@
 <script>
     var oc = {};
     oc.user = <%= userGson%>;
-    oc.is_teacher = <%= foo_user instanceof Teacher %>;
+    oc.is_teacher = <%= foo_user instanceof Teacher%>;
     oc.clabels = <%= Utils.gson().toJson(CLabels.getAll())%>;
     oc.cconfig = <%= Utils.gson().toJson(CConfig.getAll())%>;
     oc.parameters = <%= parametersJson%>;
@@ -78,4 +78,7 @@
 <script src="https://apis.google.com/js/platform.js?onload=google_loaded" async defer></script>
 <script src="js/lib/md5.js"></script>
 <script src="js/common_libs/online_classes.js"></script>
-<script src="js/<%= foo_pageName %>.js"></script>
+<script>
+    online_classes_init();
+</script>
+<script src="js/<%= foo_pageName%>.js"></script>

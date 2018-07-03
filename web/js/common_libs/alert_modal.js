@@ -23,3 +23,8 @@ function alert_show(title, message, ok_cb, cancel_cb)
     $("#alert_modal_text1").html(message);
     $("#alert_modal").modal('show');
 }
+
+function alert_modal_init()
+{
+    
+}

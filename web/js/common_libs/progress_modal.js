@@ -32,3 +32,8 @@ function progress_modal_show(title, message, percent)
     $("#progress_modal_percent").html(percent);
 
 }
+
+function progress_modal_init()
+{
+    
+}

@@ -119,6 +119,8 @@ div.common_relative_container {
     position: relative;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    display: inline-block;
 }
 
 img.common_low_opacity {
@@ -131,6 +133,14 @@ div.common_absolute_centered {
     top:50%; 
     left: 50%; 
     transform: translate(-50%, -50%);    
+}
+
+input.file_chooser_hidden {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }
 
 .table_cell {

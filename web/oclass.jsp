@@ -132,13 +132,15 @@
                         <div class="modal-body">
                             <input type="hidden" name="oclass_id" value="<%= oClass.id%>">
                             <div class="form-group row">                                 
-                                <div id="oclass_attach_file_button_wrapper" class="col-4">                                
-                                    <input type="file" name="oclass_attach_file_input"
-                                           id="oclass_attach_file_input"                                           
+                                <div class="col-4">                                
+                                    <div class="common_relative_container" id="oclass_attach_file_button_wrapper">
+                                    <input type="file" name="oclass_attach_file_input" tabindex="-1"
+                                           id="oclass_attach_file_input" class="file_chooser_hidden"
                                            onchange="oclass_update_chosen_file()">  
                                     <button class="btn btn-info">
                                         <%= Labels.get("oclass.attach_file_modal.choose_file")%>
                                     </button>
+                                    </div>
                                 </div>
                                 <div class="col-8">     
                                     <label type="text" for="oclass_attach_file_input"                                           
@@ -167,8 +169,8 @@
                             <span id="oclass_attach_file_info_text"></span>
                         </div>
                         <div class="modal-footer">
-                            <input type="submit" id="oclass_attach_file_submit_button"
-                                   class="btn btn-success mx-1" value="<%= Labels.get("buttons.ok")%>"/>
+                            <input type="submit" id="oclass_attach_file_submit_button" disabled
+                                   class="btn btn-success mx-1 disabled" value="<%= Labels.get("buttons.ok")%>"/>
                         </div>
                 </form>
             </div>

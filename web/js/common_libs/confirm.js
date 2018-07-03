@@ -24,3 +24,8 @@ function confirm_show(title, message, ok_cb, cancel_cb)
     $("#confirm_modal_message").text(message);
     $("#confirm_modal").modal('show');
 }
+
+function confirm_init()
+{
+    
+}
