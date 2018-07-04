@@ -71,8 +71,7 @@ public class TeacherImageUploadServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         try {
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
+            User user = BaseServlet.getUser(request);
 
             String imageId = request.getParameter("image_id");
             Part filePart = request.getPart("img_upload_input");

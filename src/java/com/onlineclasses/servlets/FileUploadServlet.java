@@ -57,8 +57,7 @@ public class FileUploadServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         AttachedFile attachedFile;
         try {
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
+            User user = BaseServlet.getUser(request);
 
             int oClassId = Utils.parseInt(request.getParameter("oclass_id"));
             String comment = request.getParameter("oclass_attach_file_comment");

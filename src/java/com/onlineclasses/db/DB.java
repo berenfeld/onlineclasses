@@ -99,7 +99,6 @@ public class DB {
 
     public static void init() {
         try {
-            Context initialContext = new InitialContext();
             String dbUser = Config.get("db.username");
             String dbPassword = Config.get("db.password");
             String dbName = Config.get("db.name");
@@ -107,7 +106,7 @@ public class DB {
                     + "?useUnicode=true"
                     + "&characterEncoding=utf-8"
                     + "&useSSL=false";
-            Utils.info("DB URL is '" + dbUrl + "'");
+            Utils.info("DB URL is '" + dbUrl + "'");            
             initDBCP(dbUrl, dbUser, dbPassword);
             initORM(dbUrl, dbUser, dbPassword);
             if (Config.getBool("db.create")) {

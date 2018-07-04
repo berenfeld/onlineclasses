@@ -7,6 +7,7 @@ package com.onlineclasses.servlets;
  */
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
+import com.onlineclasses.entities.SessionData;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
@@ -17,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -68,35 +70,67 @@ public abstract class BaseServlet extends HttpServlet {
 
     public static User loginUser(HttpServletRequest request, User user) throws Exception {
         HttpSession session = request.getSession();
-        session.setAttribute(Config.get("website.session.variable.name"), user);
+        SessionData sessionData = new SessionData();
+        sessionData.user_id = user.id;
+        sessionData.is_teacher = user.isTeacher();
+        session.setAttribute(Config.get("website.session.variable.name"), sessionData);
 
         Utils.info("user " + user.display_name + " logged in session " + session);
         return user;
     }
 
-    public static void logoutUser(HttpServletRequest request) throws Exception {
+    public static void logoutUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.removeAttribute(Config.get("website.session.variable.name"));
     }
 
     public static User getUser(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
-        return user;
+        return getUser(request.getSession());
+    }
+    
+    public static SessionData getSessionData(HttpServletRequest request) {
+        return getSessionData(request.getSession());
+    }
+            
+    public static SessionData getSessionData(HttpSession session) {
+        return (SessionData) session.getAttribute(Config.get("website.session.variable.name"));
+    }
+            
+    public static User getUser(HttpSession session) {
+        SessionData sessionData = getSessionData(session);
+        if (sessionData == null ) {
+            return null;
+        }
+        try {
+            if (sessionData.is_teacher) {
+                return DB.getTeacher(sessionData.user_id);
+            } else {
+                return DB.getStudent(sessionData.user_id);
+            }
+        } catch (Exception ex ) {
+            Utils.exception(ex);
+            return null;
+        }
     }
 
-    public static boolean isLoggedIn(HttpServletRequest request) {
+    public static boolean isLoggedIn(HttpServletRequest request){
         return getUser(request) != null;
     }
 
-    public static boolean isStudent(HttpServletRequest request) {
-        User user = getUser(request);
-        return (user != null) && (user instanceof Student);
+    public static boolean isTeacher(HttpServletRequest request) {
+        SessionData sessionData = getSessionData(request);
+        if (sessionData == null ) {
+            return false;
+        }
+        return sessionData.is_teacher;
     }
 
-    public static boolean isTeacher(HttpServletRequest request) {
-        User user = getUser(request);
-        return (user != null) && (user instanceof Teacher);
+    public static boolean isStudent(HttpServletRequest request) {
+        SessionData sessionData = getSessionData(request);
+        if (sessionData == null ) {
+            return false;
+        }
+        return ! sessionData.is_teacher;
     }
 
     public static boolean isAdmin(HttpServletRequest request) {
@@ -106,7 +140,7 @@ public abstract class BaseServlet extends HttpServlet {
 
     public static User handleLoginInRequest(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
+        User user = getUser(session);
         if (user == null) {
             Utils.debug("no user in session " + session);
             Cookie cookie = findCookieFromUser(request);
@@ -145,7 +179,7 @@ public abstract class BaseServlet extends HttpServlet {
 
     public static void handleLoginInResponse(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(Config.get("website.session.variable.name"));
+        User user = getUser(session);
 
         String cookieName = Config.get("website.cookie.name");
         Cookie cookie = new Cookie(cookieName, "");
