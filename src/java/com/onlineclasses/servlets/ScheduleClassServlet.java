@@ -16,6 +16,7 @@ import com.onlineclasses.entities.User;
 import com.onlineclasses.servlets.entities.ScheduleClassRequest;
 import com.onlineclasses.servlets.entities.ScheduleClassResponse;
 import com.onlineclasses.utils.CConfig;
+import com.onlineclasses.utils.CLabels;
 import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.EmailSender;
 import com.onlineclasses.utils.Labels;
@@ -42,12 +43,12 @@ public class ScheduleClassServlet extends BaseServlet {
         User user = BaseServlet.getUser(request);
         if (user == null) {
             Utils.warning("not logged in user can't schedule class");
-            return new BasicResponse(-1, "can't schedule class");
+            return new BasicResponse(-1, CLabels.get("schedule_class.failed_to_schedule_class_alert.not_logged_in"));
         }
 
-        if (!(user instanceof Student)) {
+        if (!(user.isStudent())) {
             Utils.warning("teacher can't schedule class");
-            return new BasicResponse(-1, "teacher can't schedule class");
+            return new BasicResponse(-1, CLabels.get("schedule_class.failed_to_schedule_class_alert.teacher_cant_schedule_class"));
         }
 
         Student student = (Student) user;
@@ -56,12 +57,7 @@ public class ScheduleClassServlet extends BaseServlet {
         Teacher teacher = DB.getTeacher(scheduleClassRequest.teacher_id);
         if (teacher == null) {
             Utils.warning("student " + student.display_name + " schedule with unknown teacher");
-            return new BasicResponse(-1, "can't schedule class");
-        }
-
-        if (student.email.equals(teacher.email)) {
-            Utils.warning("student " + student.display_name + " can't schedule with himself");
-            return new BasicResponse(-1, "can't schedule class");
+            return new BasicResponse(-1, CLabels.get("schedule_class.failed_to_schedule_class_alert.teacher_not_found"));
         }
 
         Calendar now = Calendar.getInstance();
@@ -76,18 +72,19 @@ public class ScheduleClassServlet extends BaseServlet {
         if (scheduleClassRequest.duration_minutes < teacher.min_class_length) {
             Utils.warning("student " + student.display_name + " can't schedule class with " + teacher.display_name
                     + " class duration " + scheduleClassRequest.duration_minutes + " too short");
-            return new BasicResponse(-1, "can't schedule class");
+            return new BasicResponse(-1, CLabels.get("schedule_class.failed_to_schedule_class_alert.duration_too_short"));
+
         }
         if (scheduleClassRequest.duration_minutes > teacher.max_class_length) {
             Utils.warning("student " + student.display_name + " can't schedule class with " + teacher.display_name
                     + " class duration " + scheduleClassRequest.duration_minutes + " too long");
-            return new BasicResponse(-1, "can't schedule class");
+            return new BasicResponse(-1, CLabels.get("schedule_class.failed_to_schedule_class_alert.duration_too_long"));
         }
 
         if ((classStart.getTimeInMillis() - now.getTimeInMillis()) < (minTimeBeforeScheduleClassStartHours * Utils.MS_IN_HOUR)) {
             Utils.warning("student " + student.display_name + " can't schedule class with " + teacher.display_name
                     + " at " + scheduleClassRequest.start_date + " too late.");
-            return new BasicResponse(-1, "can't schedule class");
+            return new BasicResponse(-1, "schedule_class.failed_to_schedule_class_alert.too_late");
         }
 
         if (!checkClassInAvailableTime(scheduleClassRequest, teacher)) {

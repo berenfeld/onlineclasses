@@ -68,46 +68,6 @@
     <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
         <%@include file="body.jsp" %>   
 
-        <div id="schedule_class_not_logged_in_modal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-md">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" aria-label="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-
-                        <div class="modal-title"> 
-                            <h5 class="text-warning">
-                                <span  id="schedule_class_not_logged_in_title">
-                                    <%= Labels.get("website.schedule_class.not_logged_in.title")%>                        
-                                </span>
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <h4>
-                            <%= Labels.get("website.schedule_class.not_logged_in.text1")%>
-                        </h4>
-                        <h4>
-                            <a href='javascript:schedule_class_login()'>
-                                <%= Labels.get("website.schedule_class.not_logged_in.login")%>
-                            </a>
-                            <%= Labels.get("website.schedule_class.not_logged_in.text2")%>
-                            <a href="start_learning">
-                                <%= Labels.get("website.schedule_class.not_logged_in.start_learning")%>
-                            </a>
-                            <%= Labels.get("website.schedule_class.not_logged_in.text3")%>
-                        </h4>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal"><%= Labels.get("buttons.ok")%></button>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
         <div id="schedule_class_modal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -206,31 +166,26 @@
                                         </div>    
 
                                         <div class="col-9 my-1">
-                                            <button class="btn btn-info btn-block dropdown-toggle" 
-                                                    id="schedule_class_duration_input"
-                                                    name="schedule_class_duration_input" data-toggle="dropdown">
-                                                <span class="caret"></span>
-                                                <span id="schedule_class_duration">
-                                                    <%= Labels.get("oclass.modal.duration.select")%>
-                                                </span>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right">
+                                            <select class="custom-select form-control" 
+                                                    id="find_teachers_duration_select">
+                                                <option id="find_teachers_duration_option_choose" value="0" selected disabled>
+                                                    <%= Labels.get("oclass.modal.duration.choose")%>
+                                                </option>
                                                 <%
-                                                    int maximumLessonLength = CConfig.getInt("website.time.max_lesson_length_minutes");
+                                                    int maximumLessonLength = CConfig.getInt("website.time.max_class_length_minutes");
                                                     int lessonLength = minuteStep;
                                                     while (lessonLength <= maximumLessonLength) {
                                                         String lessonMinutes = String.format("%02d", lessonLength) + " " + CLabels.get("language.minutes");
                                                 %>
-                                                <li>
-                                                    <a class="dropdown-item" href="javascript:schedule_class_select_duration('<%= lessonMinutes%>')">
-                                                        <%= lessonMinutes%> 
-                                                    </a>
-                                                </li>
+                                                <option id="find_teachers_duration_option_<%= lessonLength %>" value="<%= lessonLength%>">
+                                                    <%= lessonMinutes%>
+                                                </option>
+
                                                 <%
                                                         lessonLength += minuteStep;
                                                     }
-                                                %>
-                                            </div>
+                                                %>   
+                                            </select>
                                         </div>                                 
 
                                         <div class="col-3 my-1">
@@ -556,8 +511,8 @@
                                     <div class="col-3 col-xl-2 px-1 mx-0 my-0 text-center">
                                         <img src="<%= teacher.image_url%>" class="w-100 mx-auto border border-info img-responsive rounded mx-1 my-1"/>
                                         <h6>
-                                            <a href="teacher_homepage?id=<%= teacher.id %>">
-                                            <%= teacher.display_name%>
+                                            <a href="teacher_homepage?id=<%= teacher.id%>">
+                                                <%= teacher.display_name%>
                                             </a>
                                         </h6>
                                         <h6>

@@ -24,5 +24,4 @@ public class TeacherCalendarResponse extends BasicResponse {
     public Teacher teacher;
     public List<AvailableTime> available_times;
     public List<OClass> oclasses;
-
 }
