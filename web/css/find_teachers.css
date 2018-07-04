@@ -2,7 +2,7 @@ th.schedule_class_calendar, td.schedule_class_calendar  {
     text-align:center;
     vertical-align: middle;
     cursor: pointer;
-    height:12px;
+    height:14px;
 }
 
 td.calendar_today {

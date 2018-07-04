@@ -125,6 +125,15 @@ public class TestDB {
             DB.add(availableTime);
         }
 
+        availableTime = new AvailableTime();
+        availableTime.teacher = teacher;
+        availableTime.day = 6;
+        availableTime.start_hour = 14;
+        availableTime.start_minute = 30;
+        availableTime.end_hour = 16;
+        availableTime.end_minute = 30;
+        DB.add(availableTime);
+        
         Random random = new Random();
 
         for (int i = 0; i < 5; i++) {

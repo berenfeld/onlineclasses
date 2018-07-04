@@ -81,8 +81,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="row no-gutters">
-                            <div class="px-1 col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
-                                <form>
+                            <div class="px-1 col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                <form id="schedule_class_form">
                                     <div class="form-group row">
                                         <div class="col-3 my-1">
                                             <label for="start_schedule_class_day_input" class="col-form-label">
@@ -94,68 +94,47 @@
                                                    id="start_schedule_class_day_input" 
                                                    placeholder="<%= Labels.get("oclass.modal.day_placeholder")%>">
                                         </div>                                    
-
                                         <div class="col-3 my-1">
-                                            <label for="schedule_class_start_minute"  class="col-form-label">
+                                            <label for="schedule_class_start_minute_select"  class="col-form-label">
                                                 <%= Labels.get("oclass.modal.start_hour")%>
                                             </label>
                                         </div>
                                         <div class="row no-gutters col-9">
                                             <div class="input-group my-1 mx-0">
+                                                <select class="custom-select form-control" id="schedule_class_start_minute_select">
+                                                    <option value="-1">
+                                                        <%= Labels.get("oclass.modal.start_minute.choose")%>
+                                                    </option>
+                                                    <%
+                                                        int minute = 0;
+                                                        int minuteStep = CConfig.getInt("website.time.unit.minutes");
+                                                        while (minute < 60) {
+                                                    %>
+                                                    <option value="<%= minute%>">
+                                                        <%= String.format("%02d", minute)%>
+                                                    </option>                                                        
+                                                    <%
+                                                            minute += minuteStep;
+                                                        }
+                                                    %>
+                                                </select>
 
-                                                <div class="dropdown col-6 mx-0 px-0 pl-1">
-                                                    <button class="btn btn-info btn-block dropdown-toggle" 
-                                                            id="schedule_class_start_minute_button"
-                                                            name="schedule_class_start_minute"
-                                                            data-toggle="dropdown">
-                                                        <span class="caret"></span>
-                                                        <span id="schedule_class_start_minute">
-                                                            <%= Labels.get("oclass.modal.start_minute_choose")%>
-                                                        </span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <%
-                                                            int minute = 0;
-                                                            int minuteStep = CConfig.getInt("website.time.unit.minutes");
-                                                            while (minute < 60) {
-                                                        %>
-                                                        <li>
-                                                            <a class="dropdown-item" href="javascript:schedule_class_select_minute('<%= String.format("%02d", minute)%>')">
-                                                                <%= String.format("%02d", minute)%>
-                                                            </a>
-                                                        </li>
-                                                        <%
-                                                                minute += minuteStep;
-                                                            }
-                                                        %>
-                                                    </div>
-                                                </div>
-
-                                                <div class="dropdown col-6 mx-0 px-0">
-                                                    <button class="btn btn-info btn-block dropdown-toggle" 
-                                                            id="schedule_class_start_hour_button"
-                                                            name="schedule_class_start_hour_button" data-toggle="dropdown">
-                                                        <span class="caret"></span>
-                                                        <span id="schedule_class_start_hour">
-                                                            <%= Labels.get("oclass.modal.start_hour_choose")%>
-                                                        </span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <%
-                                                            hour = startHour;
-                                                            while (hour < endHour) {
-                                                        %>
-                                                        <li>
-                                                            <a class="dropdown-item" href="javascript:schedule_class_select_hour('<%= String.format("%02d", hour)%>')">
-                                                                <%= String.format("%02d", hour)%> 
-                                                            </a>
-                                                        </li>
-                                                        <%
-                                                                ++hour;
-                                                            }
-                                                        %>
-                                                    </div>
-                                                </div>
+                                                <select class="custom-select form-control" id="schedule_class_start_hour_select">
+                                                    <option value="-1">
+                                                        <%= Labels.get("oclass.modal.start_hour.choose")%>
+                                                    </option>
+                                                    <%
+                                                        hour = startHour;
+                                                        while (hour < endHour) {
+                                                    %>
+                                                    <option id="schedule_class_start_hour_option_<%= hour %>" class="schedule_class_start_hour_option" value="<%= hour%>">
+                                                        <%= String.format("%02d", hour)%>
+                                                    </option>                                                            
+                                                    <%
+                                                            ++hour;
+                                                        }
+                                                    %>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -177,7 +156,7 @@
                                                     while (lessonLength <= maximumLessonLength) {
                                                         String lessonMinutes = String.format("%02d", lessonLength) + " " + CLabels.get("language.minutes");
                                                 %>
-                                                <option id="find_teachers_duration_option_<%= lessonLength %>" value="<%= lessonLength%>">
+                                                <option id="find_teachers_duration_option_<%= lessonLength%>" value="<%= lessonLength%>">
                                                     <%= lessonMinutes%>
                                                 </option>
 
@@ -213,7 +192,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="px-1 col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 schedule_class_calendar_div">
+                            <div class="px-1 col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 schedule_class_calendar_div">
                                 <div class="column-centered text-center">
                                     <nav id="schedule_class_week_select" aria-label="Page navigation">
                                         <ul class="pagination justify-content-center">
@@ -269,7 +248,7 @@
                                                 String cellClass = "";
                                                 while (hour < endHour) {
                                             %>  
-                                            <tr>
+                                            <tr class="schedule_class_hour_row schedule_class_hour_row_<%= hour %>">
                                                 <%
                                                     if (rowCount == (rowsPerCell - 1)) {
                                                         cellClass = "schedule_class_row_end";
@@ -318,13 +297,14 @@
                         <div id="schedule_class_info_div" class="alert alert-info d-none fade show alert-dismissible h6">
                             <span class="oi" data-glyph="info"></span>    
                             <span id="schedule_class_info"></span>
-                        </div>
-                        <div class="modal-footer">                            
+                        </div>    
+                    </div>
+                        <div class="modal-footer mx-0">
+                            <div class="d-flex flex-row-reverse mx-0">
                             <button type="button" class="btn btn-info" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
                             <button type="button" class="btn btn-success mx-1" onclick="schedule_class_confirm()"><%= Labels.get("oclass.modal.confirm_button")%></button>
+                            </div>
                         </div>
-                    </div>
-
                 </div>
             </div>
         </div>    
