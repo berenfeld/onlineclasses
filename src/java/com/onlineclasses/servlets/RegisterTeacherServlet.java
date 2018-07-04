@@ -113,6 +113,9 @@ public class RegisterTeacherServlet extends BaseServlet {
         registeringTeacher.price_per_hour = registerTeacherRequest.price_per_hour;
         registeringTeacher.min_class_length = registerTeacherRequest.min_class_length;
         registeringTeacher.max_class_length = registerTeacherRequest.max_class_length;
+        if ( registeringTeacher.max_class_length < registeringTeacher.min_class_length) {
+            registeringTeacher.max_class_length = registeringTeacher.min_class_length;
+        }
 
         if (registeringTeacher.email.equals(Config.get("website.admin_email"))) {
             registeringTeacher.admin = true;

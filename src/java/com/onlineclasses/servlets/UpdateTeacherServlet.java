@@ -60,6 +60,9 @@ public class UpdateTeacherServlet extends BaseServlet {
         teacher.image_url = updateTeacherRequest.image_url;
         teacher.min_class_length = updateTeacherRequest.min_class_length;
         teacher.max_class_length = updateTeacherRequest.max_class_length;
+        if (teacher.max_class_length < teacher.min_class_length) {
+            teacher.max_class_length = teacher.min_class_length;
+        }
 
         teacher.institute = null;
         teacher.institute_name = null;
@@ -77,11 +80,11 @@ public class UpdateTeacherServlet extends BaseServlet {
         } else {
             teacher.subject_name = updateTeacherRequest.subject_name;
         }
-        
+
         if (updateTeacherRequest.city_id != 0) {
             teacher.city = DB.get(updateTeacherRequest.city_id, City.class);
         }
-        
+
         if (DB.update(teacher) != 1) {
             Utils.warning("Could not update teacher " + teacher.display_name);
             return new BasicResponse(-1, "user is already registered");
