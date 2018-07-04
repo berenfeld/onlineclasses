@@ -74,12 +74,20 @@ function login_showLoginModal()
     $("#login_modal").modal('show');
 }
 
-function logout_logoutRequestComplete(response)
+function login_hideLoginModal()
 {
     $("#login_modal").modal('hide');
-    google_signOut();
-    facebook_signOut();
-    location.reload();
+}
+
+function logout_logoutRequestComplete(response)
+{     
+    if (response.rc === 0 ) {
+        alert_show(oc.clabels[ "website.logout.complete.title" ],
+                oc.clabels[ "website.logout.complete.message" ]);
+        google_signOut();
+        facebook_signOut();
+        reloadAfter(2);
+    }
 }
 
 function login_logoutFromNavBar()
@@ -91,7 +99,6 @@ function login_logoutFromNavBar()
 
 function login_logoutFromNavBarConfirmed()
 {
-    login.reason = "navbar";
     $.ajax("servlets/logout",
             {
                 type: "POST",

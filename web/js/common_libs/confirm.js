@@ -25,6 +25,11 @@ function confirm_show(title, message, ok_cb, cancel_cb)
     $("#confirm_modal").modal('show');
 }
 
+function confirm_hide()
+{
+    $("#confirm_modal").modal('hide');
+}
+
 function confirm_init()
 {
     
