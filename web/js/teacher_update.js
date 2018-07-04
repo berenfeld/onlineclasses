@@ -432,6 +432,9 @@ function teacher_update_goto_tab(tab_name)
 
 function teacher_update_check_tabs()
 {
+    // disable submit buttons
+    disableButtons($("button.teacher_update_form_submit_buttons"));
+    
     $("#teacher_update_tab_list a.nav-link").addClass("disabled");
     disableButtons($("button.teacher_update_tabs_button"))
 
@@ -539,7 +542,7 @@ function teacher_update_check_tabs()
     enableButtons($("#teacher_update_goto_tab_accept_and_finish_button"));
 
     // can enable submit button
-    enableButtons($("#teacher_update_form_submit_button"));
+    enableButtons($("button.teacher_update_form_submit_buttons"));
 }
 
 function teacher_update_init()

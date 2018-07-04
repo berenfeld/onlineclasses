@@ -396,7 +396,13 @@
 
                             </div>
                             <div class="card-footer">
-                                <div class="d-flex flex-row-reverse">
+                                <div class="d-flex flex-row-reverse">                                
+                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
+                                            onclick="teacher_update_form_submit()">
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                    </button>                                
                                     <button type="button" class="btn btn-info teacher_update_tabs_button" 
                                             id="teacher_update_goto_tab_profile_button"
                                             onclick="teacher_update_goto_tab('profile')">
@@ -472,6 +478,12 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
+                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
+                                            onclick="teacher_update_form_submit()">
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                    </button> 
                                     <button type="button" class="btn btn-info teacher_update_tabs_button"
                                             id="teacher_update_goto_tab_education_button"
                                             onclick="teacher_update_goto_tab('education')">
@@ -664,6 +676,12 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
+                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
+                                            onclick="teacher_update_form_submit()">
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                    </button> 
                                     <button type="button" class="btn btn-info teacher_update_tabs_button" 
                                             id="teacher_update_goto_tab_teaching_topics_button"
                                             onclick="teacher_update_goto_tab('teaching_topics')">
@@ -722,6 +740,12 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
+                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
+                                            onclick="teacher_update_form_submit()">
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                    </button> 
                                     <button type="button" class="btn btn-info teacher_update_tabs_button" 
                                             id="teacher_update_goto_tab_prices_button"
                                             onclick="teacher_update_goto_tab('prices')">
@@ -791,6 +815,12 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
+                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
+                                            onclick="teacher_update_form_submit()">
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                    </button> 
                                     <button type="button" class="btn btn-info teacher_update_tabs_button" 
                                             id="teacher_update_goto_tab_teaching_hours_button"
                                             onclick="teacher_update_goto_tab('teaching_hours')">
@@ -961,7 +991,13 @@
                             </div>
 
                             <div class="card-footer">
-                                <div class="d-flex flex-row-reverse">
+                                <div class="d-flex flex-row-reverse">                                    
+                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
+                                            onclick="teacher_update_form_submit()">
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                    </button> 
                                     <button type="button" class="btn btn-info teacher_update_tabs_button" 
                                             id="teacher_update_goto_tab_accept_and_finish_button"
                                             onclick="teacher_update_goto_tab('accept_and_finish')">
@@ -997,18 +1033,13 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-
                                 <div class="d-flex flex-row-reverse">
-                                    <div>
-                                        <button type="button" class="btn btn-success mx-1 my-auto teacher_update_tabs_button"
-                                                id="teacher_update_form_submit_button"
-                                                onclick="teacher_update_form_submit()">
-                                            <span class="oi" data-glyph="chevron-left"></span>
-                                            <%= Labels.get("teacher_update.form.submit.button.text")%>   
-                                            <span class="oi" data-glyph="chevron-left"></span>
-                                        </button>
-                                    </div>
-
+                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
+                                            onclick="teacher_update_form_submit()">
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <span class="oi" data-glyph="chevron-left"></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>

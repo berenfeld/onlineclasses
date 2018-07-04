@@ -38,7 +38,7 @@
     int minutesPerRow = CConfig.getInt("website.time.calendar_minutes_per_row");
     int minutesPerUnit = CConfig.getInt("website.time.unit.minutes");
     int minimumClassLengthMinutes = CConfig.getInt("website.time.min_class_length_minutes");
-    int maximumClassLengthMinutes = CConfig.getInt("website.time.max_ckass_length_minutes");
+    int maximumClassLengthMinutes = CConfig.getInt("website.time.max_class_length_minutes");
     int rowsPerCell = minutesPerRow / minutesPerUnit;
 %>
 <!DOCTYPE html>
