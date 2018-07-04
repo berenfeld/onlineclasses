@@ -219,7 +219,7 @@ function start_teaching_form_submit()
     request.institute_name = $("#start_teaching_institute_other_text").val();
     request.subject_id = start_teaching.subject_id;
     request.subject_name = $("#start_teaching_subject_0_text").val();
-    request.show_degree = $("#start_teaching_topic_show_degree").prop("checked");
+    request.show_degree = $("#start_teaching_show_degree").prop("checked");
     request.degree_type = $("#start_teaching_degree_type_select").val();
     request.price_per_hour = parseInt10($("#start_teaching_price_per_hour_input").val());
     request.paypal_email = $("#start_teaching_paypal_email_input").val();
@@ -542,7 +542,6 @@ function start_teaching_check_tabs()
     enableButtons($("#start_teaching_goto_tab_profile_button"));
 
     // if moto is filled - can go to education
-    // TODO moto minimum length
     request.moto = $("#start_teaching_moto_input").val();
 
     if (stringEmpty(request.moto)) {
@@ -556,7 +555,7 @@ function start_teaching_check_tabs()
     // can move to education
     $("#start_teaching_education_link").removeClass("disabled");
     enableButtons($("#start_teaching_goto_tab_education_button"));
-
+    
     // can move to teaching_topics
     $("#start_teaching_teaching_topics_link").removeClass("disabled");
     enableButtons($("#start_teaching_goto_tab_teaching_topics_button"));
@@ -644,6 +643,7 @@ function start_teaching_init()
         monthNamesShort: oc.clabels[ "website.months.short" ].split(","),
         isRTL: true,
         changeYear: true,
+        defaultDate: "-" + ( start_teaching.min_teacher_age + 1 ) + "y",
         dateFormat: "dd/mm/yy",
         yearRange: "-"+ start_teaching.max_teacher_age + ":-" + start_teaching.min_teacher_age,
         onSelect: start_teaching_select_day_of_birth

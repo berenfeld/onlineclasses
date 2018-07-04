@@ -547,6 +547,9 @@
                                         <div class="col-12 col-sm-6 col-lg-3 my-1">
                                             <select class="custom-select" id="start_teaching_degree_type_select">
 
+                                                <option id="start_teaching_degree_type_choose" value="" disabled selected>
+                                                    <%= Labels.get("start_teaching.form.learning.degree_type.choose")%>
+                                                </option>
                                                 <%
                                                     for (String degreeType : degreeTypes) {
                                                 %>

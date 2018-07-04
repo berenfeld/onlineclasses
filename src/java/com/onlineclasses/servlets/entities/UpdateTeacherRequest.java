@@ -16,10 +16,12 @@ import java.util.List;
  */
 public class UpdateTeacherRequest extends BasicRequest {
 
+    public String display_name;
     public String skype_name;
     public String image_url;
     public String phone_number;
     public String phone_area;
+    public int city_id;
     public String moto;
     public boolean show_phone;
     public boolean show_email;

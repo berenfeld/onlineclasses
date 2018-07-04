@@ -8,6 +8,7 @@ package com.onlineclasses.servlets;
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.BasicResponse;
+import com.onlineclasses.entities.City;
 import com.onlineclasses.entities.Feedback;
 import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.Subject;
@@ -44,6 +45,7 @@ public class UpdateTeacherServlet extends BaseServlet {
             return new BasicResponse(-1, "not logged in");
         }
 
+        teacher.display_name = updateTeacherRequest.display_name;
         teacher.skype_name = updateTeacherRequest.skype_name;
         teacher.phone_number = updateTeacherRequest.phone_number;
         teacher.phone_area = updateTeacherRequest.phone_area;
@@ -75,7 +77,11 @@ public class UpdateTeacherServlet extends BaseServlet {
         } else {
             teacher.subject_name = updateTeacherRequest.subject_name;
         }
-
+        
+        if (updateTeacherRequest.city_id != 0) {
+            teacher.city = DB.get(updateTeacherRequest.city_id, City.class);
+        }
+        
         if (DB.update(teacher) != 1) {
             Utils.warning("Could not update teacher " + teacher.display_name);
             return new BasicResponse(-1, "user is already registered");
@@ -142,13 +148,9 @@ public class UpdateTeacherServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% websiteShortName %>", Labels.get("website.name"));
         emailContent = emailContent.replaceAll("<% findTeachersUrl %>", Config.get("website.url") + "/find_teachers");
         emailContent = emailContent.replaceAll("<% teacherDisplayName %>", registeringTeacher.display_name);
-        emailContent = emailContent.replaceAll("<% teacherEmail %>", registeringTeacher.email);
         emailContent = emailContent.replaceAll("<% teacherFullName %>", registeringTeacher.first_name + " " + registeringTeacher.last_name);
         emailContent = emailContent.replaceAll("<% teacherPhone %>", registeringTeacher.phone_area + "-" + registeringTeacher.phone_number);
         emailContent = emailContent.replaceAll("<% teacherCity %>", registeringTeacher.city.name);
-        emailContent = emailContent.replaceAll("<% teacherGender %>", CLabels.get(registeringTeacher.gender == User.GENDER_MALE
-                ? "language.male" : "language.female"));
-        emailContent = emailContent.replaceAll("<% teacherDayOfBirth %>", Utils.formatDateWithFullYear(registeringTeacher.day_of_birth));
         emailContent = emailContent.replaceAll("<% teacherSkype %>", Utils.nonNullString(registeringTeacher.skype_name));
         emailContent = emailContent.replaceAll("<% teacherMoto %>", registeringTeacher.moto);
         emailContent = emailContent.replaceAll("<% teacherShowPhone %>", registeringTeacher.show_phone ? yes : no);

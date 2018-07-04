@@ -70,9 +70,16 @@ function teacher_update_register_complete(response)
 
 
 function teacher_update_form_validation(request)
-{
+{    
     $("#teacher_update_form *").removeClass("border border-warning");
 
+    if (stringEmpty(request.display_name)) {
+        alert_show(oc.clabels[ "teacher_update.form.submit.fill_in_display_name"]);
+        $("#teacher_update_display_name_input").addClass("border border-warning");
+        teacher_update_goto_tab("personal_information");
+        return false;
+    }
+    
     if (stringEmpty(request.phone_number) || stringEmpty(request.phone_area)) {
         alert_show(oc.clabels[ "teacher_update.form.submit.fill_in_phone"]);
         $("#teacher_update_phone_number").addClass("border border-warning");
@@ -135,6 +142,7 @@ function teacher_update_form_validation(request)
 function teacher_update_form_submit()
 {
     var request = {};
+    request.display_name = $("#teacher_update_display_name_input").val();
     request.email = $("#teacher_update_email_input").val();
     request.image_url = teacher_update.image_url;
     request.phone_number = $("#teacher_update_phone_number_input").val();
@@ -444,9 +452,16 @@ function teacher_update_check_tabs()
     request.phone_number = $("#teacher_update_phone_number_input").val();
     request.phone_area = $("#teacher_update_phone_area_select").val();
     request.city_id = parseInt10($("#teacher_update_city_select").val());
+    request.display_name = $("#teacher_update_display_name_input").val();
 
     var pass_to_profile = true;
 
+    if (stringEmpty(request.display_name)) {
+        pass_to_profile = false;
+    } else {
+        $("#teacher_update_display_name_input").addClass("teacher_update_required_filled");
+    }
+    
     if (stringEmpty(request.phone_number)) {
         pass_to_profile = false;
     } else {
@@ -546,6 +561,7 @@ function teacher_update_init()
     $("#teacher_update_price_per_hour_input").val(teacher.price_per_hour);
     $("#teacher_update_min_class_length").val(teacher.min_class_length);
     $("#teacher_update_max_class_length").val(teacher.max_class_length);
+    $("#teacher_update_degree_type_select").val(teacher.degree_type);
 
     if (teacher.show_degree) {
         $('#teacher_update_show_degree').prop("checked", true);

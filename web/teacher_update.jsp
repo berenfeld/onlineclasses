@@ -22,11 +22,11 @@
     }
     List<City> cities = DB.getAll(City.class);
     Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
-    
+
     if (teacher.institute != null) {
         teacher.institute = DB.get(teacher.institute.id, Institute.class);
         if (teacher.institute.institute_type != null) {
-            teacher.institute.institute_type = DB.get(teacher.institute.institute_type.id, InstituteType.class);    
+            teacher.institute.institute_type = DB.get(teacher.institute.institute_type.id, InstituteType.class);
         }
     }
     if (teacher.subject != null) {
@@ -80,7 +80,7 @@
     <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
         <%@include file="body.jsp" %>    
 
-         <div class="container">
+        <div class="container">
             <div class="row no-gutters my-1">
                 <div class="col-12">
 
@@ -186,8 +186,8 @@
                                         </label>
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <input type="text" class="form-control" id="teacher_update_display_name_input" 
-                                               disabled tabindex="-1"
+                                        <input type="text" class="form-control teacher_update_required teacher_update_required_filled" 
+                                               id="teacher_update_display_name_input" 
                                                placeholder="<%= Labels.get("teacher_update.form.login.display_name")%>">
                                     </div>
 
@@ -286,14 +286,14 @@
                                         <label class="col-form-label" for="teacher_update_day_of_birth_input">
                                             <%= Labels.get("teacher_update.form.login.day_of_birth")%>
                                             <small class="teacher_update_required teacher_update_required_filled">
-                                            (*)
-                                        </small>
+                                                (*)
+                                            </small>
                                             <br/>
                                             <small>
                                                 <%= Labels.get("teacher_update.form.login.day_of_birth.small_text")%>
                                             </small>
                                         </label>
-                                        
+
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
@@ -361,7 +361,7 @@
                                     <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_update_image">                                            
                                         <div class="row no-gutters">
                                             <div class="col-6 px-1">    
-                                                <img src="<%= teacher.image_url %>" id="teacher_update_image_img" class="w-100"></img>                                                  
+                                                <img src="<%= teacher.image_url%>" id="teacher_update_image_img" class="w-100"></img>                                                  
 
                                                 <p id="teacher_update_image_loading" class="border rounded d-none text-center">
                                                     <%= Labels.get("teacher_update.form.personal_information.image_loading")%>
@@ -518,7 +518,9 @@
 
                                         <div class="col-12 col-sm-6 col-lg-3 my-1">
                                             <select class="custom-select" id="teacher_update_degree_type_select">
-
+                                                <option id="teacher_update_degree_type_choose" value="" disabled selected>
+                                                    <%= Labels.get("start_teaching.form.learning.degree_type.choose")%>
+                                                </option>
                                                 <%
                                                     for (String degreeType : degreeTypes) {
                                                 %>
@@ -760,14 +762,14 @@
                                         <label class="col-form-label" for="teacher_update_price_per_hour_input">
                                             <%= Labels.get("teacher_update.form.payment.price_per_hour")%>
                                             <small class="teacher_update_required teacher_update_required_filled">
-                                            (*)
+                                                (*)
                                             </small>
                                             <br/>
                                             <small>
-                                            <%= Labels.get("teacher_update.form.payment.price_per_hour.small_text")%>
+                                                <%= Labels.get("teacher_update.form.payment.price_per_hour.small_text")%>
                                             </small>
                                         </label> 
-                                        
+
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_update_price_per_hour">
@@ -1006,7 +1008,7 @@
                                             <span class="oi" data-glyph="chevron-left"></span>
                                         </button>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -1021,7 +1023,7 @@
         <script>
             teacher_update.teacher = <%= Utils.gson().toJson(teacher)%>
             teacher_update.available_times = <%= Utils.gson().toJson(availableTimes)%>
-            teacher_update.teaching_topics = <%= Utils.gson().toJson(teachingTopics) %>
+            teacher_update.teaching_topics = <%= Utils.gson().toJson(teachingTopics)%>
             oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
             oc.institutes = <%= Utils.gson().toJson(institutes)%>;
             oc.subjects = <%= Utils.gson().toJson(subjects)%>;
