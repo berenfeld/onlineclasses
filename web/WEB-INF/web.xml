@@ -54,8 +54,8 @@
         <jsp-file>/teacher_homepage.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>teacher_update</servlet-name>
-        <jsp-file>/teacher_update.jsp</jsp-file>
+        <servlet-name>teacher_profile</servlet-name>
+        <jsp-file>/teacher_profile.jsp</jsp-file>
     </servlet>
     <servlet>
         <servlet-name>student_update</servlet-name>
@@ -106,8 +106,8 @@
         <url-pattern>/teacher_homepage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>teacher_update</servlet-name>
-        <url-pattern>/teacher_update</url-pattern>
+        <servlet-name>teacher_profile</servlet-name>
+        <url-pattern>/teacher_profile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>student_update</servlet-name>

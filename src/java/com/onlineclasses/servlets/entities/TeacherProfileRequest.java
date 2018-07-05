@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author me
  */
-public class UpdateTeacherRequest extends BasicRequest {
+public class TeacherProfileRequest extends BasicRequest {
 
     public String display_name;
     public String skype_name;

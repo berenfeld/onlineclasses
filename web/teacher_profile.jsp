@@ -73,9 +73,9 @@
     <head>
         <%@include file="header.jsp" %>
         <title>
-            <%= Labels.get("teacher_update.title")%>
+            <%= Labels.get("teacher_profile.title")%>
         </title>
-        <link rel="stylesheet" href="css/teacher_update.css">
+        <link rel="stylesheet" href="css/teacher_profile.css">
     </head>
     <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
         <%@include file="body.jsp" %>    
@@ -88,82 +88,82 @@
                     <div class="card my-1">
                         <div class="card-header text-secondary">
                             <h5>
-                                <%= Labels.get("teacher_update.heading")%>
+                                <%= Labels.get("teacher_profile.heading")%>
                             </h5>
                             <p>
-                                <%= Labels.get("teacher_update.text1")%>       
+                                <%= Labels.get("teacher_profile.text1")%>       
                                 <br/>
-                                <%= Labels.get("teacher_update.text2")%>      
+                                <%= Labels.get("teacher_profile.text2")%>      
                                 <br/>
-                                <%= Labels.get("teacher_update.required_field_1")%>  
-                                <small class="teacher_update_required teacher_update_required_filled">
+                                <%= Labels.get("teacher_profile.required_field_1")%>  
+                                <small class="teacher_profile_required teacher_profile_required_filled">
                                     (*)
                                 </small>
-                                <%= Labels.get("teacher_update.required_field_2")%>  
+                                <%= Labels.get("teacher_profile.required_field_2")%>  
                             </p>
                         </div>
                     </div>
 
                     <div>
-                        <ul class="nav nav-tabs my-1" id="teacher_update_tab_list">     
+                        <ul class="nav nav-tabs my-1" id="teacher_profile_tab_list">     
                             <li class="nav-item">
-                                <a  id="teacher_update_personal_information_link" class="nav-link active" data-toggle="tab" 
-                                    href="#teacher_update_personal_information_tab">
-                                    <%= Labels.get("teacher_update.tabs.personal_information")%>
+                                <a  id="teacher_profile_personal_information_link" class="nav-link active" data-toggle="tab" 
+                                    href="#teacher_profile_personal_information_tab">
+                                    <%= Labels.get("teacher_profile.tabs.personal_information")%>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a  id="teacher_update_profile_link" class="nav-link" data-toggle="tab" 
-                                    href="#teacher_update_profile_tab">
-                                    <%= Labels.get("teacher_update.tabs.profile")%>
+                                <a  id="teacher_profile_profile_link" class="nav-link" data-toggle="tab" 
+                                    href="#teacher_profile_profile_tab">
+                                    <%= Labels.get("teacher_profile.tabs.profile")%>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a  id="teacher_update_education_link" class="nav-link" data-toggle="tab" 
-                                    href="#teacher_update_education_tab">
-                                    <%= Labels.get("teacher_update.tabs.education")%>
+                                <a  id="teacher_profile_education_link" class="nav-link" data-toggle="tab" 
+                                    href="#teacher_profile_education_tab">
+                                    <%= Labels.get("teacher_profile.tabs.education")%>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a  id="teacher_update_teaching_topics_link" class="nav-link" data-toggle="tab" 
-                                    href="#teacher_update_teaching_topics_tab">
-                                    <%= Labels.get("teacher_update.tabs.teaching_topics")%>
+                                <a  id="teacher_profile_teaching_topics_link" class="nav-link" data-toggle="tab" 
+                                    href="#teacher_profile_teaching_topics_tab">
+                                    <%= Labels.get("teacher_profile.tabs.teaching_topics")%>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a  id="teacher_update_prices_link" class="nav-link" data-toggle="tab" 
-                                    href="#teacher_update_prices_tab">
-                                    <%= Labels.get("teacher_update.tabs.prices")%>
+                                <a  id="teacher_profile_prices_link" class="nav-link" data-toggle="tab" 
+                                    href="#teacher_profile_prices_tab">
+                                    <%= Labels.get("teacher_profile.tabs.prices")%>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a  id="teacher_update_teaching_hours_link" class="nav-link" data-toggle="tab" 
-                                    href="#teacher_update_teaching_hours_tab">
-                                    <%= Labels.get("teacher_update.tabs.teaching_hours")%>
+                                <a  id="teacher_profile_teaching_hours_link" class="nav-link" data-toggle="tab" 
+                                    href="#teacher_profile_teaching_hours_tab">
+                                    <%= Labels.get("teacher_profile.tabs.teaching_hours")%>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a  id="teacher_update_accept_and_finish_link" class="nav-link" data-toggle="tab" 
-                                    href="#teacher_update_accept_and_finish_tab">
-                                    <%= Labels.get("teacher_update.tabs.accept_and_finish")%>
+                                <a  id="teacher_profile_accept_and_finish_link" class="nav-link" data-toggle="tab" 
+                                    href="#teacher_profile_accept_and_finish_tab">
+                                    <%= Labels.get("teacher_profile.tabs.accept_and_finish")%>
                                 </a>
                             </li>
                         </ul> 
                     </div>
-                    <div class="tab-content" id="teacher_update_tabs">                        
-                        <div class="card my-1 tab-pane fade show active" id="teacher_update_personal_information_tab" role="tabpanel" 
-                             aria-labelledby="teacher_update_personal_information_link">
+                    <div class="tab-content" id="teacher_profile_tabs">                        
+                        <div class="card my-1 tab-pane fade show active" id="teacher_profile_personal_information_tab" role="tabpanel" 
+                             aria-labelledby="teacher_profile_personal_information_link">
                             <div class="card-header bg-secondary text-white">                                   
                                 <div class="card-title">
-                                    <%= Labels.get("teacher_update.form.personal_information.text1")%>                                                                                     
+                                    <%= Labels.get("teacher_profile.form.personal_information.text1")%>                                                                                     
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">                                    
-                                        <label class="col-form-label" for="teacher_update_email_input">
-                                            <%= Labels.get("teacher_update.form.login.email")%>  
-                                            <small class="teacher_update_required teacher_update_required_filled">
+                                        <label class="col-form-label" for="teacher_profile_email_input">
+                                            <%= Labels.get("teacher_profile.form.login.email")%>  
+                                            <small class="teacher_profile_required teacher_profile_required_filled">
                                                 (*)
                                             </small>                                            
                                         </label>                     
@@ -171,55 +171,55 @@
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <input type="email" class="form-control" id="teacher_update_email_input"
+                                        <input type="email" class="form-control" id="teacher_profile_email_input"
                                                disabled tabindex="-1"
-                                               placeholder="<%= Labels.get("teacher_update.form.login.email")%>">
+                                               placeholder="<%= Labels.get("teacher_profile.form.login.email")%>">
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <label class="col-form-label" for="teacher_update_display_name_input">
-                                            <%= Labels.get("teacher_update.form.login.display_name")%>
+                                        <label class="col-form-label" for="teacher_profile_display_name_input">
+                                            <%= Labels.get("teacher_profile.form.login.display_name")%>
                                             <br/>
                                             <small>
-                                                <%= Labels.get("teacher_update.form.login.display_name.small_text")%>
+                                                <%= Labels.get("teacher_profile.form.login.display_name.small_text")%>
                                             </small>
                                         </label>
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <input type="text" class="form-control teacher_update_required teacher_update_required_filled" 
-                                               id="teacher_update_display_name_input" 
-                                               placeholder="<%= Labels.get("teacher_update.form.login.display_name")%>">
+                                        <input type="text" class="form-control teacher_profile_required teacher_profile_required_filled" 
+                                               id="teacher_profile_display_name_input" 
+                                               placeholder="<%= Labels.get("teacher_profile.form.login.display_name")%>">
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <label class="col-form-label" for="teacher_update_first_name_input">
-                                            <%= Labels.get("teacher_update.form.login.first_name")%>
+                                        <label class="col-form-label" for="teacher_profile_first_name_input">
+                                            <%= Labels.get("teacher_profile.form.login.first_name")%>
                                         </label>
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <input type="text" class="form-control" id="teacher_update_first_name_input"
+                                        <input type="text" class="form-control" id="teacher_profile_first_name_input"
                                                disabled tabindex="-1"
-                                               placeholder="<%= Labels.get("teacher_update.form.login.first_name")%>">
+                                               placeholder="<%= Labels.get("teacher_profile.form.login.first_name")%>">
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <label class="col-form-label" for="teacher_update_last_name_input">
-                                            <%= Labels.get("teacher_update.form.login.last_name")%>
+                                        <label class="col-form-label" for="teacher_profile_last_name_input">
+                                            <%= Labels.get("teacher_profile.form.login.last_name")%>
                                         </label>
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <input type="text" class="form-control" id="teacher_update_last_name_input" 
+                                        <input type="text" class="form-control" id="teacher_profile_last_name_input" 
                                                disabled tabindex="-1"
-                                               placeholder="<%= Labels.get("teacher_update.form.login.last_name")%>">
+                                               placeholder="<%= Labels.get("teacher_profile.form.login.last_name")%>">
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <label class="col-form-label" for="teacher_update_gender_input">
-                                            <%= Labels.get("teacher_update.form.login.gender")%>   
+                                        <label class="col-form-label" for="teacher_profile_gender_input">
+                                            <%= Labels.get("teacher_profile.form.login.gender")%>   
                                         </label>
-                                        <small class="teacher_update_required teacher_update_required_filled">
+                                        <small class="teacher_profile_required teacher_profile_required_filled">
                                             (*)
                                         </small>
                                     </div>
@@ -229,42 +229,42 @@
                                             <input type="radio" checked class="mx-2 form-check form-check-inline" 
                                                    value="<%= CConfig.get("website.gender.male")%>" 
                                                    disabled
-                                                   id="teacher_update_gender_input_male" name="teacher_update_gender_input">
-                                            <label class="mx-2 col-form-label" for="teacher_update_gender_input_male">
-                                                <%= Labels.get("teacher_update.form.login.gender.male")%>   
+                                                   id="teacher_profile_gender_input_male" name="teacher_profile_gender_input">
+                                            <label class="mx-2 col-form-label" for="teacher_profile_gender_input_male">
+                                                <%= Labels.get("teacher_profile.form.login.gender.male")%>   
                                             </label>
 
                                             <input type="radio" class="mx-2 form-check form-check-inline" 
                                                    value="<%= CConfig.get("website.gender.female")%>" 
                                                    disabled
-                                                   id="teacher_update_gender_input_female" name="teacher_update_gender_input">
-                                            <label class="mx-2 col-form-label" for="teacher_update_gender_input_female">
-                                                <%= Labels.get("teacher_update.form.login.gender.female")%>   
+                                                   id="teacher_profile_gender_input_female" name="teacher_profile_gender_input">
+                                            <label class="mx-2 col-form-label" for="teacher_profile_gender_input_female">
+                                                <%= Labels.get("teacher_profile.form.login.gender.female")%>   
                                             </label>
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-lg-6 my-0">
-                                        <div class="row no-gutters" id="teacher_update_phone_number">   
+                                        <div class="row no-gutters" id="teacher_profile_phone_number">   
                                             <div class="col-12 col-md my-1">
-                                                <label class="col-form-label" for="teacher_update_phone_number_input">
-                                                    <%= Labels.get("teacher_update.form.login.phone_number")%>
-                                                    <small class="teacher_update_required teacher_update_required_filled">
+                                                <label class="col-form-label" for="teacher_profile_phone_number_input">
+                                                    <%= Labels.get("teacher_profile.form.login.phone_number")%>
+                                                    <small class="teacher_profile_required teacher_profile_required_filled">
                                                         (*)
                                                     </small>                                                    
                                                 </label>                                                    
                                             </div>
 
                                             <div class="input-group form-control border-0 col-12 col-md">
-                                                <input type="text" class="col-8 form-control mr-md-3 teacher_update_required teacher_update_required_filled" 
-                                                       id="teacher_update_phone_number_input"                                                           
+                                                <input type="text" class="col-8 form-control mr-md-3 teacher_profile_required teacher_profile_required_filled" 
+                                                       id="teacher_profile_phone_number_input"                                                           
                                                        onkeypress="return isNumberKey(event)"
-                                                       placeholder="<%= Labels.get("teacher_update.form.login.phone_number")%>">
+                                                       placeholder="<%= Labels.get("teacher_profile.form.login.phone_number")%>">
 
-                                                <select class="col-4 custom-select form-control teacher_update_required teacher_update_required_filled" 
-                                                        id="teacher_update_phone_area_select">
+                                                <select class="col-4 custom-select form-control teacher_profile_required teacher_profile_required_filled" 
+                                                        id="teacher_profile_phone_area_select">
                                                     <option value="" disabled selected>
-                                                        <%= Labels.get("teacher_update.form.login.phone_area")%>
+                                                        <%= Labels.get("teacher_profile.form.login.phone_area")%>
                                                     </option>
                                                     <%
                                                         for (String phoneArea : phoneAreasList) {
@@ -282,52 +282,52 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1" id="teacher_update_day_of_birth">
-                                        <label class="col-form-label" for="teacher_update_day_of_birth_input">
-                                            <%= Labels.get("teacher_update.form.login.day_of_birth")%>
-                                            <small class="teacher_update_required teacher_update_required_filled">
+                                    <div class="col-6 col-lg-3 my-1" id="teacher_profile_day_of_birth">
+                                        <label class="col-form-label" for="teacher_profile_day_of_birth_input">
+                                            <%= Labels.get("teacher_profile.form.login.day_of_birth")%>
+                                            <small class="teacher_profile_required teacher_profile_required_filled">
                                                 (*)
                                             </small>
                                             <br/>
                                             <small>
-                                                <%= Labels.get("teacher_update.form.login.day_of_birth.small_text")%>
+                                                <%= Labels.get("teacher_profile.form.login.day_of_birth.small_text")%>
                                             </small>
                                         </label>
 
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <input type="text" class="form-control" id="teacher_update_day_of_birth_input"
-                                               name="teacher_update_day_of_birth_input"
+                                        <input type="text" class="form-control" id="teacher_profile_day_of_birth_input"
+                                               name="teacher_profile_day_of_birth_input"
                                                disabled tabindex="-1"
-                                               placeholder="<%= Labels.get("teacher_update.form.login.day_of_birth")%>">
+                                               placeholder="<%= Labels.get("teacher_profile.form.login.day_of_birth")%>">
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <label class="col-form-label" for="teacher_update_skype_name_input">
-                                            <%= Labels.get("teacher_update.form.login.skype_name")%>
+                                        <label class="col-form-label" for="teacher_profile_skype_name_input">
+                                            <%= Labels.get("teacher_profile.form.login.skype_name")%>
                                         </label>
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <input type="text" class="form-control" id="teacher_update_skype_name_input"
-                                               name="teacher_update_skype_name_input"
-                                               placeholder="<%= Labels.get("teacher_update.form.login.skype_name")%>">
+                                        <input type="text" class="form-control" id="teacher_profile_skype_name_input"
+                                               name="teacher_profile_skype_name_input"
+                                               placeholder="<%= Labels.get("teacher_profile.form.login.skype_name")%>">
                                     </div>
 
-                                    <div class="col-6 col-lg-3 my-1" id="teacher_update_city">
-                                        <label class="col-form-label" for="teacher_update_city_input">
-                                            <%= Labels.get("teacher_update.form.login.choose_city")%>                                        
+                                    <div class="col-6 col-lg-3 my-1" id="teacher_profile_city">
+                                        <label class="col-form-label" for="teacher_profile_city_input">
+                                            <%= Labels.get("teacher_profile.form.login.choose_city")%>                                        
                                         </label>
-                                        <small class="teacher_update_required teacher_update_required_filled">
+                                        <small class="teacher_profile_required teacher_profile_required_filled">
                                             (*)
                                         </small>
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <select class="custom-select form-control teacher_update_required teacher_update_required_filled" id="teacher_update_city_select">
+                                        <select class="custom-select form-control teacher_profile_required teacher_profile_required_filled" id="teacher_profile_city_select">
                                             <option value="0" disabled selected>
-                                                <%= Labels.get("teacher_update.form.login.city")%>
+                                                <%= Labels.get("teacher_profile.form.login.city")%>
                                             </option>
                                             <%
                                                 for (City city : cities) {
@@ -343,50 +343,50 @@
                                         </select>                                                    
                                     </div>
 
-                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_update_image">
-                                        <label class="col-form-label" for="teacher_update_image_input">
-                                            <%= Labels.get("teacher_update.form.personal_information.choose_avatar_image")%>
-                                            <small class="teacher_update_required teacher_update_required_filled">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_profile_image">
+                                        <label class="col-form-label" for="teacher_profile_image_input">
+                                            <%= Labels.get("teacher_profile.form.personal_information.choose_avatar_image")%>
+                                            <small class="teacher_profile_required teacher_profile_required_filled">
                                                 (*)
                                             </small>
                                             <br/>
                                             <small>
-                                                <%= Labels.get("teacher_update.form.personal_information.avatar_image_small_text")%>
+                                                <%= Labels.get("teacher_profile.form.personal_information.avatar_image_small_text")%>
                                             </small>
                                         </label>
 
                                     </div>
-                                    <iframe id="teacher_update_post_hidden_iframe" name="teacher_update_post_hidden_iframe" class="d-none"></iframe>                                                
+                                    <iframe id="teacher_profile_post_hidden_iframe" name="teacher_profile_post_hidden_iframe" class="d-none"></iframe>                                                
 
-                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_update_image">                                            
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_profile_image">                                            
                                         <div class="row no-gutters">
                                             <div class="col-6 px-1">    
-                                                <img src="<%= teacher.image_url%>" id="teacher_update_image_img" class="w-100"></img>                                                  
+                                                <img src="<%= teacher.image_url%>" id="teacher_profile_image_img" class="w-100"></img>                                                  
 
-                                                <p id="teacher_update_image_loading" class="border rounded d-none text-center">
-                                                    <%= Labels.get("teacher_update.form.personal_information.image_loading")%>
+                                                <p id="teacher_profile_image_loading" class="border rounded d-none text-center">
+                                                    <%= Labels.get("teacher_profile.form.personal_information.image_loading")%>
                                                 </p>
                                             </div>
 
                                             <div class="col-6 px-1">    
                                                 <form action="/servlets/teacher_image_upload" method="post" 
                                                       enctype="multipart/form-data"
-                                                      id="teacher_update_image_upload_form"                                                      
-                                                      target="teacher_update_post_hidden_iframe">
-                                                    <input type="hidden" id="teacher_update_image_id" name="image_id">
+                                                      id="teacher_profile_image_upload_form"                                                      
+                                                      target="teacher_profile_post_hidden_iframe">
+                                                    <input type="hidden" id="teacher_profile_image_id" name="image_id">
 
                                                     <div class="common_relative_container w-100">                                                         
                                                         <input type="file" name="img_upload_input"
                                                                id="img_upload_input"
                                                                tabindex="-1" class="file_chooser_hidden"
-                                                               onchange="teacher_update_img_upload()">  
+                                                               onchange="teacher_profile_img_upload()">  
                                                         <button type="button" class="btn btn-success btn-block">
-                                                            <%= Labels.get("teacher_update.form.personal_information.upload_from_file")%>
+                                                            <%= Labels.get("teacher_profile.form.personal_information.upload_from_file")%>
                                                         </button>
 
                                                     </div>
-                                                    <button type="button" onclick="teacher_update_reset_img_upload()" class="btn btn-success btn-block d-none" id="teacher_update_img_upload_reset_image">
-                                                        <%= Labels.get("teacher_update.form.personal_information.reset_to_social_image")%>
+                                                    <button type="button" onclick="teacher_profile_reset_img_upload()" class="btn btn-success btn-block d-none" id="teacher_profile_img_upload_reset_image">
+                                                        <%= Labels.get("teacher_profile.form.personal_information.reset_to_social_image")%>
                                                     </button>
                                                 </form>
                                             </div>
@@ -397,79 +397,79 @@
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">                                
-                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
-                                            onclick="teacher_update_form_submit()">
+                                    <button type="button" class="btn btn-success mx-1 teacher_profile_form_submit_buttons"
+                                            onclick="teacher_profile_form_submit()">
                                         <span class="oi" data-glyph="chevron-left"></span>
-                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <%= Labels.get("teacher_profile.form.submit.button.text")%>   
                                         <span class="oi" data-glyph="chevron-left"></span>
                                     </button>                                
-                                    <button type="button" class="btn btn-info teacher_update_tabs_button" 
-                                            id="teacher_update_goto_tab_profile_button"
-                                            onclick="teacher_update_goto_tab('profile')">
+                                    <button type="button" class="btn btn-info teacher_profile_tabs_button" 
+                                            id="teacher_profile_goto_tab_profile_button"
+                                            onclick="teacher_profile_goto_tab('profile')">
                                         <span class="oi" data-glyph="chevron-left"></span>
-                                        <%= Labels.get("teacher_update.tabs.to")%><%= Labels.get("teacher_update.tabs.profile")%>
+                                        <%= Labels.get("teacher_profile.tabs.to")%><%= Labels.get("teacher_profile.tabs.profile")%>
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
                                     </button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card my-1 tab-pane fade" id="teacher_update_profile_tab" role="tabpanel" 
-                             aria-labelledby="teacher_update_profile_link">
+                        <div class="card my-1 tab-pane fade" id="teacher_profile_profile_tab" role="tabpanel" 
+                             aria-labelledby="teacher_profile_profile_link">
                             <div class="card-header text-white bg-secondary">
                                 <div class="card-title">
-                                    <%= Labels.get("teacher_update.form.publish.text1")%>   
+                                    <%= Labels.get("teacher_profile.form.publish.text1")%>   
                                 </div>
                             </div>
 
                             <div class="card-body">                                
                                 <div class="form-group row">
-                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_update_moto">
-                                        <label class="col-form-label" for="teacher_update_moto_input">
-                                            <%= Labels.get("teacher_update.form.publish.moto_text")%>
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_profile_moto">
+                                        <label class="col-form-label" for="teacher_profile_moto_input">
+                                            <%= Labels.get("teacher_profile.form.publish.moto_text")%>
                                         </label>  
-                                        <small class="teacher_update_required teacher_update_required_filled">
+                                        <small class="teacher_profile_required teacher_profile_required_filled">
                                             (*)
                                         </small>
                                         <br/>
                                         <small>
-                                            <%= Labels.get("teacher_update.form.publish.moto.small_text")%>
+                                            <%= Labels.get("teacher_profile.form.publish.moto.small_text")%>
                                         </small>
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-9 my-1">
-                                        <textarea rows="4" class="form-control teacher_update_required teacher_update_required_filled" id="teacher_update_moto_input" 
-                                                  name="teacher_update_moto_input"
-                                                  placeholder="<%= Labels.get("teacher_update.form.publish.moto_placeholder")%>"></textarea>
+                                        <textarea rows="4" class="form-control teacher_profile_required teacher_profile_required_filled" id="teacher_profile_moto_input" 
+                                                  name="teacher_profile_moto_input"
+                                                  placeholder="<%= Labels.get("teacher_profile.form.publish.moto_placeholder")%>"></textarea>
                                     </div>
 
                                     <div class="col-12 my-1 d-inline form-control border rounded bg-light">
                                         <input class="form-check-input mx-0"  
-                                               id="teacher_update_show_phone" 
-                                               name="teacher_update_show_phone"
+                                               id="teacher_profile_show_phone" 
+                                               name="teacher_profile_show_phone"
                                                type="checkbox" value="">
-                                        <label class="form-check-label" for="teacher_update_show_phone">
-                                            <%= Labels.get("teacher_update.form.publish.show_phone")%>
+                                        <label class="form-check-label" for="teacher_profile_show_phone">
+                                            <%= Labels.get("teacher_profile.form.publish.show_phone")%>
                                         </label>
                                     </div>
 
                                     <div class="col-12 my-1 d-inline form-control border rounded bg-light">
                                         <input class="form-check-input mx-0"  
-                                               id="teacher_update_show_email" 
-                                               name="teacher_update_show_email"
+                                               id="teacher_profile_show_email" 
+                                               name="teacher_profile_show_email"
                                                type="checkbox" value="">
-                                        <label class="form-check-label" for="teacher_update_show_email">
-                                            <%= Labels.get("teacher_update.form.publish.show_email")%>
+                                        <label class="form-check-label" for="teacher_profile_show_email">
+                                            <%= Labels.get("teacher_profile.form.publish.show_email")%>
                                         </label>
                                     </div>
 
                                     <div class="col-12 my-1 d-inline form-control border rounded bg-light">
                                         <input class="form-check-input mx-0"  
-                                               id="teacher_update_show_skype" 
-                                               name="teacher_update_show_skype"
+                                               id="teacher_profile_show_skype" 
+                                               name="teacher_profile_show_skype"
                                                type="checkbox" value="">
-                                        <label class="form-check-label" for="teacher_update_show_skype">
-                                            <%= Labels.get("teacher_update.form.publish.show_skype")%>
+                                        <label class="form-check-label" for="teacher_profile_show_skype">
+                                            <%= Labels.get("teacher_profile.form.publish.show_skype")%>
                                         </label>
                                     </div>
 
@@ -478,29 +478,29 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
-                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
-                                            onclick="teacher_update_form_submit()">
+                                    <button type="button" class="btn btn-success mx-1 teacher_profile_form_submit_buttons"
+                                            onclick="teacher_profile_form_submit()">
                                         <span class="oi" data-glyph="chevron-left"></span>
-                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <%= Labels.get("teacher_profile.form.submit.button.text")%>   
                                         <span class="oi" data-glyph="chevron-left"></span>
                                     </button> 
-                                    <button type="button" class="btn btn-info teacher_update_tabs_button"
-                                            id="teacher_update_goto_tab_education_button"
-                                            onclick="teacher_update_goto_tab('education')">
+                                    <button type="button" class="btn btn-info teacher_profile_tabs_button"
+                                            id="teacher_profile_goto_tab_education_button"
+                                            onclick="teacher_profile_goto_tab('education')">
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
-                                        <%= Labels.get("teacher_update.tabs.to")%><%= Labels.get("teacher_update.tabs.education")%>
+                                        <%= Labels.get("teacher_profile.tabs.to")%><%= Labels.get("teacher_profile.tabs.education")%>
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
                                     </button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card my-1 tab-pane fade" id="teacher_update_education_tab" role="tabpanel" 
-                             aria-labelledby="teacher_update_education_link">
+                        <div class="card my-1 tab-pane fade" id="teacher_profile_education_tab" role="tabpanel" 
+                             aria-labelledby="teacher_profile_education_link">
 
                             <div class="card-header text-white bg-secondary">
                                 <div class="card-title">
-                                    <%= Labels.get("teacher_update.form.learning_information.text1")%>   
+                                    <%= Labels.get("teacher_profile.form.learning_information.text1")%>   
                                 </div>
                             </div>
 
@@ -509,28 +509,28 @@
                                 <div class="form-group row">
                                     <div class="col-12 my-1 d-inline form-control border rounded bg-light">
                                         <input class="form-check-input mx-0"  
-                                               id="teacher_update_show_degree" 
-                                               name="teacher_update_show_degree"
+                                               id="teacher_profile_show_degree" 
+                                               name="teacher_profile_show_degree"
                                                type="checkbox">
-                                        <label class="form-check-label" data-toggle="collapse"  for="teacher_update_show_degree"
-                                               data-target="#teacher_update_degree_information_div" 
-                                               aria-expanded="false" aria-controls="teacher_update_degree_information_div">                                            
-                                            <%= Labels.get("teacher_update.form.learning_information.show_degree")%>
+                                        <label class="form-check-label" data-toggle="collapse"  for="teacher_profile_show_degree"
+                                               data-target="#teacher_profile_degree_information_div" 
+                                               aria-expanded="false" aria-controls="teacher_profile_degree_information_div">                                            
+                                            <%= Labels.get("teacher_profile.form.learning_information.show_degree")%>
                                         </label>
 
                                     </div>
                                 </div>
 
-                                <div class="collapse" id="teacher_update_degree_information_div">
+                                <div class="collapse" id="teacher_profile_degree_information_div">
                                     <div class="form-group row" aria-expanded="false" >
 
-                                        <label class="col-12 col-sm-6 col-lg-3 my-1 col-form-label" for="teacher_update_degree_type_button">
-                                            <%= Labels.get("teacher_update.form.learning.degree_type.title")%>
+                                        <label class="col-12 col-sm-6 col-lg-3 my-1 col-form-label" for="teacher_profile_degree_type_button">
+                                            <%= Labels.get("teacher_profile.form.learning.degree_type.title")%>
                                         </label>
 
                                         <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                            <select class="custom-select" id="teacher_update_degree_type_select">
-                                                <option id="teacher_update_degree_type_choose" value="" disabled selected>
+                                            <select class="custom-select" id="teacher_profile_degree_type_select">
+                                                <option id="teacher_profile_degree_type_choose" value="" disabled selected>
                                                     <%= Labels.get("start_teaching.form.learning.degree_type.choose")%>
                                                 </option>
                                                 <%
@@ -549,15 +549,15 @@
                                     </div>
                                     <div class="form-group row">
 
-                                        <label class="col-12 col-sm-6 col-lg-3 my-1 col-form-label" for="teacher_update_institute_type">
-                                            <%= Labels.get("teacher_update.form.learning.education.title")%>
+                                        <label class="col-12 col-sm-6 col-lg-3 my-1 col-form-label" for="teacher_profile_institute_type">
+                                            <%= Labels.get("teacher_profile.form.learning.education.title")%>
                                         </label>
 
                                         <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                            <select class="custom-select" id="teacher_update_institute_type_select">
+                                            <select class="custom-select" id="teacher_profile_institute_type_select">
 
-                                                <option id="teacher_update_institute_type_choose" value="0" disabled selected>
-                                                    <%= Labels.get("teacher_update.form.learning.institue_type.choose")%>
+                                                <option id="teacher_profile_institute_type_choose" value="0" disabled selected>
+                                                    <%= Labels.get("teacher_profile.form.learning.institue_type.choose")%>
                                                 </option>
 
                                                 <%
@@ -572,8 +572,8 @@
                                                     }
                                                 %>
 
-                                                <option id="teacher_update_institute_type_other" value="0">
-                                                    <%= Labels.get("teacher_update.form.learning.institue_type.other")%>
+                                                <option id="teacher_profile_institute_type_other" value="0">
+                                                    <%= Labels.get("teacher_profile.form.learning.institue_type.other")%>
                                                 </option>
                                             </select>
                                         </div>
@@ -584,17 +584,17 @@
 
                                         %>
 
-                                        <label id="teacher_update_institute_<%= instituteType%>_label" class="col-6 col-lg-3 my-1 col-form-label d-none" 
-                                               for="teacher_update_institute_<%= instituteType%>_select">
-                                            <%= Labels.get("teacher_update.form.learning.institue_" + instituteType + "_select")%>
+                                        <label id="teacher_profile_institute_<%= instituteType%>_label" class="col-6 col-lg-3 my-1 col-form-label d-none" 
+                                               for="teacher_profile_institute_<%= instituteType%>_select">
+                                            <%= Labels.get("teacher_profile.form.learning.institue_" + instituteType + "_select")%>
                                         </label>
 
-                                        <div class="col-12 col-sm-6 col-lg-3 my-1 d-none" id="teacher_update_institute_<%= instituteType%>_div">
+                                        <div class="col-12 col-sm-6 col-lg-3 my-1 d-none" id="teacher_profile_institute_<%= instituteType%>_div">
 
-                                            <select class="custom-select teacher_update_institute_select" id="teacher_update_institute_<%= instituteType%>_select">
+                                            <select class="custom-select teacher_profile_institute_select" id="teacher_profile_institute_<%= instituteType%>_select">
 
                                                 <option value="" disabled selected>
-                                                    <%= Labels.get("teacher_update.form.learning.institue_" + instituteType + ".choose")%>
+                                                    <%= Labels.get("teacher_profile.form.learning.institue_" + instituteType + ".choose")%>
                                                 </option>
                                                 <%
                                                     for (int instituteId : institutesMap.keySet()) {
@@ -610,7 +610,7 @@
                                                 %>
 
                                                 <option value="0">
-                                                    <%= Labels.get("teacher_update.form.learning.institue_type.other")%>
+                                                    <%= Labels.get("teacher_profile.form.learning.institue_type.other")%>
                                                 </option>
                                             </select>
                                         </div>
@@ -618,28 +618,28 @@
                                         <%
                                             }
                                         %>
-                                        <label id="teacher_update_institute_0_label"
+                                        <label id="teacher_profile_institute_0_label"
                                                class="col-12 col-sm-6 col-lg-3 my-1 col-form-label d-none" 
-                                               for="teacher_update_institute_0_text">
-                                            <%= Labels.get("teacher_update.form.learning.institue.other.choose")%>
+                                               for="teacher_profile_institute_0_text">
+                                            <%= Labels.get("teacher_profile.form.learning.institue.other.choose")%>
                                         </label>
 
-                                        <div id="teacher_update_institute_0_div" class="col-12 col-sm-6 col-lg-3 my-1 d-none">
-                                            <input type="text" class="form-control" id="teacher_update_institute_0_text" 
-                                                   name="teacher_update_institute_0_text"
-                                                   placeholder="<%= Labels.get("teacher_update.form.learning.institue.other.choose")%>">
+                                        <div id="teacher_profile_institute_0_div" class="col-12 col-sm-6 col-lg-3 my-1 d-none">
+                                            <input type="text" class="form-control" id="teacher_profile_institute_0_text" 
+                                                   name="teacher_profile_institute_0_text"
+                                                   placeholder="<%= Labels.get("teacher_profile.form.learning.institue.other.choose")%>">
                                         </div>
 
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-12 col-sm-6 col-lg-3 my-1 col-form-label" for="teacher_update_subject">
-                                            <%= Labels.get("teacher_update.form.learning.subject.title")%>
+                                        <label class="col-12 col-sm-6 col-lg-3 my-1 col-form-label" for="teacher_profile_subject">
+                                            <%= Labels.get("teacher_profile.form.learning.subject.title")%>
                                         </label>
 
                                         <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                            <select class="custom-select" id="teacher_update_subject_select">
+                                            <select class="custom-select" id="teacher_profile_subject_select">
                                                 <option value="0" disabled selected>
-                                                    <%= Labels.get("teacher_update.form.learning.subject.choose")%>
+                                                    <%= Labels.get("teacher_profile.form.learning.subject.choose")%>
                                                 </option>
                                                 <%
                                                     for (Subject subject : subjects) {
@@ -654,20 +654,20 @@
                                                 %>
 
                                                 <option value="0">
-                                                    <%= Labels.get("teacher_update.form.learning.subject.other")%>
+                                                    <%= Labels.get("teacher_profile.form.learning.subject.other")%>
                                                     </a>
                                             </select>
                                         </div>   
 
-                                        <label id="teacher_update_subject_0_label" class="col-12 col-sm-6 col-lg-3 my-1 col-form-label d-none" 
-                                               for="teacher_update_subject_0_text">
-                                            <%= Labels.get("teacher_update.form.learning.subject.other.choose")%>
+                                        <label id="teacher_profile_subject_0_label" class="col-12 col-sm-6 col-lg-3 my-1 col-form-label d-none" 
+                                               for="teacher_profile_subject_0_text">
+                                            <%= Labels.get("teacher_profile.form.learning.subject.other.choose")%>
                                         </label>
 
-                                        <div id="teacher_update_subject_0_div" class="col-12 col-sm-6 col-lg-3 my-1 d-none">
-                                            <input type="text" class="form-control" id="teacher_update_subject_0_text" 
-                                                   name="teacher_update_institute_0_text"
-                                                   placeholder="<%= Labels.get("teacher_update.form.learning.subject.other.choose")%>">
+                                        <div id="teacher_profile_subject_0_div" class="col-12 col-sm-6 col-lg-3 my-1 d-none">
+                                            <input type="text" class="form-control" id="teacher_profile_subject_0_text" 
+                                                   name="teacher_profile_institute_0_text"
+                                                   placeholder="<%= Labels.get("teacher_profile.form.learning.subject.other.choose")%>">
                                         </div>
 
                                     </div>
@@ -676,33 +676,33 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
-                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
-                                            onclick="teacher_update_form_submit()">
+                                    <button type="button" class="btn btn-success mx-1 teacher_profile_form_submit_buttons"
+                                            onclick="teacher_profile_form_submit()">
                                         <span class="oi" data-glyph="chevron-left"></span>
-                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <%= Labels.get("teacher_profile.form.submit.button.text")%>   
                                         <span class="oi" data-glyph="chevron-left"></span>
                                     </button> 
-                                    <button type="button" class="btn btn-info teacher_update_tabs_button" 
-                                            id="teacher_update_goto_tab_teaching_topics_button"
-                                            onclick="teacher_update_goto_tab('teaching_topics')">
+                                    <button type="button" class="btn btn-info teacher_profile_tabs_button" 
+                                            id="teacher_profile_goto_tab_teaching_topics_button"
+                                            onclick="teacher_profile_goto_tab('teaching_topics')">
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
-                                        <%= Labels.get("teacher_update.tabs.to")%><%= Labels.get("teacher_update.tabs.teaching_topics")%>
+                                        <%= Labels.get("teacher_profile.tabs.to")%><%= Labels.get("teacher_profile.tabs.teaching_topics")%>
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
                                     </button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card my-1 tab-pane fade" id="teacher_update_teaching_topics_tab" role="tabpanel" 
-                             aria-labelledby="teacher_update_teaching_topics_link">
+                        <div class="card my-1 tab-pane fade" id="teacher_profile_teaching_topics_tab" role="tabpanel" 
+                             aria-labelledby="teacher_profile_teaching_topics_link">
                             <div class="card-header text-white bg-secondary">
                                 <div class="card-title">
-                                    <%= Labels.get("teacher_update.form.teaching_topics.text1")%>   
+                                    <%= Labels.get("teacher_profile.form.teaching_topics.text1")%>   
                                 </div>
                             </div>
 
                             <div class="card-body">
-                                <div class="row no-gutters" id="teacher_update_topic_list">
+                                <div class="row no-gutters" id="teacher_profile_topic_list">
                                     <%
                                         for (Subject subject : allSubjects.values()) {
                                     %>
@@ -740,17 +740,17 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
-                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
-                                            onclick="teacher_update_form_submit()">
+                                    <button type="button" class="btn btn-success mx-1 teacher_profile_form_submit_buttons"
+                                            onclick="teacher_profile_form_submit()">
                                         <span class="oi" data-glyph="chevron-left"></span>
-                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <%= Labels.get("teacher_profile.form.submit.button.text")%>   
                                         <span class="oi" data-glyph="chevron-left"></span>
                                     </button> 
-                                    <button type="button" class="btn btn-info teacher_update_tabs_button" 
-                                            id="teacher_update_goto_tab_prices_button"
-                                            onclick="teacher_update_goto_tab('prices')">
+                                    <button type="button" class="btn btn-info teacher_profile_tabs_button" 
+                                            id="teacher_profile_goto_tab_prices_button"
+                                            onclick="teacher_profile_goto_tab('prices')">
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
-                                        <%= Labels.get("teacher_update.tabs.to")%><%= Labels.get("teacher_update.tabs.prices")%>
+                                        <%= Labels.get("teacher_profile.tabs.to")%><%= Labels.get("teacher_profile.tabs.prices")%>
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
                                     </button>
                                 </div>
@@ -758,50 +758,50 @@
 
                         </div>
 
-                        <div class="card my-1 tab-pane fade" id="teacher_update_prices_tab" role="tabpanel" 
-                             aria-labelledby="teacher_update_prices_link">
+                        <div class="card my-1 tab-pane fade" id="teacher_profile_prices_tab" role="tabpanel" 
+                             aria-labelledby="teacher_profile_prices_link">
                             <div class="card-header text-white bg-secondary">
                                 <div class="card-title">
-                                    <%= Labels.get("teacher_update.form.payment.text1")%>   
+                                    <%= Labels.get("teacher_profile.form.payment.text1")%>   
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <div class="col-6 col-lg-3 my-1" id="teacher_update_paypal_email">
-                                        <label class="col-form-label" for="teacher_update_paypal_email_input">
-                                            <%= Labels.get("teacher_update.form.payment.paypal_email")%>
+                                    <div class="col-6 col-lg-3 my-1" id="teacher_profile_paypal_email">
+                                        <label class="col-form-label" for="teacher_profile_paypal_email_input">
+                                            <%= Labels.get("teacher_profile.form.payment.paypal_email")%>
                                         </label>   
-                                        <small class="teacher_update_required teacher_update_required_filled">
+                                        <small class="teacher_profile_required teacher_profile_required_filled">
                                             (*)
                                         </small>
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <input type="email" class="form-control" id="teacher_update_paypal_email_input" 
-                                               name="teacher_update_paypal_email_input" disabled tabindex="-1"
-                                               placeholder="<%= Labels.get("teacher_update.form.paypal_email.placeholder")%>">
+                                        <input type="email" class="form-control" id="teacher_profile_paypal_email_input" 
+                                               name="teacher_profile_paypal_email_input" disabled tabindex="-1"
+                                               placeholder="<%= Labels.get("teacher_profile.form.paypal_email.placeholder")%>">
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <label class="col-form-label" for="teacher_update_price_per_hour_input">
-                                            <%= Labels.get("teacher_update.form.payment.price_per_hour")%>
-                                            <small class="teacher_update_required teacher_update_required_filled">
+                                        <label class="col-form-label" for="teacher_profile_price_per_hour_input">
+                                            <%= Labels.get("teacher_profile.form.payment.price_per_hour")%>
+                                            <small class="teacher_profile_required teacher_profile_required_filled">
                                                 (*)
                                             </small>
                                             <br/>
                                             <small>
-                                                <%= Labels.get("teacher_update.form.payment.price_per_hour.small_text")%>
+                                                <%= Labels.get("teacher_profile.form.payment.price_per_hour.small_text")%>
                                             </small>
                                         </label> 
 
                                     </div>
 
-                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_update_price_per_hour">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_profile_price_per_hour">
                                         <div class="input-group">
-                                            <input type="text" class="form-control teacher_update_required teacher_update_required_filled" id="teacher_update_price_per_hour_input" 
-                                                   name="teacher_update_price_per_hour_input"
+                                            <input type="text" class="form-control teacher_profile_required teacher_profile_required_filled" id="teacher_profile_price_per_hour_input" 
+                                                   name="teacher_profile_price_per_hour_input"
                                                    onkeypress="return isNumberKey(event)"
-                                                   placeholder="<%= Labels.get("teacher_update.form.payment.price_per_hour.placeholder")%>">
+                                                   placeholder="<%= Labels.get("teacher_profile.form.payment.price_per_hour.placeholder")%>">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                     <%= CLabels.get("website.currency")%>
@@ -815,17 +815,17 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
-                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
-                                            onclick="teacher_update_form_submit()">
+                                    <button type="button" class="btn btn-success mx-1 teacher_profile_form_submit_buttons"
+                                            onclick="teacher_profile_form_submit()">
                                         <span class="oi" data-glyph="chevron-left"></span>
-                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <%= Labels.get("teacher_profile.form.submit.button.text")%>   
                                         <span class="oi" data-glyph="chevron-left"></span>
                                     </button> 
-                                    <button type="button" class="btn btn-info teacher_update_tabs_button" 
-                                            id="teacher_update_goto_tab_teaching_hours_button"
-                                            onclick="teacher_update_goto_tab('teaching_hours')">
+                                    <button type="button" class="btn btn-info teacher_profile_tabs_button" 
+                                            id="teacher_profile_goto_tab_teaching_hours_button"
+                                            onclick="teacher_profile_goto_tab('teaching_hours')">
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
-                                        <%= Labels.get("teacher_update.tabs.to")%><%= Labels.get("teacher_update.tabs.teaching_hours")%>
+                                        <%= Labels.get("teacher_profile.tabs.to")%><%= Labels.get("teacher_profile.tabs.teaching_hours")%>
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
                                     </button>
                                 </div>
@@ -833,33 +833,33 @@
 
                         </div>
 
-                        <div class="card my-1 tab-pane fade" id="teacher_update_teaching_hours_tab" role="tabpanel" 
-                             aria-labelledby="teacher_update_teaching_hours_link">
+                        <div class="card my-1 tab-pane fade" id="teacher_profile_teaching_hours_tab" role="tabpanel" 
+                             aria-labelledby="teacher_profile_teaching_hours_link">
                             <div class="card-header text-white bg-secondary">
                                 <div class="card-title">
-                                    <%= Labels.get("teacher_update.form.available_hours.text1")%>   
+                                    <%= Labels.get("teacher_profile.form.available_hours.text1")%>   
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="row no-gutters">
                                     <div class="col-12 col-lg-4">
                                         <p class="h6">
-                                            <%= Labels.get("teacher_update.form.available_hours.choose_hours")%>   
+                                            <%= Labels.get("teacher_profile.form.available_hours.choose_hours")%>   
                                         </p>  
                                         <p class="h6">
-                                            <%= Labels.get("teacher_update.form.available_hours.choose_hours2")%>   
+                                            <%= Labels.get("teacher_profile.form.available_hours.choose_hours2")%>   
                                         </p> 
                                         <p class="h6">
-                                            <%= Labels.get("teacher_update.form.available_hours.choose_hours3")%>   
+                                            <%= Labels.get("teacher_profile.form.available_hours.choose_hours3")%>   
                                         </p>
                                         <div class="row no-gutters my-1">
                                             <div class="col-12 col-sm-6 col-md-3 col-lg-6 my-1">
-                                                <label class="col-form-label mx-1" for="teacher_update_min_class_length">
-                                                    <%= Labels.get("teacher_update.form.available_hours.min_class_length")%>
+                                                <label class="col-form-label mx-1" for="teacher_profile_min_class_length">
+                                                    <%= Labels.get("teacher_profile.form.available_hours.min_class_length")%>
                                                 </label>
                                             </div>
                                             <div class="col-12 col-sm-6 col-md-3 col-lg-6 my-1">
-                                                <select class="custom-select form-control" id="teacher_update_min_class_length">
+                                                <select class="custom-select form-control" id="teacher_profile_min_class_length">
                                                     <%
                                                         int minutes = minimumClassLengthMinutes;
                                                         while (minutes <= maximumClassLengthMinutes) {
@@ -880,12 +880,12 @@
                                                 </select>                                                    
                                             </div>
                                             <div class="col-12 col-sm-6 col-md-3 col-lg-6 my-1">
-                                                <label class="col-form-label mx-1" for="teacher_update_max_class_length">
-                                                    <%= Labels.get("teacher_update.form.available_hours.max_class_length")%>
+                                                <label class="col-form-label mx-1" for="teacher_profile_max_class_length">
+                                                    <%= Labels.get("teacher_profile.form.available_hours.max_class_length")%>
                                                 </label>
                                             </div>
                                             <div class="col-12 col-sm-6 col-md-3 col-lg-6 my-1">
-                                                <select class="custom-select form-control" id="teacher_update_max_class_length">
+                                                <select class="custom-select form-control" id="teacher_profile_max_class_length">
                                                     <%
                                                         minutes = minimumClassLengthMinutes;
                                                         while (minutes <= maximumClassLengthMinutes) {
@@ -908,37 +908,37 @@
                                         </div>
                                         <div class="card my-1">
                                             <div class="h6 card-header">
-                                                <%= Labels.get("teacher_update.form.available_hours.hours_chosen")%>   
+                                                <%= Labels.get("teacher_profile.form.available_hours.hours_chosen")%>   
                                             </div>
 
 
                                             <div class="card-body">
-                                                <p class="h6" id="teacher_update_selected_hours">
+                                                <p class="h6" id="teacher_profile_selected_hours">
 
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="my-2">
-                                            <button type="button" class="btn btn-primary" onclick="teacher_update_clear_calendar()">
-                                                <%= Labels.get("teacher_update.form.available_hours.clear_button")%>   
+                                            <button type="button" class="btn btn-primary" onclick="teacher_profile_clear_calendar()">
+                                                <%= Labels.get("teacher_profile.form.available_hours.clear_button")%>   
                                             </button>
                                         </div>
                                     </div>
 
                                     <div class="px-2 col-12 col-lg-8 row no-gutters">
 
-                                        <table id="teacher_update_calendar_table" class="d-table table table-responsive table-sm">
+                                        <table id="teacher_profile_calendar_table" class="d-table table table-responsive table-sm">
                                             <thead>
                                                 <tr>
-                                                    <th class="teacher_update_calendar" style="width: 12.5%">
+                                                    <th class="teacher_profile_calendar" style="width: 12.5%">
                                                     </th>                                        
                                                     <% for (day = 0; day < 7; day++) {
 
                                                     %>                                        
-                                                    <th class="teacher_update_calendar"  style="width: 12.5%">
+                                                    <th class="teacher_profile_calendar"  style="width: 12.5%">
                                                         <span><%= dayNamesLong.get(day)%></span>
                                                         <br/>
-                                                        <span id="teacher_update_day_<%= (day + 1)%>"></span>
+                                                        <span id="teacher_profile_day_<%= (day + 1)%>"></span>
                                                     </th>
                                                     <% }%>
                                                 <tr/>
@@ -955,14 +955,14 @@
                                                 <tr>
                                                     <%
                                                         if (rowCount == (rowsPerCell - 1)) {
-                                                            cellClass = "teacher_update_row_end";
+                                                            cellClass = "teacher_profile_row_end";
                                                         } else {
-                                                            cellClass = "teacher_update_row_middle";
+                                                            cellClass = "teacher_profile_row_middle";
                                                         }
                                                         if (rowCount == 0) {
-                                                            cellClass = "teacher_update_row_start";
+                                                            cellClass = "teacher_profile_row_start";
                                                     %>
-                                                    <td rowspan="<%= rowsPerCell%>" class="teacher_update_calendar">
+                                                    <td rowspan="<%= rowsPerCell%>" class="teacher_profile_calendar">
                                                         <%= Utils.formatTime(hour, 0)%>                                                        
                                                     </td>
                                                     <% } %>
@@ -970,7 +970,7 @@
                                                     <% for (day = 0; day < 7; day++) {
                                                     %>
                                                     <td data-day="<%= day + 1%>" data-hour="<%= hour%>" data-minute="<%= minute%>"                                                            
-                                                        class="teacher_update_calendar_time teacher_update_calendar <%= cellClass%>" id="teacher_update_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">                                                       
+                                                        class="teacher_profile_calendar_time teacher_profile_calendar <%= cellClass%>" id="teacher_profile_day_<%= (day + 1)%>_hour_<%= hour%>_minute_<%= minute%>">                                                       
                                                     </td>                                            
                                                     <% } %>                                                                                                
                                                 </tr>
@@ -992,17 +992,17 @@
 
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">                                    
-                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
-                                            onclick="teacher_update_form_submit()">
+                                    <button type="button" class="btn btn-success mx-1 teacher_profile_form_submit_buttons"
+                                            onclick="teacher_profile_form_submit()">
                                         <span class="oi" data-glyph="chevron-left"></span>
-                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <%= Labels.get("teacher_profile.form.submit.button.text")%>   
                                         <span class="oi" data-glyph="chevron-left"></span>
                                     </button> 
-                                    <button type="button" class="btn btn-info teacher_update_tabs_button" 
-                                            id="teacher_update_goto_tab_accept_and_finish_button"
-                                            onclick="teacher_update_goto_tab('accept_and_finish')">
+                                    <button type="button" class="btn btn-info teacher_profile_tabs_button" 
+                                            id="teacher_profile_goto_tab_accept_and_finish_button"
+                                            onclick="teacher_profile_goto_tab('accept_and_finish')">
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
-                                        <%= Labels.get("teacher_update.tabs.to")%><%= Labels.get("teacher_update.tabs.accept_and_finish")%>
+                                        <%= Labels.get("teacher_profile.tabs.to")%><%= Labels.get("teacher_profile.tabs.accept_and_finish")%>
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
                                     </button>
                                 </div>
@@ -1010,34 +1010,34 @@
 
                         </div>
 
-                        <div class="card my-1 tab-pane fade" id="teacher_update_accept_and_finish_tab" role="tabpanel" 
-                             aria-labelledby="teacher_update_accept_and_finish_link">
+                        <div class="card my-1 tab-pane fade" id="teacher_profile_accept_and_finish_tab" role="tabpanel" 
+                             aria-labelledby="teacher_profile_accept_and_finish_link">
                             <div class="card-header text-white bg-secondary">
                                 <div class="card-title">
-                                    <%= Labels.get("teacher_update.form.submit.title")%>   
+                                    <%= Labels.get("teacher_profile.form.submit.title")%>   
                                 </div>
                             </div>
                             <div class="card-body">                                                            
                                 <div class="row no-gutters">
-                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_update_feedback">
-                                        <label class="col-form-label" for="teacher_update_feedback_input">
-                                            <%= Labels.get("teacher_update.form.publish.feedback_text")%>
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="teacher_profile_feedback">
+                                        <label class="col-form-label" for="teacher_profile_feedback_input">
+                                            <%= Labels.get("teacher_profile.form.publish.feedback_text")%>
                                         </label>  
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-9 my-1">
-                                        <textarea rows="4" class="form-control" id="teacher_update_feedback_input" 
-                                                  name="teacher_update_feedback_input"
-                                                  placeholder="<%= Labels.get("teacher_update.form.publish.feedback_placeholder")%>"></textarea>
+                                        <textarea rows="4" class="form-control" id="teacher_profile_feedback_input" 
+                                                  name="teacher_profile_feedback_input"
+                                                  placeholder="<%= Labels.get("teacher_profile.form.publish.feedback_placeholder")%>"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
-                                    <button type="button" class="btn btn-success mx-1 teacher_update_form_submit_buttons"
-                                            onclick="teacher_update_form_submit()">
+                                    <button type="button" class="btn btn-success mx-1 teacher_profile_form_submit_buttons"
+                                            onclick="teacher_profile_form_submit()">
                                         <span class="oi" data-glyph="chevron-left"></span>
-                                        <%= Labels.get("teacher_update.form.submit.button.text")%>   
+                                        <%= Labels.get("teacher_profile.form.submit.button.text")%>   
                                         <span class="oi" data-glyph="chevron-left"></span>
                                     </button>
                                 </div>
@@ -1052,9 +1052,9 @@
         <%@include file="footer.jsp" %>    
 
         <script>
-            teacher_update.teacher = <%= Utils.gson().toJson(teacher)%>
-            teacher_update.available_times = <%= Utils.gson().toJson(availableTimes)%>
-            teacher_update.teaching_topics = <%= Utils.gson().toJson(teachingTopics)%>
+            teacher_profile.teacher = <%= Utils.gson().toJson(teacher)%>
+            teacher_profile.available_times = <%= Utils.gson().toJson(availableTimes)%>
+            teacher_profile.teaching_topics = <%= Utils.gson().toJson(teachingTopics)%>
             oc.institute_type = <%= Utils.gson().toJson(instituteTypes)%>;
             oc.institutes = <%= Utils.gson().toJson(institutes)%>;
             oc.subjects = <%= Utils.gson().toJson(subjects)%>;

@@ -212,7 +212,7 @@ public class RegisterTeacherServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% teacherShowSkype %>", registeringTeacher.show_skype ? yes : no);
         emailContent = emailContent.replaceAll("<% teacherTeachingTopics %>", Utils.mergeList(topicsList, "<br/>"));
         emailContent = emailContent.replaceAll("<% teacherAvailableHours %>", Utils.mergeList(availableTimeList, "<br/>"));
-        emailContent = emailContent.replaceAll("<% updateTeacherUrl %>", Config.get("website.url") + "/teacher_update");
+        emailContent = emailContent.replaceAll("<% TeacherProfileUrl %>", Config.get("website.url") + "/teacher_profile");
 
         EmailSender.addEmail(registeringTeacher.email, Labels.get("emails.register_teacher.title"), emailContent);
         TasksManager.runNow(TasksManager.TASK_EMAIL);

@@ -15,7 +15,7 @@
     List<OClass> com_upcomingClasses = new ArrayList<>();
     String com_userName = Labels.get("navbar.guest.name");
     String com_homepagePage = "teacher_homepage";
-    String com_updateDetailsPage = "teacher_update";
+    String com_updateDetailsPage = "teacher_profile";
     if (com_user != null) {
         com_userName = com_user.display_name;
 

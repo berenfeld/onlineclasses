@@ -1,0 +1,71 @@
+th.teacher_profile_calendar, td.teacher_profile_calendar  {
+    text-align:center;
+    vertical-align: middle;
+    cursor: pointer;
+    height:14px;
+}
+
+td.calendar_today {
+    background-color:#DCDCDC
+}
+
+td.calendar_available {
+    background-color:#17a2b8
+}
+
+td.calendar_selected {
+    background-color:#6BEB00
+}
+
+td.calendar_busy {
+    background-color:#FF7F50
+}
+
+#teacher_profile_calendar_table
+{
+    table-layout: fixed;
+    border: solid gray 2px;
+    overflow-x: hidden;
+}
+
+#teacher_profile_calendar_table td, #teacher_profile_calendar_table th
+{
+    border: solid gray 1px;
+}
+
+#teacher_profile_calendar_table td.teacher_profile_row_start
+{
+    border-bottom: none
+}
+
+#teacher_profile_calendar_table td.teacher_profile_row_middle
+{
+    border-top: none;
+    border-bottom: none
+}
+
+#teacher_profile_calendar_table td.teacher_profile_row_end
+{
+    border-top: none
+}
+
+#teacher_profile_calendar_table td.teacher_profile_calendar_time:hover
+{
+    border: solid gray 2px;
+}
+
+small.teacher_profile_required
+{    
+    color:red;
+    font-weight: bold
+}
+
+input.teacher_profile_required, select.teacher_profile_required, textarea.teacher_profile_required
+{
+    border-color: red;
+}
+
+input.teacher_profile_required_filled, select.teacher_profile_required_filled, textarea.teacher_profile_required_filled
+{
+    border-color: green;
+}
