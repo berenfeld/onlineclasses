@@ -36,13 +36,7 @@ function contact_submit_form()
         return;
     }
 
-    $.ajax("servlets/contact",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: contact_submit_response
-            });
+    ajax_request( "contact", request, contact_submit_response);    
 }
 
 function contact_init()

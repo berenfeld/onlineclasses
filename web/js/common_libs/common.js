@@ -214,13 +214,7 @@ function invite_student_send()
         $("#invite_student_warning").removeClass("d-none");
         return;
     }
-    $.ajax("servlets/invite_student",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: invite_student_response
-            });
+    ajax_request( "invite_student", request, invite_student_response);    
 }
 
 function invite_teacher()
@@ -273,13 +267,7 @@ function invite_teacher_send()
         $("#invite_teacher_warning").removeClass("d-none");
         return;
     }
-    $.ajax("servlets/invite_teacher",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: invite_teacher_response
-            });
+    ajax_request( "invite_teacher", request, invite_teacher_response);    
 }
 
 function appendToSearchString(search_string, token)
@@ -326,13 +314,8 @@ function common_js_error(message, url, line_number, column_number, error_object)
     request.line_number = line_number;
     request.error_object = JSON.stringify(error_object)
 
-    $.ajax("servlets/js_error",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: common_js_error_response
-            });
+    ajax_request( "js_error", request, common_js_error_response);    
+
 }
 
 function common_number_only_input(element)
@@ -393,6 +376,7 @@ function common_init()
 function online_classes_init()
 {
     common_init();
+    ajax_init();
     confirm_init();
     alert_modal_init();
     progress_modal_init();

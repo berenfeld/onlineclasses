@@ -253,14 +253,7 @@ function start_teaching_form_submit()
         request.gender = parseInt10($("#start_teaching_gender_input_female").val());
     }
 
-    $.ajax("servlets/register_teacher",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: start_teaching_register_complete
-            }
-    );
+    ajax_request( "register_teacher", request, start_teaching_register_complete);    
 }
 
 function start_teaching_select_day_of_birth()

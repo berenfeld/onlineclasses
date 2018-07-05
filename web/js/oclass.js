@@ -20,13 +20,7 @@ function oclass_add_comment_ok(comment)
     var request = {};
     request.oclass_id = oclass.oclass.id;
     request.comment = comment;
-    $.ajax("servlets/add_class_comment",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: oclass_add_comment_response
-            });
+    ajax_request( "add_class_comment", request, oclass_add_comment_response);    
 }
 
 function oclass_add_comment_response(response)
@@ -83,14 +77,7 @@ function oclass_check_file_status()
     var request = {};
     request.oclass_id = oclass.oclass.id;
     request.file_name = oclass.file_name;
-
-    $.ajax("servlets/query_file_upload_status",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: oclass_check_file_status_response
-            });
+    ajax_request( "query_file_upload_status", request, oclass_check_file_status_response);    
 }
 function oclass_submit_file()
 {
@@ -126,13 +113,7 @@ function oclass_cancel_class_ok(comment)
     var request = {};
     request.oclass_id = oclass.oclass.id;
     request.comment = comment;
-    $.ajax("servlets/cancel_class",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: oclass_cancel_class_response
-            });
+    ajax_request( "cancel_class", request, oclass_cancel_class_response);    
 }
 
 function schedule_class_cancel_click()
@@ -173,13 +154,7 @@ function oclass_update_price_changed(new_price_str)
     var request = {};
     request.oclass_id = oclass.oclass.id;
     request.new_price = new_price;
-    $.ajax("servlets/update_class_price",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: oclass_update_price_response
-            });
+    ajax_request( "update_class_price", request, oclass_update_price_response);    
 }
 
 function oclass_init()

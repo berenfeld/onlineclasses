@@ -16,14 +16,7 @@ function login_googleLoggedIn(googleUser)
 
     var request = {};
     request.google_id_token = googleUser.google_id_token;
-    $.ajax("servlets/login",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: login_loginRequestComplete
-            });
-
+    ajax_request("login", request, login_loginRequestComplete);
 }
 
 function login_facebookLoggedIn(facebookUser)
@@ -35,14 +28,7 @@ function login_facebookLoggedIn(facebookUser)
 
     var request = {};
     request.facebook_access_token = facebookUser.facebook_access_token;
-    $.ajax("servlets/login",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: login_loginRequestComplete
-            });
-
+    ajax_request("login", request, login_loginRequestComplete);    
 }
 
 function login_loginRequestComplete(response)
@@ -98,14 +84,8 @@ function login_logoutFromNavBar()
 }
 
 function login_logoutFromNavBarConfirmed()
-{
-    $.ajax("servlets/logout",
-            {
-                type: "POST",
-                dataType: "JSON",
-                success: logout_logoutRequestComplete
-            });
-
+{    
+    ajax_request("logout", {}, logout_logoutRequestComplete);
 }
 
 function login_googleLogin()

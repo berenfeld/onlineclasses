@@ -71,14 +71,7 @@ function facebook_getPersonalInformation(response)
         if ( oc.cconfig[ "facebook.send_token_to_server" ] === "true" ) {
             var request = {};
             request.facebook_access_token = facebook.accessToken;
-            $.ajax("servlets/facebook_access_token",
-                    {
-                        type: "POST",
-                        data: JSON.stringify(request),
-                        dataType: "JSON",
-                        success: facebook_accessTokenResponse
-                    }
-            );
+            ajax_request( "facebook_access_token", request, facebook_accessTokenResponse);    
         }
     }
     

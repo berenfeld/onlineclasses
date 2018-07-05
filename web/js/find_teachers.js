@@ -66,13 +66,7 @@ function schedule_class_button_clicked()
     find_teachers.teacher_id = parseInt10(teacher_button.attr("data-teacher-id"));
     var request = {};
     request.teacher_id = find_teachers.teacher_id;
-    $.ajax("servlets/teacher_calendar",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: schedule_class_received_teacher_calendar
-            });
+    ajax_request( "teacher_calendar", request, schedule_class_received_teacher_calendar);
 }
 
 function schedule_class_previous_week()
@@ -412,14 +406,7 @@ function schedule_class_confirm()
 
     $("#schedule_class_info_div").removeClass("d-none");
     $("#schedule_class_info").text(oc.clabels["oclass.modal.schedule_class_request_sent"]);
-
-    $.ajax("servlets/schedule_class",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: schedule_class_response
-            });
+    ajax_request( "schedule_class", request, schedule_class_response);
 }
 
 function schedule_class_response(response)

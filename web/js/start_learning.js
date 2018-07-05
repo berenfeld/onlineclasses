@@ -74,14 +74,7 @@ function start_learning_form_submit()
         request.gender = parseInt10($("#start_learning_gender_input_female").val());
     }
 
-    $.ajax("servlets/register_student",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: start_learning_register_complete
-            }
-    );
+    ajax_request( "register_student", request, start_learning_register_complete);    
 }
 
 function start_learning_select_day_of_birth(dateText)

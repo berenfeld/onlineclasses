@@ -87,14 +87,7 @@ function google_signInChanged()
         if (oc.cconfig[ "google.send_token_to_server" ] === "true") {
             var request = {};
             request.google_id_token = googleUser.getAuthResponse().id_token;
-            $.ajax("servlets/google_id_token",
-                    {
-                        type: "POST",
-                        data: JSON.stringify(request),
-                        dataType: "JSON",
-                        success: google_idTokenResponse
-                    }
-            );
+            ajax_request( "google_id_token", request, google_idTokenResponse);    
         }
     }
 

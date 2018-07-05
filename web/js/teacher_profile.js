@@ -189,14 +189,7 @@ function teacher_profile_form_submit()
         request.gender = parseInt10($("#teacher_profile_gender_input_female").val());
     }
 
-    $.ajax("servlets/teacher_profile",
-            {
-                type: "POST",
-                data: JSON.stringify(request),
-                dataType: "JSON",
-                success: teacher_profile_register_complete
-            }
-    );
+    ajax_request( "teacher_profile", request, teacher_profile_register_complete);    
 }
 
 function teacher_profile_select_day_of_birth()
