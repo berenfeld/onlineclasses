@@ -2,25 +2,31 @@ var ajax = {};
 
 function ajax_init()
 {
-    
+    ajax.console_logs = ( oc.cconfig[ "website.debug.ajax.console_logs" ] === "true" );
 }
 
 function ajax_success(response)
 {
-    console.log("post reply " + this.oc_url + " reply " + JSON.stringify(response));
+    if ( ajax.console_logs ) {
+        console.log("post reply " + this.oc_url + " reply " + JSON.stringify(response));
+    }
     this.oc_cb(response);
 }
 
 function ajax_error(xhr, status, response)
 {
-    console.log("post error " + this.oc_url + " status " + status + " response " + response);
+    if ( ajax.console_logs ) {
+        console.log("post error " + this.oc_url + " status " + status + " response " + response);
+    }
 }
 
 function ajax_request( url, request_object, success_cb)
 {
     var json_string = JSON.stringify(request_object);
     var servlet_url = "servlets/" + url;
-    console.log("post request " + servlet_url + " data " + json_string);
+    if ( ajax.console_logs ) {
+        console.log("post request " + servlet_url + " data " + json_string);
+    }
     $.ajax( servlet_url,
             {
                 type: "post",
