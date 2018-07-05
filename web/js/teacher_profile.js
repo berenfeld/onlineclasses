@@ -45,7 +45,7 @@ function teacher_profile_img_upload()
     $("#teacher_profile_image_upload_form").submit();
     $("#teacher_profile_image_loading").removeClass("d-none");
     $("#teacher_profile_image_img").addClass("d-none");
-    teacher_profile.loading_image_url = "/" + oc.cconfig["website.file.upload.root"] +
+    teacher_profile.loading_image_url = oc.cconfig["website.file.files_root"] +
             "/" + oc.cconfig["website.file.upload.images_root"] + "/" + $("#teacher_profile_image_id").val() + ".png";
     teacher_profile_check_img_url();
 }

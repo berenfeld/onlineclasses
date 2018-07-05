@@ -33,12 +33,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @MultipartConfig
-@WebServlet(urlPatterns = {"/servlets/teacher_image_upload"})
+@WebServlet(urlPatterns = {"/servlets/teacher_image_upload"}, loadOnStartup = 1)
 public class TeacherImageUploadServlet extends HttpServlet {
+
     private static BufferedImage resize(BufferedImage img, int height, int width) {
         Image tmp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -50,15 +50,10 @@ public class TeacherImageUploadServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        String uploadDirName = Utils.getRealPath(config.getServletContext(), "", CConfig.get("website.file.upload.root"));
-        File uploadDir = new File(uploadDirName);
-        if (!uploadDir.exists()) {
-            Utils.info("creating root folder " + uploadDirName);
-            uploadDir.mkdir();
-        }
+        Utils.info("servlet " + getClass().getSimpleName() + "init");
 
-        String uploadImagesDirName = Utils.getRealPath(config.getServletContext(), "",
-                CConfig.get("website.file.upload.root"), CConfig.get("website.file.upload.images_root"));
+        String uploadImagesDirName = Utils.getPath("",
+                Config.get("website.file.local_files_root"), CConfig.get("website.file.upload.images_root"));
         File uploadImagesDir = new File(uploadImagesDirName);
         if (!uploadImagesDir.exists()) {
             Utils.info("creating root images folder " + uploadImagesDir);
@@ -79,24 +74,12 @@ public class TeacherImageUploadServlet extends HttpServlet {
             long fileSize = filePart.getSize();
             Utils.info("upload file " + fileName + " size " + fileSize + " from user " + user);
 
-            String imageDirName = Utils.getRealPath(request.getServletContext(), "",
-                    CConfig.get("website.file.upload.root"),
-                    CConfig.get("website.file.upload.images_root"),
-                    imageId);
-            Utils.info("image dir name " + imageDirName);
-
-            File imageDir = new File(imageDirName);
-            if (!imageDir.exists()) {
-                Utils.info("creating image dir root folder " + imageDirName);
-                imageDir.mkdir();
-            }
-
             InputStream fi = filePart.getInputStream();
             BufferedImage image = ImageIO.read(fi);
             BufferedImage resized = resize(image, image.getWidth(), image.getWidth());
-            String scaledOutputFileName = Utils.getRealPath(request.getServletContext(), imageId + ".png",
-                    CConfig.get("website.file.upload.root"),
-                    CConfig.get("website.file.upload.images_root"));                    
+            String scaledOutputFileName = Utils.getPath(imageId + ".png",
+                    Config.get("website.file.local_files_root"),
+                    CConfig.get("website.file.upload.images_root"));
 
             File output = new File(scaledOutputFileName);
             ImageIO.write(resized, "png", output);
@@ -106,7 +89,6 @@ public class TeacherImageUploadServlet extends HttpServlet {
             Utils.exception(ex);
         }
     }
-
 
     private void sendEmail(User uploader, OClass oClass, AttachedFile attachedFile) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator

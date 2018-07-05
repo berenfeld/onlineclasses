@@ -81,7 +81,7 @@ function start_teaching_img_upload()
     $("#start_teaching_image_upload_form").submit();
     $("#start_teaching_image_loading").removeClass("d-none");
     $("#start_teaching_image_img").addClass("d-none");
-    start_teaching.loading_image_url = "/" + oc.cconfig["website.file.upload.root"] +
+    start_teaching.loading_image_url = oc.cconfig["website.file.files_root"] +
             "/" + oc.cconfig["website.file.upload.images_root"] + "/" + $("#start_teaching_image_id").val() + ".png";
     start_teaching_check_img_url();
 }

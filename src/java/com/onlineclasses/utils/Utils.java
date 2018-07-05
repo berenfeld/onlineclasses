@@ -305,8 +305,8 @@ public class Utils {
         return String.format("%.2f", number);
     }
 
-    public static String getRealPath(ServletContext context, String fileName, String... dirs) {
-        String realPath = context.getRealPath("");
+    public static String getPath(String fileName, String... dirs) {
+        String realPath = "";
         for (String dir : dirs) {
             realPath += File.separator;
             realPath += dir;

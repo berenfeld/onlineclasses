@@ -20,7 +20,7 @@ public class AttachedFile extends BasicEntity {
     public static final String NAME_FIELD = "file_name";
     @DatabaseField(canBeNull = false, columnName = NAME_FIELD)
     public String name;
-
+    
     @DatabaseField
     public boolean removed;
 

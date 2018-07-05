@@ -313,8 +313,8 @@
                             %>
                             <%
                                 String filePath
-                                        = CConfig.get("website.file.upload.root") + "/"
-                                        + Config.get("website.file.upload.classes_prefix")
+                                        = CConfig.get("website.file.files_root") + "/"
+                                        + CConfig.get("website.file.upload.classes_prefix")
                                         + oClass.id + "/" + oClassAttachedFile.name;
                             %>
                             <a href="<%= filePath%>" class="text-white" target="_blank">

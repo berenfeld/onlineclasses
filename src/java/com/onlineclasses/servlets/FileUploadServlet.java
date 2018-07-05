@@ -34,16 +34,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @MultipartConfig
-@WebServlet(urlPatterns = {"/servlets/file_upload"})
+@WebServlet(urlPatterns = {"/servlets/file_upload"}, loadOnStartup = 1)
 public class FileUploadServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        String uploadDirName = Utils.getRealPath(config.getServletContext(), "", CConfig.get("website.file.upload.root"));
+        Utils.info("servlet " + getClass().getSimpleName() + "init");
+        String uploadDirName = Utils.getPath( "", Config.get("website.file.local_files_root"));
         File uploadDir = new File(uploadDirName);
         if (!uploadDir.exists()) {
             Utils.info("creating root folder " + uploadDirName);
@@ -100,9 +100,9 @@ public class FileUploadServlet extends HttpServlet {
                 return;
             }
 
-            String classRootDirName = Utils.getRealPath(request.getServletContext(), "",
-                    CConfig.get("website.file.upload.root"),
-                    Config.get("website.file.upload.classes_prefix") + oClassId);
+            String classRootDirName = Utils.getPath("",
+                    Config.get("website.file.local_files_root"),
+                    CConfig.get("website.file.upload.classes_prefix") + oClassId);
             Utils.info("class root dir name " + classRootDirName);
 
             File classRootDir = new File(classRootDirName);
@@ -111,9 +111,7 @@ public class FileUploadServlet extends HttpServlet {
                 classRootDir.mkdir();
             }
 
-            String outputFileName = Utils.getRealPath(request.getServletContext(), fileName,
-                    CConfig.get("website.file.upload.root"),
-                    Config.get("website.file.upload.classes_prefix") + oClassId);
+            String outputFileName = classRootDirName + File.separator + fileName;
 
             InputStream fi = filePart.getInputStream();
             File outputFile = new File(outputFileName);
@@ -121,7 +119,8 @@ public class FileUploadServlet extends HttpServlet {
                 Utils.warning("output file name " + outputFileName + " already uploaded");
                 return;
             }
-
+            
+            Utils.info("creating new file " + outputFile.getAbsolutePath());
             outputFile.createNewFile();
             FileOutputStream fo = new FileOutputStream(outputFileName);
             int chunkSize = Config.getInt("website.file.upload.chunk_size");
