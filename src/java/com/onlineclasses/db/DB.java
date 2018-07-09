@@ -24,6 +24,7 @@ import com.onlineclasses.db.orm.Student_DB;
 import com.onlineclasses.db.orm.Subject_DB;
 import com.onlineclasses.db.orm.Teacher_DB;
 import com.onlineclasses.db.orm.TeachingTopic_DB;
+import com.onlineclasses.db.orm.LearningTopic_DB;
 import com.onlineclasses.db.orm.Topic_DB;
 import com.onlineclasses.entities.AvailableTime;
 import com.onlineclasses.entities.Email;
@@ -37,6 +38,7 @@ import com.onlineclasses.entities.City;
 import com.onlineclasses.entities.ClassComment;
 import com.onlineclasses.entities.Feedback;
 import com.onlineclasses.entities.FacebookUser;
+import com.onlineclasses.entities.LearningTopic;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
@@ -146,6 +148,7 @@ public class DB {
     private static Feedback_DB _feedback_DB;
     private static Topic_DB _topic_DB;
     private static TeachingTopic_DB _teachingTopic_DB;
+    private static LearningTopic_DB _learningTopic_DB;
     private static City_DB _city_DB;
 
     private static final Map<Class, Base_DB> ORM_ENTITIES = new HashMap<>();
@@ -169,6 +172,7 @@ public class DB {
         _subject_DB = new Subject_DB(_connectionSource);
         _topic_DB = new Topic_DB(_connectionSource);
         _teachingTopic_DB = new TeachingTopic_DB(_connectionSource);
+        _learningTopic_DB = new LearningTopic_DB(_connectionSource);
         _city_DB = new City_DB(_connectionSource);
 
         ORM_ENTITIES.put(Student.class, _student_db);
@@ -187,6 +191,7 @@ public class DB {
         ORM_ENTITIES.put(Feedback.class, _feedback_DB);
         ORM_ENTITIES.put(Topic.class, _topic_DB);
         ORM_ENTITIES.put(TeachingTopic.class, _teachingTopic_DB);
+        ORM_ENTITIES.put(LearningTopic.class, _learningTopic_DB);
         ORM_ENTITIES.put(City.class, _city_DB);
     }
 

@@ -153,7 +153,7 @@ public class Utils {
         }
         return list.get(random.nextInt(list.size()));
     }
-
+    
     public static <T> T getFirstElement(List<T> list) {
         if ((list == null) || (list.isEmpty())) {
             return null;

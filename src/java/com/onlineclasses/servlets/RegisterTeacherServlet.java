@@ -46,39 +46,35 @@ public class RegisterTeacherServlet extends BaseServlet {
             Utils.warning("no data in teacher register request");
             return new BasicResponse(-1, Labels.get("start_teaching.response.not_logged_in"));
         }
-        
+
         String userEmail = null;
-        if (! Utils.isEmpty(registerTeacherRequest.google_id_token)) {
+        if (!Utils.isEmpty(registerTeacherRequest.google_id_token)) {
             GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(registerTeacherRequest.google_id_token);
             if (googleUser == null) {
                 Utils.warning("failed to get user from google id token");
                 return new BasicResponse(-1, Labels.get("start_teaching.response.not_logged_in"));
             }
 
-            User user = DB.getUserByEmail(googleUser.email);
-            if (user != null) {
-                Utils.warning("teacher " + user.display_name + " email " + user.email + " already registered");
-                return new BasicResponse(-1, Labels.get("start_teaching.response.email_exist"));
-            }
             userEmail = googleUser.email;
-        } else if (! Utils.isEmpty(registerTeacherRequest.facebook_access_token)) {
+        } else if (!Utils.isEmpty(registerTeacherRequest.facebook_access_token)) {
             FacebookUser facebookUser = FacebookAccessTokenServlet.userFromFacebookAccessToken(registerTeacherRequest.facebook_access_token);
             if (facebookUser == null) {
                 Utils.warning("failed to get user from facebook access token");
                 return new BasicResponse(-1, Labels.get("start_teaching.response.not_logged_in"));
             }
 
-            User user = DB.getUserByEmail(facebookUser.email);
-            if (user != null) {
-                Utils.warning("teacher " + user.display_name + " email " + user.email + " already registered");
-                return new BasicResponse(-1, Labels.get("start_teaching.response.email_exist"));
-            }
             userEmail = facebookUser.email;
         } else {
             Utils.warning("not logged in teacher register request");
             return new BasicResponse(-1, Labels.get("start_teaching.response.not_logged_in"));
         }
-            
+
+        User user = DB.getUserByEmail(userEmail);
+        if (user != null) {
+            Utils.warning("user " + user.display_name + " with email " + user.email + " already registered");
+            return new BasicResponse(-1, Labels.get("start_teaching.response.email_exist"));
+        }
+
         if (!Utils.validEmail(registerTeacherRequest.paypal_email)) {
             Utils.warning("teacher " + registerTeacherRequest.display_name + " invalid paypal email " + registerTeacherRequest.paypal_email);
             return new BasicResponse(-1, Labels.get("start_teaching.response.invalid_paypal_email"));
@@ -113,7 +109,7 @@ public class RegisterTeacherServlet extends BaseServlet {
         registeringTeacher.price_per_hour = registerTeacherRequest.price_per_hour;
         registeringTeacher.min_class_length = registerTeacherRequest.min_class_length;
         registeringTeacher.max_class_length = registerTeacherRequest.max_class_length;
-        if ( registeringTeacher.max_class_length < registeringTeacher.min_class_length) {
+        if (registeringTeacher.max_class_length < registeringTeacher.min_class_length) {
             registeringTeacher.max_class_length = registeringTeacher.min_class_length;
         }
 

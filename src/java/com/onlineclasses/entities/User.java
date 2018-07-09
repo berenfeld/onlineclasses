@@ -46,6 +46,9 @@ public class User extends BasicEntity implements Serializable {
     @DatabaseField
     public Date day_of_birth;
 
+    @DatabaseField
+    public String degree_type;
+    
     @DatabaseField(foreign = true)
     public Institute institute;
 

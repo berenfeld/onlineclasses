@@ -18,8 +18,10 @@ public class TasksManager {
 
     public static void init() {
         BaseTask.init();
+        
         _emailSeneder = new EmailSender();
         _emailSeneder.schedule(Config.getInt("mail.send_interval_minutes"));
+
         _tasks.add(_emailSeneder);
     }
 

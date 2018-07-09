@@ -37,9 +37,6 @@ public class Teacher extends User {
     public boolean show_degree;
 
     @DatabaseField
-    public String degree_type;
-
-    @DatabaseField
     public float rating;
 
     @DatabaseField

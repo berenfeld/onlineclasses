@@ -7,6 +7,7 @@ package com.onlineclasses.servlets.entities;
 
 import com.onlineclasses.entities.BasicRequest;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -22,6 +23,7 @@ public class RegisterStudentRequest extends BasicRequest {
     public String first_name;
     public String last_name;
     public String display_name;
+    public String image_url;
     public String phone_number;
     public String phone_area;
     public int gender;
@@ -30,4 +32,8 @@ public class RegisterStudentRequest extends BasicRequest {
     public String institute_name;
     public int subject_id;
     public String subject_name;
+    public String degree_type;
+    public int city_id;
+    public String feedback;
+    public List<Integer> learning_topics;
 }
