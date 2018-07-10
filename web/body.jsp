@@ -95,7 +95,7 @@
                 <%
                     if (com_user == null) {
                 %>
-                <li class="nav-item">
+                <li class="nav-item d-none">
                     <a class="nav-link" href="start_teaching">
                         <%= Labels.get("navbar.start.teaching")%>
                     </a>

@@ -414,8 +414,7 @@
                 </div>
 
                 <div class="card text-dark bg-white col-xl-9 col-lg-9">
-                    <div class="card-body">
-                        <div class="card-header">
+                    <div class="card-header">
                             <h5>
                                 <u>
                                     <%= Labels.get("find_teachers.list.displaying")%>
@@ -480,12 +479,14 @@
                             %>
 
                         </div>
+                    <div class="card-body">
+                        
 
                         <%
                             for (Teacher teacher : teachers) {
                         %>            
 
-                        <div class="card my-2">
+                        <div class="card my-1">
                             <div class="card-body">
                                 <div class="row no-gutters">      
                                     <div class="col-3 col-xl-2 px-1 mx-0 my-0 text-center">
