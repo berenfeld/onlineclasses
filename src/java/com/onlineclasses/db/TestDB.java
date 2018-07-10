@@ -94,9 +94,9 @@ public class TestDB {
         teacher.show_skype = true;
         teacher.skype_name = "ran.berenfeld";
         teacher.show_degree = true;
-        teacher.institute = allInstitues.get(0);
-        teacher.subject = allSubjects.get(0);
-        teacher.degree_type = allDegreeTypes.get(0);
+        teacher.institute = Utils.getRandomElement(allInstitues);
+            teacher.subject = Utils.getRandomElement(allSubjects);
+            teacher.degree_type = Utils.getRandomElement(allDegreeTypes);
         teacher.rating = 5;
         teacher.city = DB.getCityByName("נס ציונה");
         teacher.admin = true;
@@ -160,9 +160,19 @@ public class TestDB {
             teacher.rating = ((float) random.nextInt(100)) / 20.0f;
             teacher.city = Utils.getRandomElement(allCities);
             teacher.show_degree = true;
-            teacher.subject = Utils.getRandomElement(allSubjects);
-            teacher.institute = Utils.getRandomElement(allInstitues);
-            teacher.degree_type = Utils.getRandomElement(allDegreeTypes);
+            switch (random.nextInt(3)) {
+                case 0:
+                    teacher.institute = Utils.getRandomElement(allInstitues);
+                    teacher.subject = Utils.getRandomElement(allSubjects);
+                    teacher.degree_type = Utils.getRandomElement(allDegreeTypes);
+                    break;
+                case 1:
+                    teacher.institute_name = "institute " + i;
+                    teacher.subject_name = "subject " + i;
+                    teacher.degree_type = "degree " + i;
+                    break;
+            }
+            
             teacher.min_class_length = 30;
             teacher.max_class_length = 30;
 

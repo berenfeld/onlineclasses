@@ -556,11 +556,14 @@
                                                     %>
                                                 </h6>
                                                 <%
-                                                    if (teacher.show_degree) {
+                                                    if (    (teacher.show_degree) && 
+                                                            (! Utils.isEmpty(teacher.institute_name)) &&
+                                                            (! Utils.isEmpty(teacher.subject_name)) &&
+                                                            (! Utils.isEmpty(teacher.degree_type))  ) {
                                                 %>
-                                                <h6>
+                                                <h6>                                                    
                                                     <%= Labels.get("find_teachers.has_degree")%>
-                                                    <%= teacher.degree_type%>
+                                                    <%= teacher.degree_type%>                                                    
                                                     <%= Labels.get("find_teachers.degree_from")%><%= teacher.institute_name%>
                                                     <%= Labels.get("find_teachers.degree_subject")%><%= teacher.subject_name%>
                                                     <%
