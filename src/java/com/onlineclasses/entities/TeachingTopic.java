@@ -16,14 +16,17 @@ public class TeachingTopic extends BasicEntity {
     @DatabaseField(foreign = true, columnName = TEACHER_ID_COLUMN)
     public Teacher teacher;
 
-    @Override
+       @Override
     public String toString() {
-        String result = "unknown topic";
-        if (topic != null) {
-            result = " topic " + topic;
+        String result = "teaching topic ";
+        if (id != 0) {
+            result += "id " + id + " ";
         }
         if (teacher != null) {
-            result += " of teacher " + teacher;
+            result += "teacher " + teacher + " ";
+        }
+        if (topic != null) {
+            result += "topic " + topic + " ";
         }
         return result;
     }

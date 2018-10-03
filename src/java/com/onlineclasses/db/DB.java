@@ -108,7 +108,7 @@ public class DB {
                     + "?useUnicode=true"
                     + "&characterEncoding=utf-8"
                     + "&useSSL=false";
-            Utils.info("DB URL is '" + dbUrl + "'");            
+            Utils.info("DB URL is '" + dbUrl + "'");
             initDBCP(dbUrl, dbUser, dbPassword);
             initORM(dbUrl, dbUser, dbPassword);
             if (Config.getBool("db.create")) {
@@ -303,7 +303,6 @@ public class DB {
     }
 
     public static List<Topic> getTeacherTeachingTopics(Teacher teacher) throws SQLException {
-
         List<TeachingTopic> teacherTeachingTopics = _teachingTopic_DB.getTeacherTeachingTopics(teacher);
         List<Topic> teachingTopics = new ArrayList<>();
         for (TeachingTopic teachingTopic : teacherTeachingTopics) {
@@ -349,14 +348,25 @@ public class DB {
     }
 
     public static <T> int add(T t) throws SQLException {
+        if (t == null) {
+            throw new NullPointerException();
+        }
+        Utils.info("added " + t);
         return ORM_ENTITIES.get(t.getClass()).add(t);
     }
 
     public static <T> int delete(T t) throws SQLException {
+        if (t == null) {
+            throw new NullPointerException();
+        }
+        Utils.info("deleted " + t);
         return ORM_ENTITIES.get(t.getClass()).delete(t);
     }
 
     public static <T> int update(T t) throws SQLException {
+        if (t == null) {
+            throw new NullPointerException();
+        }
         return ORM_ENTITIES.get(t.getClass()).update(t);
     }
 
@@ -423,4 +433,9 @@ public class DB {
     public static FacebookUser getFacebookUserByFacebookID(String facebook_id) throws SQLException {
         return _facebookUser_db.getFacebookUserByFacebookID(facebook_id);
     }
+
+    public static Topic getTopicByName(String name) throws SQLException {
+        return _topic_DB.getTopicByName(name);
+    }
+
 }

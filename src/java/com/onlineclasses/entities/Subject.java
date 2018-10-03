@@ -12,11 +12,14 @@ public class Subject extends BasicEntity {
     @DatabaseField(canBeNull = false)
     public String name;
 
-    @Override
+   @Override
     public String toString() {
-        String result = "id " + id;
+        String result = "subject ";
+        if (id != 0) {
+            result += "id " + id + " ";
+        }
         if (name != null) {
-            result += " " + name;
+            result += "name " + name + " ";
         }
         return result;
     }

@@ -32,10 +32,6 @@ public class AvailableTime extends BasicEntity {
 
     @Override
     public String toString() {
-        String result = "from " + Utils.formatTime(start_hour, start_minute) + " to " + Utils.formatTime(end_hour, end_minute);
-        if (teacher != null) {
-            result += " of teacher " + teacher;
-        }
-        return result;
+        return "available time " + Utils.formatTime(start_hour, start_minute) + " - " + Utils.formatTime(end_hour, end_minute);
     }
 }

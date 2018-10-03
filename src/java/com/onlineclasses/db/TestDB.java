@@ -69,6 +69,12 @@ public class TestDB {
             return;
         }
 
+        addRanB();
+        addMosheB();
+        addTestTeachers();
+    }
+
+    private static void addRanB() throws Exception {
         List<Institute> allInstitues = DB.getAll(Institute.class);
         List<Subject> allSubjects = DB.getAll(Subject.class);
         List<City> allCities = DB.getAll(City.class);
@@ -83,7 +89,7 @@ public class TestDB {
         teacher.gender = User.GENDER_MALE;
         teacher.day_of_birth = Utils.parseDateWithFullYear("23/05/1977");
         teacher.paypal_email = "berenfeldran@gmail.com";
-        teacher.price_per_hour = 140;
+        teacher.price_per_hour = 130;
         teacher.image_url = "https://lh4.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ACLGyWBUQArTT9nKI7bjZHlRM48qDYygCA/s96-c/photo.jpg";
         teacher.moto = "מהנדס מערכות זמן אמת בעל 15 שנות נסיון, בעל תואר שני מהאוניבסיטה העברית במדעי המחשב ומתמטיקה. אשמח להוביל אתכם להצלחה.";
         teacher.phone_area = "054";
@@ -95,8 +101,8 @@ public class TestDB {
         teacher.skype_name = "ran.berenfeld";
         teacher.show_degree = true;
         teacher.institute = Utils.getRandomElement(allInstitues);
-            teacher.subject = Utils.getRandomElement(allSubjects);
-            teacher.degree_type = Utils.getRandomElement(allDegreeTypes);
+        teacher.subject = Utils.getRandomElement(allSubjects);
+        teacher.degree_type = Utils.getRandomElement(allDegreeTypes);
         teacher.rating = 5;
         teacher.city = DB.getCityByName("נס ציונה");
         teacher.admin = true;
@@ -122,6 +128,10 @@ public class TestDB {
 
         for (int i = 1; i <= 5; i++) {
             availableTime.day = i;
+            availableTime.start_hour = 21;
+            availableTime.start_minute = 00;
+            availableTime.end_hour = 23;
+            availableTime.end_minute = 00;
             DB.add(availableTime);
         }
 
@@ -133,11 +143,74 @@ public class TestDB {
         availableTime.end_hour = 16;
         availableTime.end_minute = 30;
         DB.add(availableTime);
-        
+    }
+
+    private static void addMosheB() throws Exception {
+        List<Institute> allInstitues = DB.getAll(Institute.class);
+        List<Subject> allSubjects = DB.getAll(Subject.class);
+        List<City> allCities = DB.getAll(City.class);
+        String degreeTypesList = Labels.get("db.degree_type");
+        List<String> allDegreeTypes = Utils.toList(degreeTypesList);
+
+        Teacher teacher = new Teacher();
+        teacher.display_name = "משה בן אבו";
+        teacher.first_name = "משה";
+        teacher.last_name = "בן אבו";
+        teacher.email = "moshebenabu@gmail.com";
+        teacher.gender = User.GENDER_MALE;
+        teacher.day_of_birth = Utils.parseDateWithFullYear("01/01/1982");
+        teacher.paypal_email = "moshebenabu@gmail.com";
+        teacher.price_per_hour = 120;
+        teacher.image_url = "";
+        teacher.moto = "בעל 8 שנות נסיון תעסוקתי בפיתוח תוכנה במגוון טכנולוגיות ושפות תכנות. כ 3 שנות נסיון כמורה לתכנות. שנתיים נסיון במתן שיעורים פרטיים.";
+        teacher.phone_area = "054";
+        teacher.phone_number = "4917396";
+        teacher.registered = new Date();
+        teacher.show_email = true;
+        teacher.show_phone = true;
+        teacher.show_skype = false;
+        teacher.show_degree = false;
+        teacher.rating = 5;
+        teacher.city = DB.getCityByName("נס ציונה");
+        teacher.min_class_length = 60;
+        teacher.max_class_length = 120;
+
+        DB.add(teacher);
+
+        String[] topics = {"תכנות בשפת ג'אוה", "תכנות בשפת פייטון", "תכנות בשפת C", "אלגוריתמים", "חישוביות", "סי שארפ"};
+        for (String topicName : topics) {
+            TeachingTopic teachingTopic = new TeachingTopic();
+            teachingTopic.teacher = teacher;
+            teachingTopic.topic = DB.getTopicByName(topicName);
+            if ( teachingTopic.topic == null ) {
+                Utils.warning("can't find topic '" + topicName + "'");
+                continue;
+            }
+            DB.add(teachingTopic);
+        }
+
+        AvailableTime availableTime = new AvailableTime();
+        availableTime.teacher = teacher;
+        availableTime.day = 6;
+        availableTime.start_hour = 8;
+        availableTime.start_minute = 30;
+        availableTime.end_hour = 11;
+        availableTime.end_minute = 30;
+        DB.add(availableTime);
+    }
+
+    private static void addTestTeachers() throws Exception {
+        List<Institute> allInstitues = DB.getAll(Institute.class);
+        List<Subject> allSubjects = DB.getAll(Subject.class);
+        List<City> allCities = DB.getAll(City.class);
+        String degreeTypesList = Labels.get("db.degree_type");
+        List<String> allDegreeTypes = Utils.toList(degreeTypesList);
+        List<Topic> allTopics = DB.getAll(Topic.class);
+
         Random random = new Random();
 
         for (int i = 0; i < 5; i++) {
-            teacher = new Teacher();
+            Teacher teacher = new Teacher();
             teacher.display_name = "מורה בדיקה " + i;
             teacher.first_name = "מורה";
             teacher.last_name = "בדיקה";
@@ -150,11 +223,11 @@ public class TestDB {
             teacher.show_skype = true;
             teacher.skype_name = "test" + i;
             teacher.price_per_hour = 50 + random.nextInt(100);
-            teacher.image_url = "https://lh4.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ACLGyWBUQArTT9nKI7bjZHlRM48qDYygCA/s96-c/photo.jpg";
+            teacher.image_url = "";
             teacher.moto = "Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. " + i;
-            teacher.phone_area = "054";
-            teacher.phone_number = "7476526";
-            String dob = "23/05/" + String.valueOf(2000 - random.nextInt(60));
+            teacher.phone_area = "007";
+            teacher.phone_number = "7777777";
+            String dob = "01/01/" + String.valueOf(2000 - random.nextInt(60));
             teacher.day_of_birth = Utils.parseDateWithFullYear(dob);
             teacher.registered = new Date();
             teacher.rating = ((float) random.nextInt(100)) / 20.0f;
@@ -172,7 +245,7 @@ public class TestDB {
                     teacher.degree_type = "degree " + i;
                     break;
             }
-            
+
             teacher.min_class_length = 30;
             teacher.max_class_length = 30;
 
@@ -184,7 +257,7 @@ public class TestDB {
             int hoursInDay = endWorkingHour - startWorkingHour;
             int unitsInHour = 60 / minutesUnit;
             for (int j = 1; j <= 5; j++) {
-                availableTime = new AvailableTime();
+                AvailableTime availableTime = new AvailableTime();
                 availableTime.teacher = teacher;
                 availableTime.day = j;
                 availableTime.start_hour = startWorkingHour + random.nextInt(hoursInDay - 8);
@@ -272,17 +345,24 @@ public class TestDB {
 
     private static void addTopics() throws SQLException {
         List<Subject> subjects = DB.getAll(Subject.class);
-        int i = 1;
+        int subjectNumber = 1;
         for (Subject subject : subjects) {
-            String topics = Labels.get("db.topics." + i);
-            List<String> topicNames = Utils.toList(topics);
-            for (String topicName : topicNames) {
+            int topicNumber = 1;
+            do {
+                String topicName = Labels.get("db.topics." + subjectNumber + "." + topicNumber);
+                if (Utils.isEmpty(topicName)) {
+                    break;
+                }
+                String topicDescription = Labels.get("db.topics." + subjectNumber + "." + topicNumber + ".description");
+
                 Topic topic = new Topic();
                 topic.name = topicName;
                 topic.subject = subject;
+                topic.description = topicDescription;
                 DB.add(topic);
-            }
-            i++;
+                ++topicNumber;
+            } while (true);
+            ++subjectNumber;
         }
     }
 

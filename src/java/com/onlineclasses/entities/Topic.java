@@ -8,7 +8,7 @@ package com.onlineclasses.entities;
 import com.j256.ormlite.field.DatabaseField;
 
 public class Topic extends BasicEntity {
-
+    
     public static final String NAME_COLUMN = "name";
     @DatabaseField(canBeNull = false, columnName = NAME_COLUMN)
     public String name;
@@ -16,11 +16,17 @@ public class Topic extends BasicEntity {
     @DatabaseField(foreign = true, canBeNull = false)
     public Subject subject;
 
+    @DatabaseField
+    public String description;
+    
     @Override
     public String toString() {
-        String result = "topic " + id;
+        String result = "topic ";
+        if (id != 0) {
+            result += "id " + id + " ";
+        }
         if (name != null) {
-            result += " " + name;
+            result += "name " + name + " ";
         }
         return result;
     }

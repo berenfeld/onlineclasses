@@ -69,14 +69,17 @@ public class User extends BasicEntity implements Serializable {
 
     @Override
     public String toString() {
-        String result;
+        String result;        
         if (this instanceof Student) {
-            result = "student " + id;
+            result = "student ";
         } else {
-            result = "teacher " + id;
+            result = "teacher ";
+        }
+        if (id != 0) {
+            result += "id " + id + " ";
         }
         if (display_name != null) {
-            result += " " + display_name;
+            result += "name  " + display_name + " ";
         }
         return result;
     }

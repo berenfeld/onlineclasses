@@ -717,7 +717,7 @@
                                     <%
                                         for (Subject subject : allSubjects.values()) {
                                     %>
-                                    <div class="col-xl-4 col-lg-4 px-1">
+                                    <div class="col-12 col-12 px-1">
                                         <div class="card">
                                             <div class="card-header text-white bg-info">
                                                 <%= subject.name%>
@@ -732,7 +732,13 @@
 
                                                     <button type="button" data-topic-id="<%= topic.id%>" class="text-right list-group-item list-group-item-light">
                                                         <span class="d-none oi" data-glyph="check"></span>
+                                                        <span class="text-bold text-primary">
                                                         <%= topic.name%>
+                                                        </span>
+                                                        <br/>
+                                                        <small>
+                                                            <%= topic.description %>
+                                                        </small>
                                                     </button>
                                                     <%
                                                             }

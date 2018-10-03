@@ -15,9 +15,12 @@ public class City extends BasicEntity {
 
     @Override
     public String toString() {
-        String result = "id " + id;
+        String result = "city ";
+        if (id != 0) {
+            result += "id " + id + " ";
+        }
         if (name != null) {
-            result += " " + name;
+            result += "name " + name + " ";
         }
         return result;
     }

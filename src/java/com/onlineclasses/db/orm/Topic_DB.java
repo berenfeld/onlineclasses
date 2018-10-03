@@ -10,9 +10,8 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
-import com.onlineclasses.entities.Email;
-import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Topic;
+import com.onlineclasses.utils.Utils;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class Topic_DB extends Base_DB<Topic> {
         super(connectionSource, Topic.class);
         QueryBuilder<Topic, Integer> queryBuilder = _dao.queryBuilder();
         Where<Topic, Integer> where = queryBuilder.where();
-        where.like(Topic.NAME_COLUMN, "%" + _getTopicsByNameArg + "%");
+        where.like(Topic.NAME_COLUMN, _getTopicsByNameArg);
         _getTopicsByName = queryBuilder.prepare();
     }
 
@@ -34,7 +33,11 @@ public class Topic_DB extends Base_DB<Topic> {
     private final PreparedQuery<Topic> _getTopicsByName;
 
     public synchronized List<Topic> getTopicsByName(String name) throws SQLException {
-        _getTopicsByNameArg.setValue(name);
+        _getTopicsByNameArg.setValue( "%" + name + "%");
         return _dao.query(_getTopicsByName);
+    }
+    
+    public Topic getTopicByName(String name) throws SQLException {
+        return Utils.getFirstElement(getTopicsByName(name));
     }
 }
