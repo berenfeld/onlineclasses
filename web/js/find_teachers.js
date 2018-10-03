@@ -183,6 +183,7 @@ function schedule_class_goto_date(date)
     }
     schedule_class_update_calendar();
 }
+
 function schedule_class_received_teacher_calendar(response)
 {
     find_teachers.teacher = response.teacher;
@@ -218,15 +219,15 @@ function schedule_class_received_teacher_calendar(response)
             max_hour = available_time.end_hour;
         }
     }
-    while ((min_hour % find_teachers.calendar.hours_pre_row) !== 0) {
+    while ((min_hour % find_teachers.calendar.hours_per_row) !== 0) {
         min_hour --;
     }
-    while ((max_hour % find_teachers.calendar.hours_pre_row) !== 0) {
+    while (( ( max_hour + 1 ) % find_teachers.calendar.hours_per_row) !== 0) {
         max_hour ++;
     }
-     
+    
     $("tr.schedule_class_hour_row").addClass("d-none");
-    for (var hour = min_hour; hour <= max_hour; hour ++ ) {
+    for (var hour = min_hour; hour <= max_hour ; hour ++ ) {
         $("tr.schedule_class_hour_row_"+hour).removeClass("d-none");
     }
     
@@ -449,7 +450,7 @@ function find_teachers_init()
     find_teachers.calendar.start_working_hour = parseInt10(oc.cconfig[ "website.time.start_working_hour"]);
     find_teachers.calendar.end_working_hour = parseInt10(oc.cconfig[ "website.time.end_working_hour"]);
     find_teachers.calendar.minutes_per_row = parseInt10(oc.cconfig[ "website.time.calendar_minutes_per_row" ] );
-    find_teachers.calendar.hours_pre_row = find_teachers.calendar.minutes_per_row / 60;
+    find_teachers.calendar.hours_per_row = find_teachers.calendar.minutes_per_row / 60;
 
     schedule_class_update_calendar();
 
