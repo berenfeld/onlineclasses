@@ -29,14 +29,14 @@ public class LoginServlet extends BaseServlet {
         GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(loginRequest.google_id_token);
         if (googleUser == null) {
             Utils.warning("failed to get user from google id token");
-            return new BasicResponse(-1, Labels.get("login.request.user_not_found"));
+            return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "start_learning"));
         }
 
         User user = DB.getUserByEmail(googleUser.email);
         if (user == null) {
             Utils.warning("Can't find google logged in user with email " + googleUser.email);
             // TODO : fast register
-            return new BasicResponse(-1, Labels.get("login.request.user_not_found"));
+            return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "start_learning"));
         }
 
         Utils.info("user " + user.display_name + " logged in with email " + user.email);
@@ -48,14 +48,14 @@ public class LoginServlet extends BaseServlet {
         FacebookUser facebookUser = FacebookAccessTokenServlet.userFromFacebookAccessToken(loginRequest.facebook_access_token);
         if (facebookUser == null) {
             Utils.warning("failed to get user from facebook access token");
-            return new BasicResponse(-1, Labels.get("login.request.user_not_found"));
+            return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "start_learning"));
         }
 
         User user = DB.getUserByEmail(facebookUser.email);
         if (user == null) {
             Utils.warning("Can't find facebook logged in user with email " + facebookUser.email);
             // TODO : fast register
-            return new BasicResponse(-1, Labels.get("login.request.user_not_found"));
+            return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "start_learning"));
         }
 
         Utils.info("user " + user.display_name + " logged in with email " + user.email);

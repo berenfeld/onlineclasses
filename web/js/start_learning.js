@@ -105,7 +105,6 @@ function start_learning_register_complete(response)
     redirectAfter("/", 5);
 }
 
-
 function start_learning_form_validation(request)
 {
     $("#start_learning_form *").removeClass("border border-warning");
@@ -167,9 +166,6 @@ function start_learning_form_submit()
 
     alert_show(oc.clabels[ "start_learning.register.registering"],
             oc.clabels[ "start_learning.register.registering_message"]);
-
-
-
 
     ajax_request( "register_student", request, start_learning_register_complete);    
 }

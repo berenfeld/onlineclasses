@@ -344,4 +344,9 @@ public class Utils {
         }
         return size + " bytes";
     }
+    
+    public static String createAnchor(String title, String url)
+    {
+        return "<a href='" + url + "'>" + title + "</a>";
+    }
 }
