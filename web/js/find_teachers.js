@@ -60,8 +60,9 @@ function find_teachers_refresh_results()
     location.search = search_string;
 }
 
-function schedule_class_button_clicked()
+function schedule_class_button_clicked(event)
 {
+    console.log(event);
     var teacher_button = $("#" + event.target.id);
     find_teachers.teacher_id = parseInt10(teacher_button.attr("data-teacher-id"));
     var request = {};
@@ -505,6 +506,7 @@ function find_teachers_init()
     $("#find_teachers_duration_select").on("change", schedule_class_update_calendar);
     $("#schedule_class_start_minute_select").on("change", schedule_class_update_calendar);
     $("#schedule_class_start_hour_select").on("change", schedule_class_update_calendar);
+    $("button.schedule_class_button").on("click", schedule_class_button_clicked);
 }
 
 $(document).ready(find_teachers_init);

@@ -514,7 +514,7 @@
                                         <h6>
                                             <button id="schedule_class_button_<%= teacher.id%>" data-teacher-id="<%= teacher.id%>" 
                                                     data-teacher-display-name="<%= teacher.display_name%>" 
-                                                    onclick="schedule_class_button_clicked()" class="btn btn-sm btn-outline-primary rounded btn-block">
+                                                    class="schedule_class_button btn btn-sm btn-outline-primary rounded btn-block">
                                                 <%= Labels.get("find_teachers.list.body.schedule_class_button")%>
                                             </button>
                                         </h6>
