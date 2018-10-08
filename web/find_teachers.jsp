@@ -287,11 +287,6 @@
                         <div id="schedule_class_warning_div" class="alert alert-warning d-none fade show alert-dismissible h6">
                             <span class="oi" data-glyph="warning"></span>    
                             <span id="schedule_class_warning"></span>
-                            &nbsp;
-                            <a class="alert-link d-none" id="schedule_class_warning_a"></a>
-                            &nbsp;
-                            <a class="alert-link d-none" id="schedule_class_warning_a_not_logged_in"
-                               href="javascript:schedule_class_login_clicked()"></a>
                         </div>
                         <div id="schedule_class_info_div" class="alert alert-info d-none fade show alert-dismissible h6">
                             <span class="oi" data-glyph="info"></span>    
@@ -301,7 +296,9 @@
                         <div class="modal-footer mx-0">
                             <div class="d-flex flex-row-reverse mx-0">
                             <button type="button" class="btn btn-info" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
-                            <button type="button" class="btn btn-success mx-1" onclick="schedule_class_confirm()"><%= Labels.get("oclass.modal.confirm_button")%></button>
+                            <button id="schedule_class_confirm_button" type="button" class="btn btn-success mx-1">
+                                <%= Labels.get("oclass.modal.confirm_button")%>
+                            </button>
                             </div>
                         </div>
                 </div>

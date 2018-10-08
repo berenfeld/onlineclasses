@@ -34,14 +34,14 @@ import java.util.Random;
 public class TestDB {
 
     public static void create() throws Exception {
-        Utils.warning("creating test database");
-        addStudents();
+        Utils.warning("creating test database");        
         addInstituteTypes();
         addInstitutes();
         addSubjects();
         addCities();
         addTopics();
         addTeachingTopics();
+        addStudents();
         addTeachers();
         addScheduledClasses();
     }
@@ -55,7 +55,7 @@ public class TestDB {
         student.first_name = "רן";
         student.last_name = "ברנפלד";
         student.email = "ichess@ichess.co.il";
-        student.image_url = "https://lh4.googleusercontent.com/-RvMyRqrpEIM/AAAAAAAAAAI/AAAAAAAAAT4/jewL_O1LF_8/s96-c/photo.jpg";
+        student.image_url = "https://lh4.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ACLGyWBUQArTT9nKI7bjZHlRM48qDYygCA/s96-c/photo.jpg";
         student.registered = new Date();
         student.gender = User.GENDER_MALE;
         student.emails_enabled = true;

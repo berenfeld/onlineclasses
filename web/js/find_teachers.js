@@ -318,20 +318,16 @@ function schedule_class_select_time(event)
 
 function schedule_class_confirm()
 {
-    $("#schedule_class_warning_a").addClass("d-none");
-    $("#schedule_class_warning_a_not_logged_in").addClass("d-none");
     $("#schedule_class_warning_div").addClass("d-none");
     $("#schedule_class_info_div").addClass("d-none");
 
     if (!login_isLoggedIn())
     {
         $("#schedule_class_warning").html(oc.clabels[ "oclass.modal.not_logged_in"]);
-        $("#schedule_class_warning_div").removeClass("d-none");
-        $("#schedule_class_warning_a").attr("href", "start_learning");
-        $("#schedule_class_warning_a").html(oc.clabels[ "oclass.modal.register_here"]);
-        $("#schedule_class_warning_a").removeClass("d-none");
-        $("#schedule_class_warning_a_not_logged_in").html(oc.clabels[ "oclass.modal.click_here_to_connect"]);
-        $("#schedule_class_warning_a_not_logged_in").removeClass("d-none");
+        $("#schedule_class_warning").append("&nbsp;");
+        $("#schedule_class_warning").append(createLoginAnchor(oc.clabels[ "oclass.modal.click_here_to_connect"]));
+        //$("#schedule_class_warning").html(oc.clabels[ "oclass.modal.register_here"]);
+        $("#schedule_class_warning_div").removeClass("d-none");        
         return;
     }
 
@@ -559,7 +555,7 @@ function find_teachers_init()
     $("#schedule_class_start_hour_select").on("change", schedule_class_update_calendar);
     $("button.schedule_class_button").on("click", schedule_class_button_clicked);
     $("td.schedule_class_calendar_time").on("click", schedule_class_select_time);
-    
+    $("#schedule_class_confirm_button").on("click", schedule_class_confirm);
     $("#schedule_class_calendar_table td.schedule_class_calendar_time").hover( schedule_class_calendar_hover);
 }
 

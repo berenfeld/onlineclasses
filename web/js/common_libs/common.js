@@ -291,6 +291,11 @@ function createEmailAnchor(email)
     return "<a href='mailto:" + email + "'>" + email + "</a>";
 }
 
+function createLoginAnchor(message)
+{
+    return "<a href='javascript:login_showLoginModal()'>" + message + "</a>";
+}
+
 function remove_search_from_location()
 {
     var uri = window.location.toString();

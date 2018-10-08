@@ -55,9 +55,15 @@ function login_isLoggedIn() {
     return login.user !== null;
 }
 
+function show_modal(modal_name)
+{
+    $("div.modal").modal("hide");
+    $("#" + modal_name).modal('show');
+}
+
 function login_showLoginModal()
 {
-    $("#login_modal").modal('show');
+    show_modal("login_modal");
 }
 
 function login_hideLoginModal()
