@@ -4,7 +4,6 @@ var start_learning = {};
 
 function start_learning_userLoggedInCallback(user)
 {
-    //alert_show(oc.clabels["start_learning.login_successful"] + " " + user.email);
     google_clearUserLoggedinCallback();
     facebook_clearUserLoggedinCallback();
     start_learning.google_id_token = user.google_id_token;

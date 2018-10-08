@@ -169,7 +169,6 @@ function invite_student()
     $("#invite_student_modal").modal("show");
 }
 
-
 function invite_student_response(response)
 {
     if (response.rc === 0) {
@@ -286,14 +285,19 @@ function start_teaching()
             oc.clabels["navbar.start_teaching.text"] + createEmailAnchor(oc.clabels["website.admin.email"]));
 }
 
+function createAnchor(href, message)
+{
+    return "<a href='" + href + "'>" + message + "</a>";
+}
+
 function createEmailAnchor(email)
 {
-    return "<a href='mailto:" + email + "'>" + email + "</a>";
+    return createAnchor("mailto:" + email, email);    
 }
 
 function createLoginAnchor(message)
 {
-    return "<a href='javascript:login_showLoginModal()'>" + message + "</a>";
+    return createAnchor("javascript:login_showLoginModal()", message );
 }
 
 function remove_search_from_location()
@@ -368,6 +372,16 @@ function enableButtons(buttons)
 {
     buttons.removeClass("disabled");
     buttons.prop("disabled", false);
+}
+
+function isValid(object)
+{
+    return  ( object !== null ) && ( object !== undefined );
+}
+
+function isInvalid(object)
+{
+    return  ( object === null ) || ( object === undefined );
 }
 
 function common_init()

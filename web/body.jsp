@@ -275,6 +275,9 @@
                 <h6 id="alert_modal_text1">
                     <%= Labels.get("alert.modal.text1")%>
                 </h6>                    
+                <h6 id="alert_modal_text2">
+                    <%= Labels.get("alert.modal.text2")%>
+                </h6>                    
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">

@@ -14,13 +14,21 @@ function alert_modal_ok()
     }
 }
 
-function alert_show(title, message, ok_cb, cancel_cb)
+function alert_show(title, message1, message2, ok_cb)
 {
     alert_modal.ok_cb = ok_cb;
-    alert_modal.cancel_cb = cancel_cb;
     
     $("#alert_modal_title").html(title);
-    $("#alert_modal_text1").html(message);
+    if (isValid(message1)) {
+        $("#alert_modal_text1").html(message1);
+    } else {
+        $("#alert_modal_text1").html();
+    }
+    if (isValid(message2)) {
+        $("#alert_modal_text2").html(message2);
+    } else {
+        $("#alert_modal_text2").html();
+    }
     $("#alert_modal").modal('show');
 }
 

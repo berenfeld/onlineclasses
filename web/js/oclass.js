@@ -32,7 +32,7 @@ function oclass_add_comment_response(response)
 }
 function oclass_pay()
 {
-    $("#schedule_class_payment_modal").modal("show");
+    show_modal("schedule_class_payment_modal");
 }
 function schedule_class_attach_file()
 {
@@ -79,6 +79,7 @@ function oclass_check_file_status()
     request.file_name = oclass.file_name;
     ajax_request( "query_file_upload_status", request, oclass_check_file_status_response);    
 }
+
 function oclass_submit_file()
 {
     if (oclass.file_name === null) {
@@ -165,6 +166,14 @@ function oclass_init()
     var start_date = new Date(Date.parse(oclass.oclass.start_date));
     var remainingMs = start_date.getTime() - today.getTime();
     $("#oclass_main_board_starting_in_value").text(parseRemainingMs(remainingMs));
+    if ( isInvalid(oclass.oclass.payment ) ) {
+        if (login_isUser(oclass.student)) {
+            alert_show( oc.clabels["oclass.payment_needed"],
+            oc.clabels["oclass.payment_needed_text1"] + "&nbsp;" +
+                    createAnchor("javascript:oclass_pay()", oc.clabels["oclass.payment_needed_pay_now"]),
+            oc.clabels["oclass.payment_needed_text2"]);
+        }
+    }
 }
 
 $(document).ready( oclass_init );

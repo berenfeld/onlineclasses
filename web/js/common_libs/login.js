@@ -118,6 +118,14 @@ function login_isTeacher()
     return oc.is_teacher;
 }
 
+function login_isUser(user)
+{
+    if ( ! login_isLoggedIn()) {
+        return false;
+    }
+    return login.user.id === user.id;
+}
+
 function login_facebookLogin()
 {
     var facebookUser = facebook_getLoggedInUser();

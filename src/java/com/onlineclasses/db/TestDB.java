@@ -51,7 +51,7 @@ public class TestDB {
             return;
         }
         Student student = new Student();
-        student.display_name = "רן ברנפלד";
+        student.display_name = "רן ברנפלד תלמיד";
         student.first_name = "רן";
         student.last_name = "ברנפלד";
         student.email = "ichess@ichess.co.il";
