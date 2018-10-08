@@ -134,7 +134,7 @@ function oclass_update_price_response(response)
 {
     if (response.rc === 0) {
         alert_show(oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.price_updated"]);
-        reloadAfter(2)
+        reloadAfter(2);
         return;
     }
     alert_show(oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.failed_to_update_price"] + " : " + response.message);
