@@ -22,17 +22,17 @@ function alert_show(title, message1, message2, ok_cb)
     if (isValid(message1)) {
         $("#alert_modal_text1").html(message1);
     } else {
-        $("#alert_modal_text1").html();
+        $("#alert_modal_text1").html("");
     }
     if (isValid(message2)) {
         $("#alert_modal_text2").html(message2);
     } else {
-        $("#alert_modal_text2").html();
+        $("#alert_modal_text2").html("");
     }
     $("#alert_modal").modal('show');
 }
 
 function alert_modal_init()
 {
-    
+    $("#alert_modal_button").on("click", alert_modal_ok );
 }

@@ -20,7 +20,7 @@ function oclass_add_comment_ok(comment)
     var request = {};
     request.oclass_id = oclass.oclass.id;
     request.comment = comment;
-    ajax_request( "add_class_comment", request, oclass_add_comment_response);    
+    ajax_request("add_class_comment", request, oclass_add_comment_response);
 }
 
 function oclass_add_comment_response(response)
@@ -45,7 +45,7 @@ function oclass_update_chosen_file()
     filename = filename.replace(/.*[\/\\]/, '');
     $("#oclass_attach_file_chosen_file_name").html(filename);
     oclass.file_name = filename;
-    enableButtons($("#oclass_attach_file_submit_button")); 
+    enableButtons($("#oclass_attach_file_submit_button"));
 }
 
 function oclass_check_file_status_response(response)
@@ -64,7 +64,7 @@ function oclass_check_file_status_response(response)
             " " +
             response.file_size);
     if (response.uploaded === response.file_size) {
-        $("#oclass_attach_file_info_text").html( oc.clabels["oclass.attach_file.file_upload_done"] );        
+        $("#oclass_attach_file_info_text").html(oc.clabels["oclass.attach_file.file_upload_done"]);
         reloadAfter(2);
         enableButtons($("#oclass_attach_file_submit_button"));
         return;
@@ -77,7 +77,7 @@ function oclass_check_file_status()
     var request = {};
     request.oclass_id = oclass.oclass.id;
     request.file_name = oclass.file_name;
-    ajax_request( "query_file_upload_status", request, oclass_check_file_status_response);    
+    ajax_request("query_file_upload_status", request, oclass_check_file_status_response);
 }
 
 function oclass_submit_file()
@@ -114,7 +114,7 @@ function oclass_cancel_class_ok(comment)
     var request = {};
     request.oclass_id = oclass.oclass.id;
     request.comment = comment;
-    ajax_request( "cancel_class", request, oclass_cancel_class_response);    
+    ajax_request("cancel_class", request, oclass_cancel_class_response);
 }
 
 function schedule_class_cancel_click()
@@ -127,35 +127,35 @@ function schedule_class_cancel_click()
 function oclass_update_price_click()
 {
     text_input_modal_set_value(oclass.oclass.price);
-    text_input_modal_show( oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.text"], oclass_update_price_changed);
+    text_input_modal_show(oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.text"], oclass_update_price_changed);
 }
 
 function oclass_update_price_response(response)
 {
-    if (response.rc === 0 ) {
-        alert_show( oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.price_updated"]);
+    if (response.rc === 0) {
+        alert_show(oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.price_updated"]);
         reloadAfter(2)
         return;
     }
-    alert_show( oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.failed_to_update_price"] +" : " + response.message);
+    alert_show(oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.failed_to_update_price"] + " : " + response.message);
 }
 
 function oclass_update_price_changed(new_price_str)
 {
     var new_price = parseInt10(new_price_str);
-    if ((new_price === 0)|| (! isDigits(new_price_str))) {   
+    if ((new_price === 0) || (!isDigits(new_price_str))) {
         text_input_modal_hide();
-        alert_show( oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.illegal_price"]);
+        alert_show(oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.illegal_price"]);
         return;
     }
-    
+
     text_input_modal_hide();
     alert_show(oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.request_sent"]);
-        
+
     var request = {};
     request.oclass_id = oclass.oclass.id;
     request.new_price = new_price;
-    ajax_request( "update_class_price", request, oclass_update_price_response);    
+    ajax_request("update_class_price", request, oclass_update_price_response);
 }
 
 function oclass_init()
@@ -166,14 +166,12 @@ function oclass_init()
     var start_date = new Date(Date.parse(oclass.oclass.start_date));
     var remainingMs = start_date.getTime() - today.getTime();
     $("#oclass_main_board_starting_in_value").text(parseRemainingMs(remainingMs));
-    if ( isInvalid(oclass.oclass.payment ) ) {
-        if (login_isUser(oclass.student)) {
-            alert_show( oc.clabels["oclass.payment_needed"],
-            oc.clabels["oclass.payment_needed_text1"] + "&nbsp;" +
-                    createAnchor("javascript:oclass_pay()", oc.clabels["oclass.payment_needed_pay_now"]),
-            oc.clabels["oclass.payment_needed_text2"]);
-        }
+    if (isInvalid(oclass.oclass.payment) && (login_isUser(oclass.student)) && (login_isStudent())) {
+        alert_show(oc.clabels["oclass.payment_needed"],
+                oc.clabels["oclass.payment_needed_text1"] + "&nbsp;" +
+                createAnchor("javascript:oclass_pay()", oc.clabels["oclass.payment_needed_pay_now"]),
+                oc.clabels["oclass.payment_needed_text2"]);
     }
 }
 
-$(document).ready( oclass_init );
+$(document).ready(oclass_init);

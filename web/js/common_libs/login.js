@@ -78,13 +78,18 @@ function login_hideLoginModal()
     $("#login_modal").modal('hide');
 }
 
-function logout_logoutRequestComplete(response)
+function login_reload()
+{    
+    location.reload();
+}
+
+function login_logoutRequestComplete(response)
 {     
+    google_signOut();
+    facebook_signOut();
     if (response.rc === 0 ) {
         alert_show(oc.clabels[ "website.logout.complete.title" ],
-                oc.clabels[ "website.logout.complete.message" ]);
-        google_signOut();
-        facebook_signOut();
+                oc.clabels[ "website.logout.complete.message" ], null, login_reload);
         reloadAfter(2);
     }
 }
@@ -98,7 +103,7 @@ function login_logoutFromNavBar()
 
 function login_logoutFromNavBarConfirmed()
 {    
-    ajax_request("logout", {}, logout_logoutRequestComplete);
+    ajax_request("logout", {}, login_logoutRequestComplete);
 }
 
 function login_googleLogin()
@@ -112,10 +117,14 @@ function login_googleLogin()
     }
 }
 
-
 function login_isTeacher()
 {
     return oc.is_teacher;
+}
+
+function login_isStudent()
+{
+    return ! ( oc.is_teacher );
 }
 
 function login_isUser(user)
