@@ -62,7 +62,6 @@ function find_teachers_refresh_results()
 
 function schedule_class_button_clicked(event)
 {
-    console.log(event);
     var teacher_button = $("#" + event.target.id);
     find_teachers.teacher_id = parseInt10(teacher_button.attr("data-teacher-id"));
     var request = {};
@@ -293,8 +292,12 @@ function schedule_class_select_date(dateText)
 function schedule_class_select_time(event)
 {
     if ( ! find_teachers.available) {
+        $("#schedule_class_warning").text(oc.clabels[ "oclass.modal.please_choose_time_when_teacher_is_available"]);
+        $("#schedule_class_warning_div").removeClass("d-none");
         return;
     }
+    $("#schedule_class_warning_div").addClass("d-none");
+    
     var elem = $(event.target);
     var day = parseInt10(elem.attr("data-day"));
     var hour = parseInt10(elem.attr("data-hour"));
@@ -485,12 +488,9 @@ function schedule_class_calendar_hover( event )
         if ( minutes >= duration) {
             element.addClass("schedule_class_calendar_time_hover_end");
         }
-    }
-    
-    
-    
-    
+    }  
 }
+
 function find_teachers_init()
 {
     find_teachers.calendar = {};
