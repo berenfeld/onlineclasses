@@ -18,6 +18,11 @@ function index_topic_selected(event, ui)
     index_search_topic(ui.item.value);
 }
 
+function index_search()
+{
+    $("#index_topic_name").autocomplete( "search", "");
+}
+
 function index_init()
 {
     index.all_topics_names = [];
@@ -28,8 +33,13 @@ function index_init()
     }
     $("#index_topic_name").autocomplete({
         source: index.all_topics_names,
-        select: index_topic_selected
+        select: index_topic_selected,
+        minLength: 0,        
     });
+    $("#index_topic_name").on("focus", index_search);    
+    
+    
+    
     $("#index_topic_name").keyup(
             function (event) {
                 if (event.keyCode === 13) {
