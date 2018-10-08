@@ -247,7 +247,7 @@ public class TestDB {
             }
 
             teacher.min_class_length = 30;
-            teacher.max_class_length = 30;
+            teacher.max_class_length = 120;
 
             DB.add(teacher);
 

@@ -192,14 +192,19 @@ function schedule_class_received_teacher_calendar(response)
     find_teachers.oclasses = response.oclasses;
     var today = new Date();
     schedule_class_goto_date(today);
-
+    
+    duration_selected = false;
     for (var duration = find_teachers.calendar.min_class_length; duration <= find_teachers.calendar.max_class_length;
             duration += find_teachers.calendar.minutes_unit) {
         var element = $("#find_teachers_duration_option_" + duration);
         if ((duration < find_teachers.teacher.min_class_length) || (duration > find_teachers.teacher.max_class_length)) {
-            element.addClass("d-none");
+            element.addClass("d-none");            
         } else {
             element.removeClass("d-none");
+            if ( ! duration_selected ) {
+                $("#find_teachers_duration_select").val(duration.toString());
+                duration_selected = true;
+            }
         }
     }
 
@@ -235,8 +240,7 @@ function schedule_class_received_teacher_calendar(response)
     $("option.schedule_class_start_hour_option").addClass("d-none");
     
     $("#schedule_class_start_hour_select").val(-1);
-    $("#schedule_class_start_minute_select").val(-1);
-    $("#find_teachers_duration_select").val("0");
+    $("#schedule_class_start_minute_select").val(-1);    
     $("#schedule_class_modal").modal("show");
     $("#schedule_class_modal_title_teacher_anchor").text(find_teachers.teacher.display_name);
     schedule_class_update_calendar();
