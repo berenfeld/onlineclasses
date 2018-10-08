@@ -162,7 +162,6 @@ function schedule_class_goto_date(date)
         var end_date = new Date(Date.parse(oclass.start_date));
         addMinutes(end_date, oclass.duration_minutes);
 
-
         var start_hour = start_date.getHours();
         var start_minute = start_date.getMinutes();
         var end_hour = end_date.getHours();
@@ -444,6 +443,44 @@ function schedule_class_login_clicked()
     $("#schedule_class_modal").modal("hide");
 }
 
+function schedule_class_calendar_hover( event )
+{
+    $("#schedule_class_calendar_table td").removeClass("schedule_class_calendar_time_hover_start");
+    $("#schedule_class_calendar_table td").removeClass("schedule_class_calendar_time_hover_middle");
+    $("#schedule_class_calendar_table td").removeClass("schedule_class_calendar_time_hover_end");
+    
+    var element = $(event.target);
+    var day = parseInt10(element.attr("data-day")) + 1;
+    var start_hour = parseInt10(element.attr("data-hour"));
+    var start_minute = parseInt10(element.attr("data-minute"));
+    
+    var duration = parseInt10($("#find_teachers_duration_select").val());
+    var minute = start_minute;
+    var hour = start_hour;
+    var minutes = 0;
+    var start = true;
+    while (minutes < duration) {
+        var element = $("#schedule_class_day_" + day + "_hour_" + hour + "_minute_" + minute);
+        element.addClass("schedule_class_calendar_time_hover_middle");
+        
+        if ( start ) {
+            element.addClass("schedule_class_calendar_time_hover_start");
+            start = false;
+        }
+        
+        minute += find_teachers.calendar.minutes_unit;
+        if (minute === 60) {
+            ++hour;
+            minute = 0;
+        }
+        minutes += find_teachers.calendar.minutes_unit;
+        if ( minutes >= duration) {
+            element.addClass("schedule_class_calendar_time_hover_end");
+        }
+    }
+    
+    
+}
 function find_teachers_init()
 {
     find_teachers.calendar = {};
@@ -511,6 +548,8 @@ function find_teachers_init()
     $("#schedule_class_start_minute_select").on("change", schedule_class_update_calendar);
     $("#schedule_class_start_hour_select").on("change", schedule_class_update_calendar);
     $("button.schedule_class_button").on("click", schedule_class_button_clicked);
+    
+    $("#schedule_class_calendar_table td.schedule_class_calendar_time").hover( schedule_class_calendar_hover);
 }
 
 $(document).ready(find_teachers_init);

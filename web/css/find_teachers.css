@@ -49,7 +49,18 @@ td.calendar_busy {
     border-top: none
 }
 
-#schedule_class_calendar_table td.schedule_class_calendar_time:hover
+#schedule_class_calendar_table td.schedule_class_calendar_time_hover_start
 {
-    border: solid gray 2px;
+    border-top: solid #3FB618 2px;    
+}
+
+#schedule_class_calendar_table td.schedule_class_calendar_time_hover_middle
+{
+    border-left: solid #3FB618 2px;
+    border-right: solid #3FB618 2px;    
+}
+
+#schedule_class_calendar_table td.schedule_class_calendar_time_hover_end
+{
+    border-bottom: solid #3FB618 2px;    
 }
