@@ -55,6 +55,13 @@ function login_isLoggedIn() {
     return login.user !== null;
 }
 
+function login_isAdmin() {
+    if ( ! login_isLoggedIn()) {
+        return false;
+    }
+    return login.user.admin === true;    
+}
+
 function show_modal(modal_name)
 {
     $("div.modal").modal("hide");

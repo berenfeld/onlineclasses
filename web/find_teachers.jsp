@@ -196,7 +196,7 @@
                                 <div class="column-centered text-center">
                                     <nav id="schedule_class_week_select" aria-label="Page navigation">
                                         <ul class="pagination justify-content-center">
-                                            <li class="page-item">
+                                            <li id="schedule_class_previous_week_li" class="page-item">
                                                 <a  class="page-link" href="javascript:schedule_class_previous_week()" aria-label="Previous">
                                                     <span aria-hidden="true">&laquo;</span>
                                                 </a>

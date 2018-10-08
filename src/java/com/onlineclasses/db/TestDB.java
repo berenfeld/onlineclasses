@@ -55,7 +55,7 @@ public class TestDB {
         student.first_name = "רן";
         student.last_name = "ברנפלד";
         student.email = "ichess@ichess.co.il";
-        student.image_url = "https://lh4.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ACLGyWBUQArTT9nKI7bjZHlRM48qDYygCA/s96-c/photo.jpg";
+        student.image_url = "https://lh3.googleusercontent.com/-RvMyRqrpEIM/AAAAAAAAAAI/AAAAAAAAAAA/ABtNlbCWZEJKtWJcJdRFft7k6QacI1-msA/s96-c-mo/photo.jpg";
         student.registered = new Date();
         student.gender = User.GENDER_MALE;
         student.emails_enabled = true;
@@ -90,7 +90,7 @@ public class TestDB {
         teacher.day_of_birth = Utils.parseDateWithFullYear("23/05/1977");
         teacher.paypal_email = "berenfeldran@gmail.com";
         teacher.price_per_hour = 130;
-        teacher.image_url = "https://lh4.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ACLGyWBUQArTT9nKI7bjZHlRM48qDYygCA/s96-c/photo.jpg";
+        teacher.image_url = "https://lh3.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ABtNlbA_jkl-lkg5QSRlr4ICIbdA5RlpQg/s96-c-mo/photo.jpg";
         teacher.moto = "מהנדס מערכות זמן אמת בעל 15 שנות נסיון, בעל תואר שני מהאוניבסיטה העברית במדעי המחשב ומתמטיקה. אשמח להוביל אתכם להצלחה.";
         teacher.phone_area = "054";
         teacher.phone_number = "7476526";

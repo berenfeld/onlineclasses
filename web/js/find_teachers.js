@@ -98,6 +98,8 @@ function schedule_class_goto_date(date)
     $("#schedule_class_calendar_table td").removeClass("calendar_available");
     $("#schedule_class_calendar_table td").removeClass("calendar_busy");
 
+    $("#schedule_class_previous_week_li").removeClass("disabled");
+
     for (var day = 1; day <= 7; day++) {
         var element = $("#schedule_class_day_" + day);
         element.html(parseDate(weekDay));
@@ -112,6 +114,9 @@ function schedule_class_goto_date(date)
             }
             if (sameDay(weekDay, today)) {
                 element.addClass("calendar_today");
+                if (! login_isAdmin()) {
+                    $("#schedule_class_previous_week_li").addClass("disabled");
+                }
             }
         }
         addDay(weekDay);
@@ -557,6 +562,7 @@ function find_teachers_init()
     $("td.schedule_class_calendar_time").on("click", schedule_class_select_time);
     $("#schedule_class_confirm_button").on("click", schedule_class_confirm);
     $("#schedule_class_calendar_table td.schedule_class_calendar_time").hover( schedule_class_calendar_hover);
+    
 }
 
 $(document).ready(find_teachers_init);
