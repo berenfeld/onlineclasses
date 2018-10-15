@@ -12,7 +12,7 @@
 <%
     int classId = Integer.parseInt(request.getParameter("id"));
     OClass oClass = DB.getOClass(classId);
-
+    
     // TODO handle not found / canceled
     Teacher teacher = oClass.teacher;
     Student student = oClass.student;
@@ -23,6 +23,8 @@
     float classPrice = (((float) oClass.duration_minutes * oClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
     String classPriceFormatted = Utils.formatPrice(classPrice);
     List<AttachedFile> classAttachedFiles = DB.getClassAttachedFiles(oClass);
+    
+    oClass.payment = DB.getPaymentOfClass(oClass);
 %>
 
 <!DOCTYPE html>

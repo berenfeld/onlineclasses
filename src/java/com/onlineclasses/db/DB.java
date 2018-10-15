@@ -438,4 +438,8 @@ public class DB {
         return _topic_DB.getTopicByName(name);
     }
 
+    public static Payment getPaymentOfClass(OClass oClass) throws SQLException
+    {
+        return _payment_DB.getPaymentOfClass(oClass);
+    }
 }

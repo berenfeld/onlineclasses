@@ -7,6 +7,7 @@ package com.onlineclasses.servlets;
  */
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
+import com.onlineclasses.entities.OClass;
 import com.onlineclasses.servlets.entities.TeacherCalendarRequest;
 import com.onlineclasses.servlets.entities.TeacherCalendarResponse;
 import com.onlineclasses.utils.Utils;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/servlets/teacher_calendar"})
 public class TeacherCalendarServlet extends BaseServlet {
 
+    @Override
     protected BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
@@ -27,6 +29,10 @@ public class TeacherCalendarServlet extends BaseServlet {
         teacherCalendarResponse.teacher = DB.getTeacher(teacherCalendarRequest.teacher_id);
         teacherCalendarResponse.available_times = DB.getTeacherAvailableTime(teacherCalendarResponse.teacher);
         teacherCalendarResponse.oclasses = DB.getTeacherScheduledClasses(teacherCalendarResponse.teacher);
+        for (OClass oClass : teacherCalendarResponse.oclasses) 
+        {
+            oClass.payment = DB.getPaymentOfClass(oClass);
+        }
         return teacherCalendarResponse;
     }
 

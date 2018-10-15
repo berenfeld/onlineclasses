@@ -46,7 +46,6 @@ public class OClass extends BasicEntity {
     @DatabaseField(canBeNull = false, columnName = STATUS_COLUMN)
     public int status;
 
-    @DatabaseField(foreign = true)
     public Payment payment;
 
 }

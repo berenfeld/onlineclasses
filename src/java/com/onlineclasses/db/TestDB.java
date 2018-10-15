@@ -10,6 +10,7 @@ import com.onlineclasses.entities.City;
 import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.InstituteType;
 import com.onlineclasses.entities.OClass;
+import com.onlineclasses.entities.Payment;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Teacher;
@@ -77,7 +78,6 @@ public class TestDB {
     private static void addRanB() throws Exception {
         List<Institute> allInstitues = DB.getAll(Institute.class);
         List<Subject> allSubjects = DB.getAll(Subject.class);
-        List<City> allCities = DB.getAll(City.class);
         String degreeTypesList = Labels.get("db.degree_type");
         List<String> allDegreeTypes = Utils.toList(degreeTypesList);
 
@@ -146,12 +146,6 @@ public class TestDB {
     }
 
     private static void addMosheB() throws Exception {
-        List<Institute> allInstitues = DB.getAll(Institute.class);
-        List<Subject> allSubjects = DB.getAll(Subject.class);
-        List<City> allCities = DB.getAll(City.class);
-        String degreeTypesList = Labels.get("db.degree_type");
-        List<String> allDegreeTypes = Utils.toList(degreeTypesList);
-
         Teacher teacher = new Teacher();
         teacher.display_name = "משה בן אבו";
         teacher.first_name = "משה";
@@ -288,9 +282,10 @@ public class TestDB {
     }
 
     public static void addScheduledClasses() throws Exception {
-        if (!Config.getBool("db.test.teachers")) {
+        if (!Config.getBool("db.test.scheduled_classes")) {
             return;
         }
+        
         Random random = new Random();
         OClass oClass = new OClass();
         oClass.teacher = (Teacher) DB.getUserByEmail("berenfeldran@gmail.com");
@@ -305,8 +300,33 @@ public class TestDB {
         oClass.status = OClass.STATUS_SCHEDULED;
         oClass.price_per_hour = oClass.teacher.price_per_hour;
         oClass.duration_minutes = 30 + (30 * random.nextInt(4));
-        oClass.subject = "שיעור נסיון";
+        oClass.subject = "שיעור נסיון לא שולם";
         DB.add(oClass);
+        
+        
+        oClass = new OClass();
+        oClass.teacher = (Teacher) DB.getUserByEmail("berenfeldran@gmail.com");
+        oClass.student = (Student) DB.getUserByEmail("ichess@ichess.co.il");
+        startDate = Calendar.getInstance();
+        startDate.setTime(Utils.xHoursFromNow(48 + random.nextInt(120)));
+        startDate.set(Calendar.MINUTE, 0);
+        startDate.set(Calendar.SECOND, 0);
+        startDate.set(Calendar.MILLISECOND, 0);
+        oClass.start_date = startDate.getTime();
+        oClass.registered = new Date();
+        oClass.status = OClass.STATUS_SCHEDULED;
+        oClass.price_per_hour = oClass.teacher.price_per_hour;
+        oClass.duration_minutes = 30 + (30 * random.nextInt(4));
+        
+        oClass.subject = "שיעור נסיון שולם";
+        DB.add(oClass);
+        
+        Payment payment = new Payment();
+        payment.date = new Date();
+        payment.amount = ( oClass.price_per_hour * oClass.duration_minutes ) / 60;
+        payment.payer = "ichess@ichess.co.il";
+        payment.oclass = oClass;
+        DB.add(payment);
     }
 
     private static void addInstitutes() throws SQLException {

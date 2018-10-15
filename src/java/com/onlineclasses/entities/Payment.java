@@ -13,7 +13,8 @@ public class Payment extends BasicEntity {
     @DatabaseField(canBeNull = false)
     public Date date;
 
-    @DatabaseField(foreign = true)
+    public static final String OCLASS_COLUMN = "oclass_id";    
+    @DatabaseField(foreign = true, columnName = OCLASS_COLUMN)
     public OClass oclass;
 
     @DatabaseField
