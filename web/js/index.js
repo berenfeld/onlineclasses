@@ -37,9 +37,7 @@ function index_init()
         minLength: 0,        
     });
     $("#index_topic_name").on("focus", index_search);    
-    
-    
-    
+            
     $("#index_topic_name").keyup(
             function (event) {
                 if (event.keyCode === 13) {

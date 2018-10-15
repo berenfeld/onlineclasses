@@ -501,6 +501,16 @@ function schedule_class_calendar_hover( event )
     }  
 }
 
+function find_teachers_topic_search()
+{
+    $("#find_teachers_topic_name_input").autocomplete( "search", "");
+}
+
+function find_teachers_topic_selected(event, ui)
+{
+    $("#find_teachers_topic_name_input").val(ui.item.value);
+    find_teachers_refresh_results();
+}
 function find_teachers_init()
 {
     find_teachers.calendar = {};
@@ -556,8 +566,12 @@ function find_teachers_init()
         find_teachers.all_topics_names.push(topic.name);
     }
     $("#find_teachers_topic_name_input").autocomplete({
-        source: find_teachers.all_topics_names
+        source: find_teachers.all_topics_names,
+        minLength: 0,        
+        select: find_teachers_topic_selected
     });
+    $("#find_teachers_topic_name_input").on("focus", find_teachers_topic_search);  
+    
     $("#find_teachers_form input").keyup(
             function (event) {
                 if (event.keyCode === 13) {
