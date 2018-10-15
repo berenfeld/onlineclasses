@@ -286,16 +286,16 @@
                                         <table class="table table-sm table-borderless">
                                             <tr >
                                                 <td style="width:25%" class="px-2 calendar_booked">
-                                                    Booked
-                                                </td>
+                                                    <%= Labels.get("oclass.legend.booked")%>
+                                               </td>
                                                 <td style="width:25%" class="px-2 calendar_selected">
-                                                    Selected
+                                                    <%= Labels.get("oclass.legend.selected")%>
                                                 </td>  
                                                 <td style="width:25%" class="px-2 calendar_busy">
-                                                    busy
+                                                    <%= Labels.get("oclass.legend.busy")%>
                                                 </td>                                                
                                                 <td style="width:25%" class="px-2 calendar_available">
-                                                    Available
+                                                    <%= Labels.get("oclass.legend.available")%>
                                                 </td>                                                
                                         </table>
                                     </div>

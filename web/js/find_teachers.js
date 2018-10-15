@@ -178,6 +178,7 @@ function schedule_class_goto_date(date)
         while ((hour < end_hour) ||
                 (((hour === end_hour) && (minute < end_minute)))) {
             var element = $("#schedule_class_day_" + day + "_hour_" + hour + "_minute_" + minute);
+            element.removeClass("calendar_available");
             if (isValid(oclass.payment)) {
                 element.addClass("calendar_busy");
             } else {
@@ -475,7 +476,7 @@ function schedule_class_calendar_hover( event )
     
     while (minutes < duration) {
         var element = $("#schedule_class_day_" + day + "_hour_" + hour + "_minute_" + minute);
-        if (!element.hasClass("calendar_available")) {
+        if (!(element.hasClass("calendar_available") || (element.hasClass("calendar_booked")))) {
             find_teachers.available = false;
         } 
         element.addClass("schedule_class_calendar_time_hover_middle");
