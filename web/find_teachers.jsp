@@ -127,7 +127,7 @@
                                                         hour = startHour;
                                                         while (hour < endHour) {
                                                     %>
-                                                    <option id="schedule_class_start_hour_option_<%= hour %>" class="schedule_class_start_hour_option" value="<%= hour%>">
+                                                    <option id="schedule_class_start_hour_option_<%= hour%>" class="schedule_class_start_hour_option" value="<%= hour%>">
                                                         <%= String.format("%02d", hour)%>
                                                     </option>                                                            
                                                     <%
@@ -248,7 +248,7 @@
                                                 String cellClass = "";
                                                 while (hour < endHour) {
                                             %>  
-                                            <tr class="schedule_class_hour_row schedule_class_hour_row_<%= hour %>">
+                                            <tr class="schedule_class_hour_row schedule_class_hour_row_<%= hour%>">
                                                 <%
                                                     if (rowCount == (rowsPerCell - 1)) {
                                                         cellClass = "schedule_class_row_end";
@@ -281,6 +281,24 @@
                                             %>
                                         </tbody>
                                     </table> 
+
+                                    <div id="schedule_class_table_legend" class="table-responsive text-center">                                            
+                                        <table class="table table-sm table-borderless">
+                                            <tr >
+                                                <td style="width:25%" class="px-2 calendar_booked">
+                                                    Booked
+                                                </td>
+                                                <td style="width:25%" class="px-2 calendar_selected">
+                                                    Selected
+                                                </td>  
+                                                <td style="width:25%" class="px-2 calendar_busy">
+                                                    busy
+                                                </td>                                                
+                                                <td style="width:25%" class="px-2 calendar_available">
+                                                    Available
+                                                </td>                                                
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -293,14 +311,14 @@
                             <span id="schedule_class_info"></span>
                         </div>    
                     </div>
-                        <div class="modal-footer mx-0">
-                            <div class="d-flex flex-row-reverse mx-0">
+                    <div class="modal-footer mx-0">
+                        <div class="d-flex flex-row-reverse mx-0">
                             <button type="button" class="btn btn-info" data-dismiss="modal"><%= Labels.get("buttons.cancel")%></button>
                             <button id="schedule_class_confirm_button" type="button" class="btn btn-success mx-1">
                                 <%= Labels.get("oclass.modal.confirm_button")%>
                             </button>
-                            </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>    
@@ -411,72 +429,72 @@
 
                 <div class="card text-dark bg-white col-xl-9 col-lg-9">
                     <div class="card-header">
-                            <h5>
-                                <u>
-                                    <%= Labels.get("find_teachers.list.displaying")%>
-                                    <%= teachers.size()%>
-                                    <%= Labels.get("find_teachers.list.private_teachers")%>
-                                </u>
-                            </h5>
+                        <h5>
+                            <u>
+                                <%= Labels.get("find_teachers.list.displaying")%>
+                                <%= teachers.size()%>
+                                <%= Labels.get("find_teachers.list.private_teachers")%>
+                            </u>
+                        </h5>
 
-                            <%
-                                if (Utils.isNotEmpty(topicName)) {
-                            %>
-                            <h6>                                
-                                <%= Labels.get("find_teachers.list.with_topic_name")%>
-                                &nbsp;:
-                                <%= topicName%>
-                                &nbsp;
-                                <a href="javascript:find_teachers_clear_topic_name()" class="text-warning">
-                                    <small>(&nbsp;<%= Labels.get("find_teachers.list.remove")%>&nbsp;<span class="oi" data-glyph="x"></span>)</small>
-                                </a>
-                            </h6>
-                            <%
-                                }
-                            %>
+                        <%
+                            if (Utils.isNotEmpty(topicName)) {
+                        %>
+                        <h6>                                
+                            <%= Labels.get("find_teachers.list.with_topic_name")%>
+                            &nbsp;:
+                            <%= topicName%>
+                            &nbsp;
+                            <a href="javascript:find_teachers_clear_topic_name()" class="text-warning">
+                                <small>(&nbsp;<%= Labels.get("find_teachers.list.remove")%>&nbsp;<span class="oi" data-glyph="x"></span>)</small>
+                            </a>
+                        </h6>
+                        <%
+                            }
+                        %>
 
-                            <%
-                                if ((minPrice != defaultMinPrice) || (maxPrice != defaultMaxPrice)) {
-                            %>
-                            <h6>                                
-                                <%= Labels.get("find_teachers.list.with_price_range")%>
-                                <span class="left_to_right">                                        
-                                    <%= minPrice%>
-                                    <%= CLabels.get("website.currency")%>
-                                </span>
-                                &nbsp;-&nbsp;
-                                <span class="left_to_right">                                        
-                                    <%= maxPrice%>
-                                    <%= CLabels.get("website.currency")%>
-                                </span>
-                                &nbsp;
-                                <a href="javascript:find_teachers_clear_price()" class="text-warning">
-                                    <small>(&nbsp;<%= Labels.get("find_teachers.list.remove")%>&nbsp;<span class="oi" data-glyph="x"></span>)</small>
-                                </a>
-                            </h6>
-                            <%
-                                }
-                            %>
+                        <%
+                            if ((minPrice != defaultMinPrice) || (maxPrice != defaultMaxPrice)) {
+                        %>
+                        <h6>                                
+                            <%= Labels.get("find_teachers.list.with_price_range")%>
+                            <span class="left_to_right">                                        
+                                <%= minPrice%>
+                                <%= CLabels.get("website.currency")%>
+                            </span>
+                            &nbsp;-&nbsp;
+                            <span class="left_to_right">                                        
+                                <%= maxPrice%>
+                                <%= CLabels.get("website.currency")%>
+                            </span>
+                            &nbsp;
+                            <a href="javascript:find_teachers_clear_price()" class="text-warning">
+                                <small>(&nbsp;<%= Labels.get("find_teachers.list.remove")%>&nbsp;<span class="oi" data-glyph="x"></span>)</small>
+                            </a>
+                        </h6>
+                        <%
+                            }
+                        %>
 
-                            <%
-                                if (Utils.isNotEmpty(displayName)) {
-                            %>
-                            <h6>                                
-                                <%= Labels.get("find_teachers.list.with_display_name")%>
-                                &nbsp;:
-                                <%= displayName%>
-                                &nbsp;
-                                <a href="javascript:find_teachers_clear_display_name()" class="text-warning">
-                                    <small>(&nbsp;<%= Labels.get("find_teachers.list.remove")%>&nbsp;<span class="oi" data-glyph="x"></span>)</small>
-                                </a>
-                            </h6>
-                            <%
-                                }
-                            %>
+                        <%
+                            if (Utils.isNotEmpty(displayName)) {
+                        %>
+                        <h6>                                
+                            <%= Labels.get("find_teachers.list.with_display_name")%>
+                            &nbsp;:
+                            <%= displayName%>
+                            &nbsp;
+                            <a href="javascript:find_teachers_clear_display_name()" class="text-warning">
+                                <small>(&nbsp;<%= Labels.get("find_teachers.list.remove")%>&nbsp;<span class="oi" data-glyph="x"></span>)</small>
+                            </a>
+                        </h6>
+                        <%
+                            }
+                        %>
 
-                        </div>
+                    </div>
                     <div class="card-body">
-                        
+
 
                         <%
                             for (Teacher teacher : teachers) {
@@ -553,10 +571,10 @@
                                                     %>
                                                 </h6>
                                                 <%
-                                                    if (    (teacher.show_degree) && 
-                                                            (! Utils.isEmpty(teacher.institute_name)) &&
-                                                            (! Utils.isEmpty(teacher.subject_name)) &&
-                                                            (! Utils.isEmpty(teacher.degree_type))  ) {
+                                                    if ((teacher.show_degree)
+                                                            && (!Utils.isEmpty(teacher.institute_name))
+                                                            && (!Utils.isEmpty(teacher.subject_name))
+                                                            && (!Utils.isEmpty(teacher.degree_type))) {
                                                 %>
                                                 <h6>                                                    
                                                     <%= Labels.get("find_teachers.has_degree")%>

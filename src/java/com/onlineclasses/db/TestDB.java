@@ -286,37 +286,48 @@ public class TestDB {
             return;
         }
         
+        Teacher teacher = (Teacher) DB.getUserByEmail("berenfeldran@gmail.com");;
+        List<AvailableTime> availableTimes = DB.getTeacherAvailableTime(teacher);
+        
         Random random = new Random();
         OClass oClass = new OClass();
-        oClass.teacher = (Teacher) DB.getUserByEmail("berenfeldran@gmail.com");
+        oClass.teacher = teacher;
         oClass.student = (Student) DB.getUserByEmail("ichess@ichess.co.il");
+        
+        AvailableTime availableTime = Utils.getRandomElement(availableTimes);       
         Calendar startDate = Calendar.getInstance();
-        startDate.setTime(Utils.xHoursFromNow(48 + random.nextInt(120)));
-        startDate.set(Calendar.MINUTE, 0);
+        startDate.set(Calendar.DAY_OF_WEEK, availableTime.day);
+        startDate.set(Calendar.HOUR_OF_DAY, availableTime.start_hour);
+        startDate.set(Calendar.MINUTE, availableTime.start_minute);
         startDate.set(Calendar.SECOND, 0);
-        startDate.set(Calendar.MILLISECOND, 0);
+        startDate.set(Calendar.MILLISECOND, 0);        
         oClass.start_date = startDate.getTime();
+        
         oClass.registered = new Date();
         oClass.status = OClass.STATUS_SCHEDULED;
         oClass.price_per_hour = oClass.teacher.price_per_hour;
-        oClass.duration_minutes = 30 + (30 * random.nextInt(4));
+        oClass.duration_minutes = teacher.min_class_length;
         oClass.subject = "שיעור נסיון לא שולם";
         DB.add(oClass);
         
         
         oClass = new OClass();
-        oClass.teacher = (Teacher) DB.getUserByEmail("berenfeldran@gmail.com");
+        oClass.teacher =  teacher;
         oClass.student = (Student) DB.getUserByEmail("ichess@ichess.co.il");
+                
+        availableTime = Utils.getRandomElement(availableTimes);       
         startDate = Calendar.getInstance();
-        startDate.setTime(Utils.xHoursFromNow(48 + random.nextInt(120)));
-        startDate.set(Calendar.MINUTE, 0);
+        startDate.set(Calendar.DAY_OF_WEEK, availableTime.day);
+        startDate.set(Calendar.HOUR_OF_DAY, availableTime.start_hour);
+        startDate.set(Calendar.MINUTE, availableTime.start_minute);
         startDate.set(Calendar.SECOND, 0);
         startDate.set(Calendar.MILLISECOND, 0);
         oClass.start_date = startDate.getTime();
+        
         oClass.registered = new Date();
         oClass.status = OClass.STATUS_SCHEDULED;
         oClass.price_per_hour = oClass.teacher.price_per_hour;
-        oClass.duration_minutes = 30 + (30 * random.nextInt(4));
+        oClass.duration_minutes = teacher.min_class_length;
         
         oClass.subject = "שיעור נסיון שולם";
         DB.add(oClass);

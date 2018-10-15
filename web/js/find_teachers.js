@@ -97,6 +97,7 @@ function schedule_class_goto_date(date)
     $("#schedule_class_calendar_table td").removeClass("calendar_today");
     $("#schedule_class_calendar_table td").removeClass("calendar_available");
     $("#schedule_class_calendar_table td").removeClass("calendar_busy");
+    $("#schedule_class_calendar_table td").removeClass("calendar_booked");
 
     $("#schedule_class_previous_week_li").removeClass("disabled");
 
@@ -177,7 +178,11 @@ function schedule_class_goto_date(date)
         while ((hour < end_hour) ||
                 (((hour === end_hour) && (minute < end_minute)))) {
             var element = $("#schedule_class_day_" + day + "_hour_" + hour + "_minute_" + minute);
-            element.addClass("calendar_busy");
+            if (isValid(oclass.payment)) {
+                element.addClass("calendar_busy");
+            } else {
+                element.addClass("calendar_booked");
+            }
             minute += find_teachers.calendar.minutes_unit;
             if (minute === 60) {
                 hour++;
@@ -374,7 +379,7 @@ function schedule_class_confirm()
 
     while (minutes < duration) {
         var element = $("#schedule_class_day_" + day + "_hour_" + hour + "_minute_" + minute);
-        if (!element.hasClass("calendar_available")) {
+        if ( element.hasClass("calendar_booked")) {
             $("#schedule_class_warning").html(oc.clabels[ "oclass.modal.teacher_not_available"]);
             $("#schedule_class_warning_div").removeClass("d-none");
             return;

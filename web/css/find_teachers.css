@@ -10,16 +10,21 @@ td.calendar_today {
 }
 
 td.calendar_available {
-    background-color:#17a2b8
+    background-color:#28b3c9
+}
+
+td.calendar_busy {
+    background-color:#DD5D30
+}
+
+td.calendar_booked {
+    background-color:#FFAF83
 }
 
 td.calendar_selected {
     background-color:#6BEB00
 }
 
-td.calendar_busy {
-    background-color:#FF7F50
-}
 
 #schedule_class_calendar_table
 {
