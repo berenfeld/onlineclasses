@@ -109,6 +109,12 @@ function xYearsFromNow(years) {
     return date;
 }
 
+function parseAmount(amount)
+{
+    var n = amount.toFixed(2);
+    return n.toString() + " " + oc.clabels["website.currency"];    
+}
+
 function parseDate(date) {
     return date.getDate() + "/" + (date.getMonth() + 1);
 }
@@ -321,7 +327,7 @@ function common_js_error(message, url, line_number, column_number, error_object)
     request.message = message;
     request.url = url;
     request.line_number = line_number;
-    request.error_object = JSON.stringify(error_object)
+    request.error_object = JSON.stringify(error_object);
 
     ajax_request( "js_error", request, common_js_error_response);    
 

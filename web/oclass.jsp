@@ -225,7 +225,14 @@
                                 <%= Labels.get("oclass.sidebar.payment.not_paid_yet")%>                                
                             </a>
                             <%
-                                }
+                                } else {
+                            %>
+                            
+                            <a class="text-success" href="javascript:oclass_paid_show_details()">
+                                <%= Labels.get("oclass.sidebar.payment.already_paid")%>                                
+                            </a>
+                            <%
+                                } 
                             %>
                         </h6>
                     </div>

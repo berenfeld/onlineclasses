@@ -18,7 +18,7 @@ public class Payment extends BasicEntity {
     public OClass oclass;
 
     @DatabaseField
-    public int amount;
+    public float amount;
 
     @DatabaseField(canBeNull = false)
     public String payer;

@@ -30,10 +30,20 @@ function oclass_add_comment_response(response)
         reloadAfter(2);
     }
 }
+
 function oclass_pay()
 {
     show_modal("schedule_class_payment_modal");
 }
+
+function oclass_paid_show_details()
+{
+    var payment = oclass.oclass.payment;
+    alert_show( oc.clabels["oclass.payment_details.payment_details" ], oc.clabels["oclass.payment_details.amount" ]  + " " + parseAmount(payment.amount) + " " +
+                oc.clabels["oclass.payment_details.paid_by" ] + " " + payment.payer + " " +
+                oc.clabels["oclass.payment_details.at" ] + " " + parseDateLong(new Date(payment.date)));
+}
+
 function schedule_class_attach_file()
 {
     $("#oclass_attach_file_modal").modal("show");
