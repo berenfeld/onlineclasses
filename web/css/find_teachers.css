@@ -10,7 +10,7 @@ td.calendar_today {
 }
 
 td.calendar_available {
-    background-color:#28b3c9
+    background-color:#39c4dA
 }
 
 td.calendar_busy {
@@ -56,16 +56,16 @@ td.calendar_selected {
 
 #schedule_class_calendar_table td.schedule_class_calendar_time_hover_start
 {
-    border-top: solid #3FB618 2px;    
+    border-top: solid #6BEB00 2px;    
 }
 
 #schedule_class_calendar_table td.schedule_class_calendar_time_hover_middle
 {
-    border-left: solid #3FB618 2px;
-    border-right: solid #3FB618 2px;    
+    border-left: solid #6BEB00 2px;
+    border-right: solid #6BEB00 2px;    
 }
 
 #schedule_class_calendar_table td.schedule_class_calendar_time_hover_end
 {
-    border-bottom: solid #3FB618 2px;    
+    border-bottom: solid #6BEB00 2px;    
 }

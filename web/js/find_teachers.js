@@ -147,6 +147,7 @@ function schedule_class_goto_date(date)
                 (((hour === available_time.end_hour) && (minute < available_time.end_minute)))) {
             var element = $("#schedule_class_day_" + available_time.day + "_hour_" + hour + "_minute_" + minute);
             element.addClass("calendar_available");
+            element.removeAttr("title");
             minute += find_teachers.calendar.minutes_unit;
             if (minute === 60) {
                 hour++;
@@ -184,6 +185,8 @@ function schedule_class_goto_date(date)
             } else {
                 element.addClass("calendar_booked");
             }
+            element.attr( {"title" : oclass.subject });
+            
             minute += find_teachers.calendar.minutes_unit;
             if (minute === 60) {
                 hour++;
