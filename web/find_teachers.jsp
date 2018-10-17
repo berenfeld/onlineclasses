@@ -81,7 +81,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="row no-gutters">
-                            <div class="px-1 col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <div class="px-1 col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
                                 <form id="schedule_class_form">
                                     <div class="form-group row">
                                         <div class="col-3 my-1">
@@ -188,11 +188,29 @@
                                             <textarea rows="5" class="form-control" name="start_schedule_class_student_comment_input" 
                                                       id="start_schedule_class_student_comment_input" 
                                                       placeholder="<%= Labels.get("oclass.modal.student_comment_placeholder")%>"></textarea>
-                                        </div>                                    
+                                        </div>   
+                                        <div class="col-3 my-1">
+                                            <label for="start_schedule_class_price_input">
+                                                <%= Labels.get("oclass.modal.class_price")%>
+                                            </label>
+                                        </div>
+                                        <div class="col-9 my-1">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" 
+                                                       id="start_schedule_class_price_input"
+                                                       name="start_schedule_class_price_input"
+                                                       value="" disabled/>
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <%= CLabels.get("website.currency")%>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
-                            <div class="px-1 col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 schedule_class_calendar_div">
+                            <div class="px-1 col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 schedule_class_calendar_div">
                                 <div class="column-centered text-center">
                                     <nav id="schedule_class_week_select" aria-label="Page navigation">
                                         <ul class="pagination justify-content-center">
@@ -287,7 +305,7 @@
                                             <tr >
                                                 <td style="width:25%" class="px-2 calendar_booked">
                                                     <%= Labels.get("oclass.legend.booked")%>
-                                               </td>
+                                                </td>
                                                 <td style="width:25%" class="px-2 calendar_selected">
                                                     <%= Labels.get("oclass.legend.selected")%>
                                                 </td>  
