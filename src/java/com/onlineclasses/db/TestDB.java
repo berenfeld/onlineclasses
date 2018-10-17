@@ -66,12 +66,8 @@ public class TestDB {
     }
 
     public static void addTeachers() throws Exception {
-        if (!Config.getBool("db.test.teachers")) {
-            return;
-        }
-
         addRanB();
-        addMosheB();
+        addMosheB();        
         addTestTeachers();
     }
 
@@ -194,6 +190,9 @@ public class TestDB {
     }
 
     private static void addTestTeachers() throws Exception {
+        if (!Config.getBool("db.test.teachers")) {
+            return;
+        }
         List<Institute> allInstitues = DB.getAll(Institute.class);
         List<Subject> allSubjects = DB.getAll(Subject.class);
         List<City> allCities = DB.getAll(City.class);

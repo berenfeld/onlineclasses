@@ -251,11 +251,17 @@ function schedule_class_received_teacher_calendar(response)
     
     $("option.schedule_class_start_hour_option").addClass("d-none");
     
+    $("#schedule_class_calendar_table td").removeClass("schedule_class_calendar_time_hover_start");
+    $("#schedule_class_calendar_table td").removeClass("schedule_class_calendar_time_hover_middle");
+    $("#schedule_class_calendar_table td").removeClass("schedule_class_calendar_time_hover_end");
+    
     $("#schedule_class_start_hour_select").val(-1);
     $("#schedule_class_start_minute_select").val(-1);    
     $("#schedule_class_modal").modal("show");
     $("#schedule_class_modal_title_teacher_anchor").text(find_teachers.teacher.display_name);
     schedule_class_update_calendar();
+    
+    
 }
 
 function schedule_class_update_calendar()
