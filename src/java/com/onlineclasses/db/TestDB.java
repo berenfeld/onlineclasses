@@ -304,8 +304,8 @@ public class TestDB {
         
         oClass.registered = new Date();
         oClass.status = OClass.STATUS_SCHEDULED;
-        oClass.price_per_hour = oClass.teacher.price_per_hour;
-        oClass.duration_minutes = teacher.min_class_length;
+        oClass.price_per_hour = 10;
+        oClass.duration_minutes = 30;
         oClass.subject = "שיעור נסיון לא שולם";
         DB.add(oClass);
         

@@ -9,33 +9,33 @@
 <%@page import="com.onlineclasses.utils.Config"%>
 <%@page import="com.onlineclasses.utils.Labels"%>
 
-<%
-    int classId = Integer.parseInt(request.getParameter("id"));
-    OClass oClass = DB.getOClass(classId);
-    
-    // TODO handle not found / canceled
-    Teacher teacher = oClass.teacher;
-    Student student = oClass.student;
-
-    boolean isStudent = student.equals(BaseServlet.getUser(request));
-    boolean isTeacher = teacher.equals(BaseServlet.getUser(request));
-    List<ClassComment> classComments = DB.getScheuduledClassComments(oClass);
-    float classPrice = (((float) oClass.duration_minutes * oClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
-    String classPriceFormatted = Utils.formatPrice(classPrice);
-    List<AttachedFile> classAttachedFiles = DB.getClassAttachedFiles(oClass);
-    
-    oClass.payment = DB.getPaymentOfClass(oClass);
-%>
-
 <!DOCTYPE html>
 <html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
     <head>
         <%@include file="header.jsp" %>
         <link rel="stylesheet" href="css/oclass.css">
     </head>
-    <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
-        <%@include file="body.jsp" %>    
 
+    <%
+        int classId = Integer.parseInt(request.getParameter("id"));
+        OClass oClass = DB.getOClass(classId);
+
+        // TODO handle not found / canceled
+        Teacher teacher = oClass.teacher;
+        Student student = oClass.student;
+
+        boolean isStudent = (BaseServlet.isStudent(request)) && (student.equals(BaseServlet.getUser(request)));
+        boolean isTeacher = (BaseServlet.isTeacher(request)) && (teacher.equals(BaseServlet.getUser(request)));
+        List<ClassComment> classComments = DB.getScheuduledClassComments(oClass);
+        float classPrice = (((float) oClass.duration_minutes * oClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
+        String classPriceFormatted = Utils.formatPrice(classPrice);
+        List<AttachedFile> classAttachedFiles = DB.getClassAttachedFiles(oClass);
+
+        oClass.payment = DB.getPaymentOfClass(oClass);
+    %>
+
+    <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
+        <%@include file="body.jsp" %>
         <div id="schedule_class_payment_modal" class="modal fade" role="dialog">
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
                 <input type="hidden" name="cmd" value="_xclick">
@@ -73,7 +73,6 @@
                                 </label>
                                 <div class="col-6 my-1">
                                     <div class="input-group">
-
                                         <input type="text" class="form-control" 
                                                id="schedule_class_payment_modal_price"
                                                name="schedule_class_payment_modal_price"
@@ -136,12 +135,12 @@
                             <div class="form-group row">                                 
                                 <div class="col-4">                                
                                     <div class="common_relative_container" id="oclass_attach_file_button_wrapper">
-                                    <input type="file" name="oclass_attach_file_input" tabindex="-1"
-                                           id="oclass_attach_file_input" class="file_chooser_hidden"
-                                           onchange="oclass_update_chosen_file()">  
-                                    <button class="btn btn-info">
-                                        <%= Labels.get("oclass.attach_file_modal.choose_file")%>
-                                    </button>
+                                        <input type="file" name="oclass_attach_file_input" tabindex="-1"
+                                               id="oclass_attach_file_input" class="file_chooser_hidden"
+                                               onchange="oclass_update_chosen_file()">  
+                                        <button class="btn btn-info">
+                                            <%= Labels.get("oclass.attach_file_modal.choose_file")%>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="col-8">     
@@ -221,18 +220,33 @@
                             <%
                                 if (oClass.payment == null) {
                             %>
+
+                            <%
+                                if (isTeacher) {
+                            %>
+                            <a class="text-warning" href="javascript:oclass_update_price_click()">
+                                <%= Labels.get("oclass.sidebar.update_price")%>
+                            </a>
+                            <%
+                            } else {
+                            %>
+
                             <a class="text-warning" href="javascript:oclass_pay()">
                                 <%= Labels.get("oclass.sidebar.payment.not_paid_yet")%>                                
                             </a>
+
                             <%
-                                } else {
+                                }
                             %>
-                            
+                            <%
+                            } else {
+                            %>
+
                             <a class="text-success" href="javascript:oclass_paid_show_details()">
                                 <%= Labels.get("oclass.sidebar.payment.already_paid")%>                                
                             </a>
                             <%
-                                } 
+                                }
                             %>
                         </h6>
                     </div>
@@ -400,9 +414,9 @@
 
     <%@include file="footer.jsp" %>    
     <script>
-    oclass.oclass = <%= Utils.gson().toJson(oClass)%>;
-    oclass.teacher = <%= Utils.gson().toJson(teacher)%>;
-    oclass.student = <%= Utils.gson().toJson(student)%>;
+        oclass.oclass = <%= Utils.gson().toJson(oClass)%>;
+        oclass.teacher = <%= Utils.gson().toJson(teacher)%>;
+        oclass.student = <%= Utils.gson().toJson(student)%>;
     </script>
 </body>
 

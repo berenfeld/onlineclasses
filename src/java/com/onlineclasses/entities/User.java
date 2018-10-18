@@ -7,7 +7,6 @@ package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.onlineclasses.utils.CConfig;
-import com.onlineclasses.utils.Config;
 import java.io.Serializable;
 import java.util.Date;
 
