@@ -71,11 +71,9 @@ public class TestDB {
         addTestTeachers();
     }
 
-    private static void addRanB() throws Exception {
-        List<Institute> allInstitues = DB.getAll(Institute.class);
+    private static void addRanB() throws Exception {        
         List<Subject> allSubjects = DB.getAll(Subject.class);
-        String degreeTypesList = Labels.get("db.degree_type");
-        List<String> allDegreeTypes = Utils.toList(degreeTypesList);
+        String degreeTypesList = Labels.get("db.degree_type");        
 
         Teacher teacher = new Teacher();
         teacher.display_name = "רן ברנפלד";
@@ -87,7 +85,7 @@ public class TestDB {
         teacher.paypal_email = "berenfeldran@gmail.com";
         teacher.price_per_hour = 130;
         teacher.image_url = "https://lh3.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ABtNlbA_jkl-lkg5QSRlr4ICIbdA5RlpQg/s96-c-mo/photo.jpg";
-        teacher.moto = "מהנדס מערכות זמן אמת בעל 15 שנות נסיון, בעל תואר שני מהאוניבסיטה העברית במדעי המחשב ומתמטיקה. אשמח להוביל אתכם להצלחה.";
+        teacher.moto = "שלום לכולם שמי רן ברנפלד. אני מהנדס מערכות זמן אמת וראש צוות פיתוח כ 20 שנה ובעל 5 שנות נסיון בלימוד מקצועות מדעי המחשב לסטודנטים. יש לי תואר שני במדעי המחשב מטעם האוניברסיטה העברית ואני גם המייסד של האתר.. אשמח להוביל גם אתכם להצלחה !";
         teacher.phone_area = "054";
         teacher.phone_number = "7476526";
         teacher.registered = new Date();
@@ -96,9 +94,9 @@ public class TestDB {
         teacher.show_skype = true;
         teacher.skype_name = "ran.berenfeld";
         teacher.show_degree = true;
-        teacher.institute = Utils.getRandomElement(allInstitues);
+        teacher.institute = DB.getInstituteByName("האוניברסיטה העברית בירושלים");
         teacher.subject = Utils.getRandomElement(allSubjects);
-        teacher.degree_type = Utils.getRandomElement(allDegreeTypes);
+        teacher.degree_type = "תואר שני";
         teacher.rating = 5;
         teacher.city = DB.getCityByName("נס ציונה");
         teacher.admin = true;

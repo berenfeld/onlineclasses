@@ -442,4 +442,8 @@ public class DB {
     {
         return _payment_DB.getPaymentOfClass(oClass);
     }
+    
+    public static Institute getInstituteByName(String name) throws SQLException {
+        return _institute_db.getInstituteByName(name);
+    }
 }

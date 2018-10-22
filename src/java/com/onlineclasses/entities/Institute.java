@@ -9,7 +9,8 @@ import com.j256.ormlite.field.DatabaseField;
 
 public class Institute extends BasicEntity {
 
-    @DatabaseField
+    public static final String INSTITUTE_NAME_FIELD = "name";
+    @DatabaseField( columnName = INSTITUTE_NAME_FIELD)
     public String name;
 
     public static final String INSTITUTE_TYPE_FIELD = "institute_type";
