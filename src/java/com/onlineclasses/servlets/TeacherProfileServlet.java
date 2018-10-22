@@ -163,7 +163,7 @@ public class TeacherProfileServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% teacherAvailableHours %>", Utils.mergeList(availableTimeList, "<br/>"));
 
         EmailSender.addEmail(registeringTeacher.email, Labels.get("emails.register_teacher.title"), emailContent);
-        TasksManager.runNow(TasksManager.TASK_EMAIL);
+        TasksManager.runNow(EmailSender.EMAIL_SENDER_NAME);
     }
 
 }

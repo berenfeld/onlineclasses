@@ -159,7 +159,7 @@ public class RegisterStudentServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% StudentProfileUrl %>", Config.get("website.url") + "/student_profile");
 
         EmailSender.addEmail(registeringStudent.email, Labels.get("emails.register_student.title"), emailContent);
-        TasksManager.runNow(TasksManager.TASK_EMAIL);
+        TasksManager.runNow(EmailSender.EMAIL_SENDER_NAME);
     }
 
 }

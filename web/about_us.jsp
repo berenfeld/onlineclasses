@@ -1,4 +1,5 @@
 <%@page import="java.io.File"%>
+<%@include file="start.jsp" %>
 <%@page import="com.onlineclasses.utils.Config"%>
 
 <!DOCTYPE html>

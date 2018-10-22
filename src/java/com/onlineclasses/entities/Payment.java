@@ -22,4 +22,7 @@ public class Payment extends BasicEntity {
 
     @DatabaseField(canBeNull = false)
     public String payer;
+    
+    @DatabaseField
+    public boolean external;
 }

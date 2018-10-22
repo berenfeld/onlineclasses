@@ -94,7 +94,7 @@ public class AddClassCommentServlet extends BaseServlet {
 
         List<User> to = Arrays.asList(oClass.student, oClass.teacher);
         EmailSender.addEmail(to, Labels.get("emails.oclass_added_comment.title"), emailContent);
-        TasksManager.runNow(TasksManager.TASK_EMAIL);
+        TasksManager.runNow(EmailSender.EMAIL_SENDER_NAME);
     }
 
 }

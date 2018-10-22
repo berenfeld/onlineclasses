@@ -36,7 +36,7 @@ public class ContactServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% contactMessage %>", contactRequest.message);
 
         EmailSender.addEmail(contactRequest.email, Labels.get("emails.contact.title"), emailContent);
-        TasksManager.runNow(TasksManager.TASK_EMAIL);
+        TasksManager.runNow(EmailSender.EMAIL_SENDER_NAME);
         return new BasicResponse(0, "");
     }
 

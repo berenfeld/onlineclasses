@@ -1,3 +1,5 @@
+<%@include file="start.jsp" %>
+
 <%@page import="com.onlineclasses.db.DB"%>
 <%@page import="com.onlineclasses.entities.Student"%>
 <%@page import="com.onlineclasses.utils.Config"%>

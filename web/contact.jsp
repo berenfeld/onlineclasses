@@ -1,4 +1,6 @@
+<%@include file="start.jsp" %>
 <%@page import="com.onlineclasses.utils.Config"%>
+
 <!DOCTYPE html>
 <html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
     <head>

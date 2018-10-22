@@ -1,3 +1,5 @@
+<%@include file="start.jsp" %>
+
 <%@page import="java.io.File"%>
 <%@page import="com.onlineclasses.entities.AttachedFile"%>
 <%@page import="com.onlineclasses.entities.ClassComment"%>
@@ -9,6 +11,24 @@
 <%@page import="com.onlineclasses.utils.Config"%>
 <%@page import="com.onlineclasses.utils.Labels"%>
 
+<%
+    int classId = Integer.parseInt(request.getParameter("id"));
+    OClass oClass = DB.getOClass(classId);
+
+    // TODO handle not found / canceled
+    Teacher teacher = oClass.teacher;
+    Student student = oClass.student;
+
+    boolean isStudent = (BaseServlet.isStudent(request)) && (student.equals(BaseServlet.getUser(request)));
+    boolean isTeacher = (BaseServlet.isTeacher(request)) && (teacher.equals(BaseServlet.getUser(request)));
+    List<ClassComment> classComments = DB.getScheuduledClassComments(oClass);
+    float classPrice = (((float) oClass.duration_minutes * oClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
+    String classPriceFormatted = Utils.formatPrice(classPrice);
+    List<AttachedFile> classAttachedFiles = DB.getClassAttachedFiles(oClass);
+
+    oClass.payment = DB.getPaymentOfClass(oClass);
+%>
+
 <!DOCTYPE html>
 <html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
     <head>
@@ -16,23 +36,7 @@
         <link rel="stylesheet" href="css/oclass.css">
     </head>
 
-    <%
-        int classId = Integer.parseInt(request.getParameter("id"));
-        OClass oClass = DB.getOClass(classId);
 
-        // TODO handle not found / canceled
-        Teacher teacher = oClass.teacher;
-        Student student = oClass.student;
-
-        boolean isStudent = (BaseServlet.isStudent(request)) && (student.equals(BaseServlet.getUser(request)));
-        boolean isTeacher = (BaseServlet.isTeacher(request)) && (teacher.equals(BaseServlet.getUser(request)));
-        List<ClassComment> classComments = DB.getScheuduledClassComments(oClass);
-        float classPrice = (((float) oClass.duration_minutes * oClass.price_per_hour) / Utils.MINUTES_IN_HOUR);
-        String classPriceFormatted = Utils.formatPrice(classPrice);
-        List<AttachedFile> classAttachedFiles = DB.getClassAttachedFiles(oClass);
-
-        oClass.payment = DB.getPaymentOfClass(oClass);
-    %>
 
     <body lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
         <%@include file="body.jsp" %>
@@ -265,6 +269,10 @@
                         %>
                         <button class="btn btn-info" onclick="oclass_update_price_click()">
                             <%= Labels.get("oclass.sidebar.update_price")%>
+                        </button>
+
+                        <button class="btn btn-success" onclick="oclass_add_external_payment()">
+                            <%= CLabels.get("oclass.add_external_payment.button.title") %>
                         </button>
                         <%
                             }

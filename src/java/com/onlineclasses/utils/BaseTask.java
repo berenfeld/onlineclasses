@@ -15,10 +15,13 @@ import java.util.TimerTask;
  */
 public abstract class BaseTask {
 
-    BaseTask(String name) {
+    public BaseTask(String name) {
         this._name = name;
     }
 
+    public String getName() {
+        return _name;
+    }
     private InternalTimerTask _timerTask;
     private long _period;
 
@@ -32,6 +35,10 @@ public abstract class BaseTask {
 
         @Override
         public void run() {
+            if (!Config.getBool("tasks." + _baseTask.getName() + ".enabled")) {
+                Utils.warning("not running task '" + _baseTask.getName() + "' .task disabled");
+                return;
+            }
             _baseTask.run();
         }
     }

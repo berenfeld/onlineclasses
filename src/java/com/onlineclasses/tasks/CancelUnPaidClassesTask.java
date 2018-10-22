@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.onlineclasses.utils;
+package com.onlineclasses.tasks;
 
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.Email;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.User;
+import com.onlineclasses.utils.BaseTask;
+import com.onlineclasses.utils.Config;
+import com.onlineclasses.utils.Labels;
+import com.onlineclasses.utils.Utils;
 import java.util.List;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -17,20 +21,19 @@ import org.apache.commons.mail.HtmlEmail;
  *
  * @author me
  */
-public class EmailSender extends BaseTask {
+public class CancelUnPaidClassesTask extends BaseTask {
 
-    public static final String EMAIL_SENDER_NAME = "email_sender";
-    public EmailSender() {
-        super(EMAIL_SENDER_NAME);
+    public static final String CANCEL_UNPAID_CLASSES_TASK_NAME = "cancel_unpaid_classes";
+    public CancelUnPaidClassesTask() {
+        super(CANCEL_UNPAID_CLASSES_TASK_NAME);
     }
 
     @Override
-    protected void runTask() throws Exception {
-        List<Email> emails = DB.getAll(Email.class);
-        for (Email email : emails) {
-            sendEmail(email);
-        }
+    protected void runTask() throws Exception {        
+        //List<OClass> classesToCancel = DB.getUnpaidClassesSince() 
     }
+    
+    /*
 
     private void sendEmail(Email emailToSend) throws Exception {
 
@@ -97,4 +100,5 @@ public class EmailSender extends BaseTask {
         }
 
     }
+*/
 }

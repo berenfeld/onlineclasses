@@ -1,3 +1,5 @@
+<%@include file="start.jsp" %>
+
 <%@page import="java.io.File"%>
 <%@page import="com.onlineclasses.entities.Topic"%>
 <%@page import="com.onlineclasses.entities.Subject"%>

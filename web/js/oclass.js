@@ -39,9 +39,9 @@ function oclass_pay()
 function oclass_paid_show_details()
 {
     var payment = oclass.oclass.payment;
-    alert_show( oc.clabels["oclass.payment_details.payment_details" ], oc.clabels["oclass.payment_details.amount" ]  + " " + parseAmount(payment.amount) + " " +
-                oc.clabels["oclass.payment_details.paid_by" ] + " " + payment.payer + " " +
-                oc.clabels["oclass.payment_details.at" ] + " " + parseDateLong(new Date(payment.date)));
+    alert_show(oc.clabels["oclass.payment_details.payment_details" ], oc.clabels["oclass.payment_details.amount" ] + " " + parseAmount(payment.amount) + " " +
+            oc.clabels["oclass.payment_details.paid_by" ] + " " + payment.payer + " " +
+            oc.clabels["oclass.payment_details.at" ] + " " + parseDateLong(new Date(payment.date)));
 }
 
 function schedule_class_attach_file()
@@ -150,17 +150,53 @@ function oclass_update_price_response(response)
     alert_show(oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.failed_to_update_price"] + " : " + response.message);
 }
 
-function oclass_update_price_changed(new_price_str)
+function oclass_add_external_payment()
 {
-    var new_price = parseInt10(new_price_str);
-    if ((new_price === 0) || (!isDigits(new_price_str))) {
+    text_input_modal_set_value(oclass.oclass.price);
+    text_input_modal_show(oc.clabels[ "oclass.add_external_payment.modal.title"],
+            oc.clabels[ "oclass.add_external_payment.modal.enter_amount"],
+            oclass_add_external_payment_changed);
+}
+
+function oclass_add_external_payment_changed(price_str)
+{
+    text_input_modal_hide();
+
+    var amount = parseInt10(price_str, -1);
+
+    if (amount < 0) {
+        alert_show(oc.clabels[ "oclass.add_external_payment.modal.title"], oc.clabels[ "oclass.add_external_payment.modal.invalid_amount"]);
+        return;
+    }
+
+    alert_show(oc.clabels[ "oclass.add_external_payment.modal.title"], oc.clabels[ "language.request_sent"]);
+    var request = {};
+    request.oclass_id = oclass.oclass.id;
+    request.amount = amount;
+    ajax_request("add_external_payment", request, oclass_add_external_payment_response);
+}
+
+function oclass_add_external_payment_response(response)
+{
+    if (response.rc === 0) {
+        alert_show(oc.clabels[ "oclass.add_external_payment.modal.title"], oc.clabels[ "oclass.add_external_payment.modal.approved"]);
+        reloadAfter(2);
+        return;
+    }
+    alert_show(oc.clabels[ "oclass.add_external_payment.modal.title"], oc.clabels[ "language.request_failed"] + " : " + response.message);
+}
+
+function oclass_update_price_changed(price_str)
+{
+    var new_price = parseInt10(price_str, -1);
+    if (new_price < 0) {
         text_input_modal_hide();
         alert_show(oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.illegal_price"]);
         return;
     }
 
     text_input_modal_hide();
-    alert_show(oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "oclass.update_price.modal.request_sent"]);
+    alert_show(oc.clabels[ "oclass.update_price.modal.title"], oc.clabels[ "language.request_sent"]);
 
     var request = {};
     request.oclass_id = oclass.oclass.id;

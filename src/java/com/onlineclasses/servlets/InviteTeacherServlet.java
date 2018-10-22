@@ -40,7 +40,7 @@ public class InviteTeacherServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% registerTeacherUrl %>", Config.get("website.url") + "/start_teaching");
 
         EmailSender.addEmail(inviteTeacherRequest.teacher_email, Labels.get("emails.invite_teacher.title"), emailContent);
-        TasksManager.runNow(TasksManager.TASK_EMAIL);
+        TasksManager.runNow(EmailSender.EMAIL_SENDER_NAME);
         return new BasicResponse(0, "");
     }
 

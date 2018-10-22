@@ -101,7 +101,7 @@ public class CancelClassServlet extends BaseServlet {
 
         List<User> to = Arrays.asList(student, teacher);
         EmailSender.addEmail(to, Labels.get("emails.class_canceled.title"), emailContent);
-        TasksManager.runNow(TasksManager.TASK_EMAIL);
+        TasksManager.runNow(EmailSender.EMAIL_SENDER_NAME);
     }
 
 }

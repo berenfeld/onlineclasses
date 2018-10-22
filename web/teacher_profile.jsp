@@ -1,3 +1,5 @@
+<%@include file="start.jsp" %>
+
 <%@page import="com.onlineclasses.entities.City"%>
 <%@page import="com.onlineclasses.entities.AvailableTime"%>
 <%@page import="com.onlineclasses.entities.TeachingTopic"%>
