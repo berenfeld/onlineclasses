@@ -129,6 +129,12 @@ function oclass_cancel_class_ok(comment)
 
 function schedule_class_cancel_click()
 {
+    if (isValid(oclass.oclass.payment)) {
+        alert_show(oc.clabels[ "oclass.cancel_class.title"], 
+            oc.clabels[ "oclass.cancel_class.cant_cancel_class_with_payment"],
+            createContactUsAnchor())
+        return;
+    }
     text_input_modal_show(oc.clabels[ "oclass.cancel_class.title"],
             oc.clabels[ "oclass.cancel_class.text"],
             oclass_cancel_class_ok);

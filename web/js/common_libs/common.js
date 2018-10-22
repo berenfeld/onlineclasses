@@ -306,6 +306,11 @@ function createLoginAnchor(message)
     return createAnchor("javascript:login_showLoginModal()", message );
 }
 
+function createContactUsAnchor()
+{
+    return createAnchor("contact", oc.clabels["language.contact_us_for_more_details"] );
+}
+
 function remove_search_from_location()
 {
     var uri = window.location.toString();
