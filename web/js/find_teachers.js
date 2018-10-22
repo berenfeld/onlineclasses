@@ -1,4 +1,4 @@
-/* global oc */
+/* global oc, common */
 
 find_teachers = {};
 
@@ -257,11 +257,21 @@ function schedule_class_received_teacher_calendar(response)
 
     $("#schedule_class_start_hour_select").val(-1);
     $("#schedule_class_start_minute_select").val(-1);
-    $("#schedule_class_modal").modal("show");
+
     $("#schedule_class_modal_title_teacher_anchor").text(find_teachers.teacher.display_name);
     schedule_class_update_calendar();
 
+    if (!login_isLoggedIn())
+    {
+        $("#schedule_class_warning").html(oc.clabels[ "oclass.modal.not_logged_in"]);
+        $("#schedule_class_warning").append(" ");
+        $("#schedule_class_warning").append(createLoginAnchor(  oc.clabels[ "oclass.modal.click_here_to_connect"]) );
+        $("#schedule_class_warning").append(" ");
+        $("#schedule_class_warning").append(createStartLearningAnchor( oc.clabels[ "oclass.modal.register_if_not_registered"] ));
+        $("#schedule_class_warning_div").removeClass("d-none");
+    }
 
+    $("#schedule_class_modal").modal("show");
 }
 
 function schedule_class_update_calendar()
@@ -349,7 +359,6 @@ function schedule_class_confirm()
         $("#schedule_class_warning").html(oc.clabels[ "oclass.modal.not_logged_in"]);
         $("#schedule_class_warning").append("&nbsp;");
         $("#schedule_class_warning").append(createLoginAnchor(oc.clabels[ "oclass.modal.click_here_to_connect"]));
-        //$("#schedule_class_warning").html(oc.clabels[ "oclass.modal.register_here"]);
         $("#schedule_class_warning_div").removeClass("d-none");
         return;
     }

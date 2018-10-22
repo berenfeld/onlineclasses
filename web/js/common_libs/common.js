@@ -306,6 +306,11 @@ function createLoginAnchor(message)
     return createAnchor("javascript:login_showLoginModal()", message );
 }
 
+function createStartLearningAnchor(message)
+{
+    return createAnchor("start_learning", message );
+}
+
 function createContactUsAnchor()
 {
     return createAnchor("contact", oc.clabels["language.contact_us_for_more_details"] );

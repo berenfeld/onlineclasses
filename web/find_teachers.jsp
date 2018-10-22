@@ -17,8 +17,7 @@
 <%@page import="com.onlineclasses.utils.Config"%>
 <%@page import="com.onlineclasses.utils.Labels"%>
 
-<%
-    int defaultMinPrice = CConfig.getInt("website.price_per_hour.min");
+<%    int defaultMinPrice = CConfig.getInt("website.price_per_hour.min");
     int minPrice = Utils.parseInt(request.getParameter("price_min"), defaultMinPrice);
     int defaultMaxPrice = CConfig.getInt("website.price_per_hour.max");
     int maxPrice = Utils.parseInt(request.getParameter("price_max"), defaultMaxPrice);
@@ -323,8 +322,8 @@
                             </div>
                         </div>
                         <div id="schedule_class_warning_div" class="alert alert-warning d-none fade show alert-dismissible h6">
-                            <span class="oi" data-glyph="warning"></span>    
-                            <span id="schedule_class_warning"></span>
+                                <span class="oi" data-glyph="warning"></span>    
+                                <span id="schedule_class_warning"></span>
                         </div>
                         <div id="schedule_class_info_div" class="alert alert-info d-none fade show alert-dismissible h6">
                             <span class="oi" data-glyph="info"></span>    
