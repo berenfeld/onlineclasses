@@ -151,10 +151,18 @@ public class RegisterStudentServlet extends BaseServlet {
         emailContent = emailContent.replaceAll("<% studentEmail %>", registeringStudent.email);
         emailContent = emailContent.replaceAll("<% studentFullName %>", registeringStudent.first_name + " " + registeringStudent.last_name);
         emailContent = emailContent.replaceAll("<% studentPhone %>", registeringStudent.phone_area + "-" + registeringStudent.phone_number);
-        emailContent = emailContent.replaceAll("<% studentCity %>", registeringStudent.city.name);
+        String cityName = "";
+        if ( registeringStudent.city != null ) {
+            cityName = registeringStudent.city.name;
+        }
+        emailContent = emailContent.replaceAll("<% studentCity %>", cityName);
         emailContent = emailContent.replaceAll("<% studentGender %>", CLabels.get(registeringStudent.gender == User.GENDER_MALE
                 ? "language.male" : "language.female"));
-        emailContent = emailContent.replaceAll("<% studentDayOfBirth %>", Utils.formatDateWithFullYear(registeringStudent.day_of_birth));
+        String dayOfBirth = "";
+        if ( registeringStudent.day_of_birth != null) {
+            dayOfBirth = Utils.formatDateWithFullYear(registeringStudent.day_of_birth);
+        }
+        emailContent = emailContent.replaceAll("<% studentDayOfBirth %>", dayOfBirth);
         emailContent = emailContent.replaceAll("<% studentLearningTopics %>", Utils.mergeList(topicsList, "<br/>"));
         emailContent = emailContent.replaceAll("<% StudentProfileUrl %>", Config.get("website.url") + "/student_profile");
 

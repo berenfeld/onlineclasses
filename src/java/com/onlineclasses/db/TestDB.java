@@ -85,7 +85,7 @@ public class TestDB {
         teacher.paypal_email = "berenfeldran@gmail.com";
         teacher.price_per_hour = 130;
         teacher.image_url = "https://lh3.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ABtNlbA_jkl-lkg5QSRlr4ICIbdA5RlpQg/s96-c-mo/photo.jpg";
-        teacher.moto = "שלום לכולם שמי רן ברנפלד. אני מהנדס מערכות זמן אמת וראש צוות פיתוח כ 20 שנה ובעל 5 שנות נסיון בלימוד מקצועות מדעי המחשב לסטודנטים. יש לי תואר שני במדעי המחשב מטעם האוניברסיטה העברית ואני גם המייסד של האתר.. אשמח להוביל גם אתכם להצלחה !";
+        teacher.moto = "שלום לכולם שמי רן ברנפלד. אני מהנדס מערכות זמן אמת וראש צוות פיתוח כ 20 שנה ובעל 5 שנות נסיון בלימוד מקצועות מדעי המחשב לסטודנטים. אני בעל תואר שני במדעי המחשב מטעם האוניברסיטה העברית ואני גם המייסד של האתר.. אשמח להוביל גם אתכם להצלחה !";
         teacher.phone_area = "054";
         teacher.phone_number = "7476526";
         teacher.registered = new Date();

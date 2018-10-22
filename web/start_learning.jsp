@@ -631,7 +631,7 @@
                             <div class="card-footer">
                                 <div class="d-flex flex-row-reverse">
                                     <button type="button" class="btn btn-info start_learning_tabs_button" 
-                                            id="start_learning_goto_tab_ccept_and_finish_button"
+                                            id="start_learning_goto_tab_accept_and_finish_button"
                                             onclick="start_learning_goto_tab('accept_and_finish')">
                                         <span class="oi" data-glyph="chevron-left"></span>                                            
                                         <%= Labels.get("start_learning.tabs.to")%><%= Labels.get("start_learning.tabs.accept_and_finish")%>

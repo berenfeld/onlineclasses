@@ -100,8 +100,14 @@ function start_learning_register_complete(response)
         return;
     }
     alert_show(oc.clabels[ "start_learning.register.success.title"],
-            oc.clabels[ "start_learning.register.success.message"]);
+            oc.clabels[ "start_learning.register.success.message"],
+            start_learning_complete_ok);
     redirectAfter("/", 5);
+}
+
+function start_learning_complete_ok()
+{
+    location.href = "/";
 }
 
 function start_learning_form_validation(request)
@@ -287,7 +293,7 @@ function start_learning_check_tabs()
     
     // can move to learning_topics
     $("#start_learning_learning_topics_link").removeClass("disabled");
-    enableButtons($("#start_learning_goto_tab_learning_topics_button"));
+    enableButtons($("#start_learning_goto_tab_learning_topics_button"));    
 
     // can move to accept_and_finish
     $("#start_learning_accept_and_finish_link").removeClass("disabled");
