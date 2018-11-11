@@ -66,8 +66,10 @@ public class TestDB {
     }
 
     public static void addTeachers() throws Exception {
-        addRanB();
-        addMosheB();        
+        if (Config.getBool("db.test.teachers")) {            
+            addRanB();
+            addMosheB();        
+        }
         addTestTeachers();
     }
 
@@ -165,7 +167,7 @@ public class TestDB {
 
         DB.add(teacher);
 
-        String[] topics = {"תכנות בשפת ג'אוה", "תכנות בשפת פייטון", "תכנות בשפת C", "אלגוריתמים", "חישוביות", "סי שארפ"};
+        String[] topics = {"JAVA", "PYTHON", "#C" };
         for (String topicName : topics) {
             TeachingTopic teachingTopic = new TeachingTopic();
             teachingTopic.teacher = teacher;
@@ -188,7 +190,7 @@ public class TestDB {
     }
 
     private static void addTestTeachers() throws Exception {
-        if (!Config.getBool("db.test.teachers")) {
+        if (!Config.getBool("db.test.test_teachers")) {
             return;
         }
         List<Institute> allInstitues = DB.getAll(Institute.class);
