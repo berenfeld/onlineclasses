@@ -5,6 +5,7 @@
  */
 package com.onlineclasses.utils;
 
+import com.onlineclasses.tasks.CancelUnPaidClassesTask;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,14 +15,14 @@ import java.util.Map;
  */
 public class TasksManager {
 
-    public static final int TASK_EMAIL = 1;
-
     public static void init() {
         BaseTask.init();
-        
+                        
         _emailSeneder = new EmailSender();
-        _emailSeneder.schedule(Config.getInt("mail.send_interval_minutes"));
         addTask(_emailSeneder);
+        
+        _cancelUnPaidClasses = new CancelUnPaidClassesTask();
+        addTask(_cancelUnPaidClasses);
         
     }
 
@@ -29,6 +30,12 @@ public class TasksManager {
     {
         if ( _tasks.get(task.getName()) != null ) {
             throw new RuntimeException("Task " + task.getName() + " already added");
+        }
+        
+        int interval = Config.getInt("tasks." + task.getName() + ".interval");
+        if (interval > 0) {
+            Utils.info("task " + task.getName() + " scheduled every " + interval + " seconds");
+            task.schedule(interval);
         }
         _tasks.put(task.getName(), task);
     }
@@ -42,6 +49,8 @@ public class TasksManager {
     }
 
     private static final Map<String, BaseTask> _tasks = new HashMap<>();
+   
     private static EmailSender _emailSeneder;
+    private static CancelUnPaidClassesTask _cancelUnPaidClasses;    
 
 }

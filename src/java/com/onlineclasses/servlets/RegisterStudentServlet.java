@@ -138,7 +138,7 @@ public class RegisterStudentServlet extends BaseServlet {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "register_student.html";
 
-        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
+        String emailContent = Utils.getStringFromInputStream(email_name);
 
         String yes = CLabels.get("language.yes");
         String no = CLabels.get("language.no");

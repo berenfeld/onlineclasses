@@ -117,6 +117,7 @@ public class ScheduleClassServlet extends BaseServlet {
         oClass.subject = scheduleClassRequest.subject;
         oClass.registered = new Date();
         oClass.status = OClass.STATUS_SCHEDULED;
+        oClass.payment = null;
 
         if (1 != DB.add(oClass)) {
             Utils.warning("student " + student.display_name + " schedule class failed. DB error");
@@ -150,7 +151,7 @@ public class ScheduleClassServlet extends BaseServlet {
                 + Config.get("website.language") + File.separator + "new_class.html";
         Utils.info("sending email " + email_name);
 
-        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
+        String emailContent = Utils.getStringFromInputStream(email_name);
 
         emailContent = emailContent.replaceAll("<% teacherName %>", teacher.display_name);
         emailContent = emailContent.replaceAll("<% classDay %>", Utils.dayNameLong(classStart.get(Calendar.DAY_OF_WEEK)) + " " + new SimpleDateFormat("dd/MM/YYYY").format(oClass.start_date));

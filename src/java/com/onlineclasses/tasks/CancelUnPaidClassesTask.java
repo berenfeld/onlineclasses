@@ -7,12 +7,20 @@ package com.onlineclasses.tasks;
 
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.Email;
+import com.onlineclasses.entities.OClass;
 import com.onlineclasses.entities.Student;
+import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.BaseTask;
 import com.onlineclasses.utils.Config;
+import com.onlineclasses.utils.EmailSender;
 import com.onlineclasses.utils.Labels;
+import com.onlineclasses.utils.TasksManager;
 import com.onlineclasses.utils.Utils;
+import java.io.File;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -24,57 +32,52 @@ import org.apache.commons.mail.HtmlEmail;
 public class CancelUnPaidClassesTask extends BaseTask {
 
     public static final String CANCEL_UNPAID_CLASSES_TASK_NAME = "cancel_unpaid_classes";
+
     public CancelUnPaidClassesTask() {
         super(CANCEL_UNPAID_CLASSES_TASK_NAME);
     }
 
     @Override
-    protected void runTask() throws Exception {        
-        //List<OClass> classesToCancel = DB.getUnpaidClassesSince() 
+    protected void runTask() throws Exception {
+        List<OClass> classesToCancel = DB.getUnpaidScheduledClasses();
+        for (OClass oclass : classesToCancel) {
+            Date now = new Date();
+            if ( oclass.start_date.getTime() > now.getTime()) {
+                cancelClass(oclass);
+            }
+        }
     }
-    
-    /*
 
-    private void sendEmail(Email emailToSend) throws Exception {
+    private void cancelClass(OClass oClass) throws Exception
+    {
+        oClass.status = OClass.STATUS_CANCELCED;
+        DB.update(oClass);
+        sendEmail(oClass, "no payment");
+        Utils.info("class " + oClass + " canceled. no payment");
+    }
 
-        Utils.info("sending email " + emailToSend.id + " to " + emailToSend.to + " title " + emailToSend.subject);
+    private void sendEmail(OClass oClass, String cancelReason) throws Exception {
 
-        emailToSend.message = emailToSend.message.replaceAll("<% emailTitle %>", emailToSend.subject);
-        emailToSend.message = emailToSend.message.replaceAll("<% websiteURL %>", Config.get("website.url"));
-        emailToSend.message = emailToSend.message.replaceAll("<% websiteName %>", Labels.get("mail.website.name"));
-        emailToSend.message = emailToSend.message.replaceAll("<% adminEmail %>", Config.get("website.admin_email"));
-        emailToSend.message = emailToSend.message.replaceAll("<% contactUs %>", Labels.get("emails.contact_us"));
+        String email_name = Config.get("mail.emails.path") + File.separator
+                + Config.get("website.language") + File.separator + "class_canceled.html";
+        Utils.info("sending email " + email_name);
 
-        String hashString = emailToSend.to + "." + Config.get("website.secret.md5");
-        String unsubscribeURL = Config.get("website.url") + "/unsubscribe?email=" + emailToSend.to + "&hash=" + hashString;
+        Teacher teacher = DB.get(oClass.teacher.id, Teacher.class);
+        Student student = DB.get(oClass.student.id, Student.class);
 
-        emailToSend.message = emailToSend.message.replaceAll("<% unsubscribeURL %>", unsubscribeURL);
+        String emailContent = Utils.getStringFromInputStream(email_name);
 
-        HtmlEmail email = new HtmlEmail();
+        String cancelingUser = Config.get("website.admin_name");
+        emailContent = emailContent.replaceAll("<% cancelingUser %>", cancelingUser);
+        emailContent = emailContent.replaceAll("<% studentName %>", student.display_name);
+        emailContent = emailContent.replaceAll("<% teacherName %>", teacher.display_name);
+        emailContent = emailContent.replaceAll("<% cancelReason %>", cancelReason);
+        emailContent = emailContent.replaceAll("<% classSubject %>", oClass.subject);
+        emailContent = emailContent.replaceAll("<% findTeachersUrl %>", Config.get("website.url") + "/find_teachers");
 
-        email.setCharset(org.apache.commons.mail.EmailConstants.UTF_8);
-        email.addHeader("Content-Language", Config.get("website.html_language"));
-        email.addHeader("List-Unsubscribe", "<mailto:" + Config.get("mail.admin") + ">, <" + unsubscribeURL + ">");
-
-        email.setHostName(Config.get("mail.host"));
-        email.setSmtpPort(Config.getInt("mail.port"));
-        email.setFrom(Config.get("mail.from"), Config.get("mail.from.name"));
-        email.addReplyTo(Config.get("mail.reply_to"));
-        email.setSubject(emailToSend.subject);
-        email.setHtmlMsg(emailToSend.message);
-        email.addTo(emailToSend.to);
-        email.addBcc(Config.get("mail.admin"));
-
-        try {
-            email.send();
-        } catch (EmailException ex) {
-            Utils.info("failed sending email " + emailToSend.id + " to " + emailToSend.to);
-            Utils.exception(ex);
-            return;
-        }
-        if (1 != DB.delete(emailToSend)) {
-            Utils.warning("failed to delete email id " + emailToSend.id + " to " + emailToSend.to);
-        }
+        List<User> to = Arrays.asList(student, teacher);
+        EmailSender.addEmail(to, Labels.get("emails.class_canceled.title"), emailContent);
+        TasksManager.runNow(EmailSender.EMAIL_SENDER_NAME);        
     }
 
     public static void addEmail(String to, String subject, String message) throws Exception {
@@ -100,5 +103,5 @@ public class CancelUnPaidClassesTask extends BaseTask {
         }
 
     }
-*/
+ 
 }

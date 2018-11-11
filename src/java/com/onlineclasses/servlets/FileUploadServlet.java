@@ -158,7 +158,7 @@ public class FileUploadServlet extends HttpServlet {
         Calendar classStart = Calendar.getInstance();
         classStart.setTime(oClass.start_date);
 
-        String emailContent = Utils.getStringFromInputStream(request.getServletContext(), email_name);
+        String emailContent = Utils.getStringFromInputStream(email_name);
 
         emailContent = emailContent.replaceAll("<% commentator %>", uploader.display_name);
         emailContent = emailContent.replaceAll("<% fileName %>", attachedFile.name);

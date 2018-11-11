@@ -28,4 +28,9 @@ public class BasicEntity implements Serializable, Comparable<BasicEntity> {
     public int compareTo(BasicEntity o) {
         return id - o.id;
     }
+    
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " " + id;
+    }
 }

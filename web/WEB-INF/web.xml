@@ -65,6 +65,10 @@
         <servlet-name>about_us</servlet-name>
         <jsp-file>/about_us.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>how_it_works</servlet-name>
+        <jsp-file>/how_it_works.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>start_teaching</servlet-name>
         <url-pattern>/start_teaching</url-pattern>
@@ -116,6 +120,10 @@
     <servlet-mapping>
         <servlet-name>about_us</servlet-name>
         <url-pattern>/about_us</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>how_it_works</servlet-name>
+        <url-pattern>/how_it_works</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

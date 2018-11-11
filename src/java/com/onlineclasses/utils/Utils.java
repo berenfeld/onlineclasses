@@ -37,6 +37,8 @@ import javax.xml.bind.DatatypeConverter;
  */
 public class Utils {
 
+    public static ServletContext SERVLET_CONTEXT;
+    
     public static void exception(Throwable ex) {
         String className = Thread.currentThread().getStackTrace()[1].getClassName();
         StringWriter sw = new StringWriter();
@@ -276,8 +278,8 @@ public class Utils {
         return calendar.getTime();
     }
 
-    public static String getStringFromInputStream(ServletContext context, String fileName) {
-        InputStream is = context.getResourceAsStream(fileName);
+    public static String getStringFromInputStream(String fileName) {
+        InputStream is = SERVLET_CONTEXT.getResourceAsStream(fileName);
         BufferedReader br;
         StringBuilder sb = new StringBuilder();
 

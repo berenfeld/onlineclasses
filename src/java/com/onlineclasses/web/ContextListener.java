@@ -10,13 +10,16 @@ import com.onlineclasses.utils.CConfig;
 import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.TasksManager;
 import com.onlineclasses.utils.Utils;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 public class ContextListener implements ServletContextListener {
 
+    
+           
     @Override
-    public void contextInitialized(ServletContextEvent sce) {
+    public void contextInitialized(ServletContextEvent sce) {        
         Utils.info("context init");
 
         System.setProperty("com.j256.ormlite.logger.type", "LOCAL");
@@ -27,6 +30,8 @@ public class ContextListener implements ServletContextListener {
         DB.init();
         TasksManager.init();
 
+        Utils.SERVLET_CONTEXT = sce.getServletContext();
+        
         Utils.info("context init done");
     }
 

@@ -36,10 +36,12 @@ public abstract class BaseTask {
         @Override
         public void run() {
             if (!Config.getBool("tasks." + _baseTask.getName() + ".enabled")) {
-                Utils.warning("not running task '" + _baseTask.getName() + "' .task disabled");
+                Utils.warning("not running task '" + _baseTask.getName() + "' task. task disabled");
                 return;
             }
+            Utils.info("Starting task '" + _baseTask.getName() + "'");
             _baseTask.run();
+            Utils.info("Finished task '" + _baseTask.getName() + "'");
         }
     }
 
@@ -52,8 +54,8 @@ public abstract class BaseTask {
         _timer.scheduleAtFixedRate(_timerTask, firstDate, period);
     }
 
-    public void schedule(long intervalInMinutes) {
-        scheduleAtFixedRate(new Date(), intervalInMinutes * 60 * 1000);
+    public void schedule(long intervalInSeconds) {
+        scheduleAtFixedRate(new Date(), intervalInSeconds * 1000);
     }
 
     public void schedule(Date start, int intervalInSeconds) {

@@ -446,4 +446,8 @@ public class DB {
     public static Institute getInstituteByName(String name) throws SQLException {
         return _institute_db.getInstituteByName(name);
     }
+    
+    public static List<OClass> getUnpaidScheduledClasses() throws SQLException {
+        return _oclass_db.getUnpaidScheduledClasses();
+    }   
 }

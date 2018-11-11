@@ -12,11 +12,9 @@ import com.j256.ormlite.table.TableUtils;
 import com.onlineclasses.entities.BasicEntity;
 import com.onlineclasses.utils.Utils;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import static javafx.scene.input.KeyCode.T;
 
 public class Base_DB<T> {
 

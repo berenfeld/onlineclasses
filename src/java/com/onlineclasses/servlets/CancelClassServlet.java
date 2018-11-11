@@ -12,7 +12,6 @@ import com.onlineclasses.entities.ClassComment;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.entities.User;
-import com.onlineclasses.servlets.entities.AddClassCommentRequest;
 import com.onlineclasses.servlets.entities.CancelClassRequest;
 import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.EmailSender;
@@ -20,9 +19,7 @@ import com.onlineclasses.utils.Labels;
 import com.onlineclasses.utils.TasksManager;
 import com.onlineclasses.utils.Utils;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
@@ -90,7 +87,7 @@ public class CancelClassServlet extends BaseServlet {
         Teacher teacher = DB.get(oClass.teacher.id, Teacher.class);
         Student student = DB.get(oClass.student.id, Student.class);
 
-        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
+        String emailContent = Utils.getStringFromInputStream(email_name);
 
         emailContent = emailContent.replaceAll("<% cancelingUser %>", user.display_name);
         emailContent = emailContent.replaceAll("<% studentName %>", student.display_name);

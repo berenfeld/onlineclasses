@@ -62,7 +62,7 @@ function find_teachers_refresh_results()
 
 function schedule_class_button_clicked(event)
 {
-    var teacher_button = $("#" + event.target.id);
+    var teacher_button = $(event.target);
     find_teachers.teacher_id = parseInt10(teacher_button.attr("data-teacher-id"));
     var request = {};
     request.teacher_id = find_teachers.teacher_id;
@@ -324,23 +324,41 @@ function schedule_class_select_date(dateText)
 
 function schedule_class_select_time(event)
 {
+    $("#schedule_class_warning_div").addClass("d-none");
+    
     if (!find_teachers.available) {
         $("#schedule_class_warning").text(oc.clabels[ "oclass.modal.please_choose_time_when_teacher_is_available"]);
         $("#schedule_class_warning_div").removeClass("d-none");
         return;
-    }
-    $("#schedule_class_warning_div").addClass("d-none");
-
+    }    
+       
     var elem = $(event.target);
     var day = parseInt10(elem.attr("data-day"));
     var hour = parseInt10(elem.attr("data-hour"));
     var minute = parseInt10(elem.attr("data-minute"));
-
+    
     find_teachers.calendar.selected_day = new Date(find_teachers.calendar.week_days[day].getTime());
+    
+    var start_date = new Date(find_teachers.calendar.selected_day.getTime());
+    start_date.setHours(hour);
+    start_date.setMinutes(minute);
+    
+    
+    
+    // check if too late
+    var earliestDateToScheduleClass = new Date();
+    addHours(earliestDateToScheduleClass, parseInt10(oc.cconfig[ "website.time.min_time_before_schedule_class_start_hours" ]));
+    if (earliestDateToScheduleClass.getTime() > start_date.getTime()) {
+        $("#schedule_class_warning").html(oc.clabels[ "oclass.modal.too_late_for_class"]);
+        $("#schedule_class_warning_div").removeClass("d-none");
+        return;
+    }
+    
+    
     $("#start_schedule_class_day_input").datepicker('setDate', find_teachers.calendar.selected_day);
     $("#schedule_class_start_hour_select").val(hour);
     $("#schedule_class_start_minute_select").val(minute);
-
+    
     var duration = parseInt10($("#find_teachers_duration_select").val());
     if (duration === 0) {
         // auto choose minimal possible duration
@@ -600,6 +618,8 @@ function find_teachers_init()
     $("#schedule_class_start_minute_select").on("change", schedule_class_update_calendar);
     $("#schedule_class_start_hour_select").on("change", schedule_class_update_calendar);
     $("button.schedule_class_button").on("click", schedule_class_button_clicked);
+    $("img.schedule_class_teacher_img").on("click", schedule_class_button_clicked);
+    
     $("td.schedule_class_calendar_time").on("click", schedule_class_select_time);
     $("#schedule_class_confirm_button").on("click", schedule_class_confirm);
     $("#schedule_class_calendar_table td.schedule_class_calendar_time").hover(schedule_class_calendar_hover);

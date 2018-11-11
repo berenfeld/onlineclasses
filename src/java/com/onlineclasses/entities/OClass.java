@@ -7,6 +7,7 @@ package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.onlineclasses.utils.Config;
+import com.onlineclasses.utils.Utils;
 import java.util.Date;
 
 public class OClass extends BasicEntity {
@@ -46,6 +47,29 @@ public class OClass extends BasicEntity {
     @DatabaseField(canBeNull = false, columnName = STATUS_COLUMN)
     public int status;
 
+    public static final String PAYMENT_COLUMN = "payment";
+    @DatabaseField(foreign = true, columnName = PAYMENT_COLUMN)
     public Payment payment;
+    
+    @Override
+    public String toString() {
+        String result = "scheduled class";
+        if (id != 0 ) {
+            result += " " + id;
+        }
+        if (start_date != null) {
+            result += " at " + Utils.formatDateTime(start_date);
+        }
+        if (teacher != null) {
+            result += " teacher " + teacher;
+        }
+        if (student != null) {
+            result += " student " + student;
+        }
+        if (Utils.isNotEmpty(subject)) {
+            result += " subject " + subject;
+        }
+        return result;
+    }
 
 }

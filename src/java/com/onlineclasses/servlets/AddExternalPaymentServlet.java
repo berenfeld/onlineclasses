@@ -57,7 +57,7 @@ public class AddExternalPaymentServlet extends BaseServlet {
         }
 
         if (!user.equals(oClass.teacher)) {
-            Utils.warning(user + "can'dtadd external payment on class id " + addExternalPaymentRequest.oclass_id + ", not teacher");
+            Utils.warning(user + "can'd add external payment on class id " + addExternalPaymentRequest.oclass_id + ", not teacher");
             return new BasicResponse(-1, "not teacher");
         }
 
@@ -66,12 +66,18 @@ public class AddExternalPaymentServlet extends BaseServlet {
         payment.amount = addExternalPaymentRequest.amount;
         payment.date = new Date();
         payment.external = true;
-        payment.oclass = oClass;
-        
-        DB.add(payment);
+        payment.oclass = oClass;        
+        if (1 != DB.add(payment) ) {
+            Utils.warning(user + "can'd add external payment on class id " + addExternalPaymentRequest.oclass_id + ",. DB add failed");
+            return new BasicResponse(-1, "DB error");
+        }
         
         oClass.price_per_hour = (int)( payment.amount * 60 ) / oClass.duration_minutes;
-        DB.update(oClass);
+        oClass.payment = payment;
+        if (1 != DB.add(oClass) ) {
+            Utils.warning(user + "can'd add external payment on class id " + addExternalPaymentRequest.oclass_id + ",. DB add failed");
+            return new BasicResponse(-1, "DB error");
+        }
         
         sendEmail(user, oClass, addExternalPaymentRequest);
 
@@ -86,7 +92,7 @@ public class AddExternalPaymentServlet extends BaseServlet {
         Teacher teacher = DB.get(oClass.teacher.id, Teacher.class);
         Student student = DB.get(oClass.student.id, Student.class);
 
-        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
+        String emailContent = Utils.getStringFromInputStream(email_name);
 
         emailContent = emailContent.replaceAll("<% classPrice %>", String.valueOf(addExternalPaymentRequest.amount));
         emailContent = emailContent.replaceAll("<% studentName %>", student.display_name);

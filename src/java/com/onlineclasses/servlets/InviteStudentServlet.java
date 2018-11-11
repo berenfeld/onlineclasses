@@ -31,7 +31,7 @@ public class InviteStudentServlet extends BaseServlet {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "invite_student.html";
 
-        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
+        String emailContent = Utils.getStringFromInputStream(email_name);
 
         emailContent = emailContent.replaceAll("<% invitedStudent %>", inviteStudentRequest.student_name);
         emailContent = emailContent.replaceAll("<% websiteUrl %>", Config.get("website.url"));

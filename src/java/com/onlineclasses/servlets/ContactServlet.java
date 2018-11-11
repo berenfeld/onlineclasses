@@ -27,7 +27,7 @@ public class ContactServlet extends BaseServlet {
 
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "contact.html";
-        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
+        String emailContent = Utils.getStringFromInputStream(email_name);
 
         emailContent = emailContent.replaceAll("<% contactName %>", contactRequest.name);
         emailContent = emailContent.replaceAll("<% contactSubject %>", contactRequest.subject);

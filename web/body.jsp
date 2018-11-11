@@ -67,6 +67,9 @@
                         <a class="dropdown-item" href="privacy_policy">
                             <%= Labels.get("navbar.about.us.privacy_policy")%>
                         </a>
+                        <a class="dropdown-item" href="how_it_works">
+                            <%= Labels.get("navbar.how_it_works")%>
+                        </a>
                     </div>
                 </li>
 

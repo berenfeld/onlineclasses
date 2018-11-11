@@ -343,7 +343,7 @@
                             <%
                                 String htmlFileName = Config.get("html.path") + File.separator
                                         + Config.get("website.language") + File.separator + "terms_of_usage.html";
-                                String htmlContent = Utils.getStringFromInputStream(getServletContext(), htmlFileName);
+                                String htmlContent = Utils.getStringFromInputStream(htmlFileName);
                                 out.write(htmlContent);
                             %>
 

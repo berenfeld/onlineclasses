@@ -17,7 +17,8 @@
 <%@page import="com.onlineclasses.utils.Config"%>
 <%@page import="com.onlineclasses.utils.Labels"%>
 
-<%    int defaultMinPrice = CConfig.getInt("website.price_per_hour.min");
+<%    
+    int defaultMinPrice = CConfig.getInt("website.price_per_hour.min");
     int minPrice = Utils.parseInt(request.getParameter("price_min"), defaultMinPrice);
     int defaultMaxPrice = CConfig.getInt("website.price_per_hour.max");
     int maxPrice = Utils.parseInt(request.getParameter("price_max"), defaultMaxPrice);
@@ -523,7 +524,7 @@
                             <div class="card-body">
                                 <div class="row no-gutters">      
                                     <div class="col-3 col-xl-2 px-1 mx-0 my-0 text-center">
-                                        <img src="<%= teacher.image_url%>" class="w-100 mx-auto border border-info img-responsive rounded mx-1 my-1"/>
+                                        <img data-teacher-id="<%= teacher.id%>" class="schedule_class_teacher_img" src="<%= teacher.image_url%>" class="w-100 mx-auto border border-info img-responsive rounded mx-1 my-1"/>
                                         <h6>
                                             <a href="teacher_homepage?id=<%= teacher.id%>">
                                                 <%= teacher.display_name%>

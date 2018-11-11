@@ -82,7 +82,7 @@ public class AddClassCommentServlet extends BaseServlet {
                 + Config.get("website.language") + File.separator + "class_added_comment.html";
         Utils.info("sending email " + email_name);
 
-        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
+        String emailContent = Utils.getStringFromInputStream(email_name);
 
         emailContent = emailContent.replaceAll("<% commentator %>", commentator.display_name);
         emailContent = emailContent.replaceAll("<% comment %>", comment);

@@ -70,15 +70,15 @@ public class User extends BasicEntity implements Serializable {
     public String toString() {
         String result;        
         if (this instanceof Student) {
-            result = "student ";
+            result = "student";
         } else {
-            result = "teacher ";
+            result = "teacher";
         }
         if (id != 0) {
-            result += "id " + id + " ";
+            result += " " + id;
         }
         if (display_name != null) {
-            result += "name  " + display_name + " ";
+            result += " name " + display_name;
         }
         return result;
     }

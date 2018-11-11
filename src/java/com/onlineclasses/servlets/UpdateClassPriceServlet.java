@@ -75,7 +75,7 @@ public class UpdateClassPriceServlet extends BaseServlet {
         Teacher teacher = DB.get(oClass.teacher.id, Teacher.class);
         Student student = DB.get(oClass.student.id, Student.class);
 
-        String emailContent = Utils.getStringFromInputStream(getServletContext(), email_name);
+        String emailContent = Utils.getStringFromInputStream(email_name);
 
         emailContent = emailContent.replaceAll("<% classUpdatedPrice %>", String.valueOf(newPrice));
         emailContent = emailContent.replaceAll("<% studentName %>", student.display_name);

@@ -25,7 +25,7 @@
                     <%
                         String htmlFileName = Config.get("html.path") + File.separator
                                 + Config.get("website.language") + File.separator + "privacy_policy.html";
-                        String htmlContent = Utils.getStringFromInputStream(getServletContext(), htmlFileName);
+                        String htmlContent = Utils.getStringFromInputStream(htmlFileName);
                         out.write(htmlContent);
                     %>
                 </div>

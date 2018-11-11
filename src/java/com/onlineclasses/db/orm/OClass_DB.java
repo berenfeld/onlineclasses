@@ -5,6 +5,8 @@
  */
 package com.onlineclasses.db.orm;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.SelectArg;
@@ -12,6 +14,7 @@ import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
 import com.onlineclasses.entities.OClass;
+import com.onlineclasses.entities.Payment;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.utils.CConfig;
@@ -48,7 +51,12 @@ public class OClass_DB extends Base_DB<OClass> {
         where.le(OClass.START_DATE_COLUMN, _getTeacherUpcomingClassesStartDateArg);
         queryBuilder.orderBy(OClass.START_DATE_COLUMN, true);
         _getTeacherUpcomingClasses = queryBuilder.prepare();
-
+                
+        where.reset();
+        where.eq(OClass.STATUS_COLUMN, OClass.STATUS_SCHEDULED);
+        where.and();
+        where.isNull(OClass.PAYMENT_COLUMN);
+        _getUnpaidScheduledClasses = queryBuilder.prepare();
     }
 
     private final PreparedQuery<OClass> _getTeacherNotCanceledClasses;
@@ -59,6 +67,8 @@ public class OClass_DB extends Base_DB<OClass> {
     private final PreparedQuery<OClass> _getTeacherUpcomingClasses;
     private final SelectArg _getTeacherUpcomingClassesTeacherArg = new SelectArg();
     private final SelectArg _getTeacherUpcomingClassesStartDateArg = new SelectArg();
+    
+    private final PreparedQuery<OClass> _getUnpaidScheduledClasses;
 
     public synchronized List<OClass> getTeacherNotCanceledScheduledClasses(Teacher teacher) throws SQLException {
         _getTeacherClassesTeacherArg.setValue(teacher);
@@ -91,4 +101,8 @@ public class OClass_DB extends Base_DB<OClass> {
         return updateBuilder.update();
     }
 
+    public List<OClass> getUnpaidScheduledClasses() throws SQLException
+    {
+        return _dao.query(_getUnpaidScheduledClasses);
+    }
 }
