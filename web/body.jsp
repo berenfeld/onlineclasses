@@ -213,9 +213,10 @@
                 <h5>
                     <small>
                         <%= Labels.get("login.modal.text1_small")%>
-                        <span class="oi" data-glyph="info"></span>     
+                        <br/>
+                        <span class="oi" data-glyph="info"></span>                             
                         <span class="text-info">
-                            <%= Labels.get("login.modal.text2")%>                    
+                            <%= Labels.get("login.modal.text2")%>
                             <a class="alert-link" href="start_learning">
                                 <%= Labels.get("login.modal.register.student")%>
                             </a> 
