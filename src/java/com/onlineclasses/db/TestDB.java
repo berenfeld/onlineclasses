@@ -75,7 +75,6 @@ public class TestDB {
 
     private static void addRanB() throws Exception {        
         List<Subject> allSubjects = DB.getAll(Subject.class);
-        String degreeTypesList = Labels.get("db.degree_type");        
 
         Teacher teacher = new Teacher();
         teacher.display_name = "רן ברנפלד";
@@ -285,10 +284,9 @@ public class TestDB {
             return;
         }
         
-        Teacher teacher = (Teacher) DB.getUserByEmail("berenfeldran@gmail.com");;
+        Teacher teacher = (Teacher) DB.getUserByEmail("berenfeldran@gmail.com");
         List<AvailableTime> availableTimes = DB.getTeacherAvailableTime(teacher);
         
-        Random random = new Random();
         OClass oClass = new OClass();
         oClass.teacher = teacher;
         oClass.student = (Student) DB.getUserByEmail("ichess@ichess.co.il");
@@ -300,6 +298,7 @@ public class TestDB {
         startDate.set(Calendar.MINUTE, availableTime.start_minute);
         startDate.set(Calendar.SECOND, 0);
         startDate.set(Calendar.MILLISECOND, 0);        
+        startDate.add(Calendar.DAY_OF_WEEK, 7);
         oClass.start_date = startDate.getTime();
         
         oClass.registered = new Date();
@@ -321,6 +320,7 @@ public class TestDB {
         startDate.set(Calendar.MINUTE, availableTime.start_minute);
         startDate.set(Calendar.SECOND, 0);
         startDate.set(Calendar.MILLISECOND, 0);
+        startDate.add(Calendar.DAY_OF_WEEK, 7);
         oClass.start_date = startDate.getTime();
         
         oClass.registered = new Date();
@@ -337,8 +337,7 @@ public class TestDB {
         payment.payer = "ichess@ichess.co.il";
         payment.oclass = oClass;
         DB.add(payment);
-        
-        
+                
         oClass = new OClass();
         oClass.teacher =  teacher;
         oClass.student = (Student) DB.getUserByEmail("ichess@ichess.co.il");

@@ -132,7 +132,8 @@
                         <%
                             if (!com_upcomingClasses.isEmpty()) {
                         %>
-                        <a class="dropdown-item" href="#">
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-info" href="#">
                             <%= Labels.get("navbar.user.upcoming_classes")%>
                         </a>
                         <div class="dropdown-divider"></div>
@@ -140,8 +141,7 @@
                             for (OClass upcomingClass : com_upcomingClasses) {
                         %>
                         <a class="dropdown-item" href="oclass?id=<%= upcomingClass.id%>">
-                            <%= upcomingClass.subject%>
-                            &nbsp;
+                            <%= upcomingClass.subject%>,                            
                             <%= Utils.formatDateTime(upcomingClass.start_date)%>
                         </a>
                         <%

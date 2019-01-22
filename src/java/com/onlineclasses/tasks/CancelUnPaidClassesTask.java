@@ -42,11 +42,11 @@ public class CancelUnPaidClassesTask extends BaseTask {
         List<OClass> classesToCancel = DB.getUnpaidScheduledClasses();
         for (OClass oclass : classesToCancel) {
             Date now = new Date();
-            if ( oclass.start_date.getTime() > now.getTime()) {
+            if ( oclass.start_date.getTime() < now.getTime()) {
                 cancelClass(oclass);
             }
         }
-    }
+    }    
 
     private void cancelClass(OClass oClass) throws Exception
     {

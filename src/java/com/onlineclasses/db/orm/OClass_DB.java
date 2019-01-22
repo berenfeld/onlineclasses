@@ -77,13 +77,13 @@ public class OClass_DB extends Base_DB<OClass> {
 
     public synchronized List<OClass> getStudentUpcomingClasses(Student student) throws SQLException {
         _getStudentUpcomingClassesStudentArg.setValue(student);
-        _getStudentUpcomingClassesStartDateArg.setValue(Utils.xHoursFromNow(CConfig.getInt("website.time.upcoming_student_classes_hours")));
+        _getStudentUpcomingClassesStartDateArg.setValue(Utils.xDaysFromNow(CConfig.getInt("website.time.upcoming_student_classes_days")));
         return _dao.query(_getStudentUpcomingClasses);
     }
 
     public synchronized List<OClass> getTeacherUpcomingClasses(Teacher teacher) throws SQLException {
         _getTeacherUpcomingClassesTeacherArg.setValue(teacher);
-        _getTeacherUpcomingClassesStartDateArg.setValue(Utils.xHoursFromNow(CConfig.getInt("website.time.upcoming_teacher_classes_hours")));
+        _getTeacherUpcomingClassesStartDateArg.setValue(Utils.xDaysFromNow(CConfig.getInt("website.time.upcoming_teacher_classes_days")));
         return _dao.query(_getTeacherUpcomingClasses);
     }
 

@@ -272,6 +272,12 @@ public class Utils {
         return calendar.getTime();
     }
 
+    public static Date xDaysFromNow(int hours) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_WEEK, hours);
+        return calendar.getTime();
+    }
+    
     public static Date xYearsFromNow(int years) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, years);
