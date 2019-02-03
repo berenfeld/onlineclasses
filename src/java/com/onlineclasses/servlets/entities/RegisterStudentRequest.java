@@ -6,6 +6,7 @@
 package com.onlineclasses.servlets.entities;
 
 import com.onlineclasses.entities.BasicRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,5 +36,5 @@ public class RegisterStudentRequest extends BasicRequest {
     public String degree_type;
     public int city_id;
     public String feedback;
-    public List<Integer> learning_topics;
+    public List<Integer> learning_topics = new ArrayList<>();
 }

@@ -13,6 +13,7 @@ import com.onlineclasses.entities.Feedback;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.Institute;
 import com.onlineclasses.entities.LearningTopic;
+import com.onlineclasses.entities.LoginResponse;
 import com.onlineclasses.entities.Student;
 import com.onlineclasses.entities.Subject;
 import com.onlineclasses.entities.Topic;
@@ -25,6 +26,8 @@ import com.onlineclasses.utils.Labels;
 import com.onlineclasses.utils.TasksManager;
 import com.onlineclasses.utils.Utils;
 import java.io.File;
+import java.sql.SQLClientInfoException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -62,7 +65,11 @@ public class RegisterStudentServlet extends BaseServlet {
             Utils.warning("no google id in login request");
             return new BasicResponse(-1, "no google id");
         }
-
+        return registerStudent(userEmail, registerStudentRequest, request);
+    }
+    
+    public static BasicResponse registerStudent(String userEmail, RegisterStudentRequest registerStudentRequest, HttpServletRequest request) throws Exception
+    {
         User user = DB.getUserByEmail(userEmail);
         if (user != null) {
             Utils.warning("user " + user.display_name + " with email " + user.email + " already registered");
@@ -131,10 +138,10 @@ public class RegisterStudentServlet extends BaseServlet {
             Utils.info("new feedback : " + feedback);
         }
 
-        return new BasicResponse(0, "");
+        return new LoginResponse(registeringStudent);
     }
     
-    private void sendEmail(Student registeringStudent, List<String> topicsList) throws Exception {
+    private static void sendEmail(Student registeringStudent, List<String> topicsList) throws Exception {
         String email_name = Config.get("mail.emails.path") + File.separator
                 + Config.get("website.language") + File.separator + "register_student.html";
 

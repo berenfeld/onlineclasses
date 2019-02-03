@@ -8,6 +8,7 @@ package com.onlineclasses.utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.onlineclasses.entities.AvailableTime;
+import com.onlineclasses.servlets.BaseServlet;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +30,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
 
 /**
@@ -356,5 +358,15 @@ public class Utils {
     public static String createAnchor(String title, String url)
     {
         return "<a href='" + url + "'>" + title + "</a>";
+    }
+    
+    public static String cssClassHideWhenLoggedIn(HttpServletRequest request)
+    {
+        return BaseServlet.isLoggedIn(request) ? "d-none" : "";
+    }
+    
+     public static String cssClassHideWhenLoggedOut(HttpServletRequest request)
+    {
+        return BaseServlet.isLoggedOut(request) ? "d-none" : "";
     }
 }

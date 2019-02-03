@@ -3,8 +3,7 @@
 <%@page import="com.onlineclasses.entities.Topic"%>
 <%@page import="com.onlineclasses.entities.Subject"%>
 <%@page import="com.onlineclasses.utils.Config"%>
-<%
-    Map<Integer, Subject> allSubjects = DB.getAllMap(Subject.class);
+<%    Map<Integer, Subject> allSubjects = DB.getAllMap(Subject.class);
     Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
 %>
 <!DOCTYPE html>
@@ -53,10 +52,21 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col">
-                                    <button type="button" onclick="index_find_teachers_submit()" class="float-left btn btn-lg btn-info">
+                                    <button type="button" onclick="index_find_teachers_submit()" class="float-left mr-1 btn btn-lg btn-info">
                                         <%= Labels.get("mainpage.start_button")%>
                                     </button>
+                                    <%
+                                        if (!BaseServlet.isLoggedIn(request)) {
+                                    %>
+                                    <button type="button" title="<%= Labels.get("mainpage.student.register.hint")%>" onclick="login_registerStudent()" class="float-left btn btn-lg btn-primary">
+                                        <%= Labels.get("mainpage.student.register")%>
+                                    </button>
+                                    <%
+                                        }
+                                    %>
+
                                 </div>
+
                             </div>
 
                         </div>
@@ -113,7 +123,7 @@
                                     </cite>
                                 </div>
                             </div>
-                                    
+
                             <div class="card bg-light my-2">                            
                                 <div class="card-body">
                                     <p class="card-text">
@@ -129,7 +139,7 @@
                         </div>
                     </div>
                 </div>
-                                    
+
                 <div class="col-12 col-xl-4 col-lg-4 px-1">
                     <div class="card">
                         <div class="card-header bg-info text-white">
@@ -203,7 +213,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <%@include file="footer.jsp" %>    

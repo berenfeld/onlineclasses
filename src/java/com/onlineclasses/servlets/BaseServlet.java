@@ -117,6 +117,10 @@ public abstract class BaseServlet extends HttpServlet {
         return getUser(request) != null;
     }
 
+    public static boolean isLoggedOut(HttpServletRequest request){
+        return getUser(request) == null;
+    }
+    
     public static boolean isTeacher(HttpServletRequest request) {
         SessionData sessionData = getSessionData(request);
         if (sessionData == null ) {

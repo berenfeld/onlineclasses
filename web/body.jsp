@@ -1,3 +1,4 @@
+<%@page import="com.onlineclasses.utils.CLabels"%>
 <%@page import="com.onlineclasses.entities.Teacher"%>
 <%@page import="com.onlineclasses.utils.Utils"%>
 <%@page import="com.onlineclasses.db.DB"%>
@@ -11,14 +12,15 @@
 <%@page import="java.util.ResourceBundle"%>
 
 <%
-    User com_user = BaseServlet.getUser(request);
+    User com_user = BaseServlet.getUser(request);    
     List<OClass> com_upcomingClasses = new ArrayList<>();
-    String com_userName = Labels.get("navbar.guest.name");
+    String com_displayName = "";
     String com_homepagePage = "teacher_homepage";
     String com_updateDetailsPage = "teacher_profile";
+    String com_imageUrl = "";
     if (com_user != null) {
-        com_userName = com_user.display_name;
-
+        com_displayName = com_user.display_name;
+        com_imageUrl = com_user.image_url;
         if (com_user instanceof Student) {
             com_upcomingClasses = DB.getStudentUpcomingClasses((Student) com_user);
             com_homepagePage = "student_homepage";
@@ -73,20 +75,11 @@
                     </div>
                 </li>
 
-                <%
-                    if (com_user == null) {
-                %>
-                <li class="nav-item">
-                    <a class="nav-link" href="start_learning">
-                        <%= Labels.get("navbar.start.learning")%>
-                        <small class="text-info">
-                            <%= Labels.get("navbar.start.learning.free")%>
-                        </small>
+                <li id="navbar_login_register_student_li" class="nav-item <%= Utils.cssClassHideWhenLoggedIn(request) %>">
+                    <a  class="nav-link text-primary" href="javascript:login_registerStudent()" title="<%= Labels.get("navbar.student.login.hint")%>">
+                        <%= Labels.get("navbar.student.login")%>
                     </a>
                 </li>
-                <%
-                    }
-                %>
 
 
                 <li class="nav-item">
@@ -95,31 +88,26 @@
                     </a>
                 </li>
 
-                <%
-                    if (com_user == null) {
-                %>
-                <li class="nav-item d-none">
-                    <a class="nav-link" href="start_teaching">
+                <li id="navbar_login_register_teacher_li" class="nav-item <%= Utils.cssClassHideWhenLoggedIn(request) %>">
+                    <a  class="nav-link" href="start_teaching">
                         <%= Labels.get("navbar.start.teaching")%>
                     </a>
                 </li>
-                <%
-                    }
-                %>
+                
                 <li class="nav-item"><a class="nav-link d-none" href="javascript:start_teaching()"><%= Labels.get("navbar.start.teaching")%></a></li>
             </ul>
             <ul class="navbar-nav mr-auto">  
-                <% if (com_user == null) {%>                 
-                <li class="nav-item">                
+                <li id="navbar_login_li" class="nav-item <%= Utils.cssClassHideWhenLoggedIn(request) %>">
                     <a class="nav-link text-info" href="javascript:login_showLoginModal()">
                         <%= Labels.get("navbar.login")%>
                     </a>                 
                 </li>
 
-                <% } else {%>
-                <li class="nav-item dropdown">
+                <li id="navbar_user_menu_li" class="nav-item dropdown <%= Utils.cssClassHideWhenLoggedOut(request) %>">
                     <a class="text-success nav-link dropdown-toggle" data-toggle="dropdown" href="#">
-                        <%= com_userName%>
+                        <span id="navbar_display_name_span">
+                        <%= com_displayName%>
+                        </span>
                         <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu">
@@ -156,37 +144,40 @@
                         </a>
                     </div>
                 </li>
-                <li> 
+                <li id="navbar_image_url_li" class="<%= Utils.cssClassHideWhenLoggedOut(request) %>"> 
                     <a class="nav-link" href="<%= com_homepagePage%>">     
-                        <img src="<%= com_user.image_url%>" class="img-responsive d-inline-block" height="30"/>
+                        <img id="navbar_image_url_img" src="<%= com_imageUrl %>" class="img-responsive d-inline-block" height="30"/>
                     </a>                    
                 </li>
 
-                <% }%>
             </ul>
         </div>
     </nav>
 </div>
 
 <div id="login_modal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
                 <div class="h5 modal-title">
                     <span class="oi mx-1" data-glyph="account-login"></span>                                       
-                    <%= Labels.get("login.modal.title")%>                        
+                    <span id="login_modal_title">                      
+                    </span>
                 </div>
                 <span class="oi close_button" data-dismiss="modal" data-glyph="x"></span>      
             </div>
             <div class="modal-body">
-                <h5>
+                <h6>
                     <%= Labels.get("login.modal.text1")%>                    
-                </h5>
+                </h6>
+                <h6 id="login_modal_student_register_info" class="text-primary d-none">
+                    <%= Labels.get("login.modal.student.register.info")%>                    
+                </h6>
                 <div class="row no-gutters">
-                    <div class="col-6 px-2 google_login_button d-none">
+                    <div class="col-12 px-2 google_login_button d-none">
                         <input type="image" src="images/google_login_button.png" class="w-100" onclick="login_googleLogin()">
                     </div>
-                    <div class="col-6 px-2 google_login_button_placeholder text-center text-dark">
+                    <div class="col-12 px-2 google_login_button_placeholder text-center text-dark">
                         <div class="common_relative_container">
                             <img class="common_low_opacity w-100" src="images/google_login_button.png"></img>
                             <div class="common_absolute_centered">
@@ -196,10 +187,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 px-2 facebook_login_button d-none">
+                    <div class="col-12 px-2 facebook_login_button d-none">
                         <input type="image" src="images/facebook_login_button.png" class="w-100" onclick="login_facebookLogin()">
                     </div>
-                    <div class="col-6 px-2 facebook_login_button_placeholder border rounded text-center text-info">
+                    <div class="col-12 px-2 facebook_login_button_placeholder border rounded text-center text-info">
                         <div class="common_relative_container">
                             <img class="common_low_opacity w-100" src="images/facebook_login_button.png"></img>
                             <div class="common_absolute_centered">
@@ -210,19 +201,6 @@
                         </div>
                     </div>
                 </div>
-                <h5>
-                    <small>
-                        <%= Labels.get("login.modal.text1_small")%>
-                        <br/>
-                        <span class="oi" data-glyph="info"></span>                             
-                        <span class="text-info">
-                            <%= Labels.get("login.modal.text2")%>
-                            <a class="alert-link" href="start_learning">
-                                <%= Labels.get("login.modal.register.student")%>
-                            </a> 
-                        </span>
-                    </small>
-                </h5>
             </div>
             <div id="login_modal_info_div" class="alert alert-info d-none" role="alert">
                 <span class="oi" data-glyph="info"></span>    

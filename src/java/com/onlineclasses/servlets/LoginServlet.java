@@ -10,7 +10,9 @@ import com.onlineclasses.entities.BasicResponse;
 import com.onlineclasses.entities.FacebookUser;
 import com.onlineclasses.entities.GoogleUser;
 import com.onlineclasses.entities.LoginRequest;
+import com.onlineclasses.entities.LoginResponse;
 import com.onlineclasses.entities.User;
+import com.onlineclasses.servlets.entities.RegisterStudentRequest;
 import com.onlineclasses.utils.Labels;
 import com.onlineclasses.utils.Utils;
 import javax.servlet.annotation.WebServlet;
@@ -26,22 +28,32 @@ public class LoginServlet extends BaseServlet {
             Utils.warning("login from user " + getUser(request).display_name + " already connected");
             return new BasicResponse(-1, Labels.get("login.request.already_connected"));
         }
+        
         GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(loginRequest.google_id_token);
         if (googleUser == null) {
             Utils.warning("failed to get user from google id token");
             return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "start_learning"));
         }
-
+        
         User user = DB.getUserByEmail(googleUser.email);
         if (user == null) {
-            Utils.warning("Can't find google logged in user with email " + googleUser.email);
-            // TODO : fast register
+            if ( loginRequest.student_register)
+            {
+                RegisterStudentRequest registerStudentRequest = new RegisterStudentRequest();
+                registerStudentRequest.email = googleUser.email;
+                registerStudentRequest.first_name = googleUser.first_name;
+                registerStudentRequest.last_name = googleUser.last_name;
+                registerStudentRequest.display_name = googleUser.display_name;
+                registerStudentRequest.image_url = googleUser.image_url;
+                
+                return RegisterStudentServlet.registerStudent(googleUser.email, registerStudentRequest, request);
+            } 
             return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "start_learning"));
         }
 
         Utils.info("user " + user.display_name + " logged in with email " + user.email);
         BaseServlet.loginUser(request, user);
-        return new BasicResponse(0, "");
+        return new LoginResponse(user);
     }
 
     private BasicResponse loginWithFacebook(LoginRequest loginRequest, HttpServletRequest request) throws Exception {
@@ -53,8 +65,17 @@ public class LoginServlet extends BaseServlet {
 
         User user = DB.getUserByEmail(facebookUser.email);
         if (user == null) {
-            Utils.warning("Can't find facebook logged in user with email " + facebookUser.email);
-            // TODO : fast register
+            if ( loginRequest.student_register)
+            {
+                RegisterStudentRequest registerStudentRequest = new RegisterStudentRequest();
+                registerStudentRequest.email = facebookUser.email;
+                registerStudentRequest.first_name = facebookUser.first_name;
+                registerStudentRequest.last_name = facebookUser.last_name;
+                registerStudentRequest.display_name = facebookUser.display_name;
+                registerStudentRequest.image_url = facebookUser.image_url;
+                
+                return RegisterStudentServlet.registerStudent(facebookUser.email, registerStudentRequest, request);
+            } 
             return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "start_learning"));
         }
 

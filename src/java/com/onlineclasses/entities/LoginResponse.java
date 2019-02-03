@@ -9,13 +9,12 @@ package com.onlineclasses.entities;
  *
  * @author me
  */
-public class LoginRequest extends BasicRequest {
+public class LoginResponse extends BasicResponse {
 
-    public LoginRequest() {
-
+    public LoginResponse(User user) {
+        super(0, "");
+        this.user = user;
     }
 
-    public String google_id_token;
-    public String facebook_access_token;
-    public boolean student_register;
+    public User user;
 }
