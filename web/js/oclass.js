@@ -33,7 +33,7 @@ function oclass_add_comment_response(response)
 
 function oclass_pay()
 {
-    show_modal("schedule_class_payment_modal");
+    modal_show("schedule_class_payment_modal");
 }
 
 function oclass_paid_show_details()

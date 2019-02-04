@@ -138,7 +138,10 @@ public class RegisterStudentServlet extends BaseServlet {
             Utils.info("new feedback : " + feedback);
         }
 
-        return new LoginResponse(registeringStudent);
+        
+        LoginResponse loginResponse = new LoginResponse(registeringStudent);
+        loginResponse.student_register = true;
+        return loginResponse;
     }
     
     private static void sendEmail(Student registeringStudent, List<String> topicsList) throws Exception {

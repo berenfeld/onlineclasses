@@ -63,17 +63,29 @@ function login_updatePage()
     if (login_isLoggedIn()) {
         $("#navbar_display_name_span").text(login.user.display_name);
         $("#navbar_image_url_img").attr( "src", login.user.image_url);
+        if (login_isStudent()) {
+            $("navbar_update_details_a").href = "update_student";
+        } else {
+            $("navbar_update_details_a").href = "update_teacher";
+        }
     } else {
 
     }
+    
+    
 }
 
 function login_loginRequestComplete(response)
 {
     if (response.rc === 0) {
-        login.user = response.user;
-        hide_all_modals();
-        alert_show(oc.clabels["login.progress.success"], oc.clabels["login.progress.success"]);
+        login.user = response.user;        
+        if ( response.student_register ) {
+            alert_show(oc.clabels["login.progress.success"], oc.clabels["login.progress.success.details"], 
+            oc.clabels["login.progress.success.student_register"] + "&nbsp;" + 
+            createAnchor("student_update", oc.clabels["login.progress.success.student_update_page"]));
+        } else {
+            alert_show(oc.clabels["login.progress.success"], oc.clabels["login.progress.success.details"]);
+        }
         login_updatePage();
     } else {
         $("#login_modal_info_text").html(
@@ -100,30 +112,21 @@ function login_isAdmin() {
     return login.user.admin === true;
 }
 
-function hide_all_modals()
-{
-    $("div.modal").modal("hide");
-}
-
-function show_modal(modal_name)
-{
-    hide_all_modals();
-    $("#" + modal_name).modal('show');
-}
-
 function login_showLoginModal()
 {
+    $("#login_modal_info_div").addClass("d-none");
     $("#login_modal_student_register_info").addClass("d-none");
     $("#login_modal_title").text(oc.clabels[ "login.modal.title"]);
-    show_modal("login_modal");
+    modal_show("login_modal");
     login.student_register = false;
 }
 
 function login_registerStudent()
 {
+    $("#login_modal_info_div").addClass("d-none");
     $("#login_modal_student_register_info").removeClass("d-none");
     $("#login_modal_title").text(oc.clabels[ "login.modal.title.register.student"]);
-    show_modal("login_modal");
+    modal_show("login_modal");
     login.student_register = true;
 }
 
@@ -199,4 +202,5 @@ function login_facebookLogin()
 function login_init()
 {
     login.user = oc.user;
+    login.student_register = false;
 }

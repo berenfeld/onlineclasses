@@ -1,4 +1,4 @@
-th.start_learning_calendar, td.start_learning_calendar  {
+th.student_update_calendar, td.student_update_calendar  {
     text-align:center;
     vertical-align: middle;
     cursor: pointer;
@@ -21,63 +21,63 @@ td.calendar_busy {
     background-color:#FF7F50
 }
 
-#start_learning_calendar_table
+#student_update_calendar_table
 {
     table-layout: fixed;
     border: solid gray 2px;
     overflow-x: hidden;
 }
 
-#start_learning_calendar_table td, #start_learning_calendar_table th
+#student_update_calendar_table td, #student_update_calendar_table th
 {
     border: solid gray 1px;
 }
 
-#start_learning_calendar_table td.start_learning_row_start
+#student_update_calendar_table td.student_update_row_start
 {
     border-bottom: none
 }
 
-#start_learning_calendar_table td.start_learning_row_middle
+#student_update_calendar_table td.student_update_row_middle
 {
     border-top: none;
     border-bottom: none
 }
 
-#start_learning_calendar_table td.start_learning_row_end
+#student_update_calendar_table td.student_update_row_end
 {
     border-top: none
 }
 
-#start_learning_calendar_table td.start_learning_calendar_time:hover
+#student_update_calendar_table td.student_update_calendar_time:hover
 {
     border: solid gray 2px;
 }
 
-small.start_learning_required
+small.student_update_required
 {    
     color:red;
     font-weight: bold
 }
 
-input.start_learning_required, select.start_learning_required, textarea.start_learning_required
+input.student_update_required, select.student_update_required, textarea.student_update_required
 {
     border-color: red;
 }
 
-input.start_learning_required_filled, select.start_learning_required_filled, textarea.start_learning_required_filled
+input.student_update_required_filled, select.student_update_required_filled, textarea.student_update_required_filled
 {
     border-color: green;
 }
 
-#start_learning_img_upload_button_wrapper
+#student_update_img_upload_button_wrapper
 {
     position: relative;
     overflow: hidden;
     display: inline-block;
 }
 
-#start_learning_img_upload_button_wrapper input[type=file] {
+#student_update_img_upload_button_wrapper input[type=file] {
     position: absolute;
     left: 0;
     top: 0;

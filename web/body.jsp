@@ -114,7 +114,7 @@
                         <a class="dropdown-item" href="<%= com_homepagePage%>">
                             <%= Labels.get("navbar.user.homepage")%>
                         </a>
-                        <a class="dropdown-item" href="<%= com_updateDetailsPage%>">
+                        <a id="navbar_update_details_a" class="dropdown-item" href="<%= com_updateDetailsPage%>">
                             <%= Labels.get("navbar.user.update_details")%>
                         </a>
                         <%

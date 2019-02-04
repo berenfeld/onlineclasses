@@ -16,5 +16,6 @@ public class LoginResponse extends BasicResponse {
         this.user = user;
     }
 
+    public boolean student_register;
     public User user;
 }

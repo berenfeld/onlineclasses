@@ -32,7 +32,7 @@ public class LoginServlet extends BaseServlet {
         GoogleUser googleUser = GoogleIdTokenServlet.userFromGoogleToken(loginRequest.google_id_token);
         if (googleUser == null) {
             Utils.warning("failed to get user from google id token");
-            return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "start_learning"));
+            return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "javascript:login_registerStudent()"));
         }
         
         User user = DB.getUserByEmail(googleUser.email);
@@ -48,7 +48,7 @@ public class LoginServlet extends BaseServlet {
                 
                 return RegisterStudentServlet.registerStudent(googleUser.email, registerStudentRequest, request);
             } 
-            return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "start_learning"));
+            return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "javascript:login_registerStudent()"));
         }
 
         Utils.info("user " + user.display_name + " logged in with email " + user.email);
@@ -60,7 +60,7 @@ public class LoginServlet extends BaseServlet {
         FacebookUser facebookUser = FacebookAccessTokenServlet.userFromFacebookAccessToken(loginRequest.facebook_access_token);
         if (facebookUser == null) {
             Utils.warning("failed to get user from facebook access token");
-            return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "start_learning"));
+            return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "javascript:login_registerStudent()"));
         }
 
         User user = DB.getUserByEmail(facebookUser.email);
@@ -76,12 +76,12 @@ public class LoginServlet extends BaseServlet {
                 
                 return RegisterStudentServlet.registerStudent(facebookUser.email, registerStudentRequest, request);
             } 
-            return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "start_learning"));
+            return new BasicResponse(-1, Utils.createAnchor( Labels.get("login.request.user_not_found"), "javascript:login_registerStudent()"));
         }
 
         Utils.info("user " + user.display_name + " logged in with email " + user.email);
         BaseServlet.loginUser(request, user);
-        return new BasicResponse(0, "");
+        return new LoginResponse(user);
     }
 
     @Override

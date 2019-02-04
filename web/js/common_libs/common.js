@@ -308,7 +308,7 @@ function createLoginAnchor(message)
 
 function createStartLearningAnchor(message)
 {
-    return createAnchor("start_learning", message );
+    return createAnchor("javascript:login_registerStudent()", message );
 }
 
 function createContactUsAnchor()
@@ -411,6 +411,7 @@ function common_init()
 function online_classes_init()
 {
     common_init();
+    modal_init();
     ajax_init();
     confirm_init();
     alert_modal_init();

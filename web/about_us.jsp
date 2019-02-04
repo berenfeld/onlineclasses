@@ -90,7 +90,7 @@
                                 <li>
                                     <span class="oi" data-glyph="star"></span> 
                                     <%= Labels.get("mainpage.students.list5")%>
-                                    <a href="start_learning">
+                                    <a href="javascript:login_registerStudent()">
                                         <%= Labels.get("mainpage.students.to_start_learning")%>
                                     </a>    
                                 </li>

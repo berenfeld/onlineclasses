@@ -22,12 +22,12 @@ function confirm_show(title, message, ok_cb, cancel_cb)
     confirm.cancel_cb = cancel_cb;
     $("#confirm_modal_title").text(title);
     $("#confirm_modal_message").text(message);
-    $("#confirm_modal").modal('show');
+    modal_show("confirm_modal");
 }
 
 function confirm_hide()
 {
-    $("#confirm_modal").modal('hide');
+    modal_hide("confirm_modal");
 }
 
 function confirm_init()

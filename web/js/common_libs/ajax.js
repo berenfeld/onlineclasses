@@ -1,3 +1,5 @@
+/* global oc */
+
 var ajax = {};
 
 function ajax_init()
