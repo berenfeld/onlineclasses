@@ -8,6 +8,10 @@
         <filter-name>CacheControlFilter</filter-name>
         <filter-class>com.onlineclasses.servlets.CacheControlFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>DelayFilter</filter-name>
+        <filter-class>com.onlineclasses.servlets.DelayFilter</filter-class>
+    </filter>
     <filter-mapping>
         <filter-name>UrlRewriteFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -16,6 +20,12 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>CacheControlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>DelayFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>

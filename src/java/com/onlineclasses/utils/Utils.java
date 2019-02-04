@@ -38,7 +38,7 @@ import javax.xml.bind.DatatypeConverter;
  * @author me
  */
 public class Utils {
-
+    
     public static ServletContext SERVLET_CONTEXT;
     
     public static void exception(Throwable ex) {
@@ -50,19 +50,19 @@ public class Utils {
         logger.log(Level.WARNING, "Exception : {0}", ex.getMessage());
         logger.log(Level.WARNING, sw.toString());
     }
-
+    
     public static void debug(String message) {
         log(Level.FINE, message);
     }
-
+    
     public static void info(String message) {
         log(Level.INFO, message);
     }
-
+    
     public static void warning(String message) {
         log(Level.WARNING, message);
     }
-
+    
     public static String md5(String hashString) {
         MessageDigest md;
         try {
@@ -76,7 +76,7 @@ public class Utils {
         String hash = DatatypeConverter.printHexBinary(md.digest());
         return hash;
     }
-
+    
     public static StackTraceElement callingSTE() {
         for (StackTraceElement st : Thread.currentThread().getStackTrace()) {
             if (st.getFileName().equals("Thread.java")) {
@@ -86,40 +86,40 @@ public class Utils {
                 continue;
             }
             return st;
-
+            
         }
         return null;
     }
-
+    
     public static void log(Level level, String message) {
-
+        
         StackTraceElement ste = callingSTE();
         Logger.getLogger(ste.getClassName()).log(level, "{0}:{1} {2}", new Object[]{ste.getFileName(), ste.getLineNumber(), message});
-
+        
     }
-
+    
     public static boolean isEmpty(String str) {
         return (str == null) || (str.length() == 0);
     }
-
+    
     public static boolean isNotEmpty(String str) {
         return (!isEmpty(str));
     }
-
+    
     public static String nonNullString(String str) {
         if (isEmpty(str)) {
             return "";
         }
         return str;
     }
-
+    
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
+    
     public static boolean validEmail(String str) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(str);
         return matcher.find();
     }
-
+    
     public static int parseInt(String str, int defaultValue) {
         if (Utils.isEmpty(str)) {
             return defaultValue;
@@ -130,27 +130,27 @@ public class Utils {
             return defaultValue;
         }
     }
-
+    
     public static int parseInt(String str) {
         return parseInt(str, 0);
     }
-
+    
     public static List<String> toList(String str) {
         return Arrays.asList(str.split(","));
     }
-
+    
     public static String mergeList(List<String> list, String token) {
         return String.join(token, list);
     }
-
+    
     private static final Random random = new Random();
-
+    
     public static String getRandomString(int length) {
         byte[] bytes = new byte[length];
         random.nextBytes(bytes);
         return DatatypeConverter.printHexBinary(bytes);
     }
-
+    
     public static <T> T getRandomElement(List<T> list) {
         if ((list == null) || (list.isEmpty())) {
             return null;
@@ -164,57 +164,57 @@ public class Utils {
         }
         return list.get(0);
     }
-
+    
     public static String formatTime(int hour, int minute) {
         return String.format("%02d:%02d", hour, minute);
     }
-
+    
     public static int yearsFromDate(Date date) {
         Calendar dateCal = Calendar.getInstance();
         dateCal.setTime(date);
         Calendar now = Calendar.getInstance();
         return now.get(Calendar.YEAR) - dateCal.get(Calendar.YEAR);
     }
-
+    
     public static String formatDateWithFullYear(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(date);
     }
-
+    
     public static Date parseDateWithFullYear(String date) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.parse(date);
     }
-
+    
     public static String formatDate(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM");
         return format.format(date);
     }
-
+    
     public static String formatDateTime(Date date) {
         Calendar dateCalendar = Calendar.getInstance();
         dateCalendar.setTime(date);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM, HH:mm");
         return dayNameLong(dateCalendar.get(Calendar.DAY_OF_WEEK)) + ", " + format.format(date);
     }
-
+    
     public static final long MINUTES_IN_HOUR = 60;
     public static final long SECONDS_IN_MINUTE = 60;
     public static final long MS_IN_SECOND = 1000;
     public static final long MS_IN_HOUR = MS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR;
-
+    
     public static long durationInMinutes(AvailableTime availableTime) {
         return ((availableTime.end_hour - availableTime.start_hour) * MINUTES_IN_HOUR) + (availableTime.end_minute - availableTime.start_minute);
     }
-
+    
     public static boolean nonOverlappingEvents(long start1, long end1, long start2, long end2) {
         return (start1 >= end2) || (start2 >= end1);
     }
-
+    
     public static boolean overlappingEvents(long start1, long end1, long start2, long end2) {
         return !nonOverlappingEvents(start1, end1, start2, end2);
     }
-
+    
     public static boolean overlappingEvents(Date start1, Date end1, Date start2, Date end2) {
         long start1ms = start1.getTime();
         long end1ms = end1.getTime();
@@ -222,7 +222,7 @@ public class Utils {
         long end2ms = end2.getTime();
         return overlappingEvents(start1ms, end1ms, start2ms, end2ms);
     }
-
+    
     public static boolean overlappingEvents(Calendar start1, Calendar end1, Calendar start2, Calendar end2) {
         long start1ms = start1.getTimeInMillis();
         long end1ms = end1.getTimeInMillis();
@@ -230,26 +230,26 @@ public class Utils {
         long end2ms = end2.getTimeInMillis();
         return overlappingEvents(start1ms, end1ms, start2ms, end2ms);
     }
-
+    
     public static boolean available(List<AvailableTime> availableTimes, Date date) {
         Calendar eventDate = Calendar.getInstance();
         eventDate.setTime(date);
-
+        
         Calendar start = Calendar.getInstance();
         start.setTime(date);
-
+        
         Calendar end = Calendar.getInstance();
         end.setTime(date);
-
+        
         for (AvailableTime availableTime : availableTimes) {
             start.set(Calendar.DAY_OF_WEEK, availableTime.day);
             start.set(Calendar.HOUR_OF_DAY, availableTime.start_hour);
             start.set(Calendar.MINUTE, availableTime.start_minute);
-
+            
             end.set(Calendar.DAY_OF_WEEK, availableTime.day);
             end.set(Calendar.HOUR_OF_DAY, availableTime.end_hour);
             end.set(Calendar.MINUTE, availableTime.end_minute);
-
+            
             if ((eventDate.getTimeInMillis() >= start.getTimeInMillis())
                     && eventDate.getTimeInMillis() <= end.getTimeInMillis()) {
                 return true;
@@ -257,23 +257,23 @@ public class Utils {
         }
         return false;
     }
-
+    
     public static String dayNameLong(int day) {
         return toList(CLabels.get("website.days.long")).get(day - 1);
     }
-
+    
     private static final Gson GSON = new GsonBuilder().registerTypeAdapter(Date.class, new GsonUTCDateAdapter()).create();
-
+    
     public static Gson gson() {
         return GSON;
     }
-
+    
     public static Date xHoursFromNow(int hours) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, hours);
         return calendar.getTime();
     }
-
+    
     public static Date xDaysFromNow(int hours) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_WEEK, hours);
@@ -285,36 +285,36 @@ public class Utils {
         calendar.add(Calendar.YEAR, years);
         return calendar.getTime();
     }
-
+    
     public static String getStringFromInputStream(String fileName) {
         InputStream is = SERVLET_CONTEXT.getResourceAsStream(fileName);
         BufferedReader br;
         StringBuilder sb = new StringBuilder();
-
+        
         String line;
         try {
-
+            
             br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
-
+            
         } catch (IOException e) {
             return "";
         }
-
+        
         return sb.toString();
-
+        
     }
-
+    
     public static String formatPrice(float price) {
         return String.format("%.2f", price);
     }
-
+    
     public static String formatFloat2Digits(float number) {
         return String.format("%.2f", number);
     }
-
+    
     public static String getPath(String fileName, String... dirs) {
         String realPath = "";
         for (String dir : dirs) {
@@ -327,7 +327,7 @@ public class Utils {
         }
         return realPath;
     }
-
+    
     public static String buildWebsiteURL(String path, String... params) {
         String url = Config.get("website.url") + "/" + path;
         boolean firstParam = true;
@@ -342,7 +342,7 @@ public class Utils {
         }
         return url;
     }
-
+    
     public static String formatFileSize(int size) {
         float mb = size / (1024.0f * 1024.0f);
         if (mb > 1) {
@@ -355,18 +355,23 @@ public class Utils {
         return size + " bytes";
     }
     
-    public static String createAnchor(String title, String url)
-    {
+    public static String createAnchor(String title, String url) {
         return "<a href='" + url + "'>" + title + "</a>";
     }
     
-    public static String cssClassHideWhenLoggedIn(HttpServletRequest request)
-    {
+    public static String cssClassHideWhenLoggedIn(HttpServletRequest request) {
         return BaseServlet.isLoggedIn(request) ? "d-none" : "";
     }
     
-     public static String cssClassHideWhenLoggedOut(HttpServletRequest request)
-    {
+    public static String cssClassHideWhenLoggedOut(HttpServletRequest request) {
         return BaseServlet.isLoggedOut(request) ? "d-none" : "";
+    }
+    
+    public static void sleep(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException ex) {
+            Utils.exception(ex);
+        }
     }
 }
