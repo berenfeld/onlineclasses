@@ -29,7 +29,9 @@ function alert_show(title, message1, message2, ok_cb)
     } else {
         $("#alert_modal_text2").html("");
     }
+    console.log("alert show " + message1);
     modal_show("alert_modal");    
+    
 }
 
 function alert_modal_init()

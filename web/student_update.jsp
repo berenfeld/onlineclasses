@@ -32,15 +32,7 @@
     List<String> degreeTypes = Utils.toList(degreeTypesList);
     Map<Integer, Subject> allSubjects = DB.getAllMap(Subject.class);
     Map<Integer, Topic> allTopics = DB.getAllMap(Topic.class);
-    List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
-    final int startHour = CConfig.getInt("website.time.start_working_hour");
-    final int endHour = CConfig.getInt("website.time.end_working_hour");
-    int hour, day, minute;
-    int minutesPerRow = CConfig.getInt("website.time.calendar_minutes_per_row");
-    int minutesPerUnit = CConfig.getInt("website.time.unit.minutes");
-    int minimumClassLengthMinutes = CConfig.getInt("website.time.min_class_length_minutes");
-    int maximumClassLengthMinutes = CConfig.getInt("website.time.max_class_length_minutes");
-    int rowsPerCell = minutesPerRow / minutesPerUnit;
+
 %>
 <!DOCTYPE html>
 <html lang="<%= Config.get("website.html_language")%>" dir="<%= Config.get("webiste.direction")%>">
@@ -602,13 +594,13 @@
                                 </p>
 
                                 <div class="row no-gutters">
-                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="student_update_feedback">
+                                    <div class="col-12 col-sm-6 col-lg-3 mx-1 my-1" id="student_update_feedback">
                                         <label class="col-form-label" for="student_update_feedback_input">
                                             <%= Labels.get("student_update.form.publish.feedback_text")%>
                                         </label>  
                                     </div>
 
-                                    <div class="col-12 col-sm-6 col-lg-9 my-1">
+                                    <div class="col-12 col-sm-6 col-lg-9 mx-1 my-1">
                                         <textarea rows="4" class="form-control" id="student_update_feedback_input" 
                                                   name="student_update_feedback_input"
                                                   placeholder="<%= Labels.get("student_update.form.publish.feedback_placeholder")%>"></textarea>

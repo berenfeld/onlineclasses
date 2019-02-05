@@ -59,10 +59,10 @@ function login_updatePage()
     login_hideWhenLoggedIn($("#navbar_login_li"));
     login_hideWhenLoggedOut($("#navbar_user_menu_li"));
     login_hideWhenLoggedOut($("#navbar_image_url_li"));
-    
+
     if (login_isLoggedIn()) {
         $("#navbar_display_name_span").text(login.user.display_name);
-        $("#navbar_image_url_img").attr( "src", login.user.image_url);
+        $("#navbar_image_url_img").attr("src", login.user.image_url);
         if (login_isStudent()) {
             $("navbar_update_details_a").href = "update_student";
         } else {
@@ -71,22 +71,24 @@ function login_updatePage()
     } else {
 
     }
-    
-    
+
+
 }
 
 function login_loginRequestComplete(response)
 {
-    if (response.rc === 0) {
-        login.user = response.user;        
-        if ( response.student_register ) {
-            alert_show(oc.clabels["login.progress.success"], oc.clabels["login.progress.success.details"], 
-            oc.clabels["login.progress.success.student_register"] + "&nbsp;" + 
-            createAnchor("student_update", oc.clabels["login.progress.success.student_update_page"]));
+    if (response.rc === 0) {        
+        modal_hide("login_modal");
+        login.user = response.user;
+        if (response.student_register) {
+            alert_show(oc.clabels["login.progress.success"], oc.clabels["login.progress.success.details"],
+                    oc.clabels["login.progress.success.student_register"] + "&nbsp;" +
+                    createAnchor("student_update", oc.clabels["login.progress.success.student_update_page"]));
         } else {
             alert_show(oc.clabels["login.progress.success"], oc.clabels["login.progress.success.details"]);
         }
         login_updatePage();
+        login_userLoggedIn();
     } else {
         $("#login_modal_info_text").html(
                 oc.clabels["login.progress.failed"] + " : " +
@@ -144,6 +146,7 @@ function login_logoutRequestComplete(response)
                 oc.clabels[ "website.logout.complete.message" ], null);
         login.user = null;
         login_updatePage();
+        login_userLoggedOut();
     }
 }
 
@@ -199,8 +202,44 @@ function login_facebookLogin()
     }
 }
 
+function login_userLoggedIn()
+{
+    for (var i = 0; i < login.login_callbacks.length; i++) {
+        login.login_callbacks[ i ](login.user);
+    }
+}
+
+function login_userLoggedOut()
+{
+    for (var i = 0; i < login.logout_callbacks.length; i++) {
+        login.logout_callbacks[ i ]();
+    }
+}
+function login_addLoginCallback(login_callback)
+{
+    common_arrayAdd(login.login_callbacks, login_callback);
+}
+
+function login_removeLoginCallback(login_callback)
+{
+    common_arrayRemove(login.login_callbacks, login_callback);
+}
+
+function login_addLogoutCallback(logout_callback)
+{
+    common_arrayAdd(login.logout_callbacks, logout_callback);
+}
+
+function login_removeLogoutCallback(logout_callback)
+{
+    common_arrayRemove(login.logout_callbacks, logout_callback);
+}
+
+
 function login_init()
 {
     login.user = oc.user;
     login.student_register = false;
+    login.login_callbacks = [];
+    login.logout_callbacks = [];
 }

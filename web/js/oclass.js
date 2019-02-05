@@ -46,7 +46,7 @@ function oclass_paid_show_details()
 
 function schedule_class_attach_file()
 {
-    $("#oclass_attach_file_modal").modal("show");
+    modal_show("oclass_attach_file_modal");
 }
 
 function oclass_update_chosen_file()

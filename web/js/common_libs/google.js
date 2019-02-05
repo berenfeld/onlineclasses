@@ -29,7 +29,11 @@ function google_signIn()
     if (!google_isLoaded()) {
         return;
     }
-    google.auth2.signIn();
+    try {
+        google.auth2.signIn();
+    } catch(err) {
+        console.log("google login canceled");
+    }
 }
 
 function google_getLoggedInUser() {

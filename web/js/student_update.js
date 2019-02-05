@@ -8,8 +8,8 @@ function student_update_userLoggedInCallback(user)
     facebook_clearUserLoggedinCallback();
     student_update.google_id_token = user.google_id_token;
     student_update.facebook_access_token = user.facebook_access_token;
-    student_update.social_image_url = user.image_url;    
-    student_update.image_url = user.image_url;    
+    student_update.social_image_url = user.image_url;
+    student_update.image_url = user.image_url;
 
     $("#student_update_email_input").val(user.email);
     $("#student_update_display_name_input").val(user.display_name);
@@ -148,7 +148,7 @@ function student_update_form_submit()
     request.institute_name = $("#student_update_institute_other_text").val();
     request.subject_id = student_update.subject_id;
     request.subject_name = $("#student_update_subject_0_text").val();
-    request.degree_type = $("#student_update_degree_type_select").val();    
+    request.degree_type = $("#student_update_degree_type_select").val();
     request.city_id = parseInt10($("#student_update_city_select").val());
     request.feedback = $("#student_update_feedback_input").val();
     request.learning_topics = [];
@@ -172,7 +172,7 @@ function student_update_form_submit()
     alert_show(oc.clabels[ "student_update.register.registering"],
             oc.clabels[ "student_update.register.registering_message"]);
 
-    ajax_request( "register_student", request, student_update_register_complete);    
+    ajax_request("register_student", request, student_update_register_complete);
 }
 
 function student_update_select_day_of_birth()
@@ -185,6 +185,16 @@ function student_update_select_day_of_birth()
 function student_update_select_institute()
 {
     student_update.institute_id = parseInt10($(this).val());
+    if (student_update.institute_id === 0) {
+        student_update.institute_type = 0;
+        for (var i = 0; i <= oc.institute_type.length; i++)
+        {
+            $("#student_update_institute_" + i + "_label").addClass("d-none");
+            $("#student_update_institute_" + i + "_div").addClass("d-none");
+        }
+        $("#student_update_institute_0_label").removeClass("d-none");
+        $("#student_update_institute_0_div").removeClass("d-none");
+    }
 }
 
 function student_update_select_institute_type()
@@ -272,7 +282,7 @@ function student_update_check_tabs()
     $("textarea.student_update_required").removeClass("student_update_required_filled");
 
     // if mandatory fields are present : display_name, phone, day of birth and city, can show education tab
-    var request = {};  
+    var request = {};
     request.display_name = $("#student_update_display_name_input").val();
 
     var pass_to_education = true;
@@ -282,18 +292,18 @@ function student_update_check_tabs()
     } else {
         $("#student_update_display_name_input").addClass("student_update_required_filled");
     }
-    
+
     if (!pass_to_education) {
         return;
-    }    
+    }
 
     // can move to education
     $("#student_update_education_link").removeClass("disabled");
     enableButtons($("#student_update_goto_tab_education_button"));
-    
+
     // can move to learning_topics
     $("#student_update_learning_topics_link").removeClass("disabled");
-    enableButtons($("#student_update_goto_tab_learning_topics_button"));    
+    enableButtons($("#student_update_goto_tab_learning_topics_button"));
 
     // can move to accept_and_finish
     $("#student_update_accept_and_finish_link").removeClass("disabled");
@@ -334,7 +344,7 @@ function student_update_init()
     student_update.min_phone_digits = parseInt10(oc.cconfig[ "website.phone.min_digits"]);
     student_update.max_phone_digits = parseInt10(oc.cconfig[ "website.phone.max_digits"]);
     student_update.average_student_age = 25;
-    
+
     google_addEmailExistsCallback(student_update_googleUserEmailExistsCallback);
     $("#student_update_day_of_birth_input").datepicker({
         dayNames: student_update.calendar.day_names_long,
@@ -343,15 +353,16 @@ function student_update_init()
         monthNamesShort: oc.clabels[ "website.months.short" ].split(","),
         isRTL: true,
         changeYear: true,
-        defaultDate: "-" + ( student_update.average_student_age ) + "y",
+        defaultDate: "-" + (student_update.average_student_age) + "y",
         dateFormat: "dd/mm/yy",
-        yearRange: "-"+ student_update.average_student_age + ":+0",
+        yearRange: "-" + student_update.average_student_age + ":+0",
         onSelect: student_update_select_day_of_birth
     });
 
     $("#student_update_calendar_table td").disableSelection();
     $("select.student_update_institute_select").on("change", student_update_select_institute);
     $("#student_update_institute_type_select").on("change", student_update_select_institute_type);
+
     $("#student_update_subject_select").on("change", student_update_select_subject);
     $("#student_update_topic_list button.list-group-item").on("click", student_update_choose_topic);
     $("input.student_update_required").on("change", student_update_check_tabs);
@@ -359,17 +370,17 @@ function student_update_init()
     $("textarea.student_update_required").on("change", student_update_check_tabs);
 
     $("#student_update_personal_information_link").on("shown.bs.tab",
-            function (event)
+            function ()
             {
                 $("#student_update_display_name_input").focus();
             });
     $("#student_update_profile_link").on("shown.bs.tab",
-            function (event)
+            function ()
             {
                 $("#student_update_moto_input").focus();
             });
     $("#student_update_education_link").on("shown.bs.tab",
-            function (event)
+            function ()
             {
                 $("#student_update_degree_type_select").focus();
             });
@@ -377,9 +388,8 @@ function student_update_init()
 
     student_update_check_tabs();
     $("#student_update_image_id").val(makeRandomString(16));
-    
-    if (! login_isLoggedIn())
-    {      
+
+    if (!login_isLoggedIn()) {
         login_registerStudent();
     } else {
         student_update_userLoggedInCallback(oc.user);

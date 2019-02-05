@@ -16,7 +16,7 @@ function text_input_modal_ok()
 
 function text_input_modal_hide()
 {
-    $("#text_input_modal").modal('hide');
+    modal_hide($("text_input_modal"))
 }
 
 function text_input_modal_set_value(value)

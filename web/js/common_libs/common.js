@@ -172,7 +172,7 @@ function isNumberKey(event)
 function invite_student()
 {
     $("#invite_student_warning").addClass("d-none");
-    $("#invite_student_modal").modal("show");
+    modal_show("invite_student_modal");
 }
 
 function invite_student_response(response)
@@ -188,7 +188,7 @@ function invite_student_response(response)
                 common.invite_student.email
                 );
     }
-    $("#invite_student_modal").modal("hide");
+    modal_hide("invite_student_modal");
 }
 
 function invite_student_modal_hide()
@@ -225,7 +225,7 @@ function invite_student_send()
 function invite_teacher()
 {
     $("#invite_teacher_warning").addClass("d-none");
-    $("#invite_teacher_modal").modal("show");
+    modal_show("invite_teacher_modal");
 }
 
 function invite_teacher_response(response)
@@ -241,7 +241,7 @@ function invite_teacher_response(response)
                 common.invite_teacher.email
                 );
     }
-    $("#invite_teacher_modal").modal("hide");
+    modal_hide("invite_teacher_modal");
 }
 
 function invite_teacher_modal_hide()
@@ -398,6 +398,46 @@ function isValid(object)
 function isInvalid(object)
 {
     return  ( object === null ) || ( object === undefined );
+}
+
+function common_arrayContains(arr, element)
+{
+    for (var i = 0; i <arr.length;i++) {
+        if (arr[i]===element) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function common_arrayIndexOf(arr, element)
+{
+    for (var i = 0; i <arr.length;i++) {
+        if (arr[i]===element) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+function common_arrayAdd(arr, element)
+{
+    if(common_arrayContains(arr, element)) {
+        return;
+    }
+    arr.push(element);
+}
+
+
+function common_arrayRemove(arr, element)
+{
+    for (var i = 0; i <arr.length;i++) {
+        if (arr[i]===element) {
+            arr.splice(i,1);
+            return true;
+        }
+    }
+    return false;
 }
 
 function common_init()

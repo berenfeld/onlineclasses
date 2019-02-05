@@ -46,7 +46,7 @@ function facebook_setUserLoggedinCallback(userLoggedInCallback)
     facebook.userLoggedInCallback = userLoggedInCallback;
 }
 
-function facebook_clearUserLoggedinCallback(userLoggedInCallback)
+function facebook_clearUserLoggedinCallback()
 {
     facebook.userLoggedInCallback = null;
 }
