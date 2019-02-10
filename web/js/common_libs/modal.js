@@ -2,19 +2,23 @@ var modal = {};
 
 function modal_hideAll()
 {
-     for (var i = 0; i < modal.modals.length; i++) {
+    $("div.modal").modal("hide");
+    /*
+     for (var i = modal.modals.length-1; i >= 0 ; i--) {
          var modal_name = modal.modals[i];
-         var modalElement = $("#" + modal_name);
+         var modalElement = $("#" + modal_name);         
+         console.log("hiding modal " + modal_name);
          modalElement.modal("hide");
      }
+     */
 }
 
 function modal_show(modal_name)
 {
-    console.log("show modal " + modal_name);
+    //console.log("show modal " + modal_name);
     modal_hideAll();
     var modalElement = $("#" + modal_name);
-    common_arrayAdd(modal.modals, modal_name);    
+    //common_arrayAdd(modal.modals, modal_name);    
     modalElement.modal('show');
 }
 
@@ -36,11 +40,11 @@ function modal_showLast()
 
 function modal_hide(modal_name)
 {
-    console.log("hide modal " + modal_name);
+    // console.log("hide modal " + modal_name);
     var modalElement = $("#" + modal_name);
-    modal_remove(modal_name);
+    //modal_remove(modal_name);
     modalElement.modal('hide');
-    modal_showLast();
+    //modal_showLast();
 }
 
 function modal_shown()
