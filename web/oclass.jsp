@@ -11,8 +11,7 @@
 <%@page import="com.onlineclasses.utils.Config"%>
 <%@page import="com.onlineclasses.utils.Labels"%>
 
-<%
-    int classId = Integer.parseInt(request.getParameter("id"));
+<%    int classId = Integer.parseInt(request.getParameter("id"));
     OClass oClass = DB.getOClass(classId);
 
     // TODO handle not found / canceled
@@ -218,6 +217,18 @@
                             <%= CLabels.get("language.minutes")%>
                         </h6>
                         <h6>
+                            <%= Labels.get("oclass.sidebar.location_text")%>&nbsp;
+
+                            <%
+                                if (oClass.location == (CConfig.getInt("website.location.teacher"))) {
+                                    out.write(Labels.get("oclass.sidebar.location_teacher"));
+                                } else {
+                                    out.write(Labels.get("oclass.sidebar.location_student"));
+                                }
+
+                            %>
+                        </h6>
+                        <h6>
                             <%= Labels.get("oclass.sidebar.price_text")%>&nbsp;
                             <%=  classPriceFormatted%>&nbsp;
                             <%= CLabels.get("website.currency")%>
@@ -272,7 +283,7 @@
                         </button>
 
                         <button class="btn btn-success" onclick="oclass_add_external_payment()">
-                            <%= CLabels.get("oclass.add_external_payment.button.title") %>
+                            <%= CLabels.get("oclass.add_external_payment.button.title")%>
                         </button>
                         <%
                             }

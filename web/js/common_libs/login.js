@@ -64,9 +64,9 @@ function login_updatePage()
         $("#navbar_display_name_span").text(login.user.display_name);
         $("#navbar_image_url_img").attr("src", login.user.image_url);
         if (login_isStudent()) {
-            $("navbar_update_details_a").href = "update_student";
+            $("navbar_update_details_a").href = "student_update";
         } else {
-            $("navbar_update_details_a").href = "update_teacher";
+            $("navbar_update_details_a").href = "teacher_profile";
         }
     } else {
 

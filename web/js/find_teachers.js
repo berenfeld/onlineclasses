@@ -1,4 +1,4 @@
-/* global oc, common */
+/* global oc, common, login */
 
 find_teachers = {};
 
@@ -66,7 +66,7 @@ function schedule_class_button_clicked(event)
     find_teachers.teacher_id = parseInt10(teacher_button.attr("data-teacher-id"));
     var request = {};
     request.teacher_id = find_teachers.teacher_id;
-    ajax_request("teacher_calendar", request, schedule_class_received_teacher_calendar);
+    ajax_request("teacher_calendar", request, schedule_class_received_teacher_info);
 }
 
 function schedule_class_previous_week()
@@ -197,7 +197,7 @@ function schedule_class_goto_date(date)
     schedule_class_update_calendar();
 }
 
-function schedule_class_received_teacher_calendar(response)
+function schedule_class_received_teacher_info(response)
 {
     find_teachers.teacher = response.teacher;
     find_teachers.available_times = response.available_times;
@@ -262,7 +262,8 @@ function schedule_class_received_teacher_calendar(response)
     schedule_class_update_calendar();
 
     schedule_class_checkLogin();
-    
+
+    $("#find_teachers_location_option_0").text(find_teachers.location.teacher_prefix + " - " + find_teachers.teacher.city.name);
     modal_show("schedule_class_modal");
 }
 
@@ -317,20 +318,20 @@ function schedule_class_select_date(dateText)
 function schedule_class_select_time(event)
 {
     $("#schedule_class_warning_div").addClass("d-none");
-    
+
     if (!find_teachers.available) {
         $("#schedule_class_warning").text(oc.clabels[ "oclass.modal.please_choose_time_when_teacher_is_available"]);
         $("#schedule_class_warning_div").removeClass("d-none");
         return;
-    }    
-       
+    }
+
     var elem = $(event.target);
     var day = parseInt10(elem.attr("data-day"));
     var hour = parseInt10(elem.attr("data-hour"));
     var minute = parseInt10(elem.attr("data-minute"));
-    
+
     find_teachers.calendar.selected_day = new Date(find_teachers.calendar.week_days[day].getTime());
-    
+
     var start_date = new Date(find_teachers.calendar.selected_day.getTime());
     start_date.setHours(hour);
     start_date.setMinutes(minute);
@@ -343,12 +344,12 @@ function schedule_class_select_time(event)
         $("#schedule_class_warning_div").removeClass("d-none");
         return;
     }
-    
-    
+
+
     $("#start_schedule_class_day_input").datepicker('setDate', find_teachers.calendar.selected_day);
     $("#schedule_class_start_hour_select").val(hour);
     $("#schedule_class_start_minute_select").val(minute);
-    
+
     var duration = parseInt10($("#find_teachers_duration_select").val());
     if (duration === 0) {
         // auto choose minimal possible duration
@@ -363,9 +364,9 @@ function schedule_class_checkLogin()
     {
         $("#schedule_class_warning").html(oc.clabels[ "oclass.modal.not_logged_in"]);
         $("#schedule_class_warning").append(" ");
-        $("#schedule_class_warning").append(createLoginAnchor(  oc.clabels[ "oclass.modal.click_here_to_connect"]) );
+        $("#schedule_class_warning").append(createLoginAnchor(oc.clabels[ "oclass.modal.click_here_to_connect"]));
         $("#schedule_class_warning").append(" ");
-        $("#schedule_class_warning").append(createStartLearningAnchor( oc.clabels[ "oclass.modal.register_if_not_registered"] ));
+        $("#schedule_class_warning").append(createStartLearningAnchor(oc.clabels[ "oclass.modal.register_if_not_registered"]));
         $("#schedule_class_warning_div").removeClass("d-none");
         return false;
     }
@@ -377,7 +378,7 @@ function schedule_class_confirm()
     $("#schedule_class_warning_div").addClass("d-none");
     $("#schedule_class_info_div").addClass("d-none");
 
-    if (! schedule_class_checkLogin()) {
+    if (!schedule_class_checkLogin()) {
         return;
     }
 
@@ -460,6 +461,7 @@ function schedule_class_confirm()
     request.duration_minutes = duration;
     request.subject = subject;
     request.student_comment = $("#start_schedule_class_student_comment_input").val();
+    request.location = parseInt10($("#find_teachers_location_select").val());
 
     $("#schedule_class_info_div").removeClass("d-none");
     $("#schedule_class_info").text(oc.clabels["oclass.modal.schedule_class_request_sent"]);
@@ -548,9 +550,17 @@ function find_teachers_topic_selected(event, ui)
     find_teachers_refresh_results();
 }
 
+function schedule_class_update_student_city(user) {
+    if (user.city !== null) {
+        $("#find_teachers_location_option_1").text(find_teachers.location.student_prefix + " - " + user.city.name);
+        $("#find_teachers_location_option_1").attr("disabled", false);
+    }
+}
+
 function find_teachers_userLoggedIn(user)
 {
-    $("#schedule_class_warning_div").addClass("d-none");            
+    $("#schedule_class_warning_div").addClass("d-none");
+    schedule_class_update_student_city(user);
 }
 
 function find_teachers_init()
@@ -576,6 +586,10 @@ function find_teachers_init()
     find_teachers.available_day = parseInt10(oc.parameters[ "available_day" ], 0);
     find_teachers.display_name = $("#find_teachers_display_name_input").val();
     find_teachers.topic_name = $("#find_teachers_topic_name_input").val();
+
+    find_teachers.location = {};
+    find_teachers.location.teacher_prefix = $("#find_teachers_location_option_0").text();
+    find_teachers.location.student_prefix = $("#find_teachers_location_option_1").text();
 
     $("#find_teachers_price_per_hour_slider").slider(
             {
@@ -625,12 +639,17 @@ function find_teachers_init()
     $("#schedule_class_start_hour_select").on("change", schedule_class_update_calendar);
     $("button.schedule_class_button").on("click", schedule_class_button_clicked);
     $("img.schedule_class_teacher_img").on("click", schedule_class_button_clicked);
-    
+
     $("td.schedule_class_calendar_time").on("click", schedule_class_select_time);
     $("#schedule_class_confirm_button").on("click", schedule_class_confirm);
     $("#schedule_class_calendar_table td.schedule_class_calendar_time").hover(schedule_class_calendar_hover);
-    
+
     login_addLoginCallback(find_teachers_userLoggedIn);
+    $("#find_teachers_location_option_1").attr("disabled", true);
+    
+    if (login_isLoggedIn()) {
+        schedule_class_update_student_city(login.user);        
+    }
 }
 
 $(document).ready(find_teachers_init);

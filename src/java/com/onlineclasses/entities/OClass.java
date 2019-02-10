@@ -6,6 +6,7 @@
 package com.onlineclasses.entities;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.onlineclasses.utils.CConfig;
 import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.Utils;
 import java.util.Date;
@@ -42,7 +43,9 @@ public class OClass extends BasicEntity {
     public static final int STATUS_SCHEDULED = Config.getInt("website.oclass.status.scheduled");
     public static final int STATUS_CANCELCED = Config.getInt("website.oclass.status.canceled");
     public static final int STATUS_DONE = Config.getInt("website.oclass.status.done");
-
+    public static final int LOCATION_TEACHER = CConfig.getInt("website.location.teacher");
+    public static final int LOCATION_STUDENT = CConfig.getInt("website.location.student");
+ 
     public static final String STATUS_COLUMN = "status";
     @DatabaseField(canBeNull = false, columnName = STATUS_COLUMN)
     public int status;
@@ -50,6 +53,10 @@ public class OClass extends BasicEntity {
     public static final String PAYMENT_COLUMN = "payment";
     @DatabaseField(foreign = true, columnName = PAYMENT_COLUMN)
     public Payment payment;
+    
+    public static final String LOCATION_COLUMN = "location";
+    @DatabaseField(canBeNull = false, columnName = LOCATION_COLUMN)
+    public int location;
     
     @Override
     public String toString() {

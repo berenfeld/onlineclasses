@@ -21,4 +21,5 @@ public class ScheduleClassRequest extends BasicRequest {
     public int duration_minutes;
     public String subject;
     public String student_comment;
+    public int location;
 }

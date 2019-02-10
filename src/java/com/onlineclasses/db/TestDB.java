@@ -61,6 +61,7 @@ public class TestDB {
         student.gender = User.GENDER_MALE;
         student.emails_enabled = true;
         student.admin = true;
+        student.city = DB.getCityByName("נס ציונה");
 
         DB.add(student);
     }

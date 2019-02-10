@@ -47,6 +47,7 @@ import com.onlineclasses.entities.Topic;
 import com.onlineclasses.entities.User;
 import com.onlineclasses.utils.Config;
 import com.onlineclasses.utils.Utils;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -56,8 +57,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 
@@ -127,7 +126,7 @@ public class DB {
             AbandonedConnectionCleanupThread.checkedShutdown();
             _dataSource.close();
             _connectionSource.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Utils.exception(ex);
         }
     }
@@ -258,11 +257,25 @@ public class DB {
     }
 
     public static Student getStudent(int id) throws SQLException {
-        return _student_db.get(id);
+        Student student = _student_db.get(id);
+        if (student == null) {
+            return null;
+        }
+        if (student.city != null) {
+            student.city = get(student.city.id, City.class);
+        }
+        return student;
     }
 
     public static Teacher getTeacher(int id) throws SQLException {
-        return _teacher_db.get(id);
+        Teacher teacher =  _teacher_db.get(id);
+        if (teacher == null) {
+            return null;
+        }
+        if (teacher.city != null) {
+            teacher.city = get(teacher.city.id, City.class);
+        }
+        return teacher;
     }
 
     public static List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName, String topicName) throws SQLException {

@@ -16,7 +16,7 @@
 <%@page import="com.onlineclasses.utils.CLabels"%>
 
 <%
-    Teacher teacher = (Teacher) BaseServlet.getUser(request);
+    Teacher teacher = BaseServlet.getTeacher(request);
     if (teacher == null) {
         Utils.warning("teacher not found");
         response.sendRedirect("/");

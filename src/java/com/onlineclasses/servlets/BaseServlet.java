@@ -88,6 +88,14 @@ public abstract class BaseServlet extends HttpServlet {
         return getUser(request.getSession());
     }
     
+    public static Teacher getTeacher(HttpServletRequest request) {
+        User user = getUser(request.getSession());
+        if ( ! ( user instanceof Teacher ) ) {
+            return null;
+        }
+        return (Teacher)user;
+    }
+    
     public static SessionData getSessionData(HttpServletRequest request) {
         return getSessionData(request.getSession());
     }

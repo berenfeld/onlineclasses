@@ -118,6 +118,7 @@ public class ScheduleClassServlet extends BaseServlet {
         oClass.registered = new Date();
         oClass.status = OClass.STATUS_SCHEDULED;
         oClass.payment = null;
+        oClass.location = scheduleClassRequest.location;
 
         if (1 != DB.add(oClass)) {
             Utils.warning("student " + student.display_name + " schedule class failed. DB error");

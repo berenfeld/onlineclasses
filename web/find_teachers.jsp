@@ -17,8 +17,7 @@
 <%@page import="com.onlineclasses.utils.Config"%>
 <%@page import="com.onlineclasses.utils.Labels"%>
 
-<%    
-    int defaultMinPrice = CConfig.getInt("website.price_per_hour.min");
+<%    int defaultMinPrice = CConfig.getInt("website.price_per_hour.min");
     int minPrice = Utils.parseInt(request.getParameter("price_min"), defaultMinPrice);
     int defaultMaxPrice = CConfig.getInt("website.price_per_hour.max");
     int maxPrice = Utils.parseInt(request.getParameter("price_max"), defaultMaxPrice);
@@ -168,6 +167,25 @@
                                                 %>   
                                             </select>
                                         </div>                                 
+
+                                        <div class="col-3 my-1">
+                                            <label for="schedule_class_location_input" class="col-form-label">
+                                                <%= Labels.get("oclass.modal.location")%>
+                                            </label>
+                                        </div>    
+
+                                        <div class="col-9 my-1">
+                                            <select class="custom-select form-control" 
+                                                    id="find_teachers_location_select">
+                                                
+                                                <option id="find_teachers_location_option_0" value="<%= CConfig.getInt("website.location.teacher") %> selected="">
+                                                    <%= Labels.get("oclass.modal.location.teacher")%>
+                                                </option>
+                                                <option id="find_teachers_location_option_1" value="<%= CConfig.getInt("website.location.student") %>">
+                                                    <%= Labels.get("oclass.modal.location.student")%>
+                                                </option>
+                                            </select>
+                                        </div>       
 
                                         <div class="col-3 my-1">
                                             <label for="start_schedule_class_subject_input">
@@ -323,8 +341,8 @@
                             </div>
                         </div>
                         <div id="schedule_class_warning_div" class="alert alert-warning d-none fade show alert-dismissible h6">
-                                <span class="oi" data-glyph="warning"></span>    
-                                <span id="schedule_class_warning"></span>
+                            <span class="oi" data-glyph="warning"></span>    
+                            <span id="schedule_class_warning"></span>
                         </div>
                         <div id="schedule_class_info_div" class="alert alert-info d-none fade show alert-dismissible h6">
                             <span class="oi" data-glyph="info"></span>    
