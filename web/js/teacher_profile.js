@@ -70,7 +70,7 @@ function teacher_profile_register_complete(response)
 
 
 function teacher_profile_form_validation(request)
-{    
+{
     $("#teacher_profile_form *").removeClass("border border-warning");
 
     if (stringEmpty(request.display_name)) {
@@ -79,7 +79,7 @@ function teacher_profile_form_validation(request)
         teacher_profile_goto_tab("personal_information");
         return false;
     }
-    
+
     if (stringEmpty(request.phone_number) || stringEmpty(request.phone_area)) {
         alert_show(oc.clabels[ "teacher_profile.form.submit.fill_in_phone"]);
         $("#teacher_profile_phone_number").addClass("border border-warning");
@@ -122,16 +122,30 @@ function teacher_profile_form_validation(request)
         return false;
     }
 
-    if (request.price_per_hour === 0) {
+    if (request.price_per_hour_teacher === 0) {
         alert_show(oc.clabels[ "teacher_profile.form.submit.fill_price_per_hour"]);
-        $("#teacher_profile_price_per_hour").addClass("border border-warning");
+        $("#teacher_profile_price_per_hour_teacher").addClass("border border-warning");
         teacher_profile_goto_tab("prices");
         return false;
     }
 
-    if (!numberBetween(request.price_per_hour, teacher_profile.min_price_per_hour, teacher_profile.max_price_per_hour)) {
+    if (!numberBetween(request.price_per_hour_teacher, teacher_profile.min_price_per_hour, teacher_profile.max_price_per_hour)) {
         alert_show(oc.clabels[ "teacher_profile.form.submit.invalid_price_per_hour"]);
-        $("#teacher_profile_price_per_hour").addClass("border border-warning");
+        $("#teacher_profile_price_per_hour_teacher").addClass("border border-warning");
+        teacher_profile_goto_tab("prices");
+        return false;
+    }
+
+    if (request.price_per_hour_student === 0) {
+        alert_show(oc.clabels[ "teacher_profile.form.submit.fill_price_per_hour"]);
+        $("#teacher_profile_price_per_hour_student").addClass("border border-warning");
+        teacher_profile_goto_tab("prices");
+        return false;
+    }
+
+    if (!numberBetween(request.price_per_hour_student, teacher_profile.min_price_per_hour, teacher_profile.max_price_per_hour)) {
+        alert_show(oc.clabels[ "teacher_profile.form.submit.invalid_price_per_hour"]);
+        $("#teacher_profile_price_per_hour_student").addClass("border border-warning");
         teacher_profile_goto_tab("prices");
         return false;
     }
@@ -158,7 +172,8 @@ function teacher_profile_form_submit()
     request.subject_name = $("#teacher_profile_subject_0_text").val();
     request.show_degree = $('#teacher_profile_show_degree').prop("checked");
     request.degree_type = $("#teacher_profile_degree_type_select").val();
-    request.price_per_hour = parseInt10($("#teacher_profile_price_per_hour_input").val());
+    request.price_per_hour_teacher = parseInt10($("#teacher_profile_price_per_hour_teacher_input").val());
+    request.price_per_hour_student = parseInt10($("#teacher_profile_price_per_hour_student_input").val());
     request.available_times = teacher_profile.calendar.available_times;
     request.city_id = parseInt10($("#teacher_profile_city_select").val());
     request.feedback = $("#teacher_profile_feedback_input").val();
@@ -189,7 +204,7 @@ function teacher_profile_form_submit()
         request.gender = parseInt10($("#teacher_profile_gender_input_female").val());
     }
 
-    ajax_request( "teacher_profile", request, teacher_profile_register_complete);    
+    ajax_request("teacher_profile", request, teacher_profile_register_complete);
 }
 
 function teacher_profile_select_day_of_birth()
@@ -427,7 +442,7 @@ function teacher_profile_check_tabs()
 {
     // disable submit buttons
     disableButtons($("button.teacher_profile_form_submit_buttons"));
-    
+
     $("#teacher_profile_tab_list a.nav-link").addClass("disabled");
     disableButtons($("button.teacher_profile_tabs_button"))
 
@@ -457,7 +472,7 @@ function teacher_profile_check_tabs()
     } else {
         $("#teacher_profile_display_name_input").addClass("teacher_profile_required_filled");
     }
-    
+
     if (stringEmpty(request.phone_number)) {
         pass_to_profile = false;
     } else {
@@ -512,17 +527,28 @@ function teacher_profile_check_tabs()
 
     var pass_to_teaching_hours = true;
 
-    request.price_per_hour = parseInt10($("#teacher_profile_price_per_hour_input").val());
-    if (request.price_per_hour === 0) {
+    request.price_per_hour_teacher = parseInt10($("#teacher_profile_price_per_hour_teacher_input").val());
+    if (request.price_per_hour_teacher === 0) {
         pass_to_teaching_hours = false;
     } else {
-        if (!numberBetween(request.price_per_hour, teacher_profile.min_price_per_hour, teacher_profile.max_price_per_hour)) {
+        if (!numberBetween(request.price_per_hour_teacher, teacher_profile.min_price_per_hour, teacher_profile.max_price_per_hour)) {
             pass_to_teaching_hours = false;
         } else {
-            $("#teacher_profile_price_per_hour_input").addClass("teacher_profile_required_filled");
+            $("#teacher_profile_price_per_hour_teacher_input").addClass("teacher_profile_required_filled");
         }
     }
 
+    request.price_per_hour_student = parseInt10($("#teacher_profile_price_per_hour_student_input").val());
+    if (request.price_per_hour_student === 0) {
+        pass_to_teaching_hours = false;
+    } else {
+        if (!numberBetween(request.price_per_hour_student, teacher_profile.min_price_per_hour, teacher_profile.max_price_per_hour)) {
+            pass_to_teaching_hours = false;
+        } else {
+            $("#teacher_profile_price_per_hour_student_input").addClass("teacher_profile_required_filled");
+        }
+    }
+    
     if (!pass_to_teaching_hours) {
         return;
     }
@@ -553,8 +579,6 @@ function teacher_profile_init()
     $("#teacher_profile_show_email").prop("checked", teacher.show_email);
     $("#teacher_profile_show_skype").prop("checked", teacher.show_skype);
     $("#teacher_profile_show_phone").prop("checked", teacher.show_phone);
-    $("#teacher_profile_paypal_email_input").val(teacher.paypal_email);
-    $("#teacher_profile_price_per_hour_input").val(teacher.price_per_hour);
     $("#teacher_profile_min_class_length").val(teacher.min_class_length);
     $("#teacher_profile_max_class_length").val(teacher.max_class_length);
     $("#teacher_profile_degree_type_select").val(teacher.degree_type);
@@ -625,7 +649,7 @@ function teacher_profile_init()
         isRTL: true,
         changeYear: true,
         dateFormat: "dd/mm/yy",
-        yearRange: "-"+ teacher_profile.max_teacher_age + ":-" + teacher_profile.min_teacher_age,
+        yearRange: "-" + teacher_profile.max_teacher_age + ":-" + teacher_profile.min_teacher_age,
         onSelect: teacher_profile_select_day_of_birth
     });
     $("#teacher_profile_day_of_birth_input").datepicker("setDate", teacher_profile.day_of_birth);
@@ -644,7 +668,8 @@ function teacher_profile_init()
                 $("#teacher_profile_degree_information_div").collapse("toggle");
             });
     common_number_only_input($("#teacher_profile_phone_number"));
-    common_number_only_input($("#teacher_profile_price_per_hour"));
+    common_number_only_input($("#teacher_profile_price_per_hour_teacher"));
+    common_number_only_input($("#teacher_profile_price_per_hour_student"));
     $("#teacher_profile_personal_information_link").on("shown.bs.tab",
             function (event)
             {
@@ -663,7 +688,7 @@ function teacher_profile_init()
     $("#teacher_profile_prices_link").on("shown.bs.tab",
             function (event)
             {
-                $("#teacher_profile_price_per_hour_input").focus();
+                $("#teacher_profile_price_per_hour_teacher_input").focus();
             });
     $("#teacher_profile_calendar_table td").disableSelection();
     $("select.teacher_profile_institute_select").on("change", teacher_profile_select_institute);

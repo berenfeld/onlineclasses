@@ -274,9 +274,14 @@ function schedule_class_update_calendar()
     var start_hour = parseInt10($("#schedule_class_start_hour_select").val());
     var start_minute = parseInt10($("#schedule_class_start_minute_select").val());
     var duration = parseInt10($("#find_teachers_duration_select").val());
-
+    var location = parseInt10($("#find_teachers_location_select").val());
+    
     if ((isValid(find_teachers.teacher) && (duration > 0))) {
-        $("#start_schedule_class_price_input").val(parseAmount(duration * find_teachers.teacher.price_per_hour / 60));
+        if (location === parseInt10(oc.cconfig[ "website.location.teacher"])) {
+            $("#start_schedule_class_price_input").val(parseAmount(duration * find_teachers.teacher.price_per_hour_teacher / 60));
+        } else {
+            $("#start_schedule_class_price_input").val(parseAmount(duration * find_teachers.teacher.price_per_hour_student / 60));
+        }
     }
 
     if ((start_hour === -1) || (start_minute === -1) || (duration === -1))
@@ -635,6 +640,7 @@ function find_teachers_init()
                 }
             });
     $("#find_teachers_duration_select").on("change", schedule_class_update_calendar);
+    $("#find_teachers_location_select").on("change", schedule_class_update_calendar);
     $("#schedule_class_start_minute_select").on("change", schedule_class_update_calendar);
     $("#schedule_class_start_hour_select").on("change", schedule_class_update_calendar);
     $("button.schedule_class_button").on("click", schedule_class_button_clicked);

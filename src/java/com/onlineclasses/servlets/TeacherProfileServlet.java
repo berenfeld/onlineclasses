@@ -56,7 +56,8 @@ public class TeacherProfileServlet extends BaseServlet {
         teacher.registered = new Date();
         teacher.degree_type = TeacherProfileRequest.degree_type;
         teacher.show_degree = TeacherProfileRequest.show_degree;
-        teacher.price_per_hour = TeacherProfileRequest.price_per_hour;
+        teacher.price_per_hour_teacher = TeacherProfileRequest.price_per_hour_teacher;
+        teacher.price_per_hour_student = TeacherProfileRequest.price_per_hour_student;
         teacher.image_url = TeacherProfileRequest.image_url;
         teacher.min_class_length = TeacherProfileRequest.min_class_length;
         teacher.max_class_length = TeacherProfileRequest.max_class_length;
@@ -105,9 +106,7 @@ public class TeacherProfileServlet extends BaseServlet {
             topicsList.add(teachingTopic.topic.name);
         }
 
-        if (0 == DB.deleteTeacherAvailableTime(teacher)) {
-            Utils.warning("could not delete available time of teacher " + teacher);
-        }
+        DB.deleteTeacherAvailableTime(teacher);            
 
         List<String> dayNamesLong = Utils.toList(CLabels.get("website.days.long"));
         List<String> availableTimeList = new ArrayList();

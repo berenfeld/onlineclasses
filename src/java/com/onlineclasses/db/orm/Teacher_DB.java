@@ -26,9 +26,9 @@ public class Teacher_DB extends Base_DB<Teacher> {
         super(connectionSource, Teacher.class);
         QueryBuilder<Teacher, Integer> queryBuilder = _dao.queryBuilder();
         Where<Teacher, Integer> where = queryBuilder.where();
-        where.ge(Teacher.PRICE_PER_HOUR_COLUMN, _teacherFindQueryMinPriceArg);
+        where.ge(Teacher.PRICE_PER_HOUR_TEACHER_COLUMN, _teacherFindQueryMinPriceArg);
         where.and();
-        where.le(Teacher.PRICE_PER_HOUR_COLUMN, _teacherFindQueryMaxPriceArg);
+        where.le(Teacher.PRICE_PER_HOUR_TEACHER_COLUMN, _teacherFindQueryMaxPriceArg);
         where.and();
         where.like(User.DISPLAY_NAME_COLUMN, _teacherFindQueryNameArg);
         _teacherFindQuery = queryBuilder.prepare();

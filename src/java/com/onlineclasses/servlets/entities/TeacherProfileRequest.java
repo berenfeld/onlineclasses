@@ -33,7 +33,8 @@ public class TeacherProfileRequest extends BasicRequest {
     public int subject_id;
     public String subject_name;
     public List<Integer> teaching_topics;
-    public int price_per_hour;
+    public int price_per_hour_teacher;
+    public int price_per_hour_student;
     public List<AvailableTime> available_times;
     public String feedback;
     public int min_class_length;

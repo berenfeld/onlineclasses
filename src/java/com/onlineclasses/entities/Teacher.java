@@ -14,10 +14,14 @@ public class Teacher extends User {
     @DatabaseField(canBeNull = false, unique = true)
     public String paypal_email;
 
-    public static final String PRICE_PER_HOUR_COLUMN = "price_per_hour";
-    @DatabaseField(canBeNull = false, columnName = PRICE_PER_HOUR_COLUMN)
-    public int price_per_hour;
+    public static final String PRICE_PER_HOUR_TEACHER_COLUMN = "price_per_hour_teacher";
+    @DatabaseField(canBeNull = false, columnName = PRICE_PER_HOUR_TEACHER_COLUMN)
+    public int price_per_hour_teacher;
 
+    public static final String PRICE_PER_HOUR_STUDENT_COLUMN = "price_per_hour_student";
+    @DatabaseField(canBeNull = false, columnName = PRICE_PER_HOUR_STUDENT_COLUMN)
+    public int price_per_hour_student;
+    
     @DatabaseField
     public String skype_name;
 

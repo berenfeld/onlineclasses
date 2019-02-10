@@ -214,24 +214,26 @@ public abstract class BaseServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        BasicResponse responseObject;
+        request.setCharacterEncoding("UTF-8");
         try {
-            request.setCharacterEncoding("UTF-8");
+            
             handleLoginInRequest(request);
 
             String requestString = getRequestString(request);
             Utils.info("*** request : " + request.getRequestURI() + " data : " + requestString);
 
-            BasicResponse responseObject = handleRequest(requestString, request, response);
-            String responseStr = Utils.gson().toJson(responseObject);
-
+            responseObject = handleRequest(requestString, request, response);            
             response.setContentType("application/json;charset=UTF-8");
             handleLoginInResponse(request, response);
-            response.getWriter().write(responseStr);
-            Utils.info("*** response : " + request.getRequestURI() + " data : " + responseStr);
+                        
         } catch (Exception ex) {
             Utils.exception(ex);
-            // TODO exception
+            responseObject = new BasicResponse(-1, ex.getMessage());
         }
+        String responseStr = Utils.gson().toJson(responseObject);
+        response.getWriter().write(responseStr);
+        Utils.info("*** response : " + request.getRequestURI() + " data : " + responseStr);
     }
 
     protected abstract BasicResponse handleRequest(String requestString, HttpServletRequest request, HttpServletResponse response) throws Exception;

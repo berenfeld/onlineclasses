@@ -722,9 +722,15 @@
                                                     }
                                                 %>
                                                 <div class="col-12 col-md-6 h6 text-info">
-                                                    <%= Labels.get("find_teachers.list.body.price_per_hour")%>
+                                                    <%= Labels.get("find_teachers.list.body.price_per_hour_teacher")%>
                                                     &nbsp;:&nbsp;
-                                                    <%= teacher.price_per_hour%>
+                                                    <%= teacher.price_per_hour_teacher%>
+                                                    <%= CLabels.get("website.currency")%>
+                                                </div>
+                                                <div class="col-12 col-md-6 h6 text-info">
+                                                    <%= Labels.get("find_teachers.list.body.price_per_hour_student")%>
+                                                    &nbsp;:&nbsp;
+                                                    <%= teacher.price_per_hour_student%>
                                                     <%= CLabels.get("website.currency")%>
                                                 </div>
                                             </div>

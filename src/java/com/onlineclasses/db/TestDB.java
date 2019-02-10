@@ -85,7 +85,8 @@ public class TestDB {
         teacher.gender = User.GENDER_MALE;
         teacher.day_of_birth = Utils.parseDateWithFullYear("23/05/1977");
         teacher.paypal_email = "berenfeldran@gmail.com";
-        teacher.price_per_hour = 130;
+        teacher.price_per_hour_teacher = 140;
+        teacher.price_per_hour_student = 150;
         teacher.image_url = "https://lh3.googleusercontent.com/-MVyHXq7jv-0/AAAAAAAAAAI/AAAAAAAAAAA/ABtNlbA_jkl-lkg5QSRlr4ICIbdA5RlpQg/s96-c-mo/photo.jpg";
         teacher.moto = "שלום לכולם שמי רן ברנפלד. אני מהנדס מערכות זמן אמת וראש צוות פיתוח כ 20 שנה ובעל 5 שנות נסיון בלימוד מקצועות מדעי המחשב לסטודנטים. אני בעל תואר שני במדעי המחשב מטעם האוניברסיטה העברית ואני גם המייסד של האתר.. אשמח להוביל גם אתכם להצלחה !";
         teacher.phone_area = "054";
@@ -150,7 +151,8 @@ public class TestDB {
         teacher.gender = User.GENDER_MALE;
         teacher.day_of_birth = Utils.parseDateWithFullYear("01/01/1982");
         teacher.paypal_email = "moshebenabu@gmail.com";
-        teacher.price_per_hour = 120;
+        teacher.price_per_hour_student = 120;
+        teacher.price_per_hour_teacher = 120;
         teacher.image_url = "";
         teacher.moto = "בעל 8 שנות נסיון תעסוקתי בפיתוח תוכנה במגוון טכנולוגיות ושפות תכנות. כ 3 שנות נסיון כמורה לתכנות. שנתיים נסיון במתן שיעורים פרטיים.";
         teacher.phone_area = "054";
@@ -214,8 +216,9 @@ public class TestDB {
             teacher.show_email = true;
             teacher.show_phone = true;
             teacher.show_skype = true;
-            teacher.skype_name = "test" + i;
-            teacher.price_per_hour = 50 + random.nextInt(100);
+            teacher.skype_name = "test" + i;            
+            teacher.price_per_hour_teacher = 50 + random.nextInt(100);
+            teacher.price_per_hour_student = 50 + random.nextInt(100);
             teacher.image_url = "";
             teacher.moto = "Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. " + i;
             teacher.phone_area = "007";
@@ -326,7 +329,7 @@ public class TestDB {
         
         oClass.registered = new Date();
         oClass.status = OClass.STATUS_SCHEDULED;
-        oClass.price_per_hour = oClass.teacher.price_per_hour;
+        oClass.price_per_hour = oClass.teacher.price_per_hour_teacher;        
         oClass.duration_minutes = teacher.min_class_length;
         
         oClass.subject = "שיעור נסיון שולם";
@@ -355,7 +358,7 @@ public class TestDB {
         
         oClass.registered = new Date();
         oClass.status = OClass.STATUS_SCHEDULED;
-        oClass.price_per_hour = oClass.teacher.price_per_hour;
+        oClass.price_per_hour = oClass.teacher.price_per_hour_teacher;
         oClass.duration_minutes = teacher.min_class_length;
         
         oClass.subject = "שיעור נסיון לא שולם בזמן";

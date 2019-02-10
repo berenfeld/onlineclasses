@@ -113,7 +113,14 @@ public class ScheduleClassServlet extends BaseServlet {
         oClass.student = student;
         oClass.start_date = scheduleClassRequest.start_date;
         oClass.duration_minutes = scheduleClassRequest.duration_minutes;
-        oClass.price_per_hour = teacher.price_per_hour;
+        if (oClass.location == OClass.LOCATION_TEACHER) {
+            oClass.price_per_hour = teacher.price_per_hour_teacher;
+        } else if (oClass.location == OClass.LOCATION_TEACHER) {
+            oClass.price_per_hour = teacher.price_per_hour_student;
+        } else {
+            return new BasicResponse(-1, "Illegal class location");
+        }
+            
         oClass.subject = scheduleClassRequest.subject;
         oClass.registered = new Date();
         oClass.status = OClass.STATUS_SCHEDULED;

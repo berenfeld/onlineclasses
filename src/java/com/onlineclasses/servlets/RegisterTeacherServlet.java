@@ -106,7 +106,8 @@ public class RegisterTeacherServlet extends BaseServlet {
         registeringTeacher.degree_type = registerTeacherRequest.degree_type;
         registeringTeacher.show_degree = registerTeacherRequest.show_degree;
         registeringTeacher.paypal_email = registerTeacherRequest.paypal_email;
-        registeringTeacher.price_per_hour = registerTeacherRequest.price_per_hour;
+        registeringTeacher.price_per_hour_teacher = registerTeacherRequest.price_per_hour_teacher;
+        registeringTeacher.price_per_hour_student = registerTeacherRequest.price_per_hour_student;
         registeringTeacher.min_class_length = registerTeacherRequest.min_class_length;
         registeringTeacher.max_class_length = registerTeacherRequest.max_class_length;
         if (registeringTeacher.max_class_length < registeringTeacher.min_class_length) {
