@@ -54,7 +54,7 @@ public class ScheduleClassServlet extends BaseServlet {
         Student student = (Student) user;
         ScheduleClassRequest scheduleClassRequest = Utils.gson().fromJson(requestString, ScheduleClassRequest.class);
 
-        Teacher teacher = DB.getTeacher(scheduleClassRequest.teacher_id);
+        Teacher teacher = DB.get(scheduleClassRequest.teacher_id, Teacher.class);
         if (teacher == null) {
             Utils.warning("student " + student.display_name + " schedule with unknown teacher");
             return new BasicResponse(-1, CLabels.get("schedule_class.failed_to_schedule_class_alert.teacher_not_found"));

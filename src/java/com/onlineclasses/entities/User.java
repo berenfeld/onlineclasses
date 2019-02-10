@@ -60,7 +60,7 @@ public class User extends BasicEntity implements Serializable {
     @DatabaseField
     public String subject_name;
 
-    @DatabaseField(foreign = true)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
     public City city;
 
     @DatabaseField

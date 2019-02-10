@@ -14,7 +14,7 @@ public class Institute extends BasicEntity {
     public String name;
 
     public static final String INSTITUTE_TYPE_FIELD = "institute_type";
-    @DatabaseField(foreign = true, columnName = INSTITUTE_TYPE_FIELD)
+    @DatabaseField(foreign = true, columnName = INSTITUTE_TYPE_FIELD, foreignAutoRefresh = true)
     public InstituteType institute_type;
 
     @Override

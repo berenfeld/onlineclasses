@@ -254,29 +254,7 @@ public class DB {
 
     public static User getUser(int id) throws SQLException {
         return _student_db.getUser(id);
-    }
-
-    public static Student getStudent(int id) throws SQLException {
-        Student student = _student_db.get(id);
-        if (student == null) {
-            return null;
-        }
-        if (student.city != null) {
-            student.city = get(student.city.id, City.class);
-        }
-        return student;
-    }
-
-    public static Teacher getTeacher(int id) throws SQLException {
-        Teacher teacher =  _teacher_db.get(id);
-        if (teacher == null) {
-            return null;
-        }
-        if (teacher.city != null) {
-            teacher.city = get(teacher.city.id, City.class);
-        }
-        return teacher;
-    }
+    }    
 
     public static List<Teacher> findTeachers(int minPrice, int maxPrice, String displayName, String topicName) throws SQLException {
         List<Teacher> teachers = _teacher_db.findTeachers(minPrice, maxPrice, displayName);
@@ -339,8 +317,8 @@ public class DB {
 
     public static OClass getOClass(int id) throws SQLException {
         OClass oClass = _oclass_db.get(id);
-        oClass.teacher = getTeacher(oClass.teacher.id);
-        oClass.student = getStudent(oClass.student.id);
+        oClass.teacher = get(oClass.teacher.id, Teacher.class);
+        oClass.student = get(oClass.student.id, Student.class);
         return oClass;
     }
 
@@ -403,9 +381,9 @@ public class DB {
         List<ClassComment> oClassComments = _classComment_DB.getScheuduledClassComments(oClass);
         for (ClassComment oClassComment : oClassComments) {
             if (oClassComment.student != null) {
-                oClassComment.student = getStudent(oClassComment.student.id);
+                oClassComment.student = get(oClassComment.student.id, Student.class);
             } else if (oClassComment.teacher != null) {
-                oClassComment.teacher = getTeacher(oClassComment.teacher.id);
+                oClassComment.teacher = get(oClassComment.teacher.id, Teacher.class);
             }
         }
         return oClassComments;
@@ -415,9 +393,9 @@ public class DB {
         List<AttachedFile> oClassAttachedFiles = _attachedFile_DB.getClassAttachedFiles(oClass);
         for (AttachedFile oClassAttachedFile : oClassAttachedFiles) {
             if (oClassAttachedFile.student != null) {
-                oClassAttachedFile.student = getStudent(oClassAttachedFile.student.id);
+                oClassAttachedFile.student = get(oClassAttachedFile.student.id, Student.class);
             } else if (oClassAttachedFile.teacher != null) {
-                oClassAttachedFile.teacher = getTeacher(oClassAttachedFile.teacher.id);
+                oClassAttachedFile.teacher = get(oClassAttachedFile.teacher.id, Teacher.class);
             }
         }
         return oClassAttachedFiles;

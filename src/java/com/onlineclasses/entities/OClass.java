@@ -51,7 +51,7 @@ public class OClass extends BasicEntity {
     public int status;
 
     public static final String PAYMENT_COLUMN = "payment";
-    @DatabaseField(foreign = true, columnName = PAYMENT_COLUMN)
+    @DatabaseField(foreign = true, columnName = PAYMENT_COLUMN )
     public Payment payment;
     
     public static final String LOCATION_COLUMN = "location";

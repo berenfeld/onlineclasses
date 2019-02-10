@@ -8,6 +8,7 @@ package com.onlineclasses.servlets;
 import com.onlineclasses.db.DB;
 import com.onlineclasses.entities.BasicResponse;
 import com.onlineclasses.entities.OClass;
+import com.onlineclasses.entities.Teacher;
 import com.onlineclasses.servlets.entities.TeacherCalendarRequest;
 import com.onlineclasses.servlets.entities.TeacherCalendarResponse;
 import com.onlineclasses.utils.Utils;
@@ -26,7 +27,7 @@ public class TeacherCalendarServlet extends BaseServlet {
 
         TeacherCalendarResponse teacherCalendarResponse = new TeacherCalendarResponse();
 
-        teacherCalendarResponse.teacher = DB.getTeacher(teacherCalendarRequest.teacher_id);
+        teacherCalendarResponse.teacher = DB.get(teacherCalendarRequest.teacher_id, Teacher.class);
         teacherCalendarResponse.available_times = DB.getTeacherAvailableTime(teacherCalendarResponse.teacher);
         teacherCalendarResponse.oclasses = DB.getTeacherScheduledClasses(teacherCalendarResponse.teacher);
         for (OClass oClass : teacherCalendarResponse.oclasses) 

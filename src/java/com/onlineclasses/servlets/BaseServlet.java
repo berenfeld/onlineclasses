@@ -111,9 +111,9 @@ public abstract class BaseServlet extends HttpServlet {
         }
         try {
             if (sessionData.is_teacher) {
-                return DB.getTeacher(sessionData.user_id);
+                return DB.get(sessionData.user_id, Teacher.class);
             } else {
-                return DB.getStudent(sessionData.user_id);
+                return DB.get(sessionData.user_id, Student.class);
             }
         } catch (Exception ex ) {
             Utils.exception(ex);
@@ -165,9 +165,9 @@ public abstract class BaseServlet extends HttpServlet {
             String cookieStr = URLDecoder.decode(cookie.getValue(), "UTF-8");
             WCookie websiteCookie = Utils.gson().fromJson(cookieStr, WCookie.class);
             if (websiteCookie.is_teacher) {
-                user = DB.getTeacher(websiteCookie.user_id);
+                user = DB.get(websiteCookie.user_id, Teacher.class);
             } else {
-                user = DB.getStudent(websiteCookie.user_id);
+                user = DB.get(websiteCookie.user_id, Student.class);
             }
 
             if (user == null) {
