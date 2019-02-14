@@ -260,18 +260,19 @@
                                                 <input type="text" class="col-8 form-control mr-md-3 teacher_profile_required teacher_profile_required_filled" 
                                                        id="teacher_profile_phone_number_input"                                                           
                                                        onkeypress="return isNumberKey(event)"
+                                                       value="<%= teacher.phone_number %>"
                                                        placeholder="<%= Labels.get("teacher_profile.form.login.phone_number")%>">
 
                                                 <select class="col-4 custom-select form-control teacher_profile_required teacher_profile_required_filled" 
                                                         id="teacher_profile_phone_area_select">
-                                                    <option value="" disabled selected>
+                                                    <option value="" disabled <%= teacher.phone_area ==null ? "selected" : ""%>
                                                         <%= Labels.get("teacher_profile.form.login.phone_area")%>
                                                     </option>
                                                     <%
                                                         for (String phoneArea : phoneAreasList) {
                                                     %>
 
-                                                    <option value="<%= phoneArea%>">
+                                                    <option value="<%= phoneArea%>" <%= phoneArea.equals( teacher.phone_area ) ? "selected" : ""%>>
                                                         <%= phoneArea%>
                                                     </option>
 

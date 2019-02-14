@@ -796,8 +796,8 @@
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-lg-3 my-1">
-                                        <label class="col-form-label" for="start_teaching_price_per_hour_input">
-                                            <%= Labels.get("start_teaching.form.payment.price_per_hour")%>
+                                        <label class="col-form-label" for="start_teaching_price_per_hour_teacher_input">
+                                            <%= Labels.get("start_teaching.form.payment.price_per_hour_teacher")%>
                                             <small class="start_teaching_required">
                                             (*)
                                             </small>
@@ -809,12 +809,12 @@
                                         
                                     </div>
 
-                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="start_teaching_price_per_hour">
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="start_teaching_price_per_hour_teacher">
                                         <div class="input-group">
-                                            <input type="text" class="form-control start_teaching_required" id="start_teaching_price_per_hour_input" 
-                                                   name="start_teaching_price_per_hour_input"
+                                            <input type="text" class="form-control start_teaching_required" id="start_teaching_price_per_hour_teacher_input" 
+                                                   name="start_teaching_price_per_hour_teacher_input"
                                                    onkeypress="return isNumberKey(event)"
-                                                   placeholder="<%= Labels.get("start_teaching.form.payment.price_per_hour.placeholder")%>">
+                                                   placeholder="<%= Labels.get("start_teaching.form.payment.price_per_hour_teacher.placeholder")%>">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                     <%= CLabels.get("website.currency")%>
@@ -823,6 +823,34 @@
                                         </div>
                                     </div>
 
+                                                <div class="col-12 col-sm-6 col-lg-3 my-1">
+                                        <label class="col-form-label" for="start_teaching_price_per_hour_student_input">
+                                            <%= Labels.get("start_teaching.form.payment.price_per_hour_student")%>
+                                            <small class="start_teaching_required">
+                                            (*)
+                                            </small>
+                                            <br/>
+                                            <small>
+                                            <%= Labels.get("start_teaching.form.payment.price_per_hour.small_text")%>
+                                            </small>
+                                        </label> 
+                                        
+                                    </div>
+
+                                    <div class="col-12 col-sm-6 col-lg-3 my-1" id="start_teaching_price_per_hour_student">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control start_teaching_required" id="start_teaching_price_per_hour_student_input" 
+                                                   name="start_teaching_price_per_hour_student_input"
+                                                   onkeypress="return isNumberKey(event)"
+                                                   placeholder="<%= Labels.get("start_teaching.form.payment.price_per_hour_student.placeholder")%>">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <%= CLabels.get("website.currency")%>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                
                                 </div>
                             </div>
 

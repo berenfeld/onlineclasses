@@ -188,7 +188,6 @@ function teacher_profile_form_submit()
             }
     );
 
-    console.log(request);
     if (!teacher_profile_form_validation(request)) {
         return;
     }
@@ -620,7 +619,6 @@ function teacher_profile_init()
     if (teacher.gender === parseInt10($("#teacher_profile_gender_input_female").val())) {
         $("#teacher_profile_gender_input_female").prop("checked", true);
     }
-    $("#teacher_profile_phone_number_input").val(teacher.phone_number);
     $("#teacher_profile_phone_area_select").val(teacher.phone_area);
 
     console.log(teacher_profile.teaching_topics);
@@ -667,9 +665,9 @@ function teacher_profile_init()
             {
                 $("#teacher_profile_degree_information_div").collapse("toggle");
             });
-    common_number_only_input($("#teacher_profile_phone_number"));
-    common_number_only_input($("#teacher_profile_price_per_hour_teacher"));
-    common_number_only_input($("#teacher_profile_price_per_hour_student"));
+    common_textValidationInput("teacher_profile_phone_number", /^\d+$/);
+    common_textValidationInput("teacher_profile_price_per_hour_teacher", /^\d+$/);
+    common_textValidationInput("teacher_profile_price_per_hour_student", /^\d+$/);
     $("#teacher_profile_personal_information_link").on("shown.bs.tab",
             function (event)
             {

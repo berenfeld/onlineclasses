@@ -13,7 +13,7 @@ function start_teaching_userLoggedInCallback(user)
     start_teaching.image_url = user.image_url;    
 
     $("#start_teaching_email_input").val(user.email);
-    $("#start_teaching_display_name_input").val(user.name);
+    $("#start_teaching_display_name_input").val(user.display_name);
     $("#start_teaching_first_name_input").val(user.first_name);
     $("#start_teaching_last_name_input").val(user.last_name);
     $("#start_teaching_display_name_input").prop("disabled", false);
@@ -180,16 +180,30 @@ function start_teaching_form_validation(request)
         return false;
     }
 
-    if (request.price_per_hour === 0) {
-        alert_show(oc.clabels[ "start_teaching.form.submit.fill_price_per_hour"]);
-        $("#start_teaching_price_per_hour").addClass("border border-warning");
+    if (request.price_per_hour_teacher === 0) {
+        alert_show(oc.clabels[ "start_teaching.form.submit.fill_price_per_hour_teacher"]);
+        $("#start_teaching_price_per_hour_teacher").addClass("border border-warning");
         start_teaching_goto_tab("prices");
         return false;
     }
 
-    if ( ! numberBetween (request.price_per_hour, start_teaching.min_price_per_hour, start_teaching.max_price_per_hour)) {
-        alert_show(oc.clabels[ "start_teaching.form.submit.invalid_price_per_hour"]);
-        $("#start_teaching_price_per_hour").addClass("border border-warning");
+    if ( ! numberBetween (request.price_per_hour_teacher, start_teaching.min_price_per_hour, start_teaching.max_price_per_hour)) {
+        alert_show(oc.clabels[ "start_teaching.form.submit.invalid_price_per_hour_teacher"]);
+        $("#start_teaching_price_per_hour_teacher").addClass("border border-warning");
+        start_teaching_goto_tab("prices");
+        return false;
+    }
+    
+    if (request.price_per_hour_student === 0) {
+        alert_show(oc.clabels[ "start_teaching.form.submit.fill_price_per_hour_student"]);
+        $("#start_teaching_price_per_hour_student").addClass("border border-warning");
+        start_teaching_goto_tab("prices");
+        return false;
+    }
+
+    if ( ! numberBetween (request.price_per_hour_student, start_teaching.min_price_per_hour, start_teaching.max_price_per_hour)) {
+        alert_show(oc.clabels[ "start_teaching.form.submit.invalid_price_per_hour_student"]);
+        $("#start_teaching_price_per_hour_student").addClass("border border-warning");
         start_teaching_goto_tab("prices");
         return false;
     }
@@ -221,7 +235,8 @@ function start_teaching_form_submit()
     request.subject_name = $("#start_teaching_subject_0_text").val();
     request.show_degree = $("#start_teaching_show_degree").prop("checked");
     request.degree_type = $("#start_teaching_degree_type_select").val();
-    request.price_per_hour = parseInt10($("#start_teaching_price_per_hour_input").val());
+    request.price_per_hour_teacher = parseInt10($("#start_teaching_price_per_hour_teacher_input").val());
+    request.price_per_hour_student = parseInt10($("#start_teaching_price_per_hour_student_input").val());
     request.paypal_email = $("#start_teaching_paypal_email_input").val();
     request.available_times = start_teaching.calendar.available_times;
     request.city_id = parseInt10($("#start_teaching_city_select").val());
@@ -566,17 +581,28 @@ function start_teaching_check_tabs()
         $("#start_teaching_paypal_email_input").addClass("start_teaching_required_filled");
     }
 
-    request.price_per_hour = parseInt10($("#start_teaching_price_per_hour_input").val());
-    if (request.price_per_hour === 0) {
+    request.price_per_hour_teacher = parseInt10($("#start_teaching_price_per_hour_teacher_input").val());
+    if (request.price_per_hour_teacher === 0) {
         pass_to_teaching_hours = false;
     } else {
-        if ( ! numberBetween (request.price_per_hour, start_teaching.min_price_per_hour, start_teaching.max_price_per_hour)) {
+        if ( ! numberBetween (request.price_per_hour_teacher, start_teaching.min_price_per_hour, start_teaching.max_price_per_hour)) {
             pass_to_teaching_hours = false;
         } else {
-            $("#start_teaching_price_per_hour_input").addClass("start_teaching_required_filled");
+            $("#start_teaching_price_per_hour_teacher_input").addClass("start_teaching_required_filled");
         }
     }
 
+    request.price_per_hour_student = parseInt10($("#start_teaching_price_per_hour_student_input").val());
+    if (request.price_per_hour_student === 0) {
+        pass_to_teaching_hours = false;
+    } else {
+        if ( ! numberBetween (request.price_per_hour_student, start_teaching.min_price_per_hour, start_teaching.max_price_per_hour)) {
+            pass_to_teaching_hours = false;
+        } else {
+            $("#start_teaching_price_per_hour_student_input").addClass("start_teaching_required_filled");
+        }
+    }
+    
     if (!pass_to_teaching_hours) {
         return;
     }
@@ -678,7 +704,8 @@ function start_teaching_init()
                 $("#start_teaching_paypal_email_input").focus();
             });
     common_number_only_input($("#start_teaching_phone_number"));
-    common_number_only_input($("#start_teaching_price_per_hour"));
+    common_number_only_input($("#start_teaching_price_per_hour_teacher"));
+    common_number_only_input($("#start_teaching_price_per_hour_student"));
 
     $("#start_teaching_show_degree").click(
             function (e)

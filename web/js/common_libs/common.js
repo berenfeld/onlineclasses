@@ -440,6 +440,20 @@ function common_arrayRemove(arr, element)
     return false;
 }
 
+function common_textValidationInput(elem_name, regExp)
+{
+    var elem = $("#" + elem_name);    
+    elem.on("change", function(event) {
+        var elem = $("#" + event.target.id);
+        if ( ! regExp.test(elem.val()) ) {
+            elem.addClass("border border-warning");
+        } else {
+            elem.removeClass("border border-warning");
+        }
+        return true;
+    });
+}
+
 function common_init()
 {
     $(".modal").draggable({
